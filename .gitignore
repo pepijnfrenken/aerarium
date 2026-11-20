@@ -31,3 +31,4 @@ data/cache/
 
 # Hermes lane artifacts
 .hc-report.md
+.hc-report*.md
