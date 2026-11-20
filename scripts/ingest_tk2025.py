@@ -237,9 +237,24 @@ def main() -> int:
         "per_party": per_party,
         "totals": {"2025_to_8_oct": total_2025_only, "eind_2024_plus_2025": total_published},
         "candidates": {
+            # Rows are not people and not years. An audit found this summary reporting 1,168 rows as
+            # though that were a count of candidates who received a gift, while the affirmative rows
+            # were four people across three years and only part of the money was 2025 money. Every
+            # count below names its own unit.
             "rows": len(cand_rows),
+            "distinct_candidates": len({(r["partij"], r["nr"], r["kandidaat"]) for r in cand_rows}),
             "with_a_gift": sum(1 for r in cand_rows if r["gift"].lower().startswith("ja")),
-            "total_gifted": round(sum(float(r["eindtotaal"]) for r in cand_rows if r["eindtotaal"]), 2),
+            "recipients_any_amount": len({(r["partij"], r["nr"], r["kandidaat"])
+                                          for r in cand_rows if float(r["eindtotaal"] or 0) > 0}),
+            "recipients_2025": len({(r["partij"], r["nr"], r["kandidaat"])
+                                    for r in cand_rows if float(r["totaal_2025"] or 0) > 0}),
+            "total_gifted_combined": round(sum(float(r["eindtotaal"] or 0) for r in cand_rows), 2),
+            "total_2023": round(sum(float(r["totaal_2023"] or 0) for r in cand_rows), 2),
+            "total_2024": round(sum(float(r["totaal_2024"] or 0) for r in cand_rows), 2),
+            "total_2025": round(sum(float(r["totaal_2025"] or 0) for r in cand_rows), 2),
+            "units": ("rows = sheet rows; distinct_candidates = unique (partij, nr, kandidaat); "
+                      "recipients_2025 = candidates with a positive 2025 amount. The combined total "
+                      "spans 2023-2025 and is not a 2025 figure."),
         },
     }, ensure_ascii=False, indent=1), encoding="utf-8")
 

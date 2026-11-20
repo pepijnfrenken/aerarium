@@ -36799,8 +36799,15 @@
   ],
   "candidates": {
    "rows": 1168,
+   "distinct_candidates": 1166,
    "with_a_gift": 6,
-   "total_gifted": 11499.0
+   "recipients_any_amount": 4,
+   "recipients_2025": 3,
+   "total_gifted_combined": 11499.0,
+   "total_2023": 5000.0,
+   "total_2024": 0.0,
+   "total_2025": 6499.0,
+   "units": "rows = sheet rows; distinct_candidates = unique (partij, nr, kandidaat); recipients_2025 = candidates with a positive 2025 amount. The combined total spans 2023-2025 and is not a 2025 figure."
   },
   "seats_2025": {
    "D66": 26,
