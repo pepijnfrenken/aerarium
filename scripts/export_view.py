@@ -232,6 +232,29 @@ def load_nfrp() -> list[dict]:
     return sorted(out, key=lambda r: (r["jaar"], -r["bedrag_k"]))
 
 
+def load_nfrp_anon() -> list[dict]:
+    """NFRP rows where the register publishes an anonymised recipient. They cannot be grouped by KvK, so the
+    named table drops them; leaving them out of the page without saying so would overstate how much of that
+    money is traceable to a foundation."""
+    try:
+        import duckdb
+
+        conn = duckdb.connect(str(DB), read_only=True)
+        rows = conn.execute(
+            """
+            SELECT jaar, sum(bedrag_k) AS bedrag_k, count(*) AS rows
+            FROM recipient_line
+            WHERE lower(regeling) LIKE 'nfrp politieke partijen%'
+              AND anonymised
+            GROUP BY 1 ORDER BY 1
+            """
+        ).fetchall()
+        conn.close()
+    except Exception as exc:  # noqa: BLE001
+        return [{"error": f"store unavailable: {exc}"}]
+    return [{"jaar": r[0], "bedrag_k": int(r[1] or 0), "rows": r[2]} for r in rows]
+
+
 def load_typology() -> dict:
     """Aggregate donor typology, from out/donor-typology.json when it exists.
 
@@ -316,9 +339,28 @@ def load_latest(gifts_totals: dict) -> dict:
 
     seats_doc = json.loads((out / "seats.json").read_text(encoding="utf-8"))
     seats_2025 = seats_doc["elections"]["2025"]["seats"]
-    list_of_filer = seats_doc["meta"]["list_of_filer"]
+    # the seats file names the combined list GL-PvdA; the 2025 money tables call it PRO
+    SEAT_ALIAS = {"PRO": "GL-PvdA"}
+    seats_2025 = {**seats_2025, **{k: seats_2025.get(v) for k, v in SEAT_ALIAS.items()}}
+    list_of_filer = {"GL": "PRO", "PvdA": "PRO"}
 
-    rows = sorted(per.values(), key=lambda r: -((r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)))
+    # GroenLinks and PvdA filed separately for 2025 but ran one list, and are one party from 2026-07-01. In the
+    # 2025 view they are shown as PRO, with the two filers kept visible as evidence. The 2022-2024 map is untouched:
+    # there they genuinely were two parties.
+    MERGE_2025 = {"GL": "PRO", "PvdA": "PRO"}
+    merged: dict[str, dict] = {}
+    for r in per.values():
+        key = MERGE_2025.get(r["partij"], r["partij"])
+        slot = merged.setdefault(key, {"partij": key, "gifts_to_8oct": None, "donors": None,
+                                       "gifts_final_3_weeks": None, "debts_22mo": None, "debts_3wk": None,
+                                       "filers": []})
+        slot["filers"].append(r["partij"])
+        for f in ("gifts_to_8oct", "gifts_final_3_weeks", "debts_22mo", "debts_3wk", "donors"):
+            v = r.get(f)
+            if v is not None:
+                slot[f] = (slot[f] or 0) + v
+    rows = sorted(merged.values(),
+                  key=lambda r: -((r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)))
     to_8oct = round(sum(r["gifts_to_8oct"] or 0.0 for r in rows), 2)
     published = round(pre["totals"]["2025_to_8_oct"], 2)
     if abs(to_8oct - published) > 0.02:
@@ -330,7 +372,8 @@ def load_latest(gifts_totals: dict) -> dict:
     lists: dict[str, dict] = {}
     for r in rows:
         lst = list_of_filer.get(r["partij"], r["partij"])
-        slot = lists.setdefault(lst, {"lijst": lst, "gifts": 0.0, "seats": seats_2025.get(lst, 0),
+        slot = lists.setdefault(lst, {"lijst": lst, "gifts": 0.0,
+                                      "seats": seats_2025.get(SEAT_ALIAS.get(lst, lst), 0),
                                       "filers": []})
         slot["gifts"] += (r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)
         slot["filers"].append(r["partij"])
@@ -340,6 +383,14 @@ def load_latest(gifts_totals: dict) -> dict:
         slot["per_seat"] = round(slot["gifts"] / slot["seats"], 2) if slot["seats"] else None
         seat_view.append(slot)
     seat_view.sort(key=lambda s: (-(s["per_seat"] or -1)))
+
+    pro_table = next((r for r in rows if r["partij"] == "PRO"), None)
+    pro_seats = next((s for s in seat_view if s["lijst"] == "PRO"), None)
+    if pro_table and pro_seats:
+        want = round((pro_table["gifts_to_8oct"] or 0) + (pro_table["gifts_final_3_weeks"] or 0), 2)
+        if abs(want - pro_seats["gifts"]) > 0.02:
+            raise SystemExit(f"PRO disagrees between the party table ({want:,.2f}) and the seat table "
+                             f"({pro_seats['gifts']:,.2f})")
 
     return {
         "year": 2025,
@@ -393,6 +444,8 @@ def main() -> None:
                 "Donor names are published as written. No name is merged with another; only runs of whitespace are normalised.",
                 "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
                 "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
+                "NFRP is the Nederlands Fonds voor Regionale Partnerschappen, the fund that carries the MATRA programme. Its Politieke Partijen window is the one place the state names a party's international foundation as a recipient (chapter V, Buitenlandse Zaken).",
+                "Part of the NFRP money is anonymised: 2018 and 2019 are entirely so (1.005k), and small anonymised rows appear in later years. Named recipients are therefore a share of NFRP, not all of it.",
                 "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
                 "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
                 "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
@@ -409,6 +462,7 @@ def main() -> None:
         "gifts": gifts,
         "latest": load_latest(gifts["totals"]),
         "nfrp": load_nfrp(),
+        "nfrp_anon": load_nfrp_anon(),
         "neven_functie": json.loads((OUT.parent / "neveninstellingen-functie.json")
                                     .read_text(encoding="utf-8"))["entities"],
     }

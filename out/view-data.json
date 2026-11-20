@@ -45,6 +45,8 @@
    "Donor names are published as written. No name is merged with another; only runs of whitespace are normalised.",
    "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
    "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
+   "NFRP is the Nederlands Fonds voor Regionale Partnerschappen, the fund that carries the MATRA programme. Its Politieke Partijen window is the one place the state names a party's international foundation as a recipient (chapter V, Buitenlandse Zaken).",
+   "Part of the NFRP money is anonymised: 2018 and 2019 are entirely so (1.005k), and small anonymised rows appear in later years. Named recipients are therefore a share of NFRP, not all of it.",
    "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
    "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
    "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
@@ -36497,12 +36499,16 @@
   "total_2024_full_year": 8933589.9,
   "parties": [
    {
-    "partij": "GL",
-    "gifts_to_8oct": 2233874.32,
-    "donors": 670,
-    "gifts_final_3_weeks": 106259.88,
-    "debts_22mo": 4302364.0,
-    "debts_3wk": 386561.0
+    "partij": "PRO",
+    "gifts_to_8oct": 3230037.4099999997,
+    "donors": 981,
+    "gifts_final_3_weeks": 149648.94,
+    "debts_22mo": 7907743.9,
+    "debts_3wk": 545147.8200000001,
+    "filers": [
+     "GL",
+     "PvdA"
+    ]
    },
    {
     "partij": "SP",
@@ -36510,7 +36516,10 @@
     "donors": 191,
     "gifts_final_3_weeks": 87381.47,
     "debts_22mo": 1384399.87,
-    "debts_3wk": 222477.77
+    "debts_3wk": 222477.77,
+    "filers": [
+     "SP"
+    ]
    },
    {
     "partij": "D66",
@@ -36518,15 +36527,10 @@
     "donors": 136,
     "gifts_final_3_weeks": 103190.07,
     "debts_22mo": 3412970.62,
-    "debts_3wk": 344055.42
-   },
-   {
-    "partij": "PvdA",
-    "gifts_to_8oct": 996163.09,
-    "donors": 311,
-    "gifts_final_3_weeks": 43389.06,
-    "debts_22mo": 3605379.9,
-    "debts_3wk": 158586.82
+    "debts_3wk": 344055.42,
+    "filers": [
+     "D66"
+    ]
    },
    {
     "partij": "VVD",
@@ -36534,7 +36538,10 @@
     "donors": 132,
     "gifts_final_3_weeks": 169398.0,
     "debts_22mo": 1711898.02,
-    "debts_3wk": 2029335.04
+    "debts_3wk": 2029335.04,
+    "filers": [
+     "VVD"
+    ]
    },
    {
     "partij": "CDA",
@@ -36542,7 +36549,10 @@
     "donors": 190,
     "gifts_final_3_weeks": 203181.49,
     "debts_22mo": 3205940.3,
-    "debts_3wk": 421519.47
+    "debts_3wk": 421519.47,
+    "filers": [
+     "CDA"
+    ]
    },
    {
     "partij": "PvdD",
@@ -36550,7 +36560,10 @@
     "donors": 62,
     "gifts_final_3_weeks": 9225.7,
     "debts_22mo": 0.0,
-    "debts_3wk": 0.0
+    "debts_3wk": 0.0,
+    "filers": [
+     "PvdD"
+    ]
    },
    {
     "partij": "Volt",
@@ -36558,7 +36571,10 @@
     "donors": 74,
     "gifts_final_3_weeks": 46234.0,
     "debts_22mo": 198001.15,
-    "debts_3wk": 184355.8
+    "debts_3wk": 184355.8,
+    "filers": [
+     "Volt"
+    ]
    },
    {
     "partij": "FvD",
@@ -36566,7 +36582,10 @@
     "donors": 53,
     "gifts_final_3_weeks": 47347.0,
     "debts_22mo": 972349.0,
-    "debts_3wk": 310053.0
+    "debts_3wk": 310053.0,
+    "filers": [
+     "FvD"
+    ]
    },
    {
     "partij": "SGP",
@@ -36574,7 +36593,10 @@
     "donors": 49,
     "gifts_final_3_weeks": 149790.25,
     "debts_22mo": 120144.9,
-    "debts_3wk": 110619.92
+    "debts_3wk": 110619.92,
+    "filers": [
+     "SGP"
+    ]
    },
    {
     "partij": "JA21",
@@ -36582,7 +36604,10 @@
     "donors": 9,
     "gifts_final_3_weeks": 11000.0,
     "debts_22mo": 0.0,
-    "debts_3wk": 0.0
+    "debts_3wk": 0.0,
+    "filers": [
+     "JA21"
+    ]
    },
    {
     "partij": "CU",
@@ -36590,7 +36615,10 @@
     "donors": 42,
     "gifts_final_3_weeks": 27686.54,
     "debts_22mo": 727279.64,
-    "debts_3wk": 77648.47
+    "debts_3wk": 77648.47,
+    "filers": [
+     "CU"
+    ]
    },
    {
     "partij": "BBB",
@@ -36598,7 +36626,10 @@
     "donors": 47,
     "gifts_final_3_weeks": 7999.0,
     "debts_22mo": 64734.95,
-    "debts_3wk": 78827.87
+    "debts_3wk": 78827.87,
+    "filers": [
+     "BBB"
+    ]
    },
    {
     "partij": "DENK",
@@ -36606,7 +36637,10 @@
     "donors": 23,
     "gifts_final_3_weeks": 9218.4,
     "debts_22mo": 37752.0,
-    "debts_3wk": 33880.05
+    "debts_3wk": 33880.05,
+    "filers": [
+     "DENK"
+    ]
    },
    {
     "partij": "BVNL",
@@ -36614,7 +36648,10 @@
     "donors": 10,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "BVNL"
+    ]
    },
    {
     "partij": "FNP",
@@ -36622,7 +36659,10 @@
     "donors": 58,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "FNP"
+    ]
    },
    {
     "partij": "NSC",
@@ -36630,7 +36670,10 @@
     "donors": 15,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 367961.42,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "NSC"
+    ]
    },
    {
     "partij": "Vrij Verbond",
@@ -36638,7 +36681,10 @@
     "donors": 4,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "Vrij Verbond"
+    ]
    },
    {
     "partij": "BIJ1",
@@ -36646,7 +36692,10 @@
     "donors": 2,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "BIJ1"
+    ]
    },
    {
     "partij": "50PLUS",
@@ -36654,7 +36703,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": 0.0
+    "debts_3wk": 0.0,
+    "filers": [
+     "50PLUS"
+    ]
    },
    {
     "partij": "LP (Libertaire Partij)",
@@ -36662,7 +36714,10 @@
     "donors": 2,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "LP (Libertaire Partij)"
+    ]
    },
    {
     "partij": "Piratenpartij",
@@ -36670,7 +36725,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "Piratenpartij"
+    ]
    },
    {
     "partij": "PVV",
@@ -36678,7 +36736,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": 0.0
+    "debts_3wk": 0.0,
+    "filers": [
+     "PVV"
+    ]
    },
    {
     "partij": "Vrede voor Dieren",
@@ -36686,7 +36747,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "Vrede voor Dieren"
+    ]
    },
    {
     "partij": "DE LINIE",
@@ -36694,7 +36758,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "DE LINIE"
+    ]
    },
    {
     "partij": "NL PLAN",
@@ -36702,7 +36769,10 @@
     "donors": 3,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "NL PLAN"
+    ]
    },
    {
     "partij": "Partij voor de Rechtsstaat",
@@ -36710,7 +36780,10 @@
     "donors": 1,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "Partij voor de Rechtsstaat"
+    ]
    },
    {
     "partij": "ELLECT",
@@ -36718,7 +36791,10 @@
     "donors": null,
     "gifts_final_3_weeks": 0.0,
     "debts_22mo": 0.0,
-    "debts_3wk": null
+    "debts_3wk": null,
+    "filers": [
+     "ELLECT"
+    ]
    }
   ],
   "candidates": {
@@ -36741,7 +36817,8 @@
    "SGP": 3,
    "PvdD": 3,
    "50PLUS": 2,
-   "Volt": 1
+   "Volt": 1,
+   "PRO": 20
   },
   "seat_view": [
    {
@@ -36763,12 +36840,11 @@
     "per_seat": 408901.94
    },
    {
-    "lijst": "GL-PvdA",
+    "lijst": "PRO",
     "gifts": 3379686.35,
     "seats": 20,
     "filers": [
-     "GL",
-     "PvdA"
+     "PRO"
     ],
     "per_seat": 168984.32
    },
@@ -37256,6 +37332,33 @@
    "variants": [
     "Stichting Forum for Democracy Internatio"
    ],
+   "rows": 1
+  }
+ ],
+ "nfrp_anon": [
+  {
+   "jaar": 2018,
+   "bedrag_k": 462,
+   "rows": 1
+  },
+  {
+   "jaar": 2019,
+   "bedrag_k": 540,
+   "rows": 1
+  },
+  {
+   "jaar": 2020,
+   "bedrag_k": 3,
+   "rows": 1
+  },
+  {
+   "jaar": 2023,
+   "bedrag_k": 138,
+   "rows": 2
+  },
+  {
+   "jaar": 2024,
+   "bedrag_k": 25,
    "rows": 1
   }
  ],
