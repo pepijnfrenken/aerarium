@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aerarium"
+version = "0.1.0"
+description = "The join between Dutch party funding and Rijksbegroting appropriations"
+requires-python = ">=3.11"
+dependencies = ["duckdb>=1.0", "requests>=2.31"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+aer = "aerarium.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
