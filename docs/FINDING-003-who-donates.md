@@ -123,8 +123,13 @@ donating to a party that opposes a property tax is a hypothesis the documents do
 
 - **"Gift-dominant" was the wrong framing.** GL at 50,6% and SP at 52,0% gift share is mostly their own
   representatives' salary transfers. The composition table above replaces the ratio.
-- **The 2024 VVD gift total of €3.592.775 includes €1.810.000 from VVD's own foundations.** Party-level gift
-  totals are gross of internal movement, and are labelled that way from now on.
+- **The 2023 VVD gift total of €3.592.775 includes €1.810.000 from VVD's own foundations** (2024: €327.495).
+  Party-level gift totals are gross of internal movement, and are labelled that way from now on. An earlier
+  version of this line assigned both amounts to 2024; the donor register puts them in 2023.
+- **Of that €1.810.000, €1.300.000 rests on an inference, not a confirmed identity.** It comes from a name that
+  is a word-order permutation of a VVD neveninstelling named in the party's own report, classified `entity`
+  because the register does not tag it. Flagged and counted separately from the confirmed foundation donors.
+  The euros are not shown to have been traced through both legs.
 - **2025 is not unpublished, it is published elsewhere.** The dashboard's year page for 2025 renders empty, but
   BZK published a separate overview of gifts around the 2025 Tweede Kamer election (reported by Donorscope,
   citing BZK, for Volt/PvdA/GL in October 2025). Not ingested here, and no longer described as "not published".

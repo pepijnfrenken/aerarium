@@ -93,17 +93,24 @@ def main() -> int:
     # How much of each party's money is even dated. A window share computed on a small dated base is not
     # comparable with one computed on most of the party's money, so the base is carried with every share.
     totals_by_party = defaultdict(float)
+    totals_2023 = defaultdict(float)
     for r in csv.DictReader(SRC.open(encoding="utf-8")):
         if r["kind"] == "donor-total":
             totals_by_party[r["partij"]] += float(r["totaal"] or 0)
+            # A ratio needs its denominator at the same period as its numerator. Dating a 2023 subset
+            # against a three-year total is not a 2023 coverage figure, and naming it one made it wrong.
+            if str(r.get("jaar", "")).strip() == "2023":
+                totals_2023[r["partij"]] += float(r["totaal"] or 0)
 
     per_party = []
     for p, v in party.items():
         if v["year_2023"] <= 0:
             continue
         dated_2023 = v["year_2023"]
-        all_2023 = totals_by_party.get(p, 0.0)
-        v["coverage"] = round(100 * dated_2023 / all_2023, 1) if all_2023 else None
+        all_years = totals_by_party.get(p, 0.0)
+        only_2023 = totals_2023.get(p, 0.0)
+        v["coverage"] = round(100 * dated_2023 / all_years, 1) if all_years else None
+        v["coverage_2023"] = round(100 * dated_2023 / only_2023, 1) if only_2023 else None
         per_party.append({
             "partij": p,
             "in_window": round(v["in_window"], 2),
@@ -111,7 +118,8 @@ def main() -> int:
             "share_of_2023_in_window": round(100 * v["in_window"] / v["year_2023"], 1),
             "year_2022": round(v["year_2022"], 2) or None,
             "year_2024": round(v["year_2024"], 2) or None,
-            "dated_share_of_all_2023": v.get("coverage"),
+            "dated_share_of_all_years": v.get("coverage"),
+            "dated_share_of_2023": v.get("coverage_2023"),
         })
     per_party.sort(key=lambda x: -x["in_window"])
 

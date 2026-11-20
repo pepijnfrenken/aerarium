@@ -97,6 +97,24 @@ def main() -> int:
 
     con.close()
 
+    # Per-year register coverage is not constant, and a collapse in a scheme row is a gap in the register
+    # before it is a cut in funding. Flag any entity-year below a fifth of that entity's best year so no
+    # reader mistakes the register's silence for the state stopping the payment.
+    for canon, d in result.items():
+        by_year = d.get("by_year_k") or {}
+        if len(by_year) < 2:
+            continue
+        top = max(by_year.values())
+        flags = [y for y, v in by_year.items() if top and v < 0.2 * top]
+        if flags and d.get("years"):
+            # only flag an interior year if the neighbouring published years are much larger
+            interior = [y for y in flags if d["years"][0] <= int(y) < d["years"][-1]]
+            if interior:
+                d["coverage_flag"] = (
+                    f"years {', '.join(sorted(interior))} are below a fifth of the entity's best year. "
+                    "Check the scheme row for that year before reading it as a fall in funding."
+                )
+
     classes: dict[str, dict] = {}
     for canon, d in result.items():
         c = d["class"]

@@ -34,15 +34,22 @@ the finding.
   own foundations. SP's and GL's biggest are their own elected representatives under a salary-transfer rule.
 - **GroenLinks and PvdA are one party now (PRO).** Read together they are the largest organisation in the window:
   €20.529.188 against VVD's €19.554.840.
-- **Donations cluster in campaign windows.** €1.135.143 of 2023's gift money arrived in the 90 days before the
-  22 November election, 1,75× the same window a year earlier. For CDA 95,4% of the year's donations landed there;
-  for SP 28,3%, because SP's money is salary transfers, not campaigns.
+- **Donations cluster in campaign windows — among donors whose gifts carry a date.** €1.135.143 arrived in the
+  90 days before the 22 November 2023 election: 36,5% of all dated 2023 contributions, 1,75× the same calendar
+  window a year earlier. The concentration is uneven and it moves with how much of a party's money is dated at
+  all. CDA: 95,4% of its *dated* 2023 gifts, but those dated gifts are only 27,5% of its 2023 total, so 26,3% of
+  everything it received. SP: 28,3% of its dated gifts (71,5% dated), 20,2% of everything. SP's pattern is
+  consistent with salary transfers rather than campaigns; the register records no purpose field, so that
+  remains an interpretation, not a finding.
 - **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed, €29.413k in no register row at
   all. Only 10 of 92 annual reports state the per-entity split.
 - **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then full itemisation for
   2023-2024. 46 rows in 19 spellings collapse to 11 entities by KvK.
-- **Gifts to candidates are almost unstudied.** 1.168 candidates in 2025, of whom **6 received a gift**: €11.499
-  in total, the largest €5.000 to D66's P. Bamenga.
+- **Gifts to candidates are almost unstudied.** The 2025 workbook lists 1.166 distinct candidates. **Six rows
+  carry an amount, representing four people across 2023-2025**, and the workbook's combined total is €11.499.
+  Only **€6.499 of that falls in 2025**, to three candidates — Klein €3.500, Zwinkels €2.000, and one at €999,
+  above the €767,12 candidate threshold. The largest single amount is €5.000 to D66's P. Bamenga, dated
+  21 October 2023, not 2025.
 
 ## Layout
 
