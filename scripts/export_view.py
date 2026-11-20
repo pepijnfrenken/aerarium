@@ -210,9 +210,14 @@ def load_nfrp() -> list[dict]:
         name = " ".join((ontvanger or "").split())
         key = f"kvk:{kvk}" if kvk else f"name:{name.lower()}"
         g = groups.setdefault(key, {"kvk": kvk or None, "by_year": defaultdict(int),
-                                    "variants": defaultdict(lambda: defaultdict(int))})
+                                    "variants": defaultdict(lambda: defaultdict(int)),
+                                    "source_rows": defaultdict(int)})
         g["by_year"][int(jaar)] += int(bedrag or 0)
         g["variants"][name][int(jaar)] += int(bedrag or 0)
+        # Count the source rows themselves. The previous `rows` field counted how many *spellings*
+        # appeared in a year, which summed to 24 where the register has 46 rows - and the page then
+        # reported that derived number as "register rows".
+        g["source_rows"][int(jaar)] += 1
 
     out = []
     for g in groups.values():
@@ -227,7 +232,8 @@ def load_nfrp() -> list[dict]:
                 "kvk": g["kvk"],
                 "bedrag_k": bedrag,
                 "variants": sorted(g["variants"]),
-                "rows": sum(1 for v in g["variants"].values() if jaar in v),
+                "rows": g["source_rows"][jaar],
+                "spellings_in_year": sum(1 for v in g["variants"].values() if jaar in v),
             })
     return sorted(out, key=lambda r: (r["jaar"], -r["bedrag_k"]))
 

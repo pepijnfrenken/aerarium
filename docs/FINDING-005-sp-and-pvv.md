@@ -35,9 +35,16 @@ PVV's reports for 2021-2024 all state the same three lines:
     Ontvangen bijdragen:          € 150 contributie
     Overige inkomsten:            €0
 
-The 2024 report adds "Jaarlijks betalen de twee leden van de vereniging € 75 aan contributie", a debt of €12.803,
-and a result of **−€9.199** (2023: −€4.084). Its activities in 2024 "bestonden hoofdzakelijk uit het in stand
-houden van de ledenadministratie".
+The 2024 report adds "Jaarlijks betalen de twee leden van de vereniging € 75 aan contributie", and a result of
+**−€9.199** (2023: −€4.084). Its activities in 2024 "bestonden hoofdzakelijk uit het in stand houden van de
+ledenadministratie".
+
+**On the €12.803: the report contradicts itself and this file does not resolve it.** A summary line calls that
+amount `Schulden`, but the balance sheet presents the same order of magnitude as negative equity, alongside
+separate liability rows — €8.617 long-term and €4.500 in payable accountant costs. Until the two presentations
+are reconciled, the honest statement is that PVV's 2024 filing shows a small negative position and small
+liabilities, not a debt total of €12.803. Neither figure establishes how the party's wider political operation
+is financed.
 
 - PVV appears in **none** of the 19 subsidy rows for 2022-2024. Its own reports say €0 received, so this is not a
   hole in the register: the party takes nothing through the Wfpp subsidy route.

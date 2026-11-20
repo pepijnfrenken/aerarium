@@ -263,6 +263,58 @@ else:
     print("FAIL  budget axis label not found in either form")
     fails.append("budget axis label missing")
 
+# ---------------------------------------------------------------- NFRP row accounting
+# Audit-2: the badge read "11 entities · 24 register rows" while the register has 46 rows in 19
+# spellings and the 24 were entity-YEAR aggregates. Each count is now bound separately.
+nfrp = view["nfrp"]
+spellings = set()
+for r in nfrp:
+    spellings.update(r.get("variants") or [])
+for label, got, want in [
+    ("NFRP entity-year aggregates", len(nfrp), 24),
+    ("NFRP source rows", sum(r.get("rows", 0) for r in nfrp), 46),
+    ("NFRP distinct spellings", len(spellings), 19),
+    ("NFRP distinct entities", len({r["entity"] for r in nfrp}), 11),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+# ---------------------------------------------------------------- narrative guards
+f5 = REPO / "docs" / "FINDING-005-sp-and-pvv.md"
+t5 = f5.read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "a debt of €12.803" in t5:
+    print("FAIL  FINDING-005 still states the PVV 12.803 figure as a debt")
+    fails.append("FINDING-005 asserts a PVV debt total the filing contradicts")
+elif "does not resolve it" in t5 and "negative equity" in t5:
+    print("PASS  FINDING-005 marks the PVV debt/equity conflict as unresolved")
+else:
+    print("FAIL  FINDING-005 lacks the PVV debt qualification")
+    fails.append("FINDING-005 PVV debt qualification missing")
+
+checked += 1
+if "every figure is a floor" in html:
+    print("FAIL  media panel still claims every figure is a floor")
+    fails.append("media panel claims a lower bound the records do not support")
+elif "not a lower bound" in html:
+    print("PASS  media panel refuses the lower-bound reading and separates the two periods")
+else:
+    print("FAIL  media panel wording not found")
+    fails.append("media panel wording missing")
+
+checked += 1
+if "DATA.nfrp.length+' register rows'" in html:
+    print("FAIL  NFRP badge still renders the aggregate count as register rows")
+    fails.append("NFRP badge mislabels derived aggregates as register rows")
+elif "source rows in ' + DATA.nfrp.length" in html or "source rows" in html:
+    print("PASS  NFRP badge reports source rows, not the derived aggregate count")
+else:
+    print("FAIL  NFRP badge wording not found")
+    fails.append("NFRP badge wording missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
