@@ -1,0 +1,23 @@
+node_modules/
+dist/
+build/
+.env
+.DS_Store
+coverage/
+.idea/
+.vscode/
+
+# Claude Code local session state
+.claude/settings.local.json
+
+# AIWG — ignore only high-churn runtime subdirs, NOT .aiwg/ itself
+.aiwg/working/
+.aiwg/ralph/
+.aiwg/ralph-external/
+.aiwg/security-engineering/reviews/disclosures/
+
+# AERARIUM — raw source files are re-fetchable, never committed
+data/raw/
+data/cache/
+*.duckdb
+*.duckdb.wal

@@ -1,0 +1,280 @@
+{
+  "managed": {
+    "sessions.md": {
+      "hash": "sha256:5a579b8393d865d3328c8f7c939543bf3a169fabe7cfeb9c93bbd9af7b842f7c",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "aiwg-utils"
+    },
+    "dataset.md": {
+      "hash": "sha256:779e348548c5c99f4b6652cef9aa14783dad0afea3314c26af5ff5f10bed9cad",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "dataset-intelligence"
+    },
+    "schema.md": {
+      "hash": "sha256:7e9f048fea9cbea82c946e341cf675dd9c982860dd79cefe039f66887815f195",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "schema-governance"
+    },
+    "address-issues.md": {
+      "hash": "sha256:e4b41f9ba5bffdab41fa64b971fb0d44f52a71b21392208e3250e87f480c69ab",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "issue-audit.md": {
+      "hash": "sha256:ac6ba4dc4363d1fbc18c3b15666064974165b5d4b5d322bd0fb226445c63a09f",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "issue-close.md": {
+      "hash": "sha256:a088f31a0bda92d3baeee1a38270a8029c0aa928b49537662dc713bd4b0b4bf0",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-comment.md": {
+      "hash": "sha256:1cc56f80e297bd8ec98477439bbd3a60398587a2e018f1a541d6e7af52e737f6",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-create.md": {
+      "hash": "sha256:7e448b22deda703a8df2266598fbe184cf66c689e1cfabe63866a41b22edbafb",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-index.md": {
+      "hash": "sha256:9c8d89b122367238876ae0f630fd0e67e1debb6a8cf6a87f5aaecb4231ccf0c5",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-list.md": {
+      "hash": "sha256:b101392d9ba390cbe09c111021c1bf007ddb84548281bbd1ac840e2548275455",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-show.md": {
+      "hash": "sha256:96ea9178df3a73d3abf1a4fc8378586dce3d9def68a782d64bfa57fff68a3f43",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue-update.md": {
+      "hash": "sha256:fd6c82587bb7438e0681af9b90a47112e534dd6ceef27e4b2ced3c1e5126cfae",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "issue.md": {
+      "hash": "sha256:e4bdb357793fc6fbea474601aec3bf33622d0f03b3de93efbed5fe0712e8face",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "frameworkSlug": "sdlc-complete"
+    },
+    "aiwg-setup-project.md": {
+      "hash": "sha256:9def95635c33bca4d93653870be2c44cbcd3ea18f9f7530c8fb68b121eba64c9",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "aiwg-update-agents-md.md": {
+      "hash": "sha256:d4f15db7cdaa04c9acf594f7d2266b152c0adf5e304344fdd193d752568be8c9",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "aiwg-update-claude.md": {
+      "hash": "sha256:3df0cedf1d2a859459eacc7a260a4ebe535b287c81c58340dcb2ed582a9dd57f",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-architecture-evolution.md": {
+      "hash": "sha256:13aac698fcfbd0834294a8e4467a6e9e8345f474f8f7daf98eefc034edf7ff4d",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-change-control.md": {
+      "hash": "sha256:3d4c70958fd4e551aac38f538cae41d469a941518e1a55337da9ab579534fb9e",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-compliance-validation.md": {
+      "hash": "sha256:5b87164b9a79c0c77aab96c7a664335a0e93072619bba33fbb5d14b66e2b2b59",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-concept-to-inception.md": {
+      "hash": "sha256:65122abe421b63ab20aa13de39a62d912be7d9ea970f0527189adb7fbe0212ae",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-construction-to-transition.md": {
+      "hash": "sha256:02adb53e44cf637a6201f49145a01b495ce1657d539ba73774b67747feeb8f50",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-cross-team-sync.md": {
+      "hash": "sha256:2fa1f82251ffe52c9917f97a0eba5ad350a38f468d40b0a861b9c5fa9f4de476",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-delivery-track.md": {
+      "hash": "sha256:aceafb2e177a75c1c6a19df6642970dc25e6edc2db20f606947711d1cbdbb402",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-deploy-to-production.md": {
+      "hash": "sha256:f391052d929fc87cc17012442b10c7af99b6f03302416fd21dc22950268606b5",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-discovery-track.md": {
+      "hash": "sha256:8d1f511001461840b976d3c4e44c2d66cb967140cf3d5a186537722381a0b8a5",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-elaboration-to-construction.md": {
+      "hash": "sha256:92056b23420b7320ca9163690f53f0f62db0748efd7dfd88837ee7dd6daab2fa",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-gate-check.md": {
+      "hash": "sha256:3ebd567e4bd99d08f14ac8761eef8026937a3d07144ae927abf6ff1095704e73",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-guided-implementation.md": {
+      "hash": "sha256:782147ef2877b09bb78f28f3de95ceda82b5975b5aa7c526e6f3af431ed88d4e",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-handoff-checklist.md": {
+      "hash": "sha256:23d726cdc78f1bb4672ac154bc23dac76a34842df8e51e2827c376ce05f37872",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-hypercare-monitoring.md": {
+      "hash": "sha256:e77fc0369f2918d14cbb83f9ee4f0c786de932a1de4cef21904cef6863f5898b",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-inception-to-elaboration.md": {
+      "hash": "sha256:19d682d2129c3cc594e39c033f4d682c16f7bb91213a6b29ff4012041ae2cfeb",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-incident-response.md": {
+      "hash": "sha256:e7117be1a15049f244d4d6ae2758bd95fd342f0e1cdc886ecc0994d57bdc9369",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-iteration-dual-track.md": {
+      "hash": "sha256:ecace3a9e30916bbbf36d9ae4d0c635ab223c30707575e7a31e597f9df7e3a29",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-knowledge-transfer.md": {
+      "hash": "sha256:812cfffe466fd4c463b2e49e532cf32facdf0e47d765b0b36ecb07badd7c1264",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-performance-optimization.md": {
+      "hash": "sha256:103eba610819764bbf41a09eeb42f71ca6fa673d8e3dc6da1347bf8268ae75ba",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-release.md": {
+      "hash": "sha256:de52eab2d3b26ead43dc503d851ad20d9043a55ac0cc97ea15bb94ffa9c58ff8",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-requirements-evolution.md": {
+      "hash": "sha256:c66d92f6aa94095b73e1a99bec5dc1423a3f92588ba36244c3160e16c9c5000d",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-retrospective-cycle.md": {
+      "hash": "sha256:6f59b391d20cad0e0799e6c909e5eeea8569915ca14179d1cd368785550d1e1d",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-risk-management-cycle.md": {
+      "hash": "sha256:a3d76f8cfc98b4955b76c5959fe2d9a0f83d9637bdaa9493963f3f4162ce3d2c",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-security-review-cycle.md": {
+      "hash": "sha256:75e1a974357dda28c0644631816a8b0a7213354d8c60848ee286f65175fb1617",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-team-onboarding.md": {
+      "hash": "sha256:972520d3ec82e9b21173717c1b96889bf9db07db6fa2183ee40ac9cf281eff44",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "flow-test-strategy-execution.md": {
+      "hash": "sha256:e91def1facd766d1fb0a958a60b482ac1bb2a7082241c36a5f6b9b286cf3ec48",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "intake-from-codebase.md": {
+      "hash": "sha256:7ec031cc792352173d6bd3385f5ca637a46ecb88135c990bfff4335bf30a08d9",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "intake-start.md": {
+      "hash": "sha256:1e9501b8f4be96f2e7012ec6f1279307f2cb5ec0663e4a0b6f0dc8f05809bd20",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "intake-wizard.md": {
+      "hash": "sha256:b0a0eaa51b71d543579bffe8341f2455c1fec72fc126d2f904f97459b69fb02c",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    },
+    "sdlc-accelerate.md": {
+      "hash": "sha256:e452fa8f6e18a8dea8c12b6315f9da7aad3c8d8b08ddedba1fabb1fc93b2a8e3",
+      "source": "bundled",
+      "version": "2026.9.16",
+      "kind": "skill-command"
+    }
+  }
+}

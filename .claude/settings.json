@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/home/pino/.hermes/node/lib/node_modules/aiwg/agentic/code/frameworks/sdlc-complete/**)",
+      "Read(/home/pino/projects/aerarium/**)",
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      "Bash(node:*)",
+      "Write(./**)",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)",
+      "Read(./**/.env)",
+      "Bash(rm:-rf)",
+      "Bash(curl:*)",
+      "WebFetch"
+    ]
+  }
+}
