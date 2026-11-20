@@ -1,0 +1,348 @@
+{
+ "generated_by": "scripts/donor_claims.py",
+ "source": {
+  "money": "out/gifts_donors_public.csv (dashboard donor totals, 2022-2024)",
+  "entity_facts": "docs/LANE-ENTITY-DOSSIERS.md (a URL per fact)",
+  "unit": "EUR to the cent"
+ },
+ "question": "Do the donor entities push an agenda, and can a philosophy be sourced for them?",
+ "headline": "0 of 17 entity donors publish a political or philosophical position. None does. The layer is therefore built from documented activity, not from stated intent.",
+ "rule": "A position is quoted from the entity's own publication, or it is null. Activity is from KvK/SBI or the entity's own site. No motive is inferred from a gift.",
+ "classes": {
+  "party-vehicle": {
+   "entities": 3,
+   "total_eur": 829950.0,
+   "parties": {
+    "VVD": 829950.0
+   }
+  },
+  "no-claim": {
+   "entities": 6,
+   "total_eur": 616359.0,
+   "parties": {
+    "D66": 200000.0,
+    "GL": 20000.0,
+    "PvdA": 20000.0,
+    "CDA": 255080.0,
+    "FvD": 71279.0,
+    "JA21": 50000.0
+   }
+  },
+  "sector-mapped": {
+   "entities": 8,
+   "total_eur": 365840.0,
+   "parties": {
+    "BVNL": 100000.0,
+    "FvD": 155840.0,
+    "BBB": 110000.0
+   }
+  }
+ },
+ "grand_total_eur": 1812149.0,
+ "entities": [
+  {
+   "name": "Stichting Het Thorbeckefonds",
+   "claim_type": "party-vehicle",
+   "activity": "VVD fundraising foundation, named after Thorbecke, publishes annual accounts",
+   "subject": null,
+   "stated_position": null,
+   "basis": "Media reporting describes it as funding VVD campaigns partly from investment returns.",
+   "source": "https://www.nporadio1.nl/nieuws/politiek/f02b101f-aa34-4b08-9ff8-49d6328e00a0/vvd-financiert-campagne-mede-uit-beurswinst",
+   "caveat": "Not outside money; a party fundraising vehicle.",
+   "total_eur": 368950.0,
+   "by_party": {
+    "VVD": 368950.0
+   },
+   "by_year": {
+    "2022": 18950.0,
+    "2023": 350000.0
+   }
+  },
+  {
+   "name": "Stichting Ondersteuning VVD Tweede Kamerverkiezing",
+   "claim_type": "party-vehicle",
+   "activity": "VVD campaign-support foundation (ondersteuningsstichting)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "Follow the Money party-financing investigation identifies it as one of the VVD's support foundations and reports ~EUR 1.2m to the party in the analysed period.",
+   "source": "https://www.ftm.nl/artikelen/partijfinanciering",
+   "caveat": "Not outside money. Counting this as third-party influence would double-count the party's own campaign financing.",
+   "total_eur": 300000.0,
+   "by_party": {
+    "VVD": 300000.0
+   },
+   "by_year": {
+    "2022": 300000.0
+   }
+  },
+  {
+   "name": "Stichting The Dreamery Foundation",
+   "claim_type": "no-claim",
+   "activity": "Foundation; publishes multi-year policy plans (2023-2025, 2026-2028)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "Policy plans published at dreamery.org; the substantive mission was not extracted.",
+   "source": "https://dreamery.org/",
+   "caveat": "It publishes policy plans, so a position probably EXISTS - it simply has not been read. This is the one entity where reading the document would move it out of no-claim.",
+   "total_eur": 240000.0,
+   "by_party": {
+    "D66": 200000.0,
+    "GL": 20000.0,
+    "PvdA": 20000.0
+   },
+   "by_year": {
+    "2022": 100000.0,
+    "2023": 140000.0
+   }
+  },
+  {
+   "name": "Stichting Ivo Opstelten Foundation",
+   "claim_type": "party-vehicle",
+   "activity": "VVD-linked support foundation (KvK 27342104), ANBI, has its own VVD-hosted page",
+   "subject": null,
+   "stated_position": null,
+   "basis": "Own annual report and ANBI filing published via vvd.nl.",
+   "source": "https://www.vvd.nl/ivo-opstelten-foundation/",
+   "caveat": "Not outside money. NRC reported in 2017 that the VVD broke tax law with the foundation; no enforcement decision was found.",
+   "total_eur": 161000.0,
+   "by_party": {
+    "VVD": 161000.0
+   },
+   "by_year": {
+    "2023": 160000.0,
+    "2024": 1000.0
+   }
+  },
+  {
+   "name": "Keurvorst B.V.",
+   "claim_type": "no-claim",
+   "activity": "Group parent / holding (KvK 58639209)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "SBI holdings (non-financial); subsidiary activity not established.",
+   "source": "https://companyinfo.nl/organisatieprofiel/overige-activiteiten-van-hoofdkantoren/keurvorst-b-v-utrecht-58639209-000027977331",
+   "caveat": "Subsidiaries unestablished, so the money's domain is unknown.",
+   "total_eur": 150000.0,
+   "by_party": {
+    "CDA": 150000.0
+   },
+   "by_year": {
+    "2022": 50000.0,
+    "2023": 50000.0,
+    "2024": 50000.0
+   }
+  },
+  {
+   "name": "Movet Beheer B.V.",
+   "claim_type": "no-claim",
+   "activity": "Holding / management entity, Loenen aan de Vecht (KvK 33299469)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "Registry only. Several same-named B.V.s exist, so even the KvK match is unconfirmed.",
+   "source": "https://www.creditsafe.com/business-index/nl-nl/company/movet-beheer-bv-nl02001116",
+   "caveat": "Identity caveat: the donor entity's KvK cannot be confirmed from free sources.",
+   "total_eur": 105080.0,
+   "by_party": {
+    "CDA": 105080.0
+   },
+   "by_year": {
+    "2022": 15000.0,
+    "2024": 90080.0
+   }
+  },
+  {
+   "name": "Chipshol 2000 B.V.",
+   "claim_type": "sector-mapped",
+   "activity": "Land development around Schiphol; ~100 lawsuits against the state, Schiphol and LVNL since 1993",
+   "subject": "luchtvaart en ruimtelijke ordening rond Schiphol",
+   "stated_position": null,
+   "basis": "The entity's litigation IS its published position: it claims the state and Schiphol unlawfully blocked its development. Gerechtshof Arnhem-Leeuwarden, 25 March 2025, held the Rechtbank Den Haag acted unlawfully and partially 1994-1998. Claims reported at up to EUR 6bn.",
+   "source": "https://www.accountant.nl/nieuws/2025/3/chipshol-wil-compensatie-van-staat-na-uitspraak-gerechtshof/",
+   "caveat": "A litigation position is a documented interest, not a policy programme. No published statement on party policy was found.",
+   "total_eur": 98400.0,
+   "by_party": {
+    "BVNL": 50000.0,
+    "FvD": 48400.0
+   },
+   "by_year": {
+    "2023": 98400.0
+   }
+  },
+  {
+   "name": "Trigona Dairy Trade B.V.",
+   "claim_type": "sector-mapped",
+   "activity": "Dairy and non-dairy commodity trading for industry, foodservice and retail (KvK 30130720)",
+   "subject": "zuivel en landbouwmarktordening",
+   "stated_position": null,
+   "basis": "Company's own about page: dairy commodity trading, GMP-FSA, SKAL (BIO) and BRC certified.",
+   "source": "https://www.trigonadairytrade.nl/about",
+   "caveat": "Operating in the funded party's core policy domain. The direction of interest - more or less regulation, more or less nitrogen space - is not published and is not inferred.",
+   "total_eur": 97500.0,
+   "by_party": {
+    "BBB": 97500.0
+   },
+   "by_year": {
+    "2022": 12500.0,
+    "2023": 50000.0,
+    "2024": 35000.0
+   }
+  },
+  {
+   "name": "Sensemakers BV",
+   "claim_type": "sector-mapped",
+   "activity": "ICT / internet services / web portals; operates AS47121",
+   "subject": "internet en digitale infrastructuur",
+   "stated_position": null,
+   "basis": "SBI web portals and a public ASN allocation.",
+   "source": "https://internetdata.io/AS47121",
+   "caveat": "No informative website content retrieved; sector is from SBI and the ASN record.",
+   "total_eur": 50000.0,
+   "by_party": {
+    "FvD": 50000.0
+   },
+   "by_year": {
+    "2023": 50000.0
+   }
+  },
+  {
+   "name": "Mega Management B.V.",
+   "claim_type": "no-claim",
+   "activity": "Financial holding (KvK 33164658); bankruptcy declared 2026",
+   "subject": null,
+   "stated_position": null,
+   "basis": "SBI financial holdings. Insolvency 2026, rechtbank Limburg F.03/26/254.",
+   "source": "https://failliet.org/zaken/03.lim.26.254.F.1329.1.26",
+   "caveat": "No published activity, so no domain and no claim. Note the donation predates the insolvency.",
+   "total_eur": 50000.0,
+   "by_party": {
+    "FvD": 50000.0
+   },
+   "by_year": {
+    "2023": 50000.0
+   }
+  },
+  {
+   "name": "Ka Ve Invest B.V.",
+   "claim_type": "no-claim",
+   "activity": "Financial holding, Schiphol (KvK 28092930)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "SBI financial holdings; no underlying activity published.",
+   "source": "https://www.transfirm.nl/nl/organisatie/28092930-000004964810-ka-ve-invest-b.v.",
+   "caveat": "A holding at a Schiphol address is not evidence of a Schiphol interest. No claim drawn.",
+   "total_eur": 50000.0,
+   "by_party": {
+    "JA21": 50000.0
+   },
+   "by_year": {
+    "2022": 50000.0
+   }
+  },
+  {
+   "name": "Lambda Furtherance B.V.",
+   "claim_type": "sector-mapped",
+   "activity": "Wholesale of other building materials (KvK 27265414); supplies PANACEA polyacrylonitrile fibre",
+   "subject": "bouw en bouwmaterialen",
+   "stated_position": null,
+   "basis": "SBI registration plus the company's own product site.",
+   "source": "https://lambdaphi.nl/",
+   "caveat": "Sector from SBI and product line only. No position published.",
+   "total_eur": 34000.0,
+   "by_party": {
+    "FvD": 34000.0
+   },
+   "by_year": {
+    "2023": 20000.0,
+    "2024": 14000.0
+   }
+  },
+  {
+   "name": "Sjopperdepop BV",
+   "claim_type": "sector-mapped",
+   "activity": "Wholesale of household, office and shop furniture (Haarlem)",
+   "subject": "retail en meubelgroothandel",
+   "stated_position": null,
+   "basis": "SBI registration.",
+   "source": "https://companyinfo.nl/organisatieprofiel/groothandel-in-huishoudelijke-kantoor-en-winkelmeubelen/sjopperdepop-b-v-haarlem-34173293-000019650140",
+   "caveat": "Sector from SBI only. The company's own about page could not be read.",
+   "total_eur": 25000.0,
+   "by_party": {
+    "BVNL": 25000.0
+   },
+   "by_year": {
+    "2023": 25000.0
+   }
+  },
+  {
+   "name": "Stichting Dona",
+   "claim_type": "sector-mapped",
+   "activity": "Duurzame Ontwikkeling Nederland Afrika (KvK 41158157), ANBI development foundation",
+   "subject": "ontwikkelingssamenwerking",
+   "stated_position": null,
+   "basis": "The foundation's own objectives page and ANBI page.",
+   "source": "https://stichtingdona.nl/over-dona/",
+   "caveat": "A development foundation funding a party that wants lower development spending is a tension worth quoting both sides of, not resolving here.",
+   "total_eur": 25000.0,
+   "by_party": {
+    "BVNL": 25000.0
+   },
+   "by_year": {
+    "2023": 25000.0
+   }
+  },
+  {
+   "name": "Ozephius Group B.V.",
+   "claim_type": "sector-mapped",
+   "activity": "Holding company (KvK 24213791); related entity Ozephius Stainless B.V., metal processing",
+   "subject": "metaal en industrie",
+   "stated_position": null,
+   "basis": "Registry entries for the holding and for Ozephius Stainless B.V.",
+   "source": "https://companyinfo.nl/organisatieprofiel/metaalbewerking/ozephius-stainless-b-v-oud-beijerland-24275586-000016148134",
+   "caveat": "The holding itself does nothing public; the sector is inferred from a related entity, which is a weaker basis than a direct SBI code.",
+   "total_eur": 23440.0,
+   "by_party": {
+    "FvD": 23440.0
+   },
+   "by_year": {
+    "2022": 5000.0,
+    "2023": 16840.0,
+    "2024": 1600.0
+   }
+  },
+  {
+   "name": "Op de Mast B.V.",
+   "claim_type": "no-claim",
+   "activity": "Nothing found (KvK 87542625, Leiderdorp)",
+   "subject": null,
+   "stated_position": null,
+   "basis": "No SBI description, website or business description retrievable.",
+   "source": "https://www.compadex.com/nl/businesses/nl/op-de-mast-b-v-87542625-53451767",
+   "caveat": "Nothing found is not nothing exists. Recorded as unknown.",
+   "total_eur": 21279.0,
+   "by_party": {
+    "FvD": 21279.0
+   },
+   "by_year": {
+    "2023": 21279.0
+   }
+  },
+  {
+   "name": "Graansloot Kampen B.V.",
+   "claim_type": "sector-mapped",
+   "activity": "Inland terminal: transshipment, storage and processing of grain, oilseeds and feedstocks",
+   "subject": "agrologistiek en grondstoffen",
+   "stated_position": null,
+   "basis": "Company's own pages: dry bulk transshipment and storage, GMP+ FSA, EU Organic, AEO certified.",
+   "source": "https://www.graansloot.nl/over-graansloot-kampen",
+   "caveat": "Same limit as Trigona: the domain is documented, the direction is not.",
+   "total_eur": 12500.0,
+   "by_party": {
+    "BBB": 12500.0
+   },
+   "by_year": {
+    "2022": 5000.0,
+    "2023": 7500.0
+   }
+  }
+ ]
+}
