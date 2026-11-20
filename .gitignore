@@ -33,3 +33,4 @@ data/cache/
 .hc-report.md
 .hc-report*.md
 out/gifts_donors.csv
+corpus/
