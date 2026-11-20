@@ -11,7 +11,8 @@ Design rules, enforced here rather than in convention:
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -84,6 +85,42 @@ CREATE TABLE IF NOT EXISTS adjudication (
     evidence         VARCHAR,
     decided_by       VARCHAR,
     decided_at       TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS pf_document (
+    fetch_id            VARCHAR NOT NULL,
+    partij              VARCHAR NOT NULL,
+    partij_key          VARCHAR NOT NULL,
+    jaar                INTEGER NOT NULL,
+    deel                INTEGER,
+    datum               DATE,
+    pages               INTEGER,
+    bestand_grootte_mb  DOUBLE,
+    link                VARCHAR
+);
+
+CREATE TABLE IF NOT EXISTS pf_subsidy_total (
+    fetch_id     VARCHAR NOT NULL,
+    jaar         INTEGER NOT NULL,
+    bedrag_eur   DECIMAL(18,2)
+);
+
+CREATE TABLE IF NOT EXISTS pf_subsidy (
+    fetch_id     VARCHAR NOT NULL,
+    jaar         INTEGER NOT NULL,
+    partij       VARCHAR NOT NULL,
+    partij_key   VARCHAR NOT NULL,
+    bedrag_eur   DECIMAL(18,2),
+    status       VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pf_gift (
+    fetch_id     VARCHAR NOT NULL,
+    jaar         INTEGER NOT NULL,
+    partij       VARCHAR,
+    partij_key   VARCHAR,
+    bedrag_eur   DECIMAL(18,2),
+    status       VARCHAR NOT NULL
 );
 """
 
@@ -211,6 +248,103 @@ def load_recipients(conn: duckdb.DuckDBPyConnection, fetched: Fetched, csv_path:
     if bad:
         raise ValueError(f"{bad} recipient rows have an unparseable amount; refusing partial load")
     return int(n)
+
+
+def load_pf_documents(
+    conn: duckdb.DuckDBPyConnection,
+    fetched: Fetched,
+    rows: Iterable[dict[str, Any]],
+) -> int:
+    """Replace pf_document for every year present in the payload. Rows carry the fetch_id."""
+    from .sources import partijfinanciering as pf
+
+    rows = list(rows)
+    fetch_id = log_fetch(conn, fetched, pf.LICENCE)
+    years = sorted({int(r["jaar"]) for r in rows})
+    for year in years:
+        conn.execute("DELETE FROM pf_document WHERE jaar=?", [year])
+    payload = [
+        [
+            fetch_id,
+            r["partij"],
+            r["partij_key"],
+            int(r["jaar"]),
+            int(r["deel"]) if r.get("deel") is not None else None,
+            date.fromisoformat(r["datum"]) if r.get("datum") else None,
+            int(r["pages"]) if r.get("pages") is not None else None,
+            float(r["bestand_grootte_mb"]) if r.get("bestand_grootte_mb") is not None else None,
+            r.get("link"),
+        ]
+        for r in rows
+    ]
+    conn.executemany("INSERT INTO pf_document VALUES (" + ",".join(["?"] * 9) + ")", payload)
+    return len(payload)
+
+
+def load_pf_subsidy_totals(
+    conn: duckdb.DuckDBPyConnection,
+    fetched: Fetched,
+    totals: Iterable[dict[str, Any]],
+) -> int:
+    """Replace pf_subsidy_total for every year present. One row per published total."""
+    from .sources import partijfinanciering as pf
+
+    rows = list(totals)
+    fetch_id = log_fetch(conn, fetched, pf.LICENCE)
+    payload = []
+    for r in rows:
+        year = int(r["jaar"])
+        conn.execute("DELETE FROM pf_subsidy_total WHERE jaar=?", [year])
+        payload.append([fetch_id, year,
+                        Decimal(r["bedrag_eur"]) if r.get("bedrag_eur") is not None else None])
+    if payload:
+        conn.executemany("INSERT INTO pf_subsidy_total VALUES (?,?,?)", payload)
+    return len(payload)
+
+
+def load_pf_subsidies(
+    conn: duckdb.DuckDBPyConnection,
+    fetched: Fetched,
+    parties: Iterable[dict[str, Any]],
+) -> int:
+    """Flatten per-year cells into pf_subsidy rows and replace every touched year."""
+    from .sources import partijfinanciering as pf
+
+    parties = list(parties)
+    fetch_id = log_fetch(conn, fetched, pf.LICENCE)
+    by_year: dict[int, list[list[Any]]] = {}
+    for p in parties:
+        for year, (amount, status) in p["per_year"].items():
+            by_year.setdefault(int(year), []).append(
+                [fetch_id, int(year), p["partij"], p["partij_key"],
+                 Decimal(str(amount)) if amount is not None else None, status])
+    for year, rows in sorted(by_year.items()):
+        conn.execute("DELETE FROM pf_subsidy WHERE jaar=?", [year])
+        conn.executemany("INSERT INTO pf_subsidy VALUES (?,?,?,?,?,?)", rows)
+    return sum(len(rows) for rows in by_year.values())
+
+
+def load_pf_gifts(
+    conn: duckdb.DuckDBPyConnection,
+    fetched: Fetched,
+    jaar: int,
+    rows: Iterable[dict[str, Any]],
+) -> int:
+    """Replace pf_gift for this year. An empty year contributes one NULL-partij sentinel row."""
+    from .sources import partijfinanciering as pf
+
+    rows = list(rows)
+    fetch_id = log_fetch(conn, fetched, pf.LICENCE)
+    conn.execute("DELETE FROM pf_gift WHERE jaar=?", [int(jaar)])
+    payload = [
+        [fetch_id, int(jaar), r.get("partij"), r.get("partij_key"),
+         Decimal(str(r["bedrag_eur"])) if r.get("bedrag_eur") is not None else None,
+         r["status"]]
+        for r in rows
+    ]
+    if payload:
+        conn.executemany("INSERT INTO pf_gift VALUES (?,?,?,?,?,?)", payload)
+    return len(payload)
 
 
 def adjudicate(

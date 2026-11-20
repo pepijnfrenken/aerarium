@@ -3,6 +3,8 @@
     aer sync                 fetch, load, grade, write the artifact (the whole pipeline)
     aer ingest-budget        just the appropriation spine for a chapter
     aer ingest-recipients    just the row-level recipient register
+    aer ingest-partijfinanciering   documents, subsidies, giften from partijfinanciering.nl
+    aer validate-party       integrity checks over the party-financing tables
     aer grade                grade from what is already stored
     aer validate             integrity checks that must pass before a number is quoted
     aer probe-vintage        is the row-level register refreshed, or stale?
@@ -14,13 +16,26 @@ import argparse
 import json
 import sys
 from datetime import datetime, timezone
+from decimal import Decimal
 from pathlib import Path
 
 from . import grade, schemes, store
+from .sources import partijfinanciering as pf
 from .sources import rijksfinancien
+from .sources.partijfinanciering import STATUS_NO_DATA, parse_giften, parse_subsidies
 
 DEFAULT_DB = Path("data/aerarium.duckdb")
 DEFAULT_OUT = Path("out")
+
+
+def _eur(amount: float | Decimal | None) -> str:
+    """Dutch formatting: 28873282.5 -> '28.873.282,50'. None -> 'geen bedrag'."""
+    if amount is None:
+        return "geen bedrag"
+    q = Decimal(str(amount)).quantize(Decimal("0.01"))
+    whole, frac = divmod(q, 1)
+    whole_s = f"{int(whole):,}".replace(",", ".")
+    return f"{whole_s},{str(frac)[2:]}"
 
 LEDGER_HEADER = (
     "AERARIUM / Tabularium — CC-0 source: rijksfinancien.nl (Ministerie van Financien). "
@@ -80,6 +95,130 @@ def cmd_ingest_recipients(args) -> int:
     years = conn.execute("SELECT min(jaar), max(jaar) FROM recipient_line").fetchone()
     print(f"loaded {n} recipient rows, years {years[0]}-{years[1]}, file {path.name}")
     return 0
+
+
+def cmd_ingest_partijfinanciering(args) -> int:
+    conn = store.connect(args.db)
+    raw = _raw_dir() / datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    fetched = pf.jaarverslagen(raw_dir=raw)
+    documents = pf.parse_jaarverslagen(fetched)
+    n_docs = store.load_pf_documents(conn, fetched, documents)
+    by_year: dict[int, int] = {}
+    for r in documents:
+        by_year[int(r["jaar"])] = by_year.get(int(r["jaar"]), 0) + 1
+    print(f"documents: {n_docs}")
+    for year in sorted(by_year):
+        print(f"  {year}: {by_year[year]} documents")
+
+    fetched = pf.subsidies(raw_dir=raw)
+    parsed = parse_subsidies(fetched.body.decode("utf-8"))
+    n_totals = store.load_pf_subsidy_totals(conn, fetched, parsed["totals"])
+    n_subsidies = store.load_pf_subsidies(conn, fetched, parsed["parties"])
+    print(f"subsidies: {n_totals} published totals, {n_subsidies} party rows")
+    for t in parsed["totals"]:
+        print(f"  {t['jaar']}: total EUR {_eur(t['bedrag_eur'])}")
+
+    n_gift_rows = 0
+    empty_years = 0
+    for jaar in _years(args.giften_years):
+        fetched = pf.giften(jaar, raw_dir=raw)
+        parsed_g = parse_giften(fetched.body.decode("utf-8"), jaar)
+        rows = parsed_g["rows"]
+        if rows:
+            n_gift_rows += store.load_pf_gifts(conn, fetched, jaar, rows)
+            print(f"giften {jaar}: {len(rows)} parties, total EUR {_eur(parsed_g['totaal'])}")
+        else:
+            empty_years += 1
+            n_gift_rows += store.load_pf_gifts(
+                conn, fetched, jaar,
+                [{"partij": None, "partij_key": None, "bedrag_eur": None,
+                  "status": STATUS_NO_DATA}])
+            print(f"giften {jaar}: page renders, zero parties -> no-data-published")
+    print(f"giften: {n_gift_rows} rows, {empty_years} empty year(s)")
+    return 0
+
+
+def cmd_validate_party(args) -> int:
+    conn = store.connect(args.db)
+    problems = 0
+
+    docs = conn.execute("SELECT count(*) FROM pf_document").fetchone()[0]
+    years = conn.execute("SELECT min(jaar), max(jaar) FROM pf_document").fetchone()
+    print(f"documents: {docs} (years {years[0]}-{years[1]})")
+    if docs != 92:
+        problems += 1
+        print(f"  FAIL expected 92 documents, found {docs}")
+    parties_per_year = conn.execute(
+        "SELECT jaar, count(DISTINCT partij) FROM pf_document GROUP BY jaar ORDER BY jaar"
+    ).fetchall()
+    for year, n in parties_per_year:
+        print(f"  {year}: {n} parties with a jaarverslag")
+
+    print("subsidy totals per year, against the sum of the per-party rows:")
+    subsidy_rows = conn.execute(
+        """
+        SELECT t.jaar, t.bedrag_eur,
+               SUM(s.bedrag_eur) AS party_sum, COUNT(s.partij) AS n_parties
+        FROM pf_subsidy_total t LEFT JOIN pf_subsidy s ON s.jaar = t.jaar
+        GROUP BY t.jaar, t.bedrag_eur ORDER BY t.jaar
+        """
+    ).fetchall()
+    for year, total, party_sum, n_parties in subsidy_rows:
+        if total is None:
+            print(f"  {year}: published total NULL, {n_parties} party rows")
+            continue
+        party_sum = party_sum if party_sum is not None else Decimal("0")
+        diff = total - party_sum
+        print(f"  {year}: total EUR {_eur(total)}, {n_parties} parties sum to "
+              f"EUR {_eur(party_sum)}, difference {diff:+} euro")
+        if n_parties == 0:
+            problems += 1
+            print(f"    FAIL no party rows for {year}")
+
+    print("gift totals per year:")
+    gift_rows = conn.execute(
+        """
+        SELECT jaar,
+               SUM(bedrag_eur) AS total,
+               COUNT(partij) AS n_parties,
+               count(*) FILTER (WHERE status = 'no-data-published') AS n_nodata
+        FROM pf_gift GROUP BY jaar ORDER BY jaar
+        """
+    ).fetchall()
+    no_data_years = 0
+    for year, total, n_parties, n_nodata in gift_rows:
+        if n_nodata:
+            no_data_years += 1
+            print(f"  {year}: no-data-published (page rendered, zero parties)")
+        else:
+            print(f"  {year}: {n_parties} parties, sum EUR {_eur(total)}")
+    print(f"years stored as no-data-published: {no_data_years}")
+
+    nofetch = conn.execute(
+        """
+        SELECT (SELECT count(*) FROM pf_document d LEFT JOIN source_fetch f USING (fetch_id) WHERE f.fetch_id IS NULL)
+             + (SELECT count(*) FROM pf_subsidy_total t LEFT JOIN source_fetch f USING (fetch_id) WHERE f.fetch_id IS NULL)
+             + (SELECT count(*) FROM pf_subsidy s LEFT JOIN source_fetch f USING (fetch_id) WHERE f.fetch_id IS NULL)
+             + (SELECT count(*) FROM pf_gift g LEFT JOIN source_fetch f USING (fetch_id) WHERE f.fetch_id IS NULL)
+        """
+    ).fetchone()[0]
+    if nofetch:
+        problems += 1
+        print(f"FAIL {nofetch} party-financing rows without a provenance record")
+
+    zero_leak = conn.execute(
+        "SELECT count(*) FROM pf_gift WHERE status = 'no-data-published' AND bedrag_eur IS NOT NULL"
+    ).fetchone()[0] + conn.execute(
+        "SELECT count(*) FROM pf_subsidy WHERE status = 'not-entitled-or-not-paid' "
+        "AND bedrag_eur IS NOT NULL"
+    ).fetchone()[0]
+    if zero_leak:
+        problems += 1
+        print(f"FAIL {zero_leak} rows carry an amount despite a null-ish status")
+
+    print("validate-party:", "OK" if problems == 0 else f"{problems} problem(s)")
+    return 0 if problems == 0 else 1
 
 
 def cmd_grade(args) -> int:
@@ -218,6 +357,17 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--refresh", action="store_true")
     s.add_argument("--out", default=str(DEFAULT_OUT))
     s.set_defaults(func=cmd_sync)
+
+    s = sub.add_parser("ingest-partijfinanciering",
+                       help="fetch documents, subsidies, giften from partijfinanciering.nl")
+    s.add_argument("--giften-years", default="2022,2023,2024",
+                   help="years to fetch gifts for; empty years report no-data-published")
+    s.add_argument("--out", default=str(DEFAULT_OUT / "party-financing.csv"),
+                   help="artifact CSV to write")
+    s.set_defaults(func=cmd_ingest_partijfinanciering)
+
+    s = sub.add_parser("validate-party", help="integrity checks over the party-financing tables")
+    s.set_defaults(func=cmd_validate_party)
 
     args = p.parse_args(argv)
     return args.func(args)
