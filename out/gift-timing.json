@@ -1,0 +1,280 @@
+{
+ "meta": {
+  "source": "out/gifts_donors.csv (dashboard donor rows, kind=contribution)",
+  "dated_rows": 3784,
+  "total_dated_eur": 8933574.99,
+  "window_choice": "90 days before election day, chosen by hand; 30/60/90/120 all reported",
+  "elections_in_window": [
+   "2023-11-22"
+  ],
+  "note": "A gift dated inside a campaign window is not proof it was campaign money: the register records a payment date, not a purpose. The comparison against 2022 and 2024 exists to stop a seasonal pattern from being read as an election effect."
+ },
+ "per_year_eur": {
+  "2022": 2623120.76,
+  "2023": 3112203.93,
+  "2024": 3198250.3
+ },
+ "monthly_eur": {
+  "2022-01": 128840.83,
+  "2022-02": 188441.1,
+  "2022-03": 256768.74,
+  "2022-04": 196105.8,
+  "2022-05": 191006.64,
+  "2022-06": 133366.43,
+  "2022-07": 198510.98,
+  "2022-08": 188454.94,
+  "2022-09": 209204.73,
+  "2022-10": 221877.51,
+  "2022-11": 286341.46,
+  "2022-12": 424201.6,
+  "2023-01": 9510.17,
+  "2023-02": 151588.52,
+  "2023-03": 285769.65,
+  "2023-04": 257912.62,
+  "2023-05": 240143.45,
+  "2023-06": 249304.26,
+  "2023-07": 251057.91,
+  "2023-08": 273067.25,
+  "2023-09": 291674.25,
+  "2023-10": 437653.37,
+  "2023-11": 427940.55,
+  "2023-12": 236581.93,
+  "2024-01": 92191.87,
+  "2024-02": 298569.9,
+  "2024-03": 232456.66,
+  "2024-04": 267907.56,
+  "2024-05": 335297.05,
+  "2024-06": 231889.26,
+  "2024-07": 273186.61,
+  "2024-08": 233394.9,
+  "2024-09": 257267.79,
+  "2024-10": 311524.63,
+  "2024-11": 331285.72,
+  "2024-12": 333278.35
+ },
+ "windows": [
+  {
+   "election": "2021-03-17",
+   "by_days": {
+    "30": {
+     "from": "2021-02-15",
+     "to": "2021-03-17",
+     "inside_eur": 0,
+     "same_window_year_before": null,
+     "same_window_year_after": 255067.36
+    },
+    "60": {
+     "from": "2021-01-16",
+     "to": "2021-03-17",
+     "inside_eur": 0,
+     "same_window_year_before": null,
+     "same_window_year_after": 386247.99
+    },
+    "90": {
+     "from": "2020-12-17",
+     "to": "2021-03-17",
+     "inside_eur": 0,
+     "same_window_year_before": null,
+     "same_window_year_after": 392373.37
+    },
+    "120": {
+     "from": "2020-11-17",
+     "to": "2021-03-17",
+     "inside_eur": 0,
+     "same_window_year_before": null,
+     "same_window_year_after": 392373.37
+    }
+   }
+  },
+  {
+   "election": "2023-11-22",
+   "by_days": {
+    "30": {
+     "from": "2023-10-23",
+     "to": "2023-11-22",
+     "inside_eur": 461110.83,
+     "same_window_year_before": 223030.08,
+     "same_window_year_after": 313291.41
+    },
+    "60": {
+     "from": "2023-09-23",
+     "to": "2023-11-22",
+     "inside_eur": 830781.28,
+     "same_window_year_before": 455892.15,
+     "same_window_year_after": 641970.82
+    },
+    "90": {
+     "from": "2023-08-24",
+     "to": "2023-11-22",
+     "inside_eur": 1135143.01,
+     "same_window_year_before": 650082.44,
+     "same_window_year_after": 850710.64
+    },
+    "120": {
+     "from": "2023-07-25",
+     "to": "2023-11-22",
+     "inside_eur": 1379913.22,
+     "same_window_year_before": 751416.76,
+     "same_window_year_after": 1105011.94
+    }
+   }
+  },
+  {
+   "election": "2025-10-29",
+   "by_days": {
+    "30": {
+     "from": "2025-09-29",
+     "to": "2025-10-29",
+     "inside_eur": 0,
+     "same_window_year_before": 316080.18,
+     "same_window_year_after": null
+    },
+    "60": {
+     "from": "2025-08-30",
+     "to": "2025-10-29",
+     "inside_eur": 0,
+     "same_window_year_before": 568698.55,
+     "same_window_year_after": null
+    },
+    "90": {
+     "from": "2025-07-31",
+     "to": "2025-10-29",
+     "inside_eur": 0,
+     "same_window_year_before": 801055.32,
+     "same_window_year_after": null
+    },
+    "120": {
+     "from": "2025-07-01",
+     "to": "2025-10-29",
+     "inside_eur": 0,
+     "same_window_year_before": 1071502.16,
+     "same_window_year_after": null
+    }
+   }
+  }
+ ],
+ "per_party_2023": [
+  {
+   "partij": "SP",
+   "in_window": 420469.13,
+   "year_2023": 1486537.28,
+   "share_of_2023_in_window": 28.3,
+   "year_2022": 1324765.75,
+   "year_2024": 1542370.95,
+   "dated_share_of_all_2023": 23.9
+  },
+  {
+   "partij": "GL",
+   "in_window": 263145.77,
+   "year_2023": 1005395.9,
+   "share_of_2023_in_window": 26.2,
+   "year_2022": 974613.85,
+   "year_2024": 1193003.92,
+   "dated_share_of_all_2023": 15.7
+  },
+  {
+   "partij": "D66",
+   "in_window": 164907.0,
+   "year_2023": 183571.0,
+   "share_of_2023_in_window": 89.8,
+   "year_2022": 15000.0,
+   "year_2024": 204896.0,
+   "dated_share_of_all_2023": 11.5
+  },
+  {
+   "partij": "Volt",
+   "in_window": 55625.0,
+   "year_2023": 64960.0,
+   "share_of_2023_in_window": 85.6,
+   "year_2022": 109809.16,
+   "year_2024": 56418.89,
+   "dated_share_of_all_2023": 10.0
+  },
+  {
+   "partij": "CDA",
+   "in_window": 52300.0,
+   "year_2023": 54800.0,
+   "share_of_2023_in_window": 95.4,
+   "year_2022": 2500.0,
+   "year_2024": 71325.0,
+   "dated_share_of_all_2023": 5.9
+  },
+  {
+   "partij": "FvD",
+   "in_window": 51000.0,
+   "year_2023": 74779.0,
+   "share_of_2023_in_window": 68.2,
+   "year_2022": null,
+   "year_2024": 5000.0,
+   "dated_share_of_all_2023": 12.5
+  },
+  {
+   "partij": "VVD",
+   "in_window": 34998.0,
+   "year_2023": 45998.0,
+   "share_of_2023_in_window": 76.1,
+   "year_2022": 50000.0,
+   "year_2024": null,
+   "dated_share_of_all_2023": 1.1
+  },
+  {
+   "partij": "CU",
+   "in_window": 29666.0,
+   "year_2023": 43666.0,
+   "share_of_2023_in_window": 67.9,
+   "year_2022": 17500.0,
+   "year_2024": null,
+   "dated_share_of_all_2023": 8.1
+  },
+  {
+   "partij": "PvdD",
+   "in_window": 28899.32,
+   "year_2023": 103672.4,
+   "share_of_2023_in_window": 27.9,
+   "year_2022": 84020.35,
+   "year_2024": 99773.96,
+   "dated_share_of_all_2023": 7.7
+  },
+  {
+   "partij": "SGP",
+   "in_window": 16150.0,
+   "year_2023": 16150.0,
+   "share_of_2023_in_window": 100.0,
+   "year_2022": null,
+   "year_2024": null,
+   "dated_share_of_all_2023": 4.8
+  },
+  {
+   "partij": "BVNL",
+   "in_window": 13500.0,
+   "year_2023": 13500.0,
+   "share_of_2023_in_window": 100.0,
+   "year_2022": null,
+   "year_2024": 1044.0,
+   "dated_share_of_all_2023": 5.3
+  },
+  {
+   "partij": "PvdA",
+   "in_window": 4482.79,
+   "year_2023": 16674.35,
+   "share_of_2023_in_window": 26.9,
+   "year_2022": 44911.65,
+   "year_2024": 24417.58,
+   "dated_share_of_all_2023": 1.2
+  },
+  {
+   "partij": "BBB",
+   "in_window": 0.0,
+   "year_2023": 2500.0,
+   "share_of_2023_in_window": 0.0,
+   "year_2022": null,
+   "year_2024": null,
+   "dated_share_of_all_2023": 1.5
+  }
+ ],
+ "totals_2023": {
+  "in_window": 1135143.01,
+  "year": 3112203.93,
+  "share": 36.5
+ }
+}
