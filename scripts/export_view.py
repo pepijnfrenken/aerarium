@@ -254,6 +254,8 @@ def main() -> None:
                 "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
                 "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
                 "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
+                "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
+                "The dashboard's 2025 gift page is empty, but BZK published gifts around the 2025 election in a separate overview. An empty page is not an absence of gifts.",
             ],
         },
         "budget": load_budget(),

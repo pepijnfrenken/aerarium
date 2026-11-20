@@ -27,6 +27,15 @@ while IFS=$'\t' read -r jaar partij deel pages link; do
     printf "[%02d/%s] skip %s\n" "$n" "$total" "$(basename "$txt")"
     continue
   fi
+  # 2020-2021 rows link to /details/ronl-<hash>, a JavaScript shell that returns 607 bytes of HTML to curl.
+  # The document itself is served by the site's own attachment endpoint, which needs no auth:
+  #   https://open.overheid.nl/overheid/openbaarmakingen/api/v0/attachment/ronl-<hash>
+  case "$link" in
+    */details/ronl-*)
+      ronl="${link##*/details/}"
+      link="https://open.overheid.nl/overheid/openbaarmakingen/api/v0/attachment/${ronl}"
+      ;;
+  esac
   code=$(curl -sSL --http1.1 -m 240 -A "Mozilla/5.0 (X11; Linux x86_64)" -o "$pdf" -w '%{http_code}' "$link")
   if [ "$code" != "200" ] || [ ! -s "$pdf" ]; then
     printf "[%02d/%s] FAIL %s http=%s\n" "$n" "$total" "$partij $jaar" "$code"
