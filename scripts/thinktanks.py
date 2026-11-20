@@ -111,7 +111,7 @@ def main() -> int:
             interior = [y for y in flags if d["years"][0] <= int(y) < d["years"][-1]]
             if interior:
                 d["coverage_flag"] = (
-                    f"years {', '.join(sorted(interior))} are below a fifth of the entity's best year. "
+                    f"years {', '.join(str(y) for y in sorted(interior))} are below a fifth of the entity's best year. "
                     "Check the scheme row for that year before reading it as a fall in funding."
                 )
 
