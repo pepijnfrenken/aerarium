@@ -397,6 +397,8 @@ def main() -> None:
                 "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
                 "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
                 "Party spending is not published as a comparable series. 131 campaign-spend lines across 92 reports come in three layouts, and 10 of 31 party-years yield conflicting values for the same year. No spending total is shown; see docs/FINDING-004.",
+                "SP's gifts are almost entirely its own elected representatives. Its 2024 report states EUR 1,999,889 received from volksvertegenwoordigers against EUR 2,098,889.33 in gifts: 95.3% is salary surrender, not outside money. Its entity share is 0.0%.",
+                "PVV has no row in the subsidy table because it takes nothing through it: its reports for 2021-2024 state subsidies received EUR 0, contributions EUR 150, two members at EUR 75. A missing row here is the party's position, not a gap in the register.",
                 "GroenLinks and PvdA are one party now. They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors.",
             ],
         },
