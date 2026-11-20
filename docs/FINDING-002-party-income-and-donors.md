@@ -107,10 +107,17 @@ year mixes vintages; summing by scheme name is possible and not done here.
 - **PVV has no subsidy row** in 2022-2024, while appearing in the gift table with €35.000 (2022), €15.000
   (2023), €0 (2024), each time to `Vrienden van de PVV`. The published tables do not say why. Wfpp art. 8-9
   conditions were read and do not by themselves explain it, so this is recorded as absent, not as zero.
-- **The per-entity split of the subsidy** exists in the party PDFs, not in any structured source, and only 10
-  of the 58 reports for 2022-2024 state it explicitly.
+- **The per-entity split of the subsidy** exists in the party PDFs, not in any structured source. Across all 92
+  documents, 10 state it under the wording `per entiteit`, and all 10 are 2023 or 2024: none in 2020-2022, so
+  the split is a recent practice rather than an old gap. 74 of 92 name their neveninstellingen somewhere
+  without stating what each received, so the lower count is about the split, not about naming.
 - **2020 and 2021 annual reports** are linked as `open.overheid.nl/details/ronl-…`, a JavaScript shell that
-  returns 607 bytes of HTML to a plain fetch. 34 documents were not extracted; the 58 from 2022-2024 were.
+  returns 607 bytes of HTML to a plain fetch. The document itself is served by the site's attachment endpoint
+  (`/overheid/openbaarmakingen/api/v0/attachment/ronl-…`), which needs no key, so all 92 are extractable after
+  all. Corrected: earlier text here said 34 of them were not extracted.
+- **One document was silently overwritten.** The register carries two distinct 2021 Volt deel-2 documents with
+  different `ronl-` ids, and a filename built only from year, party and deel made the second overwrite the
+  first. Corpus filenames now carry a hash of the link, so 92 documents produce 92 files.
 - **Gifts are published for 2022-2024 only.** 2019-2021 and 2025 render an empty page with €0,00 and zero
   party cards; the store records them as `no-data-published`, never as zero.
 - **No licence statement** is printed anywhere on `partijfinanciering.nl`. Publication is required by statute,

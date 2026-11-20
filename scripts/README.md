@@ -44,15 +44,32 @@ This script replaces that block and refuses to write unless the new block parses
 
 Run it after every `export_view.py`. It is idempotent: same JSON in, byte-identical page out.
 
-## `fetch_corpus.sh` — the annual-report corpus (partial)
+## `fetch_corpus.sh` — the annual-report corpus
 
-Downloads the 92 `jaarverslagen` documents and extracts text with `pdftotext`. Fetches 2022-2024 (58 documents)
-successfully. **2020-2021 fail by design of the source**: those rows link to
-`open.overheid.nl/details/ronl-…`, a JavaScript shell that returns 607 bytes of HTML to a plain fetch. They
-need a browser or the open.overheid API; the script does not fake a success when the content type says HTML.
+Downloads all 92 `jaarverslagen` documents and extracts text with `pdftotext`, then deletes the PDFs. Text is
+what is kept; the PDFs are re-fetchable.
+
+Two link shapes have to be handled. 2022-2024 rows link straight to `.../documenten/<uuid>/file`. 2020-2021 rows
+link to `/details/ronl-<hash>`, a JavaScript shell that returns 607 bytes of HTML to curl, so the visible link
+is not the document. The file is behind the site's own attachment endpoint, which needs no key:
+
+    https://open.overheid.nl/overheid/openbaarmakingen/api/v0/attachment/ronl-<hash>
+
+Filenames carry a hash of the link (`<jaar>_<partij>_<deel>_<hash8>.txt`) because the register holds two
+distinct 2021 Volt deel-2 documents with the same year, party and deel; without the hash one overwrites the
+other and the loss is invisible. 92 documents, 92 files.
+
+Verify a fetch by content type or PDF magic bytes, never by HTTP status alone: the details pages return 200
+with an HTML body.
+
+The extracted text of all 92 documents is committed under `corpus/text/` with the register index at
+`corpus/index.tsv`, so the findings do not depend on a refetch or on a temporary directory. Re-running the
+script regenerates it.
 
 ## Checking the numbers
 
-`verify_finding002.py` in the scratch directory asserts every figure FINDING-002 states against
-`view-data.json` and the store, and exits non-zero on any disagreement. Prose and data drift apart silently
-otherwise.
+    .venv/bin/python scripts/verify_findings.py
+
+Asserts every figure FINDING-002 and FINDING-003 state, against `view-data.json`, the store and the corpus,
+and exits non-zero on any disagreement. Prose and data drift apart silently otherwise; a number that is not
+asserted here is not verified.

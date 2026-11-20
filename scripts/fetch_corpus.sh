@@ -21,8 +21,12 @@ n=0
 while IFS=$'\t' read -r jaar partij deel pages link; do
   n=$((n+1))
   slug=$(printf '%s' "$partij" | tr ' /' '__' | tr -cd 'A-Za-z0-9_')
-  pdf="$PDF/${jaar}_${slug}_${deel}.pdf"
-  txt="$TEXT/${jaar}_${slug}_${deel}.txt"
+  # The register carries two distinct documents for 2021 Volt deel 2 (different ronl-ids, same party/deel),
+  # so a name built only from year, party and deel silently overwrites one with the other. The link hash makes
+  # every filename unique and stable.
+  lh=$(printf '%s' "$link" | sha256sum | cut -c1-8)
+  pdf="$PDF/${jaar}_${slug}_${deel}_${lh}.pdf"
+  txt="$TEXT/${jaar}_${slug}_${deel}_${lh}.txt"
   if [ -s "$txt" ]; then
     printf "[%02d/%s] skip %s\n" "$n" "$total" "$(basename "$txt")"
     continue
