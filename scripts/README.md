@@ -66,6 +66,30 @@ The extracted text of all 92 documents is committed under `corpus/text/` with th
 `corpus/index.tsv`, so the findings do not depend on a refetch or on a temporary directory. Re-running the
 script regenerates it.
 
+## `classify_donors.py` — what kind of donor each one is
+
+    .venv/bin/python scripts/classify_donors.py
+
+Reads `out/view-data.json`, writes `out/donor-typology.json`. Four classes (individual, entity, bequest, party
+vehicle) assigned from the name and from the register's own neveninstelling tags. A class says what a donor *is*,
+never why it gave: the register has no field for reason, so none is inferred. Known error modes are listed in
+the output's `meta.known_false_positives`.
+
+## `extract_neveninstellingen.py` — the per-entity split from the party PDFs
+
+    .venv/bin/python scripts/extract_neveninstellingen.py
+
+Reads `corpus/text/`, writes `out/neveninstellingen.csv`: one row per entity named by a party in its own annual
+report, with the amount only where the report states one, and a verbatim evidence quote. Precision over recall;
+see `docs/PROBE-004-neveninstellingen-in-the-reports.md` for the shapes, the four-amount verification, and the
+known limits (bare acronyms missed, spellings unmerged, figures that may be current-account balances).
+
+## `out/party-lineage.json` — when a name stopped meaning the same party
+
+Not generated: it is hand-entered with a source per event, because party identity across years is a judgement
+about documents, not a computation. `export_view.py` reads it and computes the combined position of a merged
+group, so the page cannot rank GroenLinks and PvdA as two competitors when they are now one party, PRO.
+
 ## Checking the numbers
 
     .venv/bin/python scripts/verify_findings.py

@@ -1,0 +1,32 @@
+{
+ "meta": {
+  "purpose": "Party identity is not stable across years. This file records the moments when a name stopped meaning the same organisation, so a chart cannot silently compare two different things.",
+  "retrieved": "2026-11-20",
+  "rule": "A series that keeps two merged parties separate, or that treats a renamed party as a new one, tells a lie the source never told. The register files 2020-2024 as two separate legal parties because that is what they were; it does not know about 2026."
+ },
+ "groups": [
+  {
+   "name": "PRO (Progressief Nederland)",
+   "former_names": ["GroenLinks-PvdA", "GL/PvdA"],
+   "members": ["GL", "PvdA"],
+   "single_party_from": "2026-07-01",
+   "note": "GroenLinks and PvdA filed separate Wfpp reports every year in this dataset. From 2023 they campaigned on one list and sat as one parliamentary group, and from 1 July 2026 they are one legal party. Reading their rows as two independent parties is correct for 2020-2022, arguable for 2023-2025, and wrong from 2026."
+  }
+ ],
+ "events": [
+  {"date": "2023-07-17", "what": "Members of both parties vote for a joint electoral list: 91.8% of GroenLinks, over 87% of PvdA.", "source": "https://ommen.groenlinks.nl/nieuws/tijdpad-gezamenlijke-verkiezingsdeelname"},
+  {"date": "2023-10-27", "what": "The two Tweede Kamer groups merge into one group, GroenLinks-PvdA.", "source": "https://nl.wikipedia.org/wiki/GroenLinks-PvdA"},
+  {"date": "2023-11-22", "what": "First joint election: one list, 25 seats, Frans Timmermans leader. Under Wfpp art. 10 a combined list shares the base amounts pro rata, so the 2023 subsidy rows describe one list, not two independent parties.", "source": "https://nl.wikipedia.org/wiki/GroenLinks-PvdA"},
+  {"date": "2025-06", "what": "Online referendum approves a full merger: 88% of PvdA members, 89% of GroenLinks members.", "source": "https://nos.nl/artikel/2607948-nieuwe-naam-groenlinks-pvda-bekend-progressief-nederland-kortweg-pro"},
+  {"date": "2026-03-26", "what": "The new name is announced: Progressief Nederland, abbreviated PRO.", "source": "https://nos.nl/artikel/2607948-nieuwe-naam-groenlinks-pvda-bekend-progressief-nederland-kortweg-pro"},
+  {"date": "2026-06-10", "what": "The Tweede Kamer group changes its name to Progressief Nederland.", "source": "https://nl.wikipedia.org/wiki/Progressief_Nederland"},
+  {"date": "2026-06-13", "what": "Founding congress adopts the principles programme, statutes and rules of procedure.", "source": "https://nl.wikipedia.org/wiki/Progressief_Nederland"},
+  {"date": "2026-07-01", "what": "Progressief Nederland is founded. GroenLinks and PvdA cease to exist as separate parties.", "source": "https://nl.wikipedia.org/wiki/Progressief_Nederland"}
+ ],
+ "renames": [
+  {"name": "50PLUS", "variant": "50plus", "note": "The 2020 report and register rows write 50plus."},
+  {"name": "FvD", "variant": "FVD", "note": "Register and report capitalisation differ by vintage."},
+  {"name": "CU", "variant": "ChristenUnie", "note": "Both strings appear in the same corpus."},
+  {"name": "GL", "variant": "GroenLinks", "note": "Both strings appear in the same corpus."}
+ ]
+}

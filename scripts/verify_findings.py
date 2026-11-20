@@ -149,6 +149,24 @@ grows = [r for r in csv.DictReader((REPO / "out" / "gifts_donors.csv").open(enco
 ck("rows carrying a UBO", sum(1 for r in grows if r["ubo_naam"]), 137)
 ck("distinct donor-UBO pairs", len({(r["donor"], r["ubo_naam"]) for r in grows if r["ubo_naam"]}), 134)
 
+# ---- FINDING 002/003: the GL+PvdA lineage (now PRO) ---------------------------
+lin = d.get("lineage", {})
+grp = (lin.get("combined") or [{}])[0]
+ck("lineage group name", grp.get("name"), "PRO (Progressief Nederland)")
+ck("lineage members", grp.get("members"), ["GL", "PvdA"])
+ck("combined subsidy 2022-2024", round(grp.get("total_subsidy", 0), 2), 12755783)
+ck("combined gifts 2022-2024", round(grp.get("total_gifts", 0), 2), 7773405.02, tol=0.05)
+ck("combined total", round(grp.get("total_subsidy", 0) + grp.get("total_gifts", 0), 2), 20529188, tol=0.05)
+ck("combined beats VVD", grp["total_subsidy"] + grp["total_gifts"] > 19554840, True)
+ck("lineage events", len(lin.get("events", [])), 8)
+ck("single party from", grp.get("single_party_from"), "2026-07-01")
+# the merged formation's entity share: 20.000 + 20.000 of 7.773.405
+ck("PRO entity money", round(typ["by_party"]["GL"]["entity"] + typ["by_party"]["PvdA"]["entity"], 2), 40000)
+ck("PRO entity share of gifts", round(100 * 40000 / grp["total_gifts"], 1), 0.5, tol=0.06)
+# per-year combined 2024 gift share stated in the page lede
+y24 = next(r for r in grp["by_year"] if r["jaar"] == 2024)
+ck("combined 2024 gift share", round(100 * y24["gifts"] / y24["total"], 1), 46.8, tol=0.06)
+
 print()
 if fails:
     print(f"{len(fails)} FAILURE(S):")

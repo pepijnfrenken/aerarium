@@ -251,6 +251,45 @@ def load_typology() -> dict:
     }
 
 
+def load_lineage() -> dict:
+    """Party identity across years, plus the combined position of a merged group.
+
+    GroenLinks and PvdA filed separately every year in this dataset, so their rows stay separate. But from
+    2023 they campaigned on one list and from 2026-07-01 they are one party (PRO). A ranking that treats them
+    as two competitors therefore understates the bloc, so the combined figures are computed here.
+    """
+    path = REPO / "out" / "party-lineage.json"
+    if not path.exists():
+        return {}
+    lin = json.loads(path.read_text(encoding="utf-8"))
+    sub = {p["name"]: p["by_year"] for p in load_subsidy()["parties"]}
+    gif = {}
+    for r in csv.DictReader(GIFTS.open(encoding="utf-8")):
+        if r["kind"] == "donor-total":
+            gif.setdefault(r["partij"], {}).setdefault(str(r["jaar"]), 0.0)
+            gif[r["partij"]][str(r["jaar"])] += float(r["totaal"] or 0)
+
+    combined = []
+    for g in lin.get("groups", []):
+        years = sorted({y for m in g["members"] for y in sub.get(m, {})})
+        rows = []
+        for y in years:
+            s_ = sum((sub.get(m, {}).get(y) or 0) for m in g["members"])
+            gi = sum((gif.get(m, {}).get(y) or 0) for m in g["members"])
+            rows.append({"jaar": int(y), "subsidy": round(s_, 2), "gifts": round(gi, 2),
+                         "total": round(s_ + gi, 2)})
+        combined.append({
+            "name": g["name"], "members": g["members"],
+            "single_party_from": g.get("single_party_from"), "note": g.get("note"),
+            "by_year": rows,
+            "total_subsidy": round(sum(r["subsidy"] for r in rows), 2),
+            "total_gifts": round(sum(r["gifts"] for r in rows), 2),
+        })
+    return {"meta": lin.get("meta", {}), "groups": lin.get("groups", []),
+            "events": lin.get("events", []), "renames": lin.get("renames", []),
+            "combined": combined}
+
+
 def main() -> None:
     data = {
         "meta": {
@@ -275,10 +314,12 @@ def main() -> None:
                 "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
                 "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
                 "The dashboard's 2025 gift page is empty, but BZK published gifts around the 2025 election in a separate overview. An empty page is not an absence of gifts.",
+                "GroenLinks and PvdA are one party now. They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors.",
             ],
         },
         "budget": load_budget(),
         "typology": load_typology(),
+        "lineage": load_lineage(),
         "subsidy": load_subsidy(),
         "gifts": load_gifts(),
         "nfrp": load_nfrp(),

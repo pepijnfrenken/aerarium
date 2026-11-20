@@ -84,6 +84,13 @@ Thirteen contributions are estates: €698.798 in total, and €549.695 of that 
 donation where the donor cannot have a current commercial interest, and it is unusually concentrated in one
 party. Nothing in the register says why someone left money to PvdD; the will is not published.
 
+## The merged party does not look like either of its halves
+
+GroenLinks and PvdA are one party since 2026-07-01 (PRO), so their donor profiles belong together. Combined
+over 2022-2024: €7.773.405,02 in gifts, of which €40.000 from entities. That is 0,5% organisational money, the
+second lowest of any formation here after GroenLinks alone at 0,3%. Reading the two rows as rival parties
+splits a single fundraising base and makes both look smaller than the bloc is.
+
 ## Where a motive is actually documented
 
 Three cases, and only because the donor or the reporting states it:

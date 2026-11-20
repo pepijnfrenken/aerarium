@@ -73,6 +73,32 @@ as what VVD received is mostly what its entity received.
 holds for the *state subsidy* chain only. Private money into them is published, with donor names. The two
 statements are about different flows and were collapsed into one in the earlier text.
 
+## Party identity: GroenLinks and PvdA are one party now
+
+Every series in this repository treats GL and PvdA as separate parties, and for 2020-2022 that is correct. It
+stops being correct after that. The record:
+
+| date | what happened |
+|---|---|
+| 2023-07-17 | members of both parties vote for a joint electoral list (91,8% GL, over 87% PvdA) |
+| 2023-10-27 | the two Tweede Kamer groups merge into GroenLinks-PvdA |
+| 2023-11-22 | first joint election, one list, 25 seats; under Wfpp art. 10 a combined list shares the base amounts pro rata |
+| 2025-06 | referendum approves a full merger (88% PvdA, 89% GL) |
+| 2026-03-26 | new name announced: Progressief Nederland, PRO |
+| 2026-06-10 | the Kamer group is renamed PRO |
+| 2026-07-01 | PRO is founded; GroenLinks and PvdA cease to exist as separate parties |
+
+Combined, the bloc that is now PRO is the largest party organisation in this window:
+
+| | subsidy 2022-2024 | gifts 2022-2024 | total |
+|---|---|---|---|
+| GL + PvdA | 12.755.783 | 7.773.405,02 | **20.529.188** |
+| VVD | 15.205.620 | 4.349.220 | 19.554.840 |
+
+So a ranking that puts VVD first and GL third is an artefact of the fusion date. The register is not wrong:
+these were two legal parties filing two reports. The chart would be wrong if it left that unsaid, which is why
+`out/party-lineage.json` carries the events with sources and dumps them into the page.
+
 ## Where a name is not an identity
 
 The same fund appears as `Godefridus van Hees Fonds` (€94.400, 8 contributions) and `Stichting Godefridus van
