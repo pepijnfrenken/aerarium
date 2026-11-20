@@ -37256,5 +37256,83 @@
    ],
    "rows": 1
   }
+ ],
+ "neven_functie": [
+  {
+   "entiteit": "Stichting Wetenschappelijk Instituut voor het CDA",
+   "partij": "CDA",
+   "functie": "Independent think tank attached to the CDA. Long-term policy advice, asked and unasked, to CDA politicians at national and local level; contributes to election programmes; publishes its own quarterly, Christen Democratische Verkenningen.",
+   "soort": "wetenschappelijk instituut",
+   "certainty": "sourced",
+   "bron_url": "https://wivoorhetcda.nl/over-het-wi/"
+  },
+  {
+   "entiteit": "Stichting Renaissance Instituut",
+   "partij": "FvD",
+   "functie": "Forum voor Democratie's scientific bureau. Research (for instance on the budgetary effects of immigration), public lectures, and the Renaissanceschool, the first of which opened in Almere in August 2022.",
+   "soort": "wetenschappelijk instituut",
+   "certainty": "sourced",
+   "bron_url": "https://nl.wikipedia.org/wiki/Renaissance_Instituut"
+  },
+  {
+   "entiteit": "Wetenschappelijk Bureau GroenLinks (Bureau de Helling)",
+   "partij": "GL",
+   "functie": "GroenLinks's scientific bureau. An independent think tank that develops green and left thought and the party's programme, brings academics and politicians together, and publishes the quarterly de Helling. Its international work sits in a separate legal entity, Bureau de Helling Democracy Development Abroad, since 1 January 2016.",
+   "soort": "wetenschappelijk instituut",
+   "certainty": "sourced",
+   "bron_url": "https://www.wetenschappelijkbureaugroenlinks.nl/sites/wetenschappelijkbureau/files/2020-12/Jaarplan-2018-Wetenschappelijk-Bureau-GroenLinks.pdf"
+  },
+  {
+   "entiteit": "Wetenschappelijk instituut Statera",
+   "partij": "DENK",
+   "functie": "DENK's scientific institute. The name is Latin for balance, which is DENK's stated programme. Conducts policy-scientific research, deliberately seeking out groups it calls hard to reach and under-represented in research, and works at the join of academia, professional practice and civic involvement. KvK 64441067.",
+   "soort": "wetenschappelijk instituut",
+   "certainty": "sourced",
+   "bron_url": "https://instituutstatera.nl/visie-missie/"
+  },
+  {
+   "entiteit": "Foundation Max van der Stoel",
+   "partij": "PvdA",
+   "functie": "The PvdA's foreign-affairs foundation: democratisation in the EU's neighbouring countries, a fairer Dutch and EU policy towards the Global South, and public debate on those themes in the Netherlands. Merged with IFG in September 2026 and renamed PRO International, which puts it under the same name as the merged party.",
+   "soort": "buitenlandse activiteiten",
+   "certainty": "sourced",
+   "bron_url": "https://foundationmaxvanderstoel.nl/wie-we-zijn/over-ons/"
+  },
+  {
+   "entiteit": "Stichting Steunfonds Groep Omtzigt",
+   "partij": "NSC",
+   "functie": "ANBI with no profit motive, set up to fund the work of Groep Omtzigt: policy and scientific vision development, digital and communication work, and local projects. Raises its money in gifts. Its policy plan was under revision after Pieter Omtzigt left national politics.",
+   "soort": "steunfonds",
+   "certainty": "sourced",
+   "bron_url": "https://steunfondsomtzigt.nl/"
+  },
+  {
+   "entiteit": "Stichting Secretariaat CDA",
+   "partij": "CDA",
+   "functie": "The CDA's party secretariat: the office that runs the party organisation. Also the payee for the party's state subsidy, so it appears in the recipient register under its own KvK rather than under the party's name.",
+   "soort": "secretariaat",
+   "certainty": "from_name"
+  },
+  {
+   "entiteit": "Stichting Huisvesting CDA",
+   "partij": "CDA",
+   "functie": "Holds and runs the CDA's party premises, which is why its line is large and steady: property, not politics.",
+   "soort": "huisvesting",
+   "certainty": "from_name"
+  },
+  {
+   "entiteit": "Vereniging CDJA",
+   "partij": "CDA",
+   "functie": "The CDA's youth wing (Christen-Democratisch Jongeren Appèl), one of the twelve youth organisations the dashboard counts for 2024.",
+   "soort": "jongerenorganisatie",
+   "certainty": "from_name"
+  },
+  {
+   "entiteit": "Jongerenorganisatie Forum voor Democratie",
+   "partij": "FvD",
+   "functie": "Forum voor Democratie's youth wing.",
+   "soort": "jongerenorganisatie",
+   "certainty": "from_name"
+  }
  ]
 }

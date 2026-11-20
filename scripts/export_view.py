@@ -407,6 +407,8 @@ def main() -> None:
         "gifts": gifts,
         "latest": load_latest(gifts["totals"]),
         "nfrp": load_nfrp(),
+        "neven_functie": json.loads((OUT.parent / "neveninstellingen-functie.json")
+                                    .read_text(encoding="utf-8"))["entities"],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
