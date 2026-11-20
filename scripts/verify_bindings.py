@@ -315,6 +315,47 @@ else:
     print("FAIL  NFRP badge wording not found")
     fails.append("NFRP badge wording missing")
 
+# ---------------------------------------------------------------- prose-structure guards
+f1 = (REPO / "docs" / "FINDING-001-party-line-disclosure.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "carrying the bulk (2021-2023)" in f1:
+    print("FAIL  FINDING-001 still says anonymity carried the bulk across 2021-2023")
+    fails.append("FINDING-001 2021 anonymity claim not corrected")
+elif "€27.011k" in f1 and "€636k" in f1:
+    print("PASS  FINDING-001 states the 2021 split as mostly named, not mostly anonymous")
+else:
+    print("FAIL  FINDING-001 lacks the corrected 2021 split")
+    fails.append("FINDING-001 2021 split figures missing")
+
+f3txt = f3.read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "| CU |" in f3txt and "| OPNL |" in f3txt:
+    print("PASS  typology table carries CU and OPNL, not a silent subset")
+else:
+    print("FAIL  typology table still omits CU or OPNL without a stated rule")
+    fails.append("typology table omits CU or OPNL")
+
+f2txt = (REPO / "docs" / "FINDING-002-party-income-and-donors.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "is mostly what its entity received" in f2txt:
+    print("FAIL  FINDING-002 still calls 34.7% of VVD's total 'mostly'")
+    fails.append("FINDING-002 overstates the foundation share as mostly")
+elif "34,7%" in f2txt and "received *by*" in f2txt:
+    print("PASS  FINDING-002 states the foundation share as 34,7% and gets the flow direction right")
+else:
+    print("FAIL  FINDING-002 lacks the corrected share or direction")
+    fails.append("FINDING-002 VVD foundation share/direction not corrected")
+
+checked += 1
+if "Parties sorted by total income" in html:
+    print("FAIL  money map still labels a two-source subtotal as total income")
+    fails.append("money map claims total income from two sources")
+elif "two-source subtotal" in html:
+    print("PASS  money map labels its scope as a two-source subtotal with exclusions")
+else:
+    print("FAIL  money map scope label not found")
+    fails.append("money map scope label missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

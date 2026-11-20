@@ -39,6 +39,7 @@ Per party, the split is not a gradient, it is two different systems:
 | CDA | 923.705 | 655.125 | 268.580 | 0 | 29,1% |
 | Volt | 648.734 | 313.195 | 335.539 | 0 | 51,7% |
 | FvD | 596.116 | 273.348 | 322.768 | 0 | 54,1% |
+| CU | 536.654 | 441.214 | 81.440 | 0 | 15,2% |
 | SGP | 336.482 | 93.519 | 242.963 | 0 | 72,2% |
 | BVNL | 256.465 | 51.464 | 205.001 | 0 | 79,9% |
 | BBB | 164.633 | 70.200 | 94.433 | 0 | 57,4% |
@@ -46,6 +47,12 @@ Per party, the split is not a gradient, it is two different systems:
 | DENK | 70.106 | 70.106 | 0 | 0 | 0,0% |
 | NSC | 68.649 | 68.649 | 0 | 0 | 0,0% |
 | PVV | 50.000 | 35.000 | 15.000 | 0 | 30,0% |
+| OPNL | 1.800 | 1.800 | 0 | 0 | 0,0% |
+
+The table covers all nineteen filers with a positive gift total, including CU and OPNL. An earlier version
+omitted both without saying why, which made the ranking beside it look better supported than it was. CU's
+entity money also includes €14.000 classified as a party vehicle, so its organisational share is 15,2% on the
+entity column alone.
 
 GL, SP, PvdA, DENK and NSC take effectively no organisational money. VVD, BVNL, SGP, JA21, BBB, FvD and Volt
 take most of theirs from organisations. That divide is real and it is counted, not assumed.

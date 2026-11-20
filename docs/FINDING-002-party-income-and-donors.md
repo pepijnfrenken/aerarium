@@ -66,8 +66,14 @@ recipients:
 - 2024 CDA, Stichting CDA Business Club €192.948,99; Christendemocratische Club voor Fondsenwerving €130.350
 - 2022 CU, Mr. G. Groen van Prinsterer-stichting: €122.000
 
-VVD's 2023 gift total is €3.592.775, of which €1.244.932 went to one campaign foundation. A figure that reads
-as what VVD received is mostly what its entity received.
+VVD's 2023 gift total is €3.592.775. Two different figures got conflated here in an earlier version. The
+register records €1.244.932 received *by* Stichting Ondersteuning VVD Tweede Kamerverkiezing from other donors
+in 2023 — money flowing into the foundation, not out of it — and separately records the same foundation giving
+€1.300.000 to VVD that year. So one foundation accounts for 34,7% of VVD's reported total, not "mostly" of it,
+and the register does not show that the incoming euros are the ones that were passed on.
+
+The wider point stands and is worth separating from the arithmetic: a party-level gift total is not the same
+object as what the party's organisations received, and neither is total party income.
 
 **Correction.** Finding 001 concluded from the register alone that neveninstellingen are invisible. That
 holds for the *state subsidy* chain only. Private money into them is published, with donor names. The two

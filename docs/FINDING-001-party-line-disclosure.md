@@ -30,9 +30,13 @@ r4 moves, and it is graded in euros rather than in row labels:
 | 2025 | not-published | — | — | 26.929 |
 | 2026 | not-published | — | — | — |
 
-One scheme, four publication practices in nine years: fully anonymised (2017-2019), fully named (2020),
-a named remainder beside one anonymised row carrying the bulk (2021-2023), and a year where most of the
-money sits in no row at all (2024). No announcement accompanies any of the four.
+One scheme, four publication practices in nine years, and the split inverts between them: fully anonymised
+(2017-2019), fully named (2020, €23.777k named and no anonymised row), still mostly named in 2021 (€27.011k
+named against €636k anonymised), then reversed in 2022-2023, when one anonymised row carries the bulk and a
+small named remainder sits beside it (2022: €22.109k anonymous to €5.340k named; 2023: €24.321k to €5.137k),
+and finally a year where most of the money sits in no row at all (2024: €4.510k named of €33.923k realised).
+An earlier version of this line said anonymity "carried the bulk" across 2021-2023, which is wrong for 2021.
+No announcement accompanies any of the four practices.
 
 ## The 2024 arithmetic
 

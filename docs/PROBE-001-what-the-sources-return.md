@@ -8,7 +8,7 @@ with the URL in `data/raw/probe-2026-11-20/`. Licence on all rijksfinancien open
 
 My first reading was that the recipient register and the budget tables have no shared key. That was wrong, and
 the mistake is instructive: I probed the **chart API** (`/open-data/api/json/v2/financiele_instrumenten/*`),
-which returns three flat aggregate lists — `hoofdstukken`, `artikelen`, `regelingen`, `ontvangers` — each keyed
+which returns four flat aggregate lists — `hoofdstukken`, `artikelen`, `regelingen`, `ontvangers` — each keyed
 only by `id` (= `titel` lowercased), with no edge between scheme and recipient. Concluding "no join exists"
 from that would have been a finding about my probe, not about disclosure.
 
@@ -86,7 +86,8 @@ Rows where `Regeling = "Politieke partijen"`, summed from `Bedrag (x1000)`:
 The same scheme, the same ministry, published at four different granularities in six years:
 
 - **2019** — fully anonymised: `Geanonimiseerde ontvanger(s) van Subsidies (regelingen) voor Politieke partijen`.
-- **2020, 2021** — fully named, with KvK numbers, full amount (12 and 15 recipients).
+- **2020** — fully named, with KvK numbers, full amount (12 recipients).
+- **2021** — 15 named recipients (€27,0M) plus one small anonymised row (€0,6M). Mostly named, not fully.
 - **2022, 2023** — a small named remainder (€5,1–5,3M) plus one anonymised row carrying the bulk (€22,1M, €24,3M).
 - **2024** — 20 named recipients totalling €4,5M and no anonymised row at all. The remainder is not published
   in any form. The 2024 slice also carries party amounts that cannot be the subsidy (VVD €5k, D66 €4k, CDA
