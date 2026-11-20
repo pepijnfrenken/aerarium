@@ -15,6 +15,8 @@
   --accent:#9a2c25;
   --sub:#39434b;
   --und:#d9d5c9;
+  --bequest:#a8823f;
+  --vehicle:#6f7a63;
   --serif:Georgia,"Iowan Old Style","Palatino Linotype","Times New Roman",serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --num:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
@@ -168,6 +170,22 @@ tr.hot td{background:#f4f0e6}
 .xbar{display:flex;height:5px;width:100%;max-width:360px;background:#e8e4d9;margin-top:5px}
 .xbar i{display:block;height:100%;background:var(--sub)}
 .xbar i:nth-child(even){background:var(--accent)}
+
+/* typology bars */
+.typlist{background:var(--panel);border-top:1px solid var(--ink);padding:9px 12px 10px 12px}
+.typrow{display:grid;grid-template-columns:4.6em minmax(0,1fr) 8.4em;align-items:center;gap:12px;padding:2.5px 0}
+.typparty{font-family:var(--sans);font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.typtrack{height:15px;background:#e8e4d9;display:flex;min-width:0;cursor:default}
+.typfill{display:flex;height:100%;min-width:2px;flex:0 0 auto}
+.typfill > i{display:block;height:100%}
+.typfill > i.ti{background:var(--sub)}
+.typfill > i.te{background:var(--accent)}
+.typfill > i.tb{background:var(--bequest)}
+.typfill > i.tv{background:var(--vehicle)}
+.typtot{font-family:var(--num);font-variant-numeric:tabular-nums;font-size:11px;text-align:right;white-space:nowrap}
+.sw.ent{background:var(--accent)}
+.sw.beq{background:var(--bequest)}
+.sw.veh{background:var(--vehicle)}
 .subhead{
   display:flex;align-items:baseline;gap:12px;margin:24px 0 4px 0;
   font-family:var(--sans);
@@ -248,6 +266,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .legend{gap:10px}
   table{min-width:760px;font-size:11.5px}
   .pp{display:block}
+  .typrow{grid-template-columns:1fr auto;gap:0 10px}
+  .typtrack{grid-column:1 / -1;margin-top:3px}
+  .typparty{font-size:11px}
   .chart{padding-left:0}
   .chartgrid{min-width:700px}
   .masthead .wrap{padding-top:20px;padding-bottom:14px}
@@ -299,6 +320,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     <p class="lede" id="cross-lede"></p>
     <div class="tablewrap" id="cross-table"></div>
     <p class="srcline" id="cross-src"></p>
+  </section>
+
+  <section id="typ">
+    <div class="sec-head">
+      <span class="sec-no">03a</span>
+      <h2>Who gives</h2>
+      <span class="sec-meta" id="typ-count"></span>
+    </div>
+    <p class="lede" id="typ-lede"></p>
+    <div class="legend" id="typ-legend"></div>
+    <div class="typlist" id="typ-bars"></div>
+    <div class="tablewrap" id="typ-table"></div>
+    <p class="panelnote" id="typ-note"></p>
+    <p class="srcline" id="typ-src"></p>
   </section>
 
   <section id="neven">
@@ -544,7 +579,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       '<th>Party</th>' +
       '<th class="n">State subsidy<span class="unit">2022–24</span></th>' +
       '<th class="n">Private gifts<span class="unit">2022–24</span></th>' +
-      '<th class="n">Gift share<span class="unit">computed</span></th>' +
+      '<th class="n" title="Gift totals include transfers from a party\'s own foundations and salary transfers from its own representatives; they are gross of internal movement and do not measure outside influence.">Gift share, gross<span class="unit">computed</span></th>' +
       '<th>Income, stacked</th>' +
       '<th class="n">2022</th><th class="n">2023</th><th class="n">2024</th>' +
       '<th class="n">Total<span class="unit">2022–24</span></th>' +
@@ -591,6 +626,97 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       '<th>Amount per party</th><th class="n">Total</th>' +
     '</tr></thead><tbody>'+crossRows+'</tbody></table>';
   document.getElementById('cross-src').innerHTML = srcTag(['gifts']);
+
+  /* ---------- donor typology ---------- */
+  var TYPO = DATA.typology;
+  var TORDER = ['individual', 'entity', 'bequest', 'party_vehicle'];
+  var TNAME = {individual:'individuals', entity:'entities', bequest:'bequests', party_vehicle:'party vehicles'};
+  var TSHORT = {individual:'individual', entity:'entity', bequest:'bequest', party_vehicle:'vehicle'};
+  var TSEG = {individual:'ti', entity:'te', bequest:'tb', party_vehicle:'tv'};
+  var TSW = {individual:'', entity:' ent', bequest:' beq', party_vehicle:' veh'};
+  var tCounts = TYPO.counts, tMoney = TYPO.money;
+  var typDonors = TORDER.reduce(function(a,k){ return a + (tCounts[k] || 0); }, 0);
+  var typTotal = TORDER.reduce(function(a,k){ return a + (tMoney[k] || 0); }, 0);
+
+  var typParts = TORDER.map(function(k){
+    return '<b>'+NF.format(tCounts[k] || 0)+'</b> '+TNAME[k]+' ('+eur(tMoney[k] || 0)+')';
+  });
+  var typLast = typParts.pop();
+  document.getElementById('typ-lede').innerHTML =
+    '<b>'+NF.format(typDonors)+' donors</b> gave <b>'+eur(typTotal)+'</b> in 2022–2024, ' +
+    'split into four classes by name and by the register’s own entity tags: ' +
+    typParts.join(', ')+' and '+typLast+'.';
+
+  document.getElementById('typ-legend').innerHTML =
+    TORDER.map(function(k){
+      return '<span class="key"><i class="sw'+TSW[k]+'"></i>'+TNAME[k]+'</span>';
+    }).join('') +
+    '<span>One bar per party, sorted by total gifts. Bar length is the party total on a shared scale; each segment is that party’s split by donor class.</span>';
+
+  var typParties = Object.keys(TYPO.by_party).map(function(k){
+    var p = TYPO.by_party[k];
+    return {name:k, total:p.total, eshare:p.entity_share,
+      vals:TORDER.map(function(c){ return p[c] || 0; })};
+  }).sort(function(a,b){ return b.total - a.total; });
+  var typMax = typParties.length ? typParties[0].total : 0;
+
+  document.getElementById('typ-bars').innerHTML = typParties.map(function(p){
+    var fillW = typMax > 0 ? (p.total / typMax) * 100 : 0;
+    var segs = p.vals.map(function(amt,i){
+      if(!amt || p.total <= 0) return '';
+      var c = TORDER[i];
+      var w = (amt / p.total) * 100;
+      var segTip = [
+        p.name + ' — ' + TSHORT[c],
+        line('Amount', peur(amt)),
+        line('Party share', pnum(w,1)+' %')
+      ].join('\n');
+      return '<i class="'+TSEG[c]+'" style="width:'+w.toFixed(2)+'%" tabindex="0"' +
+        ' data-tip="'+esc(segTip)+'"' +
+        ' aria-label="'+esc(p.name+' '+TSHORT[c]+': '+peur(amt)+', '+pnum(w,1)+'% of the party total')+'"></i>';
+    }).join('');
+    return '<div class="typrow">' +
+      '<span class="typparty">'+esc(p.name)+'</span>' +
+      '<div class="typtrack"><span class="typfill" style="width:'+fillW.toFixed(2)+'%">'+segs+'</span></div>' +
+      '<span class="typtot">'+eur(p.total)+'</span>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('typ-table').innerHTML =
+    '<table><thead><tr>' +
+      '<th>Party</th>' +
+      '<th class="n">Total<span class="unit">€ · 2022–24</span></th>' +
+      '<th class="n">Individual<span class="unit">€</span></th>' +
+      '<th class="n">Entity<span class="unit">€</span></th>' +
+      '<th class="n">Bequest<span class="unit">€</span></th>' +
+      '<th class="n">Vehicle<span class="unit">€</span></th>' +
+      '<th class="n">Entity share<span class="unit">computed</span></th>' +
+    '</tr></thead><tbody>' +
+    typParties.map(function(p){
+      var cells = p.vals.map(function(amt){
+        return '<td class="n">'+(amt ? eur(amt) : '<span class="muted">'+eur(0)+'</span>')+'</td>';
+      }).join('');
+      return '<tr>' +
+        '<td class="party">'+esc(p.name)+'</td>' +
+        '<td class="n total">'+eur(p.total)+'</td>' +
+        cells +
+        '<td class="share">'+pnum(p.eshare,1)+'%</td>' +
+      '</tr>';
+    }).join('') +
+    '</tbody><tfoot><tr>' +
+      '<td class="party">All parties</td>' +
+      '<td class="n total">'+eur(typTotal)+'</td>' +
+      TORDER.map(function(k){ return '<td class="n">'+eur(tMoney[k] || 0)+'</td>'; }).join('') +
+      '<td></td>' +
+    '</tr></tfoot></table>';
+
+  document.getElementById('typ-count').textContent =
+    'typology.by_party · '+typParties.length+' parties';
+  document.getElementById('typ-note').innerHTML =
+    '<b>On the classes.</b> '+esc(TYPO.warning)+' ' +
+    'An entity share measures the kind of donor, not the donor’s influence: for SP, GL and PvdA most of the ' +
+    '“individual” money is their own elected representatives transferring their allowance to the party under a party rule.';
+  document.getElementById('typ-src').innerHTML = srcTag(['gifts']);
 
   /* ---------- gift entities ---------- */
   var emap = {}, emapKeys = [];
