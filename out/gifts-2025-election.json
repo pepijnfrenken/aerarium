@@ -1,0 +1,188 @@
+{
+ "meta": {
+  "source": "BZK overviews for the Tweede Kamer election of 29 October 2025",
+  "period": "1 January 2024 to 8 October 2025; supplementary overview to 29 October published separately",
+  "threshold": "EUR 767,12 in an election year, against EUR 1.000 normally",
+  "why_not_on_the_dashboard": "Election-year disclosures are published as ODS on rijksoverheid.nl. The dashboard's year pages carry 2022-2024, and the 2025 annual reports are not due until 1 July 2026.",
+  "privacy": "The source publishes only a natural person's place of residence; a full address appears for legal persons only. adres is empty for natural persons by construction.",
+  "reconciliation": {
+   "published_eind_2024_plus_2025": 9258031.72,
+   "published_2025_only": 9148658.46,
+   "detail_sum": 9258031.72,
+   "parties_not_reconciling": []
+  }
+ },
+ "per_party": [
+  {
+   "partij": "GL",
+   "totaal_2025": 2233874.32,
+   "detail_sum": 2233874.32,
+   "donors": 670
+  },
+  {
+   "partij": "SP",
+   "totaal_2025": 1536307.35,
+   "detail_sum": 1536307.35,
+   "donors": 191
+  },
+  {
+   "partij": "D66",
+   "totaal_2025": 1228601.11,
+   "detail_sum": 1228601.11,
+   "donors": 136
+  },
+  {
+   "partij": "PvdA",
+   "totaal_2025": 996163.09,
+   "detail_sum": 996163.09,
+   "donors": 311
+  },
+  {
+   "partij": "VVD",
+   "totaal_2025": 729099.0,
+   "detail_sum": 729099.0,
+   "donors": 132
+  },
+  {
+   "partij": "CDA",
+   "totaal_2025": 493175.96,
+   "detail_sum": 493175.96,
+   "donors": 190
+  },
+  {
+   "partij": "PvdD",
+   "totaal_2025": 416355.61,
+   "detail_sum": 416355.61,
+   "donors": 62
+  },
+  {
+   "partij": "Volt",
+   "totaal_2025": 362667.94,
+   "detail_sum": 362667.94,
+   "donors": 74
+  },
+  {
+   "partij": "FvD",
+   "totaal_2025": 267119.01,
+   "detail_sum": 267119.01,
+   "donors": 53
+  },
+  {
+   "partij": "JA21",
+   "totaal_2025": 199549.0,
+   "detail_sum": 199549.0,
+   "donors": 9
+  },
+  {
+   "partij": "CU",
+   "totaal_2025": 164673.0,
+   "detail_sum": 164673.0,
+   "donors": 42
+  },
+  {
+   "partij": "SGP",
+   "totaal_2025": 127552.75,
+   "detail_sum": 127552.75,
+   "donors": 49
+  },
+  {
+   "partij": "BBB",
+   "totaal_2025": 99963.7,
+   "detail_sum": 99963.7,
+   "donors": 47
+  },
+  {
+   "partij": "BVNL",
+   "totaal_2025": 72044.0,
+   "detail_sum": 72044.0,
+   "donors": 10
+  },
+  {
+   "partij": "DENK",
+   "totaal_2025": 63902.0,
+   "detail_sum": 63902.0,
+   "donors": 23
+  },
+  {
+   "partij": "FNP",
+   "totaal_2025": 47347.76,
+   "detail_sum": 151021.02,
+   "donors": 58
+  },
+  {
+   "partij": "NSC",
+   "totaal_2025": 42113.0,
+   "detail_sum": 42113.0,
+   "donors": 15
+  },
+  {
+   "partij": "Vrij Verbond",
+   "totaal_2025": 40192.86,
+   "detail_sum": 40192.86,
+   "donors": 4
+  },
+  {
+   "partij": "BIJ1",
+   "totaal_2025": 12000.0,
+   "detail_sum": 14000.0,
+   "donors": 2
+  },
+  {
+   "partij": "50PLUS",
+   "totaal_2025": 6007.0,
+   "detail_sum": 6007.0,
+   "donors": 1
+  },
+  {
+   "partij": "LP (Libertaire Partij)",
+   "totaal_2025": 6000.0,
+   "detail_sum": 6000.0,
+   "donors": 2
+  },
+  {
+   "partij": "NL PLAN",
+   "totaal_2025": 3700.0,
+   "detail_sum": 3700.0,
+   "donors": 3
+  },
+  {
+   "partij": "Piratenpartij",
+   "totaal_2025": 2950.0,
+   "detail_sum": 2950.0,
+   "donors": 1
+  },
+  {
+   "partij": "PVV",
+   "totaal_2025": 1000.0,
+   "detail_sum": 1000.0,
+   "donors": 1
+  },
+  {
+   "partij": "Vrede voor Dieren",
+   "totaal_2025": 0.0,
+   "detail_sum": 0.0,
+   "donors": 1
+  },
+  {
+   "partij": "DE LINIE",
+   "totaal_2025": 0.0,
+   "detail_sum": 0.0,
+   "donors": 1
+  },
+  {
+   "partij": "Partij voor de Rechtsstaat",
+   "totaal_2025": 0.0,
+   "detail_sum": 0.0,
+   "donors": 1
+  }
+ ],
+ "totals": {
+  "2025_to_8_oct": 9148658.46,
+  "eind_2024_plus_2025": 9258031.72
+ },
+ "candidates": {
+  "rows": 1168,
+  "with_a_gift": 6,
+  "total_gifted": 11499.0
+ }
+}
