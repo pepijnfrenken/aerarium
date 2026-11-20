@@ -403,6 +403,8 @@ def load_latest(gifts_totals: dict) -> dict:
         "candidates": pre.get("candidates"),
         "seats_2025": seats_2025,
         "seat_view": seat_view,
+        "creditors": (debts.get("creditors") or [])[:20],
+        "creditor_count": debts.get("creditor_count"),
         "debts_22mo_total": round(sum(r["debts_22mo"] or 0.0 for r in rows), 2),
         "debts_3wk_total": round(sum(r["debts_3wk"] or 0.0 for r in rows), 2),
         "note": ("The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year "

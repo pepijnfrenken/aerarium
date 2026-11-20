@@ -37065,6 +37065,149 @@
     "per_seat": null
    }
   ],
+  "creditors": [
+   {
+    "partij": "CDA",
+    "crediteur": "Ouwehand Bouw Plus B.V.",
+    "bedrag": 1774908.0,
+    "neveninstelling": "Stichting Huisvesting CDA",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "VVD",
+    "crediteur": "Media Reverse BV",
+    "bedrag": 1743642.9,
+    "neveninstelling": "",
+    "period": "2025-10-09..2025-10-29"
+   },
+   {
+    "partij": "D66",
+    "crediteur": "ZIGT Media Backoffice",
+    "bedrag": 1729491.08,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "PvdA",
+    "crediteur": "Stroom mediacommunicatie b.v.",
+    "bedrag": 1592063.48,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "GL",
+    "crediteur": "Medewerkers Vereniging GroenLinks",
+    "bedrag": 1372348.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "CDA",
+    "crediteur": "Van Dorp Installaties BV",
+    "bedrag": 1111627.0,
+    "neveninstelling": "Stichting Huisvesting CDA",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "SP",
+    "crediteur": "Belastingdienst",
+    "bedrag": 917216.0,
+    "neveninstelling": "Stichting Personeel Socialstische Partij",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "PvdA",
+    "crediteur": "Belastingdienst",
+    "bedrag": 892065.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "GL",
+    "crediteur": "Belastingdienst",
+    "bedrag": 865120.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "VVD",
+    "crediteur": "Belastingdienst",
+    "bedrag": 782846.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "D66",
+    "crediteur": "Belastingdienst",
+    "bedrag": 616777.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "GL",
+    "crediteur": "Bureau de Helling Wetenschappelijk bureau",
+    "bedrag": 503107.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "GL",
+    "crediteur": "Stichting International Foundation GroenLinks",
+    "bedrag": 408471.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "FvD",
+    "crediteur": "Belastingdienst",
+    "bedrag": 407000.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "PvdA",
+    "crediteur": "ABP Pensioenfonds",
+    "bedrag": 401800.55,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "CU",
+    "crediteur": "Belastingdienst",
+    "bedrag": 388862.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "CDA",
+    "crediteur": "Abovo Media",
+    "bedrag": 387656.41,
+    "neveninstelling": "",
+    "period": "2025-10-09..2025-10-29"
+   },
+   {
+    "partij": "SP",
+    "crediteur": "Pensioenfonds PNO Media",
+    "bedrag": 363607.87,
+    "neveninstelling": "Stichting Personeel Socialstische Partij",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "FvD",
+    "crediteur": "RealityOutdoor.nl",
+    "bedrag": 342242.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   },
+   {
+    "partij": "GL",
+    "crediteur": "Dwars GroenLinkse Jongeren",
+    "bedrag": 290118.0,
+    "neveninstelling": "",
+    "period": "2024-01-01..2025-10-08"
+   }
+  ],
+  "creditor_count": 139,
   "debts_22mo_total": 20111175.77,
   "debts_3wk_total": 4357920.63,
   "note": "The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year threshold of EUR 767,12; the final-three-weeks column covers 9 to 29 October 2025. Both are periods, not annual report figures, so neither is comparable with the full-year 2022-2024 totals above: a lower threshold admits more donors. Debts are a different flow and are never added to gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are not a before and an after."

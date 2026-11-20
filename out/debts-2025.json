@@ -189,5 +189,428 @@
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   }
- ]
+ ],
+ "creditors": [
+  {
+   "partij": "CDA",
+   "crediteur": "Ouwehand Bouw Plus B.V.",
+   "bedrag": 1774908.0,
+   "neveninstelling": "Stichting Huisvesting CDA",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "Media Reverse BV",
+   "bedrag": 1743642.9,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "ZIGT Media Backoffice",
+   "bedrag": 1729491.08,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "Stroom mediacommunicatie b.v.",
+   "bedrag": 1592063.48,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Medewerkers Vereniging GroenLinks",
+   "bedrag": 1372348.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "CDA",
+   "crediteur": "Van Dorp Installaties BV",
+   "bedrag": 1111627.0,
+   "neveninstelling": "Stichting Huisvesting CDA",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "SP",
+   "crediteur": "Belastingdienst",
+   "bedrag": 917216.0,
+   "neveninstelling": "Stichting Personeel Socialstische Partij",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "Belastingdienst",
+   "bedrag": 892065.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Belastingdienst",
+   "bedrag": 865120.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "Belastingdienst",
+   "bedrag": 782846.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Belastingdienst",
+   "bedrag": 616777.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Bureau de Helling Wetenschappelijk bureau",
+   "bedrag": 503107.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Stichting International Foundation GroenLinks",
+   "bedrag": 408471.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "Belastingdienst",
+   "bedrag": 407000.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "ABP Pensioenfonds",
+   "bedrag": 401800.55,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "CU",
+   "crediteur": "Belastingdienst",
+   "bedrag": 388862.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "CDA",
+   "crediteur": "Abovo Media",
+   "bedrag": 387656.41,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "SP",
+   "crediteur": "Pensioenfonds PNO Media",
+   "bedrag": 363607.87,
+   "neveninstelling": "Stichting Personeel Socialstische Partij",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "RealityOutdoor.nl",
+   "bedrag": 342242.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Dwars GroenLinkse Jongeren",
+   "bedrag": 290118.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "NBC Congrescentrum",
+   "bedrag": 263877.19,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "DPG Media",
+   "bedrag": 182947.84,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "NBC",
+   "bedrag": 173165.62,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Medewerkers Vereniging GroenLinks",
+   "bedrag": 167474.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "Vellinga Vastgoedmanagement BV",
+   "bedrag": 153144.21,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Dept Creative & Media B.V.",
+   "bedrag": 152242.2,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Hajofi Onroerend Goed B.V.",
+   "bedrag": 147801.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "1931 Congrescentrum s-Hertogenbosch",
+   "bedrag": 145186.9,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "Volt",
+   "crediteur": "Volt Europa A.I.S.B.L.",
+   "bedrag": 142005.8,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "ABF NV inz Heuvelman Sound & Vision bv",
+   "bedrag": 141615.27,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Rotterdam Ahoy",
+   "bedrag": 140164.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "N.B.C. Exploitatie B.V.",
+   "bedrag": 135504.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Stagelight Verhuur B.V.",
+   "bedrag": 131747.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "Belastingdienst",
+   "bedrag": 130990.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "ZIGT Media Backoffice",
+   "bedrag": 130226.25,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Breepark B.V.",
+   "bedrag": 129842.98,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "De Media Balie",
+   "bedrag": 120681.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Bazelmans AVR",
+   "bedrag": 118560.22,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "CU",
+   "crediteur": "CBRE B.V.",
+   "bedrag": 117718.36,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "B.V. Brabanthallen Exploitatie Maatschappij",
+   "bedrag": 112632.85,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "Platinastaete events Business Comp",
+   "bedrag": 108234.91,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "DPG Media",
+   "bedrag": 104459.14,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "NSC",
+   "crediteur": "Act Eventstudios B.V.",
+   "bedrag": 102483.04,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Cheil",
+   "bedrag": 101796.7,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "NBC",
+   "bedrag": 98863.54,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "Heden Investment I (NRW Wonen B.V. huur)",
+   "bedrag": 98618.52,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "CDA",
+   "crediteur": "Postillion Hotel & Convention Centre WTC",
+   "bedrag": 98311.51,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "NSC",
+   "crediteur": "Exploitatiemaatschappij Omnisportcentrum",
+   "bedrag": 91571.73,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Belastingdienst",
+   "bedrag": 87971.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "D66",
+   "crediteur": "NRC Media",
+   "bedrag": 81070.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "NSC",
+   "crediteur": "Berenschot B.V.",
+   "bedrag": 80676.76,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "DPG media",
+   "bedrag": 78027.49,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "SP",
+   "crediteur": "Belastingdienst",
+   "bedrag": 74078.0,
+   "neveninstelling": "Stichting Personeel Socialistische Partij",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "Security & Investigation Group B.V.",
+   "bedrag": 73073.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "MSA BV",
+   "bedrag": 72004.08,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "FvD",
+   "crediteur": "De Media Balie",
+   "bedrag": 71572.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "PvdA",
+   "crediteur": "Berenschot BV",
+   "bedrag": 67760.0,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  },
+  {
+   "partij": "GL",
+   "crediteur": "Rotterdam Ahoy",
+   "bedrag": 66930.0,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "SP",
+   "crediteur": "Improve",
+   "bedrag": 61960.41,
+   "neveninstelling": "",
+   "period": "2025-10-09..2025-10-29"
+  },
+  {
+   "partij": "VVD",
+   "crediteur": "Vormats BV",
+   "bedrag": 61031.19,
+   "neveninstelling": "",
+   "period": "2024-01-01..2025-10-08"
+  }
+ ],
+ "creditor_count": 139
 }

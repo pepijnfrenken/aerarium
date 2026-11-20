@@ -105,6 +105,32 @@ def parse_gift_detail(path: Path) -> list[dict]:
     return rows
 
 
+def parse_creditors(path: Path, period: str) -> list[dict]:
+    """Who is owed. The debt files carry a detail block per creditor; a creditor's own row holds the total and
+    instalment rows follow without one, so only rows carrying an Eindtotaal are kept."""
+    d = pd.read_excel(path, sheet_name=0, engine="odf", header=None)
+    hdr = next((i for i in range(d.shape[0])
+                if clean(d.iat[i, 0]) == "Politieke partij"
+                and any("crediteur" in clean(d.iat[i, c]).lower() for c in range(d.shape[1]))), None)
+    if hdr is None:
+        return []
+    cols = {clean(d.iat[hdr, c]): c for c in range(d.shape[1])}
+    out: list[dict] = []
+    for i in range(hdr + 1, d.shape[0]):
+        cred = clean(d.iat[i, cols.get("Naam crediteur", 0)])
+        amount = num(d.iat[i, cols.get("Eindtotaal", 2)])
+        party = clean(d.iat[i, cols.get("Politieke partij", 0)])
+        if not cred or amount is None or or_blank(party):
+            continue
+        out.append({"partij": party_key(party), "crediteur": cred, "bedrag": round(amount, 2),
+                    "neveninstelling": clean(d.iat[i, cols.get("Neveninstelling", 1)]), "period": period})
+    return out
+
+
+def or_blank(v: str) -> bool:
+    return v in ("", "nan", "None")
+
+
 def main() -> int:
     gift_post = RAW / "post-giften.ods"
     debt_post = RAW / "post-schulden.ods"
@@ -131,6 +157,9 @@ def main() -> int:
 
     debts_pre = parse_party_totals(debt_pre, total_col=5)
     debts_post = parse_party_totals(debt_post, total_col=3)
+    creditors = (parse_creditors(debt_pre, "2024-01-01..2025-10-08")
+                 + parse_creditors(debt_post, "2025-10-09..2025-10-29"))
+    creditors.sort(key=lambda c: -c["bedrag"])
 
     parties = sorted(set(post_totals) | set(debts_pre) | set(debts_post))
     table = []
@@ -164,6 +193,8 @@ def main() -> int:
         },
         "gift_totals": {"published": round(sum(post_totals.values()), 2), "detail_rows": len(detail)},
         "per_party": sorted(table, key=lambda x: -x["gifts_final_3_weeks"]),
+        "creditors": creditors[:60],
+        "creditor_count": len(creditors),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"final three weeks: EUR {sum(post_totals.values()):,.2f} across {len(post_totals)} parties, "
@@ -174,6 +205,8 @@ def main() -> int:
     print(f"\ndebts 1 Jan 2024-8 Oct 2025 (22 months): EUR {sum(debts_pre.values()):,.2f} across {len(debts_pre)} parties")
     print(f"debts 9-29 Oct 2025 (3 weeks):            EUR {sum(debts_post.values()):,.2f} across {len(debts_post)} parties")
     print("   these are disjoint periods, not a before/after: not subtractable")
+    print(f"creditor rows: {len(creditors)}; largest: "
+          + ", ".join(f"{c['partij']} -> {c['crediteur'][:28]} {c['bedrag']:,.0f}" for c in creditors[:4]))
     print(f"\nwrote {OUT_CSV.name} ({OUT_CSV.stat().st_size:,} B) and {OUT_JSON.name} ({OUT_JSON.stat().st_size:,} B)")
     print(f"\n{'party':<22}{'gifts last 3wk':>17}{'debt 22mo':>16}{'debt 3wk':>15}")
     for r in table[:8]:
