@@ -16,7 +16,10 @@ should, and it is published — just not in the place the dashboard puts it. Thi
     the vote;
   - supplementary overviews for the **final three weeks** (9 to 29 October 2025), submitted by 29 November 2025
     and published by 29 December 2025.
-- **The threshold drops in an election year**: €767,12 instead of €1.000, because the year is not over.
+- **The threshold differs by workbook, and they are not interchangeable**: the party gift workbooks state
+  €1.000 per donor per year. €767,12 is the **candidate** threshold, in the candidate workbook only. An
+  earlier version of this probe applied the €767,12 cutoff to party gifts, which was wrong; the party CSVs
+  contain no positive donor total below €1.000.
 
 Sources: rijksoverheid.nl `documenten/2025/10/22/overzichten-financiering-politieke-partijen-2024`,
 `actueel/nieuws/2025/10/22/publicatie-overzichten-giften-en-schulden-tweede-kamerverkiezing-2025`, and the BZK

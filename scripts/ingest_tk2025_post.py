@@ -166,7 +166,10 @@ def main() -> int:
     for p in parties:
         table.append({
             "partij": p,
-            "gifts_final_3_weeks": post_totals.get(p, 0.0),
+            # .get(p) with no default: a party absent from the supplementary gift workbook did not
+            # disclose a zero, it filed nothing there. Defaulting to 0.0 turned a missing disclosure
+            # into a published figure of EUR 0 for twelve parties, NSC among them.
+            "gifts_final_3_weeks": post_totals.get(p),
             "debts_2024_to_8oct2025": debts_pre.get(p),
             "debts_9_to_29oct2025": debts_post.get(p),
         })
@@ -175,7 +178,7 @@ def main() -> int:
         "meta": {
             "source": "BZK overviews for the Tweede Kamer election of 29 October 2025",
             "post_election_period": "9 to 29 October 2025 (final three weeks before the vote)",
-            "gift_threshold": "EUR 767,12, the election-year threshold",
+            "gift_threshold": "EUR 1.000 per donor per year, as both party workbooks state",
             "debt_threshold": "EUR 25.000, and a short-term debt repaid within fourteen days need not be registered",
             "debt_periods": {
                 "debts_2024_to_8oct2025": "1 January 2024 to 8 October 2025, a 22-month period",
@@ -192,7 +195,7 @@ def main() -> int:
                                "gift_published_total": round(sum(post_totals.values()), 2)},
         },
         "gift_totals": {"published": round(sum(post_totals.values()), 2), "detail_rows": len(detail)},
-        "per_party": sorted(table, key=lambda x: -x["gifts_final_3_weeks"]),
+        "per_party": sorted(table, key=lambda x: -(x["gifts_final_3_weeks"] or 0.0)),
         "creditors": creditors,
         "creditor_count": len(creditors),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -210,7 +213,8 @@ def main() -> int:
     print(f"\nwrote {OUT_CSV.name} ({OUT_CSV.stat().st_size:,} B) and {OUT_JSON.name} ({OUT_JSON.stat().st_size:,} B)")
     print(f"\n{'party':<22}{'gifts last 3wk':>17}{'debt 22mo':>16}{'debt 3wk':>15}")
     for r in table[:8]:
-        print(f"{r['partij']:<22}{r['gifts_final_3_weeks']:>17,.2f}"
+        g = "not filed" if r["gifts_final_3_weeks"] is None else f"{r['gifts_final_3_weeks']:>17,.2f}"
+        print(f"{r['partij']:<22}{g}"
               f"{(r['debts_2024_to_8oct2025'] or 0):>16,.2f}{(r['debts_9_to_29oct2025'] or 0):>15,.2f}")
     return 0
 

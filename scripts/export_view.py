@@ -329,12 +329,15 @@ def load_latest(gifts_totals: dict) -> dict:
 
     per: dict[str, dict] = {}
     for row in pre["per_party"]:
+        # None, not 0.0: a party absent from the supplementary workbook did not report zero, it filed
+        # nothing there. A missing disclosure and a disclosed zero are different facts and the page
+        # must be able to tell them apart.
         per[row["partij"]] = {"partij": row["partij"], "gifts_to_8oct": row["totaal_2025"],
-                              "donors": row["donors"], "gifts_final_3_weeks": 0.0,
+                              "donors": row["donors"], "gifts_final_3_weeks": None,
                               "debts_22mo": None, "debts_3wk": None}
     for row in debts["per_party"]:
         slot = per.setdefault(row["partij"], {"partij": row["partij"], "gifts_to_8oct": None, "donors": None,
-                                              "gifts_final_3_weeks": 0.0, "debts_22mo": None, "debts_3wk": None})
+                                              "gifts_final_3_weeks": None, "debts_22mo": None, "debts_3wk": None})
         slot["gifts_final_3_weeks"] = row["gifts_final_3_weeks"]
         slot["debts_22mo"] = row["debts_2024_to_8oct2025"]
         slot["debts_3wk"] = row["debts_9_to_29oct2025"]
@@ -416,12 +419,13 @@ def load_latest(gifts_totals: dict) -> dict:
         "creditor_count": debts.get("creditor_count"),
         "debts_22mo_total": round(sum(r["debts_22mo"] or 0.0 for r in rows), 2),
         "debts_3wk_total": round(sum(r["debts_3wk"] or 0.0 for r in rows), 2),
-        "note": ("The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year "
-                 "threshold of EUR 767,12; the final-three-weeks column covers 9 to 29 October 2025. Both are "
-                 "periods, not annual report figures, so neither is comparable with the full-year 2022-2024 "
-                 "totals above: a lower threshold admits more donors. Debts are a different flow and are never "
-                 "added to gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are "
-                 "not a before and an after."),
+        "note": ("The 2025 column counts gifts received between 1 January and 8 October 2025. Both party workbooks "
+                 "state a threshold of EUR 1.000 per donor per year; EUR 767,12 is the CANDIDATE threshold in the "
+                 "candidate workbook and does not apply to party gifts. The final-three-weeks column covers 9 to "
+                 "29 October 2025. Both columns are periods, not annual-report figures, so neither is comparable "
+                 "with the full-year 2022-2024 totals above. Debts are a different flow and are never added to "
+                 "gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are not a "
+                 "before and an after."),
     }
 
 

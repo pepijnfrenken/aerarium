@@ -223,6 +223,46 @@ for label, got, want in [
     if not ok:
         fails.append(f"{label}: {got} != {want}")
 
+# ---------------------------------------------------------------- disclosure states
+# Audit-2: twelve parties were rendered EUR 0 for the final three weeks because the exporter
+# defaulted a missing row to zero. A disclosed zero (PVV) must survive; an absent filing must not
+# become a number.
+not_filed = sorted(p["partij"] for p in latest["parties"] if p["gifts_final_3_weeks"] is None)
+checked += 1
+if len(not_filed) == 12 and "NSC" in not_filed:
+    print(f"PASS  parties with no supplementary filing: {len(not_filed)} (NSC among them)")
+else:
+    print(f"FAIL  expected 12 parties with a null final-three-weeks figure, got {len(not_filed)}: {not_filed}")
+    fails.append(f"final-three-weeks nulls: {len(not_filed)} != 12")
+
+pvv = next(p for p in latest["parties"] if p["partij"] == "PVV")
+checked += 1
+if pvv["gifts_final_3_weeks"] == 0.0:
+    print("PASS  PVV keeps its disclosed EUR 0 for the final three weeks")
+else:
+    print(f"FAIL  PVV final three weeks is {pvv['gifts_final_3_weeks']!r}, expected a disclosed 0.0")
+    fails.append("PVV disclosed zero was lost to null")
+
+checked += 1
+if "EUR 1.000" in latest["note"] and "767,12" in latest["note"] and "CANDIDATE" in latest["note"].upper():
+    print("PASS  threshold note distinguishes the party EUR 1.000 cutoff from the candidate EUR 767,12 cutoff")
+else:
+    print("FAIL  threshold note does not separate the two cutoffs")
+    fails.append("threshold note conflates party and candidate cutoffs")
+
+# Audit-2: the budget axis divided a EUR-thousand value by 1000 and then labelled it 'k', so a
+# gridline at 10.000k rendered as '10k' - a factor-of-a-thousand error on the live page.
+html = (OUT / "index.html").read_text(encoding="utf-8")
+checked += 1
+if "NF.format(v/1000)+'k'" in html:
+    print("FAIL  budget axis still divides a thousands value by 1000 and labels it k")
+    fails.append("budget axis unit error reintroduced (NF.format(v/1000)+'k')")
+elif "NF.format(v))" in html:
+    print("PASS  budget axis renders the thousands value as published")
+else:
+    print("FAIL  budget axis label not found in either form")
+    fails.append("budget axis label missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

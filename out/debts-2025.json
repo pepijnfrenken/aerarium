@@ -2,7 +2,7 @@
  "meta": {
   "source": "BZK overviews for the Tweede Kamer election of 29 October 2025",
   "post_election_period": "9 to 29 October 2025 (final three weeks before the vote)",
-  "gift_threshold": "EUR 767,12, the election-year threshold",
+  "gift_threshold": "EUR 1.000 per donor per year, as both party workbooks state",
   "debt_threshold": "EUR 25.000, and a short-term debt repaid within fourteen days need not be registered",
   "debt_periods": {
    "debts_2024_to_8oct2025": "1 January 2024 to 8 October 2025, a 22-month period",
@@ -113,49 +113,49 @@
   },
   {
    "partij": "BIJ1",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "BVNL",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "DE LINIE",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "ELLECT",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "FNP",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "LP (Libertaire Partij)",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "NL PLAN",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "NSC",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 367961.42,
    "debts_9_to_29oct2025": null
   },
@@ -167,25 +167,25 @@
   },
   {
    "partij": "Partij voor de Rechtsstaat",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "Piratenpartij",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "Vrede voor Dieren",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   },
   {
    "partij": "Vrij Verbond",
-   "gifts_final_3_weeks": 0.0,
+   "gifts_final_3_weeks": null,
    "debts_2024_to_8oct2025": 0.0,
    "debts_9_to_29oct2025": null
   }

@@ -87,9 +87,12 @@ party. Nothing in the register says why someone left money to PvdD; the will is 
 ## The merged party does not look like either of its halves
 
 GroenLinks and PvdA are one party since 2026-07-01 (PRO), so their donor profiles belong together. Combined
-over 2022-2024: €7.773.405,02 in gifts, of which €40.000 from entities. That is 0,5% organisational money, the
-second lowest of any formation here after GroenLinks alone at 0,3%. Reading the two rows as rival parties
-splits a single fundraising base and makes both look smaller than the bloc is.
+over 2022-2024: €7.773.405,02 in gifts, of which €40.000 from entities. That is 0,5% organisational money. An
+earlier version of this line called it "the second lowest of any formation here", which the artifact does not
+support: SP, DENK, NSC and OPNL are all recorded at 0,0%, so 0,5% ranks fifth, not second, and the comparison
+set has to be stated for the rank to mean anything. What the number does show is that the merged formation is
+overwhelmingly individual-funded, like both its halves. Reading the two rows as rival parties splits a single
+fundraising base and makes both look smaller than the bloc is.
 
 ## Where a motive is actually documented
 
