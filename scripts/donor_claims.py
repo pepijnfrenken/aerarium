@@ -56,7 +56,11 @@ ENTITIES = [
     },
     {
         "name": "Stichting Ivo Opstelten Foundation",
-        "match": "opstelten",
+        # The alias must identify the entity AS THE DONOR. A looser 'opstelten' matched
+        # 'I. Opstelten', a person whose €1,000 went INTO the foundation - the foundation is the
+        # recipient on that row, not the donor. That single false edge moved a published
+        # subtotal by EUR 1,000 and put a private individual in an entity total.
+        "match": "ivo opstelten foundation",
         "claim": "party-vehicle",
         "activity": "VVD-linked support foundation (KvK 27342104), ANBI, has its own VVD-hosted page",
         "subject": None,
@@ -225,11 +229,16 @@ ENTITIES = [
 def main() -> int:
     totals: dict[str, dict[str, float]] = {}
     by_year: dict[str, dict[str, float]] = {}
+    # Rows where the entity appears as the RECIPIENT (neveninstelling) and an individual is the
+    # donor are inflows INTO the entity, not gifts from it to the party. They are a separate edge
+    # and must never be added to the entity's giving.
+    inflow: dict[str, dict[str, float]] = {}
     with SRC.open(encoding="utf-8") as fh:
         for r in csv.DictReader(fh):
             if r["kind"] != "donor-total":
                 continue
             low = r["donor"].lower().strip()
+            recip = (r.get("neveninstelling") or "").lower().strip()
             for e in ENTITIES:
                 if e["match"] in low:
                     amt = float(r["totaal"] or 0)
@@ -237,6 +246,10 @@ def main() -> int:
                     totals[e["name"]][r["partij"]] += amt
                     by_year.setdefault(e["name"], {}).setdefault(str(r["jaar"]), 0.0)
                     by_year[e["name"]][str(r["jaar"])] += amt
+                elif e["match"] in recip:
+                    amt = float(r["totaal"] or 0)
+                    inflow.setdefault(e["name"], {}).setdefault(str(r["jaar"]), 0.0)
+                    inflow[e["name"]][str(r["jaar"])] += amt
 
     out_entities = []
     for e in ENTITIES:
@@ -253,6 +266,8 @@ def main() -> int:
             "total_eur": round(sum(parties.values()), 2),
             "by_party": parties,
             "by_year": {k: round(v, 2) for k, v in sorted(by_year.get(e["name"], {}).items())},
+            "received_from_others_eur": round(sum(inflow.get(e["name"], {}).values()), 2),
+            "received_by_year_eur": {k: round(v, 2) for k, v in sorted(inflow.get(e["name"], {}).items())},
         })
 
     out_entities.sort(key=lambda d: -d["total_eur"])

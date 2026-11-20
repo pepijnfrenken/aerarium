@@ -7,29 +7,30 @@
   "url": "https://www.rijksfinancien.nl/open-data"
  },
  "question": "Do think tanks appear in the state payment register, and does the money reach the parties' own institutes?",
- "rule": "A match requires a curated alias for a named institute. Keyword matches on 'instituut' were rejected as noise (schools, healthcare).",
- "caveat": "Subsidy to an institute is not influence over a party. This shows structural edges only; it says nothing about what the money bought.",
+ "rule": "Identity is the published KvK where a row carries one; a name alias is used only where it does not. Rows whose KvK contradicts the entity, or whose name contradicts the KvK, are excluded into `exclusion_ledger` with their amounts rather than absorbed.",
+ "caution_zero": "`no-verified-named-row` means no row matched in THIS register snapshot under this identity rule. It is not evidence that the state pays the entity nothing. VVD's 2023 filing describes institute money paid through the party, and PvdA records Wiardi Beckman subsidy amounts; both route outside this register. A name-only sweep is a search result, not a budget line of zero.",
+ "caution_motive": "Subsidy to an institute is not influence over a party. This shows structural edges only and says nothing about what the money bought.",
  "classes": {
   "party-institute": {
-   "entities": 9,
+   "entities": 10,
    "named": 0,
    "total_k": 0
   },
   "party-international": {
    "entities": 11,
    "named": 11,
-   "total_k": 7593
+   "total_k": 7753
   },
   "policy-institute": {
    "entities": 6,
    "named": 5,
-   "total_k": 66466
+   "total_k": 77705
   }
  },
  "entities": {
   "Teldersstichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -40,7 +41,7 @@
   },
   "Wetenschappelijk Instituut CDA": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -51,7 +52,7 @@
   },
   "Mr. Hans van Mierlo Stichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -62,7 +63,7 @@
   },
   "Wiardi Beckman Stichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -73,7 +74,7 @@
   },
   "Wetenschappelijk Bureau GroenLinks": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -84,7 +85,7 @@
   },
   "Wetenschappelijk Bureau SP": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -95,7 +96,7 @@
   },
   "Nicolaas G. Pierson Stichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -106,7 +107,7 @@
   },
   "Anne Vondeling Stichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -117,7 +118,18 @@
   },
   "Edmund Burke Stichting": {
    "class": "party-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
+   "rows": 0,
+   "total_k": 0,
+   "years": [],
+   "by_year_k": {},
+   "published_names": [],
+   "kvk": [],
+   "instruments": []
+  },
+  "Groen van Prinsterer Stichting (CU)": {
+   "class": "party-institute",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -133,9 +145,6 @@
    "total_k": 2311,
    "years": [
     2020,
-    2021,
-    2022,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -162,8 +171,6 @@
    "total_k": 900,
    "years": [
     2020,
-    2021,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -183,7 +190,13 @@
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "Eduardo Frei Stichting": {
    "class": "party-international",
@@ -192,8 +205,6 @@
    "total_k": 1044,
    "years": [
     2020,
-    2021,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -211,7 +222,13 @@
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "IDI (D66)": {
    "class": "party-international",
@@ -220,8 +237,6 @@
    "total_k": 1210,
    "years": [
     2020,
-    2021,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -239,7 +254,13 @@
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "GroenLinks International": {
    "class": "party-international",
@@ -247,6 +268,7 @@
    "rows": 2,
    "total_k": 258,
    "years": [
+    2024,
     2024
    ],
    "by_year_k": {
@@ -267,8 +289,6 @@
    "total_k": 472,
    "years": [
     2020,
-    2021,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -286,7 +306,13 @@
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "SP Internationaal": {
    "class": "party-international",
@@ -294,6 +320,7 @@
    "rows": 1,
    "total_k": 77,
    "years": [
+    2024,
     2024
    ],
    "by_year_k": {
@@ -315,6 +342,7 @@
    "rows": 1,
    "total_k": 25,
    "years": [
+    2024,
     2024
    ],
    "by_year_k": {
@@ -334,6 +362,7 @@
    "rows": 2,
    "total_k": 105,
    "years": [
+    2024,
     2024
    ],
    "by_year_k": {
@@ -356,9 +385,6 @@
    "total_k": 755,
    "years": [
     2020,
-    2021,
-    2022,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -382,81 +408,88 @@
   "FICDD": {
    "class": "party-international",
    "status": "named",
-   "rows": 5,
-   "total_k": 436,
+   "rows": 8,
+   "total_k": 596,
    "years": [
     2020,
-    2021,
     2024
    ],
    "by_year_k": {
     "2020": 158,
     "2021": 149,
+    "2023": 160,
     "2024": 129
    },
    "published_names": [
     "FICDD - Foundation for International Christian Democratic Development",
-    "FICDD FOUNDATION INTERNATIONAL CHRISTIAN DEMOCRATIC DEVELOPM"
+    "FICDD FOUNDATION INTERNATIONAL CHRISTIAN DEMOCRATIC DEVELOPM",
+    "Foundation for International ChristianDemocratic Development, stichting van deChristenUnie voor internationalesamenwerking en ontwikkeling"
    ],
    "kvk": [
     "32136915"
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "Clingendael": {
    "class": "policy-institute",
    "status": "named",
-   "rows": 34,
-   "total_k": 33587,
+   "rows": 47,
+   "total_k": 44769,
    "years": [
     2020,
-    2021,
-    2022,
-    2023,
     2024
    ],
    "by_year_k": {
-    "2020": 81,
-    "2021": 79,
+    "2020": 5946,
+    "2021": 5397,
     "2022": 207,
-    "2023": 24758,
+    "2023": 24757,
     "2024": 8462
    },
    "published_names": [
     "Clingendael, Stichting Nederlands Instituut voor Internationale Betrekkingen",
-    "Oud Clingendael Zorg B.V.",
-    "Stichting Fonds Instituut Clingendael",
+    "Stichting Nederlands Instituut voor Inter. Betrekkingen Clin",
     "Stichting Nederlands Instituut voor Inter. Betrekkingen Clingendael",
     "Stichting Nederlands Instituut voor Internationale Betrekkingen \"Clingendael\""
    ],
    "kvk": [
-    "27268646",
-    "41152832",
-    "41153606"
+    "41152832"
    ],
    "instruments": [
     "Bekostiging",
     "Bijdrage aan (inter-)nationale organisaties",
     "Subsidies (regelingen)"
    ],
-   "coverage_flag": "years 2020, 2021, 2022 are below a fifth of the entity's best year. Check the scheme row for that year before reading it as a fall in funding."
+   "coverage_flag": {
+    "anomalous_years": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "HCSS": {
    "class": "policy-institute",
    "status": "named",
-   "rows": 4,
-   "total_k": 234,
+   "rows": 6,
+   "total_k": 405,
    "years": [
     2023,
     2024
    ],
    "by_year_k": {
     "2023": 112,
-    "2024": 122
+    "2024": 293
    },
    "published_names": [
+    "Den Haag Centrum voor Strategische Studi The Hague Centre For Strategic Studies",
     "Den Haag Centrum voor Strategische Studies (HCSS) B.V."
    ],
    "kvk": [
@@ -472,6 +505,7 @@
    "rows": 1,
    "total_k": 224,
    "years": [
+    2021,
     2021
    ],
    "by_year_k": {
@@ -494,8 +528,6 @@
    "total_k": 26040,
    "years": [
     2020,
-    2021,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -516,18 +548,24 @@
    ],
    "instruments": [
     "Subsidies (regelingen)"
-   ]
+   ],
+   "coverage_flag": {
+    "anomalous_years": [
+     2024
+    ],
+    "years_with_no_row": [
+     2022
+    ],
+    "note": "A year far below its neighbours, or with no row at all, is a coverage question first. Check the scheme row for that year before reading it as a change in funding."
+   }
   },
   "Anne Frank Stichting": {
    "class": "policy-institute",
    "status": "named",
-   "rows": 15,
-   "total_k": 6381,
+   "rows": 13,
+   "total_k": 6267,
    "years": [
     2020,
-    2021,
-    2022,
-    2023,
     2024
    ],
    "by_year_k": {
@@ -535,11 +573,10 @@
     "2021": 2485,
     "2022": 730,
     "2023": 561,
-    "2024": 699
+    "2024": 585
    },
    "published_names": [
     "ANNE FRANK STG",
-    "Anne Frank Montessorischool",
     "Anne Frank Stichting"
    ],
    "kvk": [
@@ -551,7 +588,7 @@
   },
   "WRR": {
    "class": "policy-institute",
-   "status": "no-rows-in-register",
+   "status": "no-verified-named-row",
    "rows": 0,
    "total_k": 0,
    "years": [],
@@ -560,5 +597,154 @@
    "kvk": [],
    "instruments": []
   }
- }
+ },
+ "exclusion_ledger": [
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2022,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 1424,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2022,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 1,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2022,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 19,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2022,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 20,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2022,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 133,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2023,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 60,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2023,
+   "name": "Christelijk Instituut 'Groen van Prinsterer'",
+   "amount_k": 1519,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2024,
+   "name": "Christelijk Instituut Groen van Prinsterer",
+   "amount_k": 1598,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Groen van Prinsterer Stichting (CU)",
+   "year": 2024,
+   "name": "Christelijk Instituut Groen van Prinsterer",
+   "amount_k": 23,
+   "excluded_because": "KvK 40516645 contradicts 32084387"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2020,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1887,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2020,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1589,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2020,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1766,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2020,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 7101,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2020,
+   "name": "Stichting Fonds Instituut Clingendael",
+   "amount_k": 81,
+   "excluded_because": "name on the entity's exclusion list"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2021,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1100,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2021,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 3735,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2021,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1453,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2021,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 1417,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2021,
+   "name": "Stichting Fonds Instituut Clingendael",
+   "amount_k": 79,
+   "excluded_because": "name on the entity's exclusion list"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2023,
+   "name": "Oud Clingendael Zorg B.V.",
+   "amount_k": 1,
+   "excluded_because": "name on the entity's exclusion list"
+  },
+  {
+   "entity": "Clingendael",
+   "year": 2024,
+   "name": "Nederlandse Organisatie voor Technologie Ontwikkeling (TNO)",
+   "amount_k": 4655,
+   "excluded_because": "name contradicts the entity's KvK (register misfiling)"
+  }
+ ]
 }

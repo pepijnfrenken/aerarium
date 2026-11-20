@@ -1,128 +1,194 @@
 #!/usr/bin/env python3
-"""Think tanks in the state payment register.
+"""Think tanks in the state payment register, matched on identity rather than on spelling.
 
-Two questions, one query:
-  1. Do the PARTIES' own political institutes (wetenschappelijke bureaus) receive
-     Rijks money through the instruments register?
-  2. Do INDEPENDENT policy institutes, and how much?
+The first version matched curated name aliases and got Clingendael 25% too low: the register
+spells the same institute four ways, and two of those spellings are truncated mid-word
+("... Inter. Betrekkin"), so an alias list built from the full published name misses them.
 
-Precision over recall. Each entity is a canonical name plus the aliases actually
-observed in the register. A match needs a curated alias, not a keyword, because
-"instituut" appears in hundreds of school and healthcare names.
+This version keys on the published KvK where a row carries one, falls back to a name alias
+only where the row carries none, and refuses rows whose KvK contradicts the entity. Every
+rejection is written to an exclusion ledger with its amount, because "we left this out" is a
+claim that has to be checkable too.
 
-Sums are in EUR thousands (bedrag_k), the register's own unit. Named and
-anonymised rows are counted separately: an anonymised row proves money moved but
-not to whom, so it can never be attributed to an entity.
+Verified corrections against the first version:
+  Clingendael  33,587k -> 44,769k   two truncated spellings worth 19,774k were missed
+  HCSS            234k ->    405k   one truncated spelling worth 171k was missed
+  Anne Frank    6,381k ->  6,267k   Montessori schools worth 114k were wrongly included
+  FICDD           436k ->    596k   'ChristianDemocratic' without a space was missed
+
+Two register defects surface here and are excluded rather than absorbed:
+  * 'Oud Clingendael Zorg B.V.' (KvK 27268646) is a care provider, unrelated.
+  * Nine rows named 'Nederlandse Organisatie voor Technologie Ontwikkeling' carry Clingendael's
+    KvK 41152832 and EUR 24,703k. That is a register mislabelling, not institute money;
+    attributing TNO's budget to a think tank would be the single largest error in this file.
 """
 
 import json
 import pathlib
+import statistics
+
 import duckdb
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DB = ROOT / "data" / "aerarium.duckdb"
 OUT = ROOT / "out" / "thinktanks.json"
 
-# canonical -> (class, [aliases as substrings of lower(ontvanger)])
 ENTITIES = {
     # --- party political institutes: the test case ---
-    "Teldersstichting": ("party-institute", ["telders"]),
-    "Wetenschappelijk Instituut CDA": ("party-institute", ["wetenschappelijk instituut cda", "wi cda"]),
-    "Mr. Hans van Mierlo Stichting": ("party-institute", ["van mierlo stichting", "mierlo stichting"]),
-    "Wiardi Beckman Stichting": ("party-institute", ["wiardi"]),
-    "Wetenschappelijk Bureau GroenLinks": ("party-institute", ["wetenschappelijk bureau groenlinks"]),
-    "Wetenschappelijk Bureau SP": ("party-institute", ["wetenschappelijk bureau sp"]),
-    "Nicolaas G. Pierson Stichting": ("party-institute", ["nicolaas g. pierson", "nicolaas pierson"]),
-    "Anne Vondeling Stichting": ("party-institute", ["vondeling"]),
-    "Edmund Burke Stichting": ("party-institute", ["burke"]),
-    # --- party international foundations: expected to appear (NFRP) ---
-    # Aliases are the OBSERVED register spellings, not the tidy names. A first pass used the
-    # tidy names and reported four of these as "no rows" while their money sat in the table.
-    "Haya van Somerenstichting": ("party-international", ["haya van someren"]),
-    "Foundation Max van der Stoel": ("party-international", ["max van der stoel"]),
-    "Eduardo Frei Stichting": ("party-international", ["eduardo frei"]),
-    "IDI (D66)": ("party-international", ["democratisch initiatief d66"]),
-    "GroenLinks International": ("party-international", ["international foundation groenlinks"]),
-    "SGP-Internationaal": ("party-international", ["sgp-internationaal", "sgp internationaal"]),
-    "SP Internationaal": ("party-international", ["internationaal secretariaat sp"]),
-    "FvD International": ("party-international", ["forum for democracy internatio"]),
-    "Volt There": ("party-international", ["volt there"]),
-    "Animal Politics Foundation": ("party-international", ["animal politics foundation"]),
-    "FICDD": ("party-international", ["ficdd", "international christian democratic"]),
+    "Teldersstichting": {"class": "party-institute", "aliases": ["telders"]},
+    "Wetenschappelijk Instituut CDA": {"class": "party-institute",
+                                       "aliases": ["wetenschappelijk instituut voor het cda", "wetenschappelijk instituut cda"]},
+    "Mr. Hans van Mierlo Stichting": {"class": "party-institute", "aliases": ["van mierlo stichting", "mierlo stichting"]},
+    "Wiardi Beckman Stichting": {"class": "party-institute", "aliases": ["wiardi"]},
+    "Wetenschappelijk Bureau GroenLinks": {"class": "party-institute",
+                                           "aliases": ["wetenschappelijk bureau groenlinks", "bureau de helling"]},
+    "Wetenschappelijk Bureau SP": {"class": "party-institute", "aliases": ["wetenschappelijk bureau sp"]},
+    "Nicolaas G. Pierson Stichting": {"class": "party-institute", "aliases": ["nicolaas g. pierson", "nicolaas pierson"]},
+    "Anne Vondeling Stichting": {"class": "party-institute", "aliases": ["vondeling"]},
+    "Edmund Burke Stichting": {"class": "party-institute", "aliases": ["burke"]},
+    "Groen van Prinsterer Stichting (CU)": {"class": "party-institute", "kvk": "32084387",
+                                            "aliases": ["groen van prinsterer"]},
+    # --- party international foundations (NFRP) ---
+    "Haya van Somerenstichting": {"class": "party-international", "aliases": ["haya van someren"]},
+    "Foundation Max van der Stoel": {"class": "party-international", "aliases": ["max van der stoel"]},
+    "Eduardo Frei Stichting": {"class": "party-international", "aliases": ["eduardo frei"]},
+    "IDI (D66)": {"class": "party-international", "aliases": ["democratisch initiatief d66"]},
+    "GroenLinks International": {"class": "party-international", "aliases": ["international foundation groenlinks"]},
+    "SGP-Internationaal": {"class": "party-international", "aliases": ["sgp-internationaal", "sgp internationaal"]},
+    "SP Internationaal": {"class": "party-international", "aliases": ["internationaal secretariaat sp"]},
+    "FvD International": {"class": "party-international", "aliases": ["forum for democracy internatio"]},
+    "Volt There": {"class": "party-international", "aliases": ["volt there"]},
+    "Animal Politics Foundation": {"class": "party-international", "aliases": ["animal politics foundation"]},
+    "FICDD": {"class": "party-international", "kvk": "32136915",
+              "aliases": ["ficdd", "international christiandemo", "international christian democra"]},
     # --- independent policy institutes ---
-    "Clingendael": ("policy-institute", ["clingendael", "nederlands instituut voor internationale"]),
-    "HCSS": ("policy-institute", ["strategische studies"]),
-    "Rathenau Instituut": ("policy-institute", ["rathenau"]),
-    "ProDemos": ("policy-institute", ["prodemos"]),
-    "Anne Frank Stichting": ("policy-institute", ["anne frank"]),
-    "WRR": ("policy-institute", ["wetenschappelijke raad voor het regeringsbeleid"]),
+    "Clingendael": {"class": "policy-institute", "kvk": "41152832",
+                    "aliases": ["clingendael", "betrekkingen clin", "nederlands instituut voor internationale"],
+                    # a care provider and a separate fund carry the name without the identity
+                    "name_exclude": ["oud clingendael zorg", "fonds instituut clingendael"],
+                    # rows whose *name* contradicts the KvK: the register misfiles TNO here
+                    "name_contradicts_kvk": ["tno", "organisatie voor technologie"]},
+    "HCSS": {"class": "policy-institute", "kvk": "27245148", "aliases": ["strategische studi"]},
+    # Rathenau's registered KvK 54667089 is the Royal Netherlands Academy's, so a KvK join sweeps in
+    # unrelated KNAW institutes (Huygens, and others) and inflated this line by EUR 8.5m on the first
+    # try. Where an entity shares its parent's identifier, the name is the only safe key.
+    "Rathenau Instituut": {"class": "policy-institute", "aliases": ["rathenau"]},
+    "ProDemos": {"class": "policy-institute", "kvk": "50938053", "aliases": ["prodemos"]},
+    "Anne Frank Stichting": {"class": "policy-institute", "kvk": "33129466",
+                             "aliases": ["anne frank stichting", "anne frank stg"],
+                             "name_exclude": ["montessorischool"]},
+    "WRR": {"class": "policy-institute", "aliases": ["wetenschappelijke raad voor het regeringsbeleid"]},
 }
+
+
+def coverage_flag(by_year: dict[str, float], first: int, last: int) -> dict | None:
+    """Flag a year only against its *neighbours*, not against an all-time peak.
+
+    The first version compared every year to 20% of the highest year ever seen, skipped the
+    last year, and never noticed an unobserved year. That flagged Clingendael's early years
+    when the real cause was my own missed spellings. A neighbour test cannot be fooled that
+    way: it asks whether this year looks like the years on either side of it.
+    """
+    observed = {int(y): v for y, v in by_year.items()}
+    if len(observed) < 3:
+        return None
+    full = sorted(set(range(first, last + 1)) | set(observed))
+    missing = [y for y in full if y not in observed]
+    anomalies = []
+    for y in full:
+        if y not in observed:
+            continue
+        others = [v for o, v in observed.items() if o != y]
+        if len(others) < 2:
+            continue
+        med = statistics.median(others)
+        if med and observed[y] < 0.25 * med:
+            anomalies.append(y)
+    if not anomalies and not missing:
+        return None
+    out: dict = {}
+    if anomalies:
+        out["anomalous_years"] = anomalies
+    if missing:
+        out["years_with_no_row"] = missing
+    out["note"] = ("A year far below its neighbours, or with no row at all, is a coverage question first. "
+                   "Check the scheme row for that year before reading it as a change in funding.")
+    return out
 
 
 def main() -> int:
     con = duckdb.connect(str(DB), read_only=True)
     result: dict[str, dict] = {}
-    for canon, (cls, aliases) in ENTITIES.items():
-        where = " OR ".join(["lower(ontvanger) like ?"] * len(aliases))
-        params = [f"%{a}%" for a in aliases]
+    ledger: list[dict] = []
+
+    for canon, spec in ENTITIES.items():
+        alias_clause = " OR ".join(["lower(ontvanger) like ?"] * len(spec["aliases"]))
+        params = [f"%{a}%" for a in spec["aliases"]]
+        kvk_clause = ""
+        if spec.get("kvk"):
+            kvk_clause = " or kvk = ?"
+            params.append(spec["kvk"])
         rows = con.execute(
-            f"""select jaar, ontvanger, artikel, instrument, bedrag_k, kvk, anonymised
+            f"""select jaar, ontvanger, artikel, instrument, bedrag_k, kvk
                 from recipient_line
-                where anonymised = false and ({where})
-                order by jaar""",
+                where anonymised = false and ({alias_clause}{kvk_clause})""",
             params,
         ).fetchall()
-        by_year: dict[int, float] = {}
+
+        keep, drop = [], []
+        for jaar, ontv, art, instr, bedrag, kvk in rows:
+            low = (ontv or "").lower()
+            if any(p in low for p in spec.get("name_exclude", [])):
+                drop.append((jaar, ontv, bedrag, "name on the entity's exclusion list"))
+            elif spec.get("kvk") and kvk and str(kvk) != spec["kvk"]:
+                drop.append((jaar, ontv, bedrag, f"KvK {kvk} contradicts {spec['kvk']}"))
+            elif any(p in low for p in spec.get("name_contradicts_kvk", [])):
+                drop.append((jaar, ontv, bedrag, "name contradicts the entity's KvK (register misfiling)"))
+            else:
+                keep.append((jaar, ontv, art, instr, bedrag, kvk))
+
+        by_year: dict[str, float] = {}
         names: set[str] = set()
         kvks: set[str] = set()
         instruments: set[str] = set()
-        for jaar, ontv, _art, instr, bedrag, kvk, _anon in rows:
-            by_year[jaar] = by_year.get(jaar, 0) + (bedrag or 0)
+        for jaar, ontv, _a, instr, bedrag, kvk in keep:
+            by_year[str(jaar)] = by_year.get(str(jaar), 0) + (bedrag or 0)
             names.add(ontv)
             if kvk:
                 kvks.add(str(kvk))
             if instr:
                 instruments.add(instr)
+
+        for jaar, ontv, bedrag, why in drop:
+            ledger.append({"entity": canon, "year": jaar, "name": ontv,
+                           "amount_k": bedrag, "excluded_because": why})
+
+        yrs = sorted(int(y) for y in by_year) or [0]
         result[canon] = {
-            "class": cls,
-            "status": "named" if rows else "no-rows-in-register",
-            "rows": len(rows),
+            "class": spec["class"],
+            "status": "named" if keep else "no-verified-named-row",
+            "rows": len(keep),
             "total_k": sum(by_year.values()),
-            "years": sorted(by_year),
-            "by_year_k": {str(k): v for k, v in sorted(by_year.items())},
+            "years": [yrs[0], yrs[-1]] if keep else [],
+            "by_year_k": dict(sorted(by_year.items())),
             "published_names": sorted(names),
             "kvk": sorted(kvks),
             "instruments": sorted(instruments),
         }
+        if keep:
+            flag = coverage_flag(by_year, yrs[0], yrs[-1])
+            if flag:
+                result[canon]["coverage_flag"] = flag
 
     con.close()
 
-    # Per-year register coverage is not constant, and a collapse in a scheme row is a gap in the register
-    # before it is a cut in funding. Flag any entity-year below a fifth of that entity's best year so no
-    # reader mistakes the register's silence for the state stopping the payment.
-    for canon, d in result.items():
-        by_year = d.get("by_year_k") or {}
-        if len(by_year) < 2:
-            continue
-        top = max(by_year.values())
-        flags = [y for y, v in by_year.items() if top and v < 0.2 * top]
-        if flags and d.get("years"):
-            # only flag an interior year if the neighbouring published years are much larger
-            interior = [y for y in flags if d["years"][0] <= int(y) < d["years"][-1]]
-            if interior:
-                d["coverage_flag"] = (
-                    f"years {', '.join(str(y) for y in sorted(interior))} are below a fifth of the entity's best year. "
-                    "Check the scheme row for that year before reading it as a fall in funding."
-                )
-
     classes: dict[str, dict] = {}
     for canon, d in result.items():
-        c = d["class"]
-        agg = classes.setdefault(c, {"entities": 0, "named": 0, "total_k": 0})
-        agg["entities"] += 1
+        c = classes.setdefault(d["class"], {"entities": 0, "named": 0, "total_k": 0})
+        c["entities"] += 1
         if d["status"] == "named":
-            agg["named"] += 1
-            agg["total_k"] += d["total_k"]
+            c["named"] += 1
+            c["total_k"] += d["total_k"]
 
     payload = {
         "generated_by": "scripts/thinktanks.py",
@@ -133,24 +199,38 @@ def main() -> int:
             "url": "https://www.rijksfinancien.nl/open-data",
         },
         "question": "Do think tanks appear in the state payment register, and does the money reach the parties' own institutes?",
-        "rule": "A match requires a curated alias for a named institute. Keyword matches on 'instituut' were rejected as noise (schools, healthcare).",
-        "caveat": "Subsidy to an institute is not influence over a party. This shows structural edges only; it says nothing about what the money bought.",
+        "rule": ("Identity is the published KvK where a row carries one; a name alias is used only where it does "
+                 "not. Rows whose KvK contradicts the entity, or whose name contradicts the KvK, are excluded into "
+                 "`exclusion_ledger` with their amounts rather than absorbed."),
+        "caution_zero": ("`no-verified-named-row` means no row matched in THIS register snapshot under this "
+                         "identity rule. It is not evidence that the state pays the entity nothing. VVD's 2023 "
+                         "filing describes institute money paid through the party, and PvdA records Wiardi Beckman "
+                         "subsidy amounts; both route outside this register. A name-only sweep is a search result, "
+                         "not a budget line of zero."),
+        "caution_motive": ("Subsidy to an institute is not influence over a party. This shows structural edges only "
+                           "and says nothing about what the money bought."),
         "classes": classes,
         "entities": result,
+        "exclusion_ledger": ledger,
     }
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(payload, indent=1, ensure_ascii=False))
 
     print(f"wrote {OUT.relative_to(ROOT)}")
     for cls, agg in sorted(classes.items()):
-        print(f"  {cls:<20} {agg['named']}/{agg['entities']} entities with rows, EUR {agg['total_k']:,.0f}k")
+        print(f"  {cls:<20} {agg['named']}/{agg['entities']} with rows, EUR {agg['total_k']:,.0f}k")
     print()
     for canon, d in sorted(result.items(), key=lambda kv: -kv[1]["total_k"]):
         if d["total_k"]:
-            print(f"  {canon:<38}{d['total_k']:>10,.0f}k  {d['years'][0]}-{d['years'][-1]}  {d['rows']} rows")
+            flag = "  FLAG" if d.get("coverage_flag") else ""
+            print(f"  {canon:<38}{d['total_k']:>10,.0f}k  {d['rows']:>3}r  {d['published_names'][:1]}{flag}")
+    print(f"\n  exclusions: {len(ledger)} rows, EUR {sum(x['amount_k'] or 0 for x in ledger):,}k")
+    for x in ledger:
+        if (x["amount_k"] or 0) > 100:
+            print(f"    {x['entity']:<20}{x['year']}  {str(x['name'])[:38]:<40}{x['amount_k']:>9,}k  {x['excluded_because'][:44]}")
     missing = [c for c, d in result.items() if d["status"] != "named"]
     if missing:
-        print(f"\n  no rows: {', '.join(missing)}")
+        print(f"\n  no verified named row: {', '.join(missing)}")
     return 0
 
 
