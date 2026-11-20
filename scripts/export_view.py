@@ -324,6 +324,8 @@ def load_latest(gifts_totals: dict) -> dict:
     out = OUT.parent
     pre = json.loads((out / "gifts-2025-election.json").read_text(encoding="utf-8"))
     debts = json.loads((out / "debts-2025.json").read_text(encoding="utf-8"))
+    media_path = out / "media-debt.json"
+    media_doc = json.loads(media_path.read_text(encoding="utf-8")) if media_path.exists() else {}
 
     per: dict[str, dict] = {}
     for row in pre["per_party"]:
@@ -404,6 +406,10 @@ def load_latest(gifts_totals: dict) -> dict:
         "seats_2025": seats_2025,
         "seat_view": seat_view,
         "creditors": (debts.get("creditors") or [])[:20],
+        "media": media_doc.get("media_by_party") or [],
+        "media_totals": media_doc.get("totals") or {},
+        "media_unclassified": media_doc.get("unclassified") or {},
+        "media_categories": media_doc.get("by_category") or {},
         "creditor_count": debts.get("creditor_count"),
         "debts_22mo_total": round(sum(r["debts_22mo"] or 0.0 for r in rows), 2),
         "debts_3wk_total": round(sum(r["debts_3wk"] or 0.0 for r in rows), 2),

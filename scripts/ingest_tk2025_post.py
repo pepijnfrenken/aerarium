@@ -193,7 +193,7 @@ def main() -> int:
         },
         "gift_totals": {"published": round(sum(post_totals.values()), 2), "detail_rows": len(detail)},
         "per_party": sorted(table, key=lambda x: -x["gifts_final_3_weeks"]),
-        "creditors": creditors[:60],
+        "creditors": creditors,
         "creditor_count": len(creditors),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
 

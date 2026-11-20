@@ -1,0 +1,383 @@
+{
+ "meta": {
+  "what_this_is": "Debt outstanding to media and advertising suppliers of EUR 25.000 or more, per party.",
+  "what_this_is_not": "Not media spend. A party that paid its media invoices on time shows zero here, and a party that paid most of a large bill shows only the remainder. Treat every figure as a floor.",
+  "source": "BZK gift and debt overviews, Tweede Kamer election 2025 (two ODS files, disjoint periods)",
+  "periods": [
+   "2024-01-01..2025-10-08",
+   "2025-10-09..2025-10-29"
+  ],
+  "creditors_total": 139,
+  "creditors_classified": 89,
+  "method": "keyword rules, first match wins; unmatched creditors are listed, never reassigned"
+ },
+ "totals": {
+  "media_eur": 7603466.16,
+  "all_debt_eur": 24469096.4,
+  "media_share_of_debt": 31.1
+ },
+ "by_category": {
+  "media": 7603466.16,
+  "tax": 5219475.0,
+  "property": 3494841.09,
+  "unclassified": 1911921.58,
+  "venue": 1569341.97,
+  "staff": 1539822.0,
+  "own_entity": 1407887.8,
+  "pension": 801944.42,
+  "professional_services": 524971.73,
+  "production_av": 395424.65
+ },
+ "media_by_party": [
+  {
+   "partij": "D66",
+   "media_eur": 2377774.07,
+   "creditors": [
+    {
+     "crediteur": "ZIGT Media Backoffice",
+     "bedrag": 1729491.08,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "DPG Media",
+     "bedrag": 182947.84,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Dept Creative & Media B.V.",
+     "bedrag": 152242.2,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "ZIGT Media Backoffice",
+     "bedrag": 130226.25,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Cheil",
+     "bedrag": 101796.7,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "NRC Media",
+     "bedrag": 81070.0,
+     "period": "2024-01-01..2025-10-08"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 3757026.04,
+   "filers": [
+    "D66"
+   ],
+   "media_share_of_debt": 63.3
+  },
+  {
+   "partij": "VVD",
+   "media_eur": 1982826.61,
+   "creditors": [
+    {
+     "crediteur": "Media Reverse BV",
+     "bedrag": 1743642.9,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Growing Minds B.V.",
+     "bedrag": 60500.0,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "Acato bv",
+     "bedrag": 50178.71,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Acato bv",
+     "bedrag": 41470.0,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "Growing Minds Novti",
+     "bedrag": 32089.2,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "Bombilate Media",
+     "bedrag": 28806.47,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Bombilate Media",
+     "bedrag": 26139.33,
+     "period": "2024-01-01..2025-10-08"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 3741233.06,
+   "filers": [
+    "VVD"
+   ],
+   "media_share_of_debt": 53.0
+  },
+  {
+   "partij": "PRO",
+   "media_eur": 1822314.11,
+   "creditors": [
+    {
+     "crediteur": "Stroom mediacommunicatie b.v.",
+     "bedrag": 1592063.48,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "DPG Media",
+     "bedrag": 104459.14,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "DPG media",
+     "bedrag": 78027.49,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "DPG Media B.V.",
+     "bedrag": 47764.0,
+     "period": "2024-01-01..2025-10-08"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 8452891.72,
+   "filers": [
+    "PvdA",
+    "GL"
+   ],
+   "media_share_of_debt": 21.6
+  },
+  {
+   "partij": "FvD",
+   "media_eur": 568913.0,
+   "creditors": [
+    {
+     "crediteur": "RealityOutdoor.nl",
+     "bedrag": 342242.0,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "De Media Balie",
+     "bedrag": 120681.0,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "De Media Balie",
+     "bedrag": 71572.0,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "RealityOutdoor.nl",
+     "bedrag": 34418.0,
+     "period": "2025-10-09..2025-10-29"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 1282402.0,
+   "filers": [
+    "FvD"
+   ],
+   "media_share_of_debt": 44.4
+  },
+  {
+   "partij": "CDA",
+   "media_eur": 414916.29,
+   "creditors": [
+    {
+     "crediteur": "Abovo Media",
+     "bedrag": 387656.41,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Vellendrukkerij BDU B.V.",
+     "bedrag": 27259.88,
+     "period": "2024-01-01..2025-10-08"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 3627459.77,
+   "filers": [
+    "CDA"
+   ],
+   "media_share_of_debt": 11.4
+  },
+  {
+   "partij": "SGP",
+   "media_eur": 203011.2,
+   "creditors": [
+    {
+     "crediteur": "Bauer Media Outdoor Nederland B.V.",
+     "bedrag": 60500.0,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "Ocean Outdoor Nederland B.V.",
+     "bedrag": 45294.03,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "DPG Media",
+     "bedrag": 36559.35,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "Bizzimedia B.V.",
+     "bedrag": 31891.28,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "ESH Media",
+     "bedrag": 28766.54,
+     "period": "2025-10-09..2025-10-29"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 230764.82,
+   "filers": [
+    "SGP"
+   ],
+   "media_share_of_debt": 88.0
+  },
+  {
+   "partij": "CU",
+   "media_eur": 96739.5,
+   "creditors": [
+    {
+     "crediteur": "Reclame Productie Nederland",
+     "bedrag": 48369.75,
+     "period": "2024-01-01..2025-10-08"
+    },
+    {
+     "crediteur": "Reclame Productie Nederland",
+     "bedrag": 48369.75,
+     "period": "2025-10-09..2025-10-29"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 804928.11,
+   "filers": [
+    "CU"
+   ],
+   "media_share_of_debt": 12.0
+  },
+  {
+   "partij": "Volt",
+   "media_eur": 79257.42,
+   "creditors": [
+    {
+     "crediteur": "Happy Horizon Amsterdam Online Marketing B.V.",
+     "bedrag": 42350.0,
+     "period": "2025-10-09..2025-10-29"
+    },
+    {
+     "crediteur": "STER reclame",
+     "bedrag": 36907.42,
+     "period": "2024-01-01..2025-10-08"
+    }
+   ],
+   "periods": [
+    "2024-01-01..2025-10-08",
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 382356.95,
+   "filers": [
+    "Volt"
+   ],
+   "media_share_of_debt": 20.7
+  },
+  {
+   "partij": "SP",
+   "media_eur": 57713.96,
+   "creditors": [
+    {
+     "crediteur": "OmnicomMediaGroup Nederland B.V.",
+     "bedrag": 57713.96,
+     "period": "2025-10-09..2025-10-29"
+    }
+   ],
+   "periods": [
+    "2025-10-09..2025-10-29"
+   ],
+   "all_debt_eur": 1606877.64,
+   "filers": [
+    "SP"
+   ],
+   "media_share_of_debt": 3.6
+  }
+ ],
+ "unclassified": {
+  "N.B.C. Exploitatie B.V.": 135504.0,
+  "MSA BV": 72004.08,
+  "Prevision": 67433.3,
+  "Christal": 58240.91,
+  "Frisia Verzekering": 57994.53,
+  "Procurios B.V.": 54876.62,
+  "Rekening-courant Volt NL/Charge 2025": 53559.6,
+  "Match My Brand": 53328.33,
+  "100% Docs B.V.": 50925.0,
+  "Viral Networks BV": 48400.0,
+  "Drukwerkdeal.nl": 46397.51,
+  "Brand Response Ltd": 45840.0,
+  "Arab Centre for cons. Training serv. (ACCTS)": 44000.0,
+  "Jaarbeurs B.V.": 42784.93,
+  "European Greens": 40904.0,
+  "NationBuilder": 40272.0,
+  "ReMarkAble communicatie B.V.": 39734.95,
+  "Prosper & Bloom": 39727.0,
+  "Stibbe N.V.": 37836.7,
+  "Promosupply": 37752.0,
+  "Procurios": 37113.12,
+  "CDA Zuid Holland": 36501.82,
+  "DPI Animation House BV": 34920.6,
+  "JPR Advocaten Coöperatief U.A.": 34452.0,
+  "Euromobile": 33880.05,
+  "Motivaction": 33863.06,
+  "ISO groep": 32975.5,
+  "Hivebrite": 32835.95,
+  "Mennorode B.V.": 32516.3,
+  "ASR Schadeverzekering N.V.": 32247.49,
+  "Avanti Direct Mail BV": 30881.33,
+  "Huubtheproducer": 30653.5,
+  "Max.nl": 30250.0,
+  "Helloprint B.V.": 30189.5,
+  "De Drukwerkkanjer": 29278.72,
+  "X Internet Unlimited Company": 29026.0,
+  "OneMeeting": 28969.0,
+  "Spotta": 28692.73,
+  "Meijvogel Hout": 28344.25,
+  "BCD Travel Belgium nv/sa": 28168.91,
+  "De Woonindustrie Events B.V.": 28146.45,
+  "Cursus - en vergadercentrum Domstad": 26912.5,
+  "Ditmeijers Group B.V.": 26758.85,
+  "Neurensics": 25894.0,
+  "Merckwaardig": 25499.54,
+  "VasimEvents": 25434.95,
+  "Nederlands Instituut voor Register Valuators": 25000.0,
+  "JPA Van Noort Gassler & Co B.V.": 25000.0
+ }
+}
