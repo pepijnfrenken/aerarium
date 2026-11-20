@@ -314,6 +314,10 @@ def load_latest(gifts_totals: dict) -> dict:
         slot["debts_22mo"] = row["debts_2024_to_8oct2025"]
         slot["debts_3wk"] = row["debts_9_to_29oct2025"]
 
+    seats_doc = json.loads((out / "seats.json").read_text(encoding="utf-8"))
+    seats_2025 = seats_doc["elections"]["2025"]["seats"]
+    list_of_filer = seats_doc["meta"]["list_of_filer"]
+
     rows = sorted(per.values(), key=lambda r: -((r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)))
     to_8oct = round(sum(r["gifts_to_8oct"] or 0.0 for r in rows), 2)
     published = round(pre["totals"]["2025_to_8_oct"], 2)
@@ -321,6 +325,22 @@ def load_latest(gifts_totals: dict) -> dict:
         raise SystemExit(f"latest block does not reconcile: per-party sum {to_8oct:,.2f} against the file's "
                          f"published {published:,.2f} (diff {to_8oct - published:,.2f})")
     last3 = round(sum(r["gifts_final_3_weeks"] or 0.0 for r in rows), 2)
+    # Seats belong to a list, money is filed per party. GL and PvdA ran one list, so their money is summed and
+    # set against that list's 20 seats. Splitting 20 seats between two filers would be an invented number.
+    lists: dict[str, dict] = {}
+    for r in rows:
+        lst = list_of_filer.get(r["partij"], r["partij"])
+        slot = lists.setdefault(lst, {"lijst": lst, "gifts": 0.0, "seats": seats_2025.get(lst, 0),
+                                      "filers": []})
+        slot["gifts"] += (r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)
+        slot["filers"].append(r["partij"])
+    seat_view = []
+    for slot in lists.values():
+        slot["gifts"] = round(slot["gifts"], 2)
+        slot["per_seat"] = round(slot["gifts"] / slot["seats"], 2) if slot["seats"] else None
+        seat_view.append(slot)
+    seat_view.sort(key=lambda s: (-(s["per_seat"] or -1)))
+
     return {
         "year": 2025,
         "total_to_8oct": to_8oct,
@@ -330,6 +350,8 @@ def load_latest(gifts_totals: dict) -> dict:
                                  else gifts_totals.get(2024)),
         "parties": rows,
         "candidates": pre.get("candidates"),
+        "seats_2025": seats_2025,
+        "seat_view": seat_view,
         "debts_22mo_total": round(sum(r["debts_22mo"] or 0.0 for r in rows), 2),
         "debts_3wk_total": round(sum(r["debts_3wk"] or 0.0 for r in rows), 2),
         "note": ("The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year "

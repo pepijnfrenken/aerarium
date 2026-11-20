@@ -36723,6 +36723,269 @@
    "with_a_gift": 6,
    "total_gifted": 11499.0
   },
+  "seats_2025": {
+   "D66": 26,
+   "PVV": 26,
+   "VVD": 22,
+   "GL-PvdA": 20,
+   "CDA": 18,
+   "JA21": 9,
+   "FvD": 7,
+   "BBB": 4,
+   "DENK": 3,
+   "CU": 3,
+   "SP": 3,
+   "SGP": 3,
+   "PvdD": 3,
+   "50PLUS": 2,
+   "Volt": 1
+  },
+  "seat_view": [
+   {
+    "lijst": "SP",
+    "gifts": 1623688.82,
+    "seats": 3,
+    "filers": [
+     "SP"
+    ],
+    "per_seat": 541229.61
+   },
+   {
+    "lijst": "Volt",
+    "gifts": 408901.94,
+    "seats": 1,
+    "filers": [
+     "Volt"
+    ],
+    "per_seat": 408901.94
+   },
+   {
+    "lijst": "GL-PvdA",
+    "gifts": 3379686.35,
+    "seats": 20,
+    "filers": [
+     "GL",
+     "PvdA"
+    ],
+    "per_seat": 168984.32
+   },
+   {
+    "lijst": "PvdD",
+    "gifts": 425581.31,
+    "seats": 3,
+    "filers": [
+     "PvdD"
+    ],
+    "per_seat": 141860.44
+   },
+   {
+    "lijst": "SGP",
+    "gifts": 277343.0,
+    "seats": 3,
+    "filers": [
+     "SGP"
+    ],
+    "per_seat": 92447.67
+   },
+   {
+    "lijst": "CU",
+    "gifts": 192359.54,
+    "seats": 3,
+    "filers": [
+     "CU"
+    ],
+    "per_seat": 64119.85
+   },
+   {
+    "lijst": "D66",
+    "gifts": 1331791.18,
+    "seats": 26,
+    "filers": [
+     "D66"
+    ],
+    "per_seat": 51222.74
+   },
+   {
+    "lijst": "FvD",
+    "gifts": 314466.01,
+    "seats": 7,
+    "filers": [
+     "FvD"
+    ],
+    "per_seat": 44923.72
+   },
+   {
+    "lijst": "VVD",
+    "gifts": 898497.0,
+    "seats": 22,
+    "filers": [
+     "VVD"
+    ],
+    "per_seat": 40840.77
+   },
+   {
+    "lijst": "CDA",
+    "gifts": 696357.45,
+    "seats": 18,
+    "filers": [
+     "CDA"
+    ],
+    "per_seat": 38686.52
+   },
+   {
+    "lijst": "BBB",
+    "gifts": 107962.7,
+    "seats": 4,
+    "filers": [
+     "BBB"
+    ],
+    "per_seat": 26990.67
+   },
+   {
+    "lijst": "DENK",
+    "gifts": 73120.4,
+    "seats": 3,
+    "filers": [
+     "DENK"
+    ],
+    "per_seat": 24373.47
+   },
+   {
+    "lijst": "JA21",
+    "gifts": 210549.0,
+    "seats": 9,
+    "filers": [
+     "JA21"
+    ],
+    "per_seat": 23394.33
+   },
+   {
+    "lijst": "50PLUS",
+    "gifts": 6007.0,
+    "seats": 2,
+    "filers": [
+     "50PLUS"
+    ],
+    "per_seat": 3003.5
+   },
+   {
+    "lijst": "PVV",
+    "gifts": 1000.0,
+    "seats": 26,
+    "filers": [
+     "PVV"
+    ],
+    "per_seat": 38.46
+   },
+   {
+    "lijst": "BVNL",
+    "gifts": 72044.0,
+    "seats": 0,
+    "filers": [
+     "BVNL"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "FNP",
+    "gifts": 47347.76,
+    "seats": 0,
+    "filers": [
+     "FNP"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "NSC",
+    "gifts": 42113.0,
+    "seats": 0,
+    "filers": [
+     "NSC"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "Vrij Verbond",
+    "gifts": 40192.86,
+    "seats": 0,
+    "filers": [
+     "Vrij Verbond"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "BIJ1",
+    "gifts": 12000.0,
+    "seats": 0,
+    "filers": [
+     "BIJ1"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "LP (Libertaire Partij)",
+    "gifts": 6000.0,
+    "seats": 0,
+    "filers": [
+     "LP (Libertaire Partij)"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "Piratenpartij",
+    "gifts": 2950.0,
+    "seats": 0,
+    "filers": [
+     "Piratenpartij"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "Vrede voor Dieren",
+    "gifts": 0.0,
+    "seats": 0,
+    "filers": [
+     "Vrede voor Dieren"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "DE LINIE",
+    "gifts": 0.0,
+    "seats": 0,
+    "filers": [
+     "DE LINIE"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "NL PLAN",
+    "gifts": 0.0,
+    "seats": 0,
+    "filers": [
+     "NL PLAN"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "Partij voor de Rechtsstaat",
+    "gifts": 0.0,
+    "seats": 0,
+    "filers": [
+     "Partij voor de Rechtsstaat"
+    ],
+    "per_seat": null
+   },
+   {
+    "lijst": "ELLECT",
+    "gifts": 0.0,
+    "seats": 0,
+    "filers": [
+     "ELLECT"
+    ],
+    "per_seat": null
+   }
+  ],
   "debts_22mo_total": 20111175.77,
   "debts_3wk_total": 4357920.63,
   "note": "The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year threshold of EUR 767,12; the final-three-weeks column covers 9 to 29 October 2025. Both are periods, not annual report figures, so neither is comparable with the full-year 2022-2024 totals above: a lower threshold admits more donors. Debts are a different flow and are never added to gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are not a before and an after."

@@ -1,0 +1,81 @@
+{
+ "meta": {
+  "unit": "zetels in de Tweede Kamer, 150 total",
+  "source": "Kiesraad, official result of each election",
+  "note": "Seats belong to a list. GroenLinks and PvdA filed separate financial reports throughout but ran one list in 2023 and 2025, so their seats are carried once under GL-PvdA.",
+  "list_of_filer": {
+   "GL": "GL-PvdA",
+   "PvdA": "GL-PvdA"
+  }
+ },
+ "elections": {
+  "2021": {
+   "date": "2021-03-17",
+   "source": "https://www.kiesraad.nl/actueel/nieuws/2021/03/26/officiele-uitslag-tweede-kamerverkiezing-17-maart-2021",
+   "total": 150,
+   "seats": {
+    "VVD": 34,
+    "D66": 24,
+    "PVV": 17,
+    "CDA": 15,
+    "SP": 9,
+    "PvdA": 9,
+    "GL": 8,
+    "FvD": 8,
+    "PvdD": 6,
+    "CU": 5,
+    "Volt": 3,
+    "JA21": 3,
+    "SGP": 3,
+    "DENK": 3,
+    "50PLUS": 1,
+    "BBB": 1,
+    "BIJ1": 1
+   }
+  },
+  "2023": {
+   "date": "2023-11-22",
+   "source": "https://www.kiesraad.nl/actueel/nieuws/2023/12/01/kiesraad-stelt-uitslag-tweede-kamerverkiezing-22-november-2023-vast",
+   "total": 150,
+   "seats": {
+    "PVV": 37,
+    "GL-PvdA": 25,
+    "VVD": 24,
+    "NSC": 20,
+    "D66": 9,
+    "BBB": 7,
+    "CDA": 5,
+    "SP": 5,
+    "FvD": 3,
+    "PvdD": 3,
+    "CU": 3,
+    "SGP": 3,
+    "DENK": 3,
+    "Volt": 2,
+    "JA21": 1
+   }
+  },
+  "2025": {
+   "date": "2025-10-29",
+   "source": "https://www.kiesraad.nl/actueel/nieuws/2025/11/7/kiesraad-uitslag-tweede-kamerverkiezing-betrouwbaar",
+   "total": 150,
+   "seats": {
+    "D66": 26,
+    "PVV": 26,
+    "VVD": 22,
+    "GL-PvdA": 20,
+    "CDA": 18,
+    "JA21": 9,
+    "FvD": 7,
+    "BBB": 4,
+    "DENK": 3,
+    "CU": 3,
+    "SP": 3,
+    "SGP": 3,
+    "PvdD": 3,
+    "50PLUS": 2,
+    "Volt": 1
+   }
+  }
+ }
+}
