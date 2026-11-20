@@ -246,4 +246,7 @@ proposed route to a comparable series does not.
   read as `1.667.563`, adjacent columns as `2.6,068`); its total is quoted as printed and not
   verified against the underlying accounts. No 2025 document is published: the `jaarverslagen` index
   returns zero rows for `jaar >= 2025` and the dashboard's "Laatste update" reads 22 October 2025.
-- No repo files other than this report were modified; scratch downloads were removed.
+- No repo files other than this report were created or modified. Side effect to clean up:
+  `.lane-scratch/` (this lane's PDF/HTML downloads, 30 files, 106 MiB) was swept into commit
+  `1cb0aaa` by a concurrent `git add -A`, before `.gitignore` gained `.lane-scratch/` in `faab510`.
+  The files are deleted from the worktree; the deletion is uncommitted.
