@@ -46,7 +46,7 @@
    "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
    "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
    "NFRP is the Nederlands Fonds voor Regionale Partnerschappen, the fund that carries the MATRA programme. Its Politieke Partijen window is the one place the state names a party's international foundation as a recipient (chapter V, Buitenlandse Zaken).",
-   "Part of the NFRP money is anonymised: 2018 and 2019 are entirely so (1.005k), and small anonymised rows appear in later years. Named recipients are therefore a share of NFRP, not all of it.",
+   "Part of the NFRP money is anonymised: 2018 and 2019 are entirely so (1.002k: 462k in 2018 and 540k in 2019), and small anonymised rows appear in later years. Named recipients are therefore a share of NFRP, not all of it.",
    "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
    "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
    "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
@@ -36817,8 +36817,10 @@
    "SGP": 3,
    "PvdD": 3,
    "50PLUS": 2,
-   "Volt": 1,
-   "PRO": 20
+   "Volt": 1
+  },
+  "seat_alias": {
+   "PRO": "GL-PvdA"
   },
   "seat_view": [
    {

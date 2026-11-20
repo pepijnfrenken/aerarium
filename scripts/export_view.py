@@ -341,9 +341,11 @@ def load_latest(gifts_totals: dict) -> dict:
 
     seats_doc = json.loads((out / "seats.json").read_text(encoding="utf-8"))
     seats_2025 = seats_doc["elections"]["2025"]["seats"]
-    # the seats file names the combined list GL-PvdA; the 2025 money tables call it PRO
+    # The seats file names the combined list GL-PvdA; the 2025 money tables call it PRO. Seats belong
+    # to a LIST, so there is exactly one record for those 20 seats and PRO resolves to it at display
+    # time. An earlier version added PRO as a second key holding the same 20 seats, which made the
+    # exported map total 170 in a 150-seat chamber. A duplicated alias is not a second allocation.
     SEAT_ALIAS = {"PRO": "GL-PvdA"}
-    seats_2025 = {**seats_2025, **{k: seats_2025.get(v) for k, v in SEAT_ALIAS.items()}}
     list_of_filer = {"GL": "PRO", "PvdA": "PRO"}
 
     # GroenLinks and PvdA filed separately for 2025 but ran one list, and are one party from 2026-07-01. In the
@@ -404,6 +406,7 @@ def load_latest(gifts_totals: dict) -> dict:
         "parties": rows,
         "candidates": pre.get("candidates"),
         "seats_2025": seats_2025,
+        "seat_alias": SEAT_ALIAS,
         "seat_view": seat_view,
         "creditors": (debts.get("creditors") or [])[:20],
         "media": media_doc.get("media_by_party") or [],
