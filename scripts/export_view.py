@@ -357,7 +357,7 @@ def main() -> None:
                 {"id": "nfrp", "label": "Rijksfinancien register — NFRP Politieke Partijen (chapter V)",
                  "url": "https://www.rijksfinancien.nl/open-data", "licence": LICENCE_RF},
                 {"id": "tk2025", "label": "BZK — giften en schulden Tweede Kamerverkiezing 2025 (ODS)",
-                 "url": ("https://www.rijksoverheid.nl/documenten/rapporten/2025/10/22/"
+                 "url": ("https://www.rijksoverheid.nl/documenten/2025/10/22/"
                          "giften-en-schulden-van-partijen-en-kandidaten-voor-de-tweede-kamerverkiezing-2025"),
                  "licence": LICENCE_BZK},
                 {"id": "tk2025post", "label": "BZK — giften en schulden na de Tweede Kamerverkiezing 2025 (ODS)",
