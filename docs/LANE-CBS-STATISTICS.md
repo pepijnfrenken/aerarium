@@ -4,7 +4,7 @@ Research date: 2026-11-20. Method: direct API/page checks (curl + web search/fet
 
 ## Summary verdict
 
-**No official Dutch statistical series measures political party or campaign spending.** None of the three channels (CBS StatLine, Kiesraad open data, data.overheid.nl) contains a dataset with money amounts for political parties. The only official party-money material is the BZK annual "Overzichten financiering politieke partijen" — yearly PDF documents of *income* (subsidies, gifts above €4,500/donor, debts above €25,000) filed under the Wet financiering politieke partijen — which is not a statistical series, not machine-readable, and does not report campaign spending. CBS has verkiezingsuitslagen and survey-based participation/trust tables only.
+**No official Dutch statistical series measures political party or campaign spending.** None of the three channels (CBS StatLine, Kiesraad open data, data.overheid.nl) contains a dataset with money amounts for political parties. The only official party-money material is the BZK annual "Overzichten financiering politieke partijen" — yearly PDF documents of *income* (subsidies, gifts above €1,000/donor per year from the 2024 overview (€4,500 in the 2023 vintage), debts above €25,000) filed under the Wet financiering politieke partijen — which is not a statistical series, not machine-readable, and does not report campaign spending. CBS has verkiezingsuitslagen and survey-based participation/trust tables only.
 
 ## Findings per source
 
@@ -47,7 +47,7 @@ Found exactly one party-money dataset entry:
 ### 4. The closest thing that exists (not a dataset): BZK annual overzichten
 
 - Page verified: `https://www.rijksoverheid.nl/documenten/jaarverslagen/2024/10/22/overzichten-financiering-politieke-partijen-2023` ("Jaarverslag, 22-10-2024"). Every parliamentary party must file a financial report and a gifts/debts overview with the minister of BZK each year; the ministry publishes them.
-- Contents per the page: (a) giften aan politieke partijen en neveninstellingen, threshold **€4,500 per donor per year** (name+address registered); (b) schulden, threshold **€25,000**; (c) financiële verslagen: ontvangen subsidies, giften en overige inkomsten, vermogenspositie, schulden — for 2023 published as two PDF bundels (deel 1: PVV…SP; deel 2: Denk…BVNL).
+- Contents per the page: (a) giften aan politieke partijen en neveninstellingen, threshold **€4,500 per donor per year in the 2023 vintage**; the 2024 overview states **€1,000** per donor per year, consistent with the Evaluatiewet amendment effective 1 January 2023 (name+address registered); (b) schulden, threshold **€25,000**; (c) financiële verslagen: ontvangen subsidies, giften en overige inkomsten, vermogenspositie, schulden — for 2023 published as two PDF bundels (deel 1: PVV…SP; deel 2: Denk…BVNL).
 - Related WOO publication: "Overzicht giften en schulden politieke partijen Tweede Kamerfracties" (2013), indexed at `https://open.overheid.nl/details/ronl-24e71398-96ab-4d8c-9375-e9b86f0f9be1`. [INFERENCE from search snippet; the open.overheid.nl page itself is a JS app and could not be opened for verification.]
 - Properties: document series, not a statistical dataset; years 2013→2023 available as annual PDFs (each year its own rijksoverheid.nl page); unit: euros per donor/creditor line items; **no explicit open licence stated on the page**; income-oriented — **campaign/verkiezings spokesperson is not a reporting category**, so campaign spending cannot be derived from it. Since 2026 apparent tightening (gifts ≥€10,000 must be reported to BZK within 3 days per rijksoverheid.nl theme page; new party-finance bill kst-37020-VII in treatment) — direction confirmed by pages found, details not verified.
 
@@ -61,7 +61,7 @@ Found exactly one party-money dataset entry:
 | CBS verkiezingsuitslagen (37278, 71277NED, etc.) | opendata.cbs.nl | 1918–2006 (results only) | votes/seats | CC-BY 4.0 | No |
 | Kiesraad "Databank Verkiezingsuitslagen" + 37 individual verkiezingsuitslag datasets | `data.overheid.nl/dataset/31924a0b-…` + organisation page | 2009–2026 (per election) | EML/CSV: votes, candidates, zetels | **CC-0 1.0** | No |
 | DON "Giften en schulden politieke partijen" (BZK) | `1101ed48-ec8b-43a7-ae9b-e3e499f618d5` | none (never published) | — | unknown | **No data available — restricted, "in onderzoek" since ≤2022** |
-| BZK "Overzichten financiering politieke partijen" | rijks\(soverheid\) document pages, e.g. year 2023 dated 22-10-2024 | 2013–2023, one PDF bundle per year | euros, donor/creditor line items | not stated | **Yes, but income only (subsidies, gifts ≥€4,500, debts ≥€25,000); no campaign spending; PDF only** |
+| BZK "Overzichten financiering politieke partijen" | rijks\(soverheid\) document pages, e.g. year 2023 dated 22-10-2024 | 2013–2023, one PDF bundle per year | euros, donor/creditor line items | not stated | **Yes, but income only (subsidies, gifts ≥€4,500 in 2023 / ≥€1,000 from 2024, debts ≥€25,000); no campaign spending; PDF only** |
 
 ## Verdict on filling the spending gap
 
@@ -69,5 +69,5 @@ Official statistics **cannot** fill the party/campaign spending gap:
 
 1. CBS has no coverage of party finances at all — the variable consistently absent from every catalog search is euros.
 2. Kiesraad data is entirely electoral, under ideal CC-0, but measures votes, not money.
-3. The BZK overview series is the *only* official money source, and it (a) is incomes, not spending; (b) is annual PDFs with no API or dataset registration; (c) is licence-unstated; (d) thresholds out individual donors below €4,500.
+3. The BZK overview series is the *only* official money source, and it (a) is incomes, not spending; (b) is annual PDFs with no API or dataset registration; (c) is licence-unstated; (d) thresholds out individual donors below the vintage's cutoff — €4,500 in the 2023 overview, €1,000 in the 2024 one — so the cutoff must be stated per vintage, never as one series-wide number.
 4. Any spending analysis must therefore rely on the parties' own filings as re-published by BZK (hand-extracted from PDFs), or party annual reports — neither is an official statistical series.

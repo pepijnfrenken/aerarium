@@ -73,4 +73,8 @@ number is honest; a wrong one is not.
 - `out/spending-campaign.csv` — 131 lines, each with `amounts`, `n_amounts`, `quality` in
   {`pair`, `single`, `ambiguous`}, `value_eur` only where a pair exists, and the printed line as `raw_line`.
 - `scripts/extract_spending.py` — the extractor, with the declared rule and its limits in the docstring.
-- Conflicts: D66 2024, D66 2021, PvdD 2021, PvdD 2020, VVD 2023, SGP 2023, CU 2020, 50PLUS 2021.
+- Conflicts: D66 2024, D66 2021, PvdD 2021, PvdD 2020, VVD 2023, SGP 2023, CU 2020, 50PLUS 2021, **NSC 2024**
+  (€185.458 against €238.643) and **SGP 2024** (€7.500 against €814.541). An earlier version of this list gave
+  eight of the ten; the two 2024 cases were found by an audit and are added here.
+- The numbers are positional: `value_eur` is the amount in the second numeric column of the line, which is a
+  **candidate** value for "actual" until the column heading has been checked against the party's own table.

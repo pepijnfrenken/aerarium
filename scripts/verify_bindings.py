@@ -356,6 +356,42 @@ else:
     print("FAIL  money map scope label not found")
     fails.append("money map scope label missing")
 
+f4txt = (REPO / "docs" / "FINDING-004-spending-is-not-comparable.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "NSC 2024" in f4txt and "SGP 2024" in f4txt:
+    print("PASS  FINDING-004 lists all ten conflicting party-years")
+else:
+    print("FAIL  FINDING-004 still omits NSC 2024 or SGP 2024")
+    fails.append("FINDING-004 conflict list incomplete")
+
+cbstxt = (REPO / "docs" / "LANE-CBS-STATISTICS.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "€1,000" in cbstxt and "2023 vintage" in cbstxt:
+    print("PASS  CBS lane states the gift threshold per vintage, not as one series-wide cutoff")
+else:
+    print("FAIL  CBS lane still applies one threshold across vintages")
+    fails.append("CBS lane threshold not vintage-qualified")
+
+checked += 1
+if "Gifts cover 2022–2024 only; 2025 and 2026 party recipients are not published." in html:
+    print("FAIL  the caveat still says 2025 is unpublished, contradicting the 2025 section")
+    fails.append("caveat claims 2025 unpublished while the page publishes 2025")
+elif "ANNUAL dashboard series" in html:
+    print("PASS  the caveat scopes the 2022-2024 limit to the annual series and points at 2025")
+else:
+    print("FAIL  gift-coverage caveat not found in either form")
+    fails.append("gift-coverage caveat missing")
+
+checked += 1
+if ">Donors<span" in html:
+    print("FAIL  the 2025 table still labels row counts as Donors")
+    fails.append("2025 table labels donor rows as Donors")
+elif "Donor rows" in html:
+    print("PASS  the 2025 table labels its column as donor rows, with the rule in the tooltip")
+else:
+    print("FAIL  2025 donor column label not found")
+    fails.append("2025 donor column label missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

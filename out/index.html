@@ -571,7 +571,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       '<th>Gifts, split<span class="unit">solid = to 8 Oct, pale = last 3 weeks</span></th>'+
       '<th class="n">Debts<span class="unit">2024\u20138 Oct 25</span></th>'+
       '<th class="n">Debts<span class="unit">9\u201329 Oct 25</span></th>'+
-      '<th class="n">Donors<span class="unit">2025</span></th>'+
+      '<th class="n" title="Count of donor-total rows with a positive 2025 amount, not distinct people and not a party count">Donor rows<span class="unit">2025, positive</span></th>'+
       '</tr></thead><tbody>'+body+'</tbody></table>';
     var sv = (L.seat_view || []).filter(function(x){ return x.gifts > 0 || x.seats > 0; });
     var md = (L.media || []);
@@ -1064,7 +1064,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }).join('');
 
   var caveats = [
-    'Gifts cover 2022–2024 only; 2025 and 2026 party recipients are not published.',
+    'The ANNUAL dashboard series covers gifts for 2022–2024 only. 2025 is published elsewhere and is shown in section 02 above, from the separate BZK election workbooks. 2026 does not exist yet: annual reports are due 1 July 2027.',
     'Donor names are published as written and are not merged, so variants of one name appear separately.',
     'The state subsidy to a party’s neveninstellingen is not split out in any structured source.',
     'A null value is rendered “n/a” and is never substituted with 0. A true 0 in the source is shown as € 0.',
