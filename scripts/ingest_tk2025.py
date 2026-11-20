@@ -212,7 +212,9 @@ def main() -> int:
             w.writeheader()
             w.writerows(cand_rows)
     per_party = sorted(
-        ({"partij": p, "totaal_2025": round(summary.get(p, {}).get("y2025") or detail.get(p, 0.0), 2),
+        ({"partij": p,
+          "totaal_2025": round((summary[p]["y2025"] if p in summary and summary[p].get("y2025") is not None
+                               else detail.get(p, 0.0)), 2),
           "detail_sum": round(v, 2),
           "donors": sum(1 for r in rows if party_key(r["partij"]) == p and r["eindtotaal"])}
          for p, v in detail.items()), key=lambda x: -x["totaal_2025"])

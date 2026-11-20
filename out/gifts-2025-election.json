@@ -140,12 +140,6 @@
    "donors": 2
   },
   {
-   "partij": "NL PLAN",
-   "totaal_2025": 3700.0,
-   "detail_sum": 3700.0,
-   "donors": 3
-  },
-  {
    "partij": "Piratenpartij",
    "totaal_2025": 2950.0,
    "detail_sum": 2950.0,
@@ -168,6 +162,12 @@
    "totaal_2025": 0.0,
    "detail_sum": 0.0,
    "donors": 1
+  },
+  {
+   "partij": "NL PLAN",
+   "totaal_2025": 0.0,
+   "detail_sum": 3700.0,
+   "donors": 3
   },
   {
    "partij": "Partij voor de Rechtsstaat",

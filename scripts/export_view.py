@@ -290,7 +290,59 @@ def load_lineage() -> dict:
             "combined": combined}
 
 
+def load_latest(gifts_totals: dict) -> dict:
+    """2025, from the election-year ODS files rather than the dashboard.
+
+    The dashboard stops at 2024. These files do not. BZK published gifts for 1 January 2024 to 8 October 2025 a
+    week before the 29 October 2025 vote, and a supplementary set for the final three weeks. Different publisher,
+    different format and a lower threshold (EUR 767,12 instead of EUR 1.000), so they are carried in their own
+    object and never mixed into the 2022-2024 series.
+    """
+    out = OUT.parent
+    pre = json.loads((out / "gifts-2025-election.json").read_text(encoding="utf-8"))
+    debts = json.loads((out / "debts-2025.json").read_text(encoding="utf-8"))
+
+    per: dict[str, dict] = {}
+    for row in pre["per_party"]:
+        per[row["partij"]] = {"partij": row["partij"], "gifts_to_8oct": row["totaal_2025"],
+                              "donors": row["donors"], "gifts_final_3_weeks": 0.0,
+                              "debts_22mo": None, "debts_3wk": None}
+    for row in debts["per_party"]:
+        slot = per.setdefault(row["partij"], {"partij": row["partij"], "gifts_to_8oct": None, "donors": None,
+                                              "gifts_final_3_weeks": 0.0, "debts_22mo": None, "debts_3wk": None})
+        slot["gifts_final_3_weeks"] = row["gifts_final_3_weeks"]
+        slot["debts_22mo"] = row["debts_2024_to_8oct2025"]
+        slot["debts_3wk"] = row["debts_9_to_29oct2025"]
+
+    rows = sorted(per.values(), key=lambda r: -((r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)))
+    to_8oct = round(sum(r["gifts_to_8oct"] or 0.0 for r in rows), 2)
+    published = round(pre["totals"]["2025_to_8_oct"], 2)
+    if abs(to_8oct - published) > 0.02:
+        raise SystemExit(f"latest block does not reconcile: per-party sum {to_8oct:,.2f} against the file's "
+                         f"published {published:,.2f} (diff {to_8oct - published:,.2f})")
+    last3 = round(sum(r["gifts_final_3_weeks"] or 0.0 for r in rows), 2)
+    return {
+        "year": 2025,
+        "total_to_8oct": to_8oct,
+        "total_final_3_weeks": last3,
+        "total_to_election": round(to_8oct + last3, 2),
+        "total_2024_full_year": (gifts_totals.get("2024") if "2024" in gifts_totals
+                                 else gifts_totals.get(2024)),
+        "parties": rows,
+        "candidates": pre.get("candidates"),
+        "debts_22mo_total": round(sum(r["debts_22mo"] or 0.0 for r in rows), 2),
+        "debts_3wk_total": round(sum(r["debts_3wk"] or 0.0 for r in rows), 2),
+        "note": ("The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year "
+                 "threshold of EUR 767,12; the final-three-weeks column covers 9 to 29 October 2025. Both are "
+                 "periods, not annual report figures, so neither is comparable with the full-year 2022-2024 "
+                 "totals above: a lower threshold admits more donors. Debts are a different flow and are never "
+                 "added to gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are "
+                 "not a before and an after."),
+    }
+
+
 def main() -> None:
+    gifts = load_gifts()
     data = {
         "meta": {
             "generated_at": "2026-11-20",
@@ -304,16 +356,24 @@ def main() -> None:
                  "licence": LICENCE_BZK},
                 {"id": "nfrp", "label": "Rijksfinancien register — NFRP Politieke Partijen (chapter V)",
                  "url": "https://www.rijksfinancien.nl/open-data", "licence": LICENCE_RF},
+                {"id": "tk2025", "label": "BZK — giften en schulden Tweede Kamerverkiezing 2025 (ODS)",
+                 "url": ("https://www.rijksoverheid.nl/documenten/rapporten/2025/10/22/"
+                         "giften-en-schulden-van-partijen-en-kandidaten-voor-de-tweede-kamerverkiezing-2025"),
+                 "licence": LICENCE_BZK},
+                {"id": "tk2025post", "label": "BZK — giften en schulden na de Tweede Kamerverkiezing 2025 (ODS)",
+                 "url": ("https://www.rijksoverheid.nl/documenten/2025/12/19/"
+                         "giften-en-schulden-van-partijen-en-kandidaten-na-de-tweede-kamerverkiezing-2025"),
+                 "licence": LICENCE_BZK},
             ],
             "rules": [
                 "A ceiling is not a payment. ceiling_k, realised_k, named_k and anon_k are never summed.",
-                "An empty year is not zero: gifts exist for 2022-2024 only; named/anon is null outside 2017-2024.",
+                "An empty year is not zero. The dashboard has gifts for 2022-2024 only; named/anon is null outside 2017-2024.",
                 "Donor names are published as written. No name is merged with another; only runs of whitespace are normalised.",
                 "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
                 "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
                 "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
                 "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
-                "The dashboard's 2025 gift page is empty, but BZK published gifts around the 2025 election in a separate overview. An empty page is not an absence of gifts.",
+                "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
                 "GroenLinks and PvdA are one party now. They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors.",
             ],
         },
@@ -321,7 +381,8 @@ def main() -> None:
         "typology": load_typology(),
         "lineage": load_lineage(),
         "subsidy": load_subsidy(),
-        "gifts": load_gifts(),
+        "gifts": gifts,
+        "latest": load_latest(gifts["totals"]),
         "nfrp": load_nfrp(),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
@@ -332,6 +393,9 @@ def main() -> None:
     print(f"  gift years: {data['gifts']['totals']}")
     print(f"  donors: {len(data['gifts']['donors'])}, cross-party cases: {len(data['gifts']['cross_party'])}")
     print(f"  nfrp rows: {len(data['nfrp'])}")
+    lt = data["latest"]
+    print(f"  2025 to 8 Oct: {lt['total_to_8oct']:,.2f}; final 3 weeks: {lt['total_final_3_weeks']:,.2f}; "
+          f"to election: {lt['total_to_election']:,.2f}")
 
 
 if __name__ == "__main__":

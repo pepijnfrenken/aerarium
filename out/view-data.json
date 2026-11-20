@@ -25,17 +25,29 @@
     "label": "Rijksfinancien register — NFRP Politieke Partijen (chapter V)",
     "url": "https://www.rijksfinancien.nl/open-data",
     "licence": "CC-0 / publiek domein (Ministerie van Financien)"
+   },
+   {
+    "id": "tk2025",
+    "label": "BZK — giften en schulden Tweede Kamerverkiezing 2025 (ODS)",
+    "url": "https://www.rijksoverheid.nl/documenten/rapporten/2025/10/22/giften-en-schulden-van-partijen-en-kandidaten-voor-de-tweede-kamerverkiezing-2025",
+    "licence": "Geen licentieverklaring op partijfinanciering.nl aangetroffen; publicatie is wettelijk voorgeschreven (Wfpp art. 21 en 30). Bron: Dashboard partijfinanciering (BZK)"
+   },
+   {
+    "id": "tk2025post",
+    "label": "BZK — giften en schulden na de Tweede Kamerverkiezing 2025 (ODS)",
+    "url": "https://www.rijksoverheid.nl/documenten/2025/12/19/giften-en-schulden-van-partijen-en-kandidaten-na-de-tweede-kamerverkiezing-2025",
+    "licence": "Geen licentieverklaring op partijfinanciering.nl aangetroffen; publicatie is wettelijk voorgeschreven (Wfpp art. 21 en 30). Bron: Dashboard partijfinanciering (BZK)"
    }
   ],
   "rules": [
    "A ceiling is not a payment. ceiling_k, realised_k, named_k and anon_k are never summed.",
-   "An empty year is not zero: gifts exist for 2022-2024 only; named/anon is null outside 2017-2024.",
+   "An empty year is not zero. The dashboard has gifts for 2022-2024 only; named/anon is null outside 2017-2024.",
    "Donor names are published as written. No name is merged with another; only runs of whitespace are normalised.",
    "Where named_k plus anon_k differs from realised_k by at most 8k (2017-2023) that is rounding of euro-thousands, not a missing row.",
    "2024 has no anonymised row at all: 29.413k of 33.923k is in no register row. r4 is partial, and says so.",
    "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
    "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
-   "The dashboard's 2025 gift page is empty, but BZK published gifts around the 2025 election in a separate overview. An empty page is not an absence of gifts.",
+   "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
    "GroenLinks and PvdA are one party now. They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors."
   ]
  },
@@ -36473,6 +36485,247 @@
   ],
   "url": "https://www.partijfinanciering.nl/dashboard/jaarlijkse-verantwoording/giften/{jaar}/{slug}",
   "licence": "Geen licentieverklaring op partijfinanciering.nl aangetroffen; publicatie is wettelijk voorgeschreven (Wfpp art. 21 en 30). Bron: Dashboard partijfinanciering (BZK)"
+ },
+ "latest": {
+  "year": 2025,
+  "total_to_8oct": 9148658.46,
+  "total_final_3_weeks": 1021300.86,
+  "total_to_election": 10169959.32,
+  "total_2024_full_year": 8933589.9,
+  "parties": [
+   {
+    "partij": "GL",
+    "gifts_to_8oct": 2233874.32,
+    "donors": 670,
+    "gifts_final_3_weeks": 106259.88,
+    "debts_22mo": 4302364.0,
+    "debts_3wk": 386561.0
+   },
+   {
+    "partij": "SP",
+    "gifts_to_8oct": 1536307.35,
+    "donors": 191,
+    "gifts_final_3_weeks": 87381.47,
+    "debts_22mo": 1384399.87,
+    "debts_3wk": 222477.77
+   },
+   {
+    "partij": "D66",
+    "gifts_to_8oct": 1228601.11,
+    "donors": 136,
+    "gifts_final_3_weeks": 103190.07,
+    "debts_22mo": 3412970.62,
+    "debts_3wk": 344055.42
+   },
+   {
+    "partij": "PvdA",
+    "gifts_to_8oct": 996163.09,
+    "donors": 311,
+    "gifts_final_3_weeks": 43389.06,
+    "debts_22mo": 3605379.9,
+    "debts_3wk": 158586.82
+   },
+   {
+    "partij": "VVD",
+    "gifts_to_8oct": 729099.0,
+    "donors": 132,
+    "gifts_final_3_weeks": 169398.0,
+    "debts_22mo": 1711898.02,
+    "debts_3wk": 2029335.04
+   },
+   {
+    "partij": "CDA",
+    "gifts_to_8oct": 493175.96,
+    "donors": 190,
+    "gifts_final_3_weeks": 203181.49,
+    "debts_22mo": 3205940.3,
+    "debts_3wk": 421519.47
+   },
+   {
+    "partij": "PvdD",
+    "gifts_to_8oct": 416355.61,
+    "donors": 62,
+    "gifts_final_3_weeks": 9225.7,
+    "debts_22mo": 0.0,
+    "debts_3wk": 0.0
+   },
+   {
+    "partij": "Volt",
+    "gifts_to_8oct": 362667.94,
+    "donors": 74,
+    "gifts_final_3_weeks": 46234.0,
+    "debts_22mo": 198001.15,
+    "debts_3wk": 184355.8
+   },
+   {
+    "partij": "FvD",
+    "gifts_to_8oct": 267119.01,
+    "donors": 53,
+    "gifts_final_3_weeks": 47347.0,
+    "debts_22mo": 972349.0,
+    "debts_3wk": 310053.0
+   },
+   {
+    "partij": "SGP",
+    "gifts_to_8oct": 127552.75,
+    "donors": 49,
+    "gifts_final_3_weeks": 149790.25,
+    "debts_22mo": 120144.9,
+    "debts_3wk": 110619.92
+   },
+   {
+    "partij": "JA21",
+    "gifts_to_8oct": 199549.0,
+    "donors": 9,
+    "gifts_final_3_weeks": 11000.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": 0.0
+   },
+   {
+    "partij": "CU",
+    "gifts_to_8oct": 164673.0,
+    "donors": 42,
+    "gifts_final_3_weeks": 27686.54,
+    "debts_22mo": 727279.64,
+    "debts_3wk": 77648.47
+   },
+   {
+    "partij": "BBB",
+    "gifts_to_8oct": 99963.7,
+    "donors": 47,
+    "gifts_final_3_weeks": 7999.0,
+    "debts_22mo": 64734.95,
+    "debts_3wk": 78827.87
+   },
+   {
+    "partij": "DENK",
+    "gifts_to_8oct": 63902.0,
+    "donors": 23,
+    "gifts_final_3_weeks": 9218.4,
+    "debts_22mo": 37752.0,
+    "debts_3wk": 33880.05
+   },
+   {
+    "partij": "BVNL",
+    "gifts_to_8oct": 72044.0,
+    "donors": 10,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "FNP",
+    "gifts_to_8oct": 47347.76,
+    "donors": 58,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "NSC",
+    "gifts_to_8oct": 42113.0,
+    "donors": 15,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 367961.42,
+    "debts_3wk": null
+   },
+   {
+    "partij": "Vrij Verbond",
+    "gifts_to_8oct": 40192.86,
+    "donors": 4,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "BIJ1",
+    "gifts_to_8oct": 12000.0,
+    "donors": 2,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "50PLUS",
+    "gifts_to_8oct": 6007.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": 0.0
+   },
+   {
+    "partij": "LP (Libertaire Partij)",
+    "gifts_to_8oct": 6000.0,
+    "donors": 2,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "Piratenpartij",
+    "gifts_to_8oct": 2950.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "PVV",
+    "gifts_to_8oct": 1000.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": 0.0
+   },
+   {
+    "partij": "Vrede voor Dieren",
+    "gifts_to_8oct": 0.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "DE LINIE",
+    "gifts_to_8oct": 0.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "NL PLAN",
+    "gifts_to_8oct": 0.0,
+    "donors": 3,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "Partij voor de Rechtsstaat",
+    "gifts_to_8oct": 0.0,
+    "donors": 1,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   },
+   {
+    "partij": "ELLECT",
+    "gifts_to_8oct": null,
+    "donors": null,
+    "gifts_final_3_weeks": 0.0,
+    "debts_22mo": 0.0,
+    "debts_3wk": null
+   }
+  ],
+  "candidates": {
+   "rows": 1168,
+   "with_a_gift": 6,
+   "total_gifted": 11499.0
+  },
+  "debts_22mo_total": 20111175.77,
+  "debts_3wk_total": 4357920.63,
+  "note": "The 2025 column counts gifts received between 1 January and 8 October 2025 at the election-year threshold of EUR 767,12; the final-three-weeks column covers 9 to 29 October 2025. Both are periods, not annual report figures, so neither is comparable with the full-year 2022-2024 totals above: a lower threshold admits more donors. Debts are a different flow and are never added to gifts. The two debt columns cover disjoint periods (22 months, then 3 weeks) and are not a before and an after."
  },
  "nfrp": [
   {

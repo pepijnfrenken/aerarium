@@ -1,0 +1,193 @@
+{
+ "meta": {
+  "source": "BZK overviews for the Tweede Kamer election of 29 October 2025",
+  "post_election_period": "9 to 29 October 2025 (final three weeks before the vote)",
+  "gift_threshold": "EUR 767,12, the election-year threshold",
+  "debt_threshold": "EUR 25.000, and a short-term debt repaid within fourteen days need not be registered",
+  "debt_periods": {
+   "debts_2024_to_8oct2025": "1 January 2024 to 8 October 2025, a 22-month period",
+   "debts_9_to_29oct2025": "9 to 29 October 2025, the final three weeks only",
+   "warning": "These two files cover DISJOINT periods, not a before and an after. Their totals are not a delta and must never be subtracted: the first is 22 months of debt, the second is three weeks of it."
+  },
+  "warning": "Gifts and debts are different flows and are never summed. A debt is borrowed money; a gift is not repaid. Both are shown because a party that borrows to campaign is funded by a different mechanism than one that receives donations.",
+  "reconciliation": {
+   "parties_not_reconciling": [],
+   "gift_detail_sum": 1021300.86,
+   "gift_published_total": 1021300.86
+  }
+ },
+ "gift_totals": {
+  "published": 1021300.86,
+  "detail_rows": 342
+ },
+ "per_party": [
+  {
+   "partij": "CDA",
+   "gifts_final_3_weeks": 203181.49,
+   "debts_2024_to_8oct2025": 3205940.3,
+   "debts_9_to_29oct2025": 421519.47
+  },
+  {
+   "partij": "VVD",
+   "gifts_final_3_weeks": 169398.0,
+   "debts_2024_to_8oct2025": 1711898.02,
+   "debts_9_to_29oct2025": 2029335.04
+  },
+  {
+   "partij": "SGP",
+   "gifts_final_3_weeks": 149790.25,
+   "debts_2024_to_8oct2025": 120144.9,
+   "debts_9_to_29oct2025": 110619.92
+  },
+  {
+   "partij": "GL",
+   "gifts_final_3_weeks": 106259.88,
+   "debts_2024_to_8oct2025": 4302364.0,
+   "debts_9_to_29oct2025": 386561.0
+  },
+  {
+   "partij": "D66",
+   "gifts_final_3_weeks": 103190.07,
+   "debts_2024_to_8oct2025": 3412970.62,
+   "debts_9_to_29oct2025": 344055.42
+  },
+  {
+   "partij": "SP",
+   "gifts_final_3_weeks": 87381.47,
+   "debts_2024_to_8oct2025": 1384399.87,
+   "debts_9_to_29oct2025": 222477.77
+  },
+  {
+   "partij": "FvD",
+   "gifts_final_3_weeks": 47347.0,
+   "debts_2024_to_8oct2025": 972349.0,
+   "debts_9_to_29oct2025": 310053.0
+  },
+  {
+   "partij": "Volt",
+   "gifts_final_3_weeks": 46234.0,
+   "debts_2024_to_8oct2025": 198001.15,
+   "debts_9_to_29oct2025": 184355.8
+  },
+  {
+   "partij": "PvdA",
+   "gifts_final_3_weeks": 43389.06,
+   "debts_2024_to_8oct2025": 3605379.9,
+   "debts_9_to_29oct2025": 158586.82
+  },
+  {
+   "partij": "CU",
+   "gifts_final_3_weeks": 27686.54,
+   "debts_2024_to_8oct2025": 727279.64,
+   "debts_9_to_29oct2025": 77648.47
+  },
+  {
+   "partij": "JA21",
+   "gifts_final_3_weeks": 11000.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": 0.0
+  },
+  {
+   "partij": "PvdD",
+   "gifts_final_3_weeks": 9225.7,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": 0.0
+  },
+  {
+   "partij": "DENK",
+   "gifts_final_3_weeks": 9218.4,
+   "debts_2024_to_8oct2025": 37752.0,
+   "debts_9_to_29oct2025": 33880.05
+  },
+  {
+   "partij": "BBB",
+   "gifts_final_3_weeks": 7999.0,
+   "debts_2024_to_8oct2025": 64734.95,
+   "debts_9_to_29oct2025": 78827.87
+  },
+  {
+   "partij": "50PLUS",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": 0.0
+  },
+  {
+   "partij": "BIJ1",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "BVNL",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "DE LINIE",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "ELLECT",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "FNP",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "LP (Libertaire Partij)",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "NL PLAN",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "NSC",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 367961.42,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "PVV",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": 0.0
+  },
+  {
+   "partij": "Partij voor de Rechtsstaat",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "Piratenpartij",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "Vrede voor Dieren",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  },
+  {
+   "partij": "Vrij Verbond",
+   "gifts_final_3_weeks": 0.0,
+   "debts_2024_to_8oct2025": 0.0,
+   "debts_9_to_29oct2025": null
+  }
+ ]
+}

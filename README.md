@@ -23,6 +23,10 @@ the finding.
 
 ## Headline results
 
+- **2024 is not where the data ends.** 2025 is published by a different route: BZK released ODS overviews for the
+  29 October 2025 election. **€10.169.959,32** in gifts reached parties in 2025 up to election day, against
+  €8.933.589,90 in all of 2024. Of that, **€1.021.300,86** arrived in the final three weeks.
+
 - **2.301 donors, €25.038.264,64** in contributions 2022-2024, every party-year reconciled to the euro before use.
 - **Gift money is 75% individuals, 19% entities, 3% bequests, 3% party vehicles.** Entity share ranges from 0,0%
   (SP) and 0,3% (GL) to 79,9% (BVNL) and 72,2% (SGP): two different systems, not a gradient.
@@ -37,6 +41,8 @@ the finding.
   all. Only 10 of 92 annual reports state the per-entity split.
 - **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then full itemisation for
   2023-2024. 46 rows in 19 spellings collapse to 11 entities by KvK.
+- **Gifts to candidates are almost unstudied.** 1.168 candidates in 2025, of whom **6 received a gift**: €11.499
+  in total, the largest €5.000 to D66's P. Bamenga.
 
 ## Layout
 
@@ -47,6 +53,10 @@ the finding.
     out/donor-typology.json      2.301 donors in four classes
     out/party-lineage.json       when a name stopped meaning the same party
     out/gift-timing.json         donations by date, against election days
+    out/gifts-2025-election.json 2025 gifts to 8 Oct, per party, from the election-year ODS
+    out/gifts-2025-post-election.csv  the final three weeks, 9-29 Oct 2025
+    out/candidate-gifts-2025.csv  1.168 candidates, 6 with a gift
+    out/debts-2025.json          debts, in two disjoint periods that are never subtracted
     docs/                        probes, findings, grading vocabulary
     scripts/                     one script per artifact, with the rules it enforces
     src/aerarium/                the ingestion and grading package
@@ -64,6 +74,9 @@ the finding.
     .venv/bin/python scripts/reembed_view.py
     .venv/bin/python scripts/classify_donors.py
     .venv/bin/python scripts/gift_timing.py
+    bash scripts/fetch_tk2025.sh
+    .venv/bin/python scripts/ingest_tk2025.py
+    .venv/bin/python scripts/ingest_tk2025_post.py
     .venv/bin/python scripts/verify_findings.py     # 71 assertions on the prose
 
 The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents). It is not mirrored here; see privacy.
