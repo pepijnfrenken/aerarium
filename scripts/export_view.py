@@ -396,7 +396,7 @@ def main() -> None:
                 "NFRP rows are named recipients only, and the register carries none for 2021-2022. The scheme name carries the programme vintage, not the payment year.",
                 "Gift totals are gross of internal movement: they include transfers from a party's own foundations and salary transfers from its own elected representatives. They do not measure outside influence.",
                 "The dashboard's 2025 gift page is empty, but 2025 is published: BZK released ODS overviews for the 29 October 2025 election. An empty page is not an absence of gifts, and 2024 is not the end of the series.",
-                "GroenLinks and PvdA are one party now. They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors.",
+                "Party spending is not published as a comparable series. 131 campaign-spend lines across 92 reports come in three layouts, and 10 of 31 party-years yield conflicting values for the same year. No spending total is shown; see docs/FINDING-004.", They filed separately every year here, but campaigned on one list from 2023 and became PRO on 2026-07-01, so their two rows describe one organisation in its last years, not two competitors.",
             ],
         },
         "budget": load_budget(),
@@ -415,6 +415,9 @@ def main() -> None:
     print(f"  gift years: {data['gifts']['totals']}")
     print(f"  donors: {len(data['gifts']['donors'])}, cross-party cases: {len(data['gifts']['cross_party'])}")
     print(f"  nfrp rows: {len(data['nfrp'])}")
+    sp = OUT.parent / "spending-campaign.csv"
+    if sp.exists():
+        print(f"  campaign-spend lines recorded: {sum(1 for _ in sp.open()) - 1} (no total published, see FINDING-004)")
     lt = data["latest"]
     print(f"  2025 to 8 Oct: {lt['total_to_8oct']:,.2f}; final 3 weeks: {lt['total_final_3_weeks']:,.2f}; "
           f"to election: {lt['total_to_election']:,.2f}")
