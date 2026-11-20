@@ -43,12 +43,27 @@ these reports is asking for the categories to be explained.
 
 ## What would close it
 
-1. **The subsidieverantwoording, not the annual report.** Parties in receipt of subsidy file a model justification
-   with fixed categories. That is the only standardised expenditure document, and it is a different file from the
-   financial report.
-2. **Per-party column templates.** 21 parties, each verified once against its own table header, then a rule per
-   party. Expensive, and it dates the moment a party changes accountant.
+**Correction, 2026-11-20.** An earlier version of this section said the subsidieverantwoording is a "model
+justification with fixed categories". The model exists — bijlage 2 of the Regeling financiering politieke
+partijen, binding since 1 April 2025 and applicable from the 2024 reporting year — but its cost categories are
+**not fixed**. The printed skeleton reads *Bestuurskosten / Bureaukosten / Verkiezingskosten / Etc.*, and the
+binding part is the arithmetic: columns for the year and its comparator, a total of subsidiary spend, the granted
+subsidy, and the difference. The row set is left to the party. Six parties sampled, six taxonomies. See
+`docs/LANE-SUBSIDIEVERANTWOORDING.md` for the primary text and the page references.
+
+So the routes are:
+
+1. **A party-level series of three totals, not a category series.** Every sampled party prints a total of
+   subsidiary spend and some subsidy figure, under four different labels. `party × year × {total subsidiable
+   spend, subsidy, difference}` is defensible if each party's label-to-concept mapping and entity scope are
+   recorded once. That is 19-20 PDFs a year, some 250 pages, and it yields totals only.
+2. **A closed category list, if BZK adopts it.** The Ctfpp has asked for exactly that: "een geactualiseerde uitleg
+   over subsidiabele en niet-subsidiabele uitgaven per categorie". Until it happens, the least-bad target is the
+   nine activities already closed in Wfpp art. 7, which three of six sampled parties partly report by letter.
 3. **Nothing.** Report the campaign lines as evidence, which is what this file does, and refuse the aggregate.
+
+The refusal above stands: no spending series is published. What changes is only the reason it cannot be built
+from the one document everyone assumed would allow it.
 
 Until one of those happens, the page carries income and gifts and does not carry a spending series. An absent
 number is honest; a wrong one is not.
