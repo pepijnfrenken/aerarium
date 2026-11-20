@@ -232,6 +232,25 @@ def load_nfrp() -> list[dict]:
     return sorted(out, key=lambda r: (r["jaar"], -r["bedrag_k"]))
 
 
+def load_typology() -> dict:
+    """Aggregate donor typology, from out/donor-typology.json when it exists.
+
+    Only the aggregates go into the page: per-party composition is a table, the 2.301 donor rows are not.
+    A class says what a donor is, never why it gave; the register has no field for reason.
+    """
+    path = REPO / "out" / "donor-typology.json"
+    if not path.exists():
+        return {}
+    t = json.loads(path.read_text(encoding="utf-8"))
+    return {
+        "counts": t["counts"],
+        "money": t["money"],
+        "by_party": t["by_party"],
+        "classes": t["meta"]["classes"],
+        "warning": t["meta"]["warning"],
+    }
+
+
 def main() -> None:
     data = {
         "meta": {
@@ -259,6 +278,7 @@ def main() -> None:
             ],
         },
         "budget": load_budget(),
+        "typology": load_typology(),
         "subsidy": load_subsidy(),
         "gifts": load_gifts(),
         "nfrp": load_nfrp(),

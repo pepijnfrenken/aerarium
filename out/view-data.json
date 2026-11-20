@@ -139,6 +139,139 @@
    "source": "budget"
   }
  ],
+ "typology": {
+  "counts": {
+   "entity": 194,
+   "bequest": 13,
+   "party_vehicle": 5,
+   "individual": 2089
+  },
+  "money": {
+   "entity": 4827459.43,
+   "bequest": 698798.15,
+   "party_vehicle": 702950.0,
+   "individual": 18809057.06
+  },
+  "by_party": {
+   "GL": {
+    "total": 6413923.88,
+    "individual": 6393923.88,
+    "entity": 20000.0,
+    "entity_share": 0.3
+   },
+   "SP": {
+    "total": 6229126.27,
+    "individual": 6146745.63,
+    "bequest": 80568.21,
+    "entity": 1812.43,
+    "entity_share": 0.0
+   },
+   "VVD": {
+    "total": 4349220.0,
+    "entity": 2699832.0,
+    "party_vehicle": 688950.0,
+    "individual": 960438.0,
+    "entity_share": 62.1
+   },
+   "D66": {
+    "total": 1594512.61,
+    "entity": 412591.0,
+    "individual": 1181921.61,
+    "entity_share": 25.9
+   },
+   "PvdA": {
+    "total": 1359481.14,
+    "entity": 20000.0,
+    "bequest": 68535.22,
+    "individual": 1270945.92,
+    "entity_share": 1.5
+   },
+   "PvdD": {
+    "total": 1339077.19,
+    "bequest": 549694.72,
+    "individual": 744382.47,
+    "entity": 45000.0,
+    "entity_share": 3.4
+   },
+   "CDA": {
+    "total": 923704.66,
+    "entity": 268580.0,
+    "individual": 655124.66,
+    "entity_share": 29.1
+   },
+   "Volt": {
+    "total": 648734.14,
+    "entity": 335538.94,
+    "individual": 313195.2,
+    "entity_share": 51.7
+   },
+   "FvD": {
+    "total": 596116.0,
+    "individual": 273348.0,
+    "entity": 322768.0,
+    "entity_share": 54.1
+   },
+   "CU": {
+    "total": 536654.18,
+    "individual": 441214.18,
+    "entity": 81440.0,
+    "party_vehicle": 14000.0,
+    "entity_share": 15.2
+   },
+   "SGP": {
+    "total": 336481.85,
+    "entity": 242962.85,
+    "individual": 93519.0,
+    "entity_share": 72.2
+   },
+   "BVNL": {
+    "total": 256465.21,
+    "entity": 205001.21,
+    "individual": 51464.0,
+    "entity_share": 79.9
+   },
+   "BBB": {
+    "total": 164633.0,
+    "individual": 70200.0,
+    "entity": 94433.0,
+    "entity_share": 57.4
+   },
+   "JA21": {
+    "total": 99580.0,
+    "entity": 62500.0,
+    "individual": 37080.0,
+    "entity_share": 62.8
+   },
+   "DENK": {
+    "total": 70105.51,
+    "individual": 70105.51,
+    "entity_share": 0.0
+   },
+   "NSC": {
+    "total": 68649.0,
+    "individual": 68649.0,
+    "entity_share": 0.0
+   },
+   "PVV": {
+    "total": 50000.0,
+    "individual": 35000.0,
+    "entity": 15000.0,
+    "entity_share": 30.0
+   },
+   "OPNL": {
+    "total": 1800.0,
+    "individual": 1800.0,
+    "entity_share": 0.0
+   }
+  },
+  "classes": [
+   "party_vehicle",
+   "bequest",
+   "entity",
+   "individual"
+  ],
+  "warning": "A class describes what a donor is, never why it gave. The register has no field for reason, purpose or interest. Any statement about motive must be sourced to the donor or to reporting."
+ },
  "subsidy": {
   "years": [
    2022,
