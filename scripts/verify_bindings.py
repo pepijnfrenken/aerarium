@@ -414,6 +414,55 @@ else:
     else:
         print(f"PASS  manifest covers all {n_out} artifacts, {man.count('| CURATED |')} declared curated")
 
+# ---------------------------------------------------------------- government run
+gv = json.loads((OUT / "govrun.json").read_text(encoding="utf-8"))
+f6 = (REPO / "docs" / "FINDING-006-what-a-ministry-spends.md").read_text(encoding="utf-8", errors="replace")
+nat = gv["national"]
+cls = gv["instrument_classes"]
+
+
+def nl_fmt(k: float) -> str:
+    """Render thousands as the Dutch document prints them: 493337650 -> 493.337.650."""
+    return f"{int(round(k)):,}".replace(",", ".")
+
+
+for label, value, prose in [
+    ("gross chapter sum", nat["gross_chapter_sum_k"], "€493.337.650k"),
+    ("not-expenditure total", nat["not_expenditure_k"], "€157.137.150k"),
+    ("expenditure total", nat["expenditure_k"], "€336.200.500k"),
+    ("personnel total", nat["personnel_k"], "€17.511.565k"),
+    ("financial transactions", cls["financial_transaction"]["total_k"], "133.083.833"),
+    ("receipts", cls["receipts"]["total_k"], "13.486.496"),
+    ("inter-chapter transfers", cls["inter_chapter_transfer"]["total_k"], "10.566.821"),
+]:
+    checked += 1
+    ok = prose in f6 and nl_fmt(value) in prose.replace("€", "")
+    print(f"{'PASS' if ok else 'FAIL'}  FINDING-006 {label}: {nl_fmt(value)} (prose expects {prose})")
+    if not ok:
+        fails.append(f"FINDING-006 {label}: artifact {nl_fmt(value)} vs prose {prose}")
+
+# the two rows that make the argument: Financien and IenW
+fin = next(r for r in gv["per_chapter"] if r["chapter"] == "IX")
+ienw = next(r for r in gv["per_chapter"] if r["chapter"] == "XII")
+for label, got, want, prose in [
+    ("Financien expenditure", fin["expenditure_k"], 24549967, "24.549.967"),
+    ("Financien not-expenditure", fin["non_expenditure_k"], 128479974, "128.479.974"),
+    ("IenW expenditure", ienw["expenditure_k"], 3510689, "3.510.689"),
+    ("IenW inter-chapter", ienw["non_expenditure_k"], 10408456, "10.408.456"),
+]:
+    checked += 1
+    ok = abs(got - want) <= 0.5 and prose in f6
+    print(f"{'PASS' if ok else 'FAIL'}  FINDING-006 {label}: {got:,.0f}k")
+    if not ok:
+        fails.append(f"FINDING-006 {label}: {got} != {want} or missing from prose")
+
+checked += 1
+if gv["column_integrity"]["verdict"] == "blank in every row" and "blank in all 51.146 rows" in f6:
+    print("PASS  FINDING-006 states beleid_of_niet_beleid is blank everywhere, matching the measured count")
+else:
+    print("FAIL  FINDING-006 apparatus-column claim does not match the measurement")
+    fails.append("FINDING-006 beleid_of_niet_beleid claim unverified")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
