@@ -1,0 +1,211 @@
+{
+ "generated_by": "scripts/flow.py",
+ "question": "How far down the chain of custody does each euro survive?",
+ "measures": {
+  "reachability": "Budget side, in euros: realised expenditure sitting under an instrument type for which a recipient is ever published. A ceiling on traceability, not a claim that those euros were traced.",
+  "disclosure_grade": "Register side, in euros: named versus anonymised among the money the register publishes. Valid within the register only.",
+  "claim_join": "Matching labels across the two registers. Counts, not sums: the two registers measure different quantities on the same line."
+ },
+ "reachability": [
+  {
+   "year": 2016,
+   "expenditure_k": 277825081,
+   "reachable_k": 90942159,
+   "unreachable_k": 186882922,
+   "reachable_pct": 32.7
+  },
+  {
+   "year": 2017,
+   "expenditure_k": 277049069,
+   "reachable_k": 89561335,
+   "unreachable_k": 187487734,
+   "reachable_pct": 32.3
+  },
+  {
+   "year": 2018,
+   "expenditure_k": 287565564,
+   "reachable_k": 94423717,
+   "unreachable_k": 193141847,
+   "reachable_pct": 32.8
+  },
+  {
+   "year": 2019,
+   "expenditure_k": 300135979,
+   "reachable_k": 98537191,
+   "unreachable_k": 201598788,
+   "reachable_pct": 32.8
+  },
+  {
+   "year": 2020,
+   "expenditure_k": 260546984,
+   "reachable_k": 124206453,
+   "unreachable_k": 136340531,
+   "reachable_pct": 47.7
+  },
+  {
+   "year": 2021,
+   "expenditure_k": 275336824,
+   "reachable_k": 148872099,
+   "unreachable_k": 126464725,
+   "reachable_pct": 54.1
+  },
+  {
+   "year": 2022,
+   "expenditure_k": 306382523,
+   "reachable_k": 138106606,
+   "unreachable_k": 168275917,
+   "reachable_pct": 45.1
+  },
+  {
+   "year": 2023,
+   "expenditure_k": 309999824,
+   "reachable_k": 135930686,
+   "unreachable_k": 174069138,
+   "reachable_pct": 43.8
+  },
+  {
+   "year": 2024,
+   "expenditure_k": 331469674,
+   "reachable_k": 168442068,
+   "unreachable_k": 163027606,
+   "reachable_pct": 50.8
+  },
+  {
+   "year": 2025,
+   "expenditure_k": 339184268,
+   "reachable_k": 170084751,
+   "unreachable_k": 169099517,
+   "reachable_pct": 50.1
+  }
+ ],
+ "disclosure_grade": [
+  {
+   "year": 2017,
+   "rows": 949,
+   "anonymised_rows": 949,
+   "named_k": 0,
+   "anonymised_k": 129124549,
+   "named_pct": 0.0
+  },
+  {
+   "year": 2018,
+   "rows": 974,
+   "anonymised_rows": 974,
+   "named_k": 0,
+   "anonymised_k": 140807305,
+   "named_pct": 0.0
+  },
+  {
+   "year": 2019,
+   "rows": 966,
+   "anonymised_rows": 966,
+   "named_k": 0,
+   "anonymised_k": 148262829,
+   "named_pct": 0.0
+  },
+  {
+   "year": 2020,
+   "rows": 82653,
+   "anonymised_rows": 891,
+   "named_k": 18684059,
+   "anonymised_k": 157113968,
+   "named_pct": 10.6
+  },
+  {
+   "year": 2021,
+   "rows": 55168,
+   "anonymised_rows": 852,
+   "named_k": 43752528,
+   "anonymised_k": 132001466,
+   "named_pct": 24.9
+  },
+  {
+   "year": 2022,
+   "rows": 30249,
+   "anonymised_rows": 1041,
+   "named_k": 108942770,
+   "anonymised_k": 49953605,
+   "named_pct": 68.6
+  },
+  {
+   "year": 2023,
+   "rows": 40436,
+   "anonymised_rows": 1873,
+   "named_k": 122677872,
+   "anonymised_k": 80895060,
+   "named_pct": 60.3
+  },
+  {
+   "year": 2024,
+   "rows": 66269,
+   "anonymised_rows": 944,
+   "named_k": 197969404,
+   "anonymised_k": 4740918,
+   "named_pct": 97.7
+  }
+ ],
+ "claim_join": {
+  "budget_groups": 5844,
+  "register_groups": 2539,
+  "matched_groups": 1708,
+  "match_rate_of_register_pct": 67.3,
+  "matched_agreeing_within_2pct": 1304,
+  "matched_register_exceeds_budget": 148,
+  "matched_budget_exceeds_register": 224,
+  "budget_only": 4136,
+  "register_only": 831,
+  "note": "A matched group is a claim that two registers describe the same instrument line. Where the register exceeds the budget it is usually a scheme financed outside the appropriation (premium-funded care, fund flows); where the budget exceeds the register it is usually an instrument type for which no recipient is published. Neither is an error in the join, and neither is summed across."
+ },
+ "examples": [
+  {
+   "year": 2024,
+   "chapter": "XVI",
+   "article": "Langdurige zorg en ondersteuning",
+   "instrument": "Bekostiging",
+   "basis": "article",
+   "budget_k": 765793,
+   "register_k": 21519845,
+   "ratio": 28.1
+  },
+  {
+   "year": 2024,
+   "chapter": "XVI",
+   "article": "Curatieve zorg",
+   "instrument": "Bekostiging",
+   "basis": "article",
+   "budget_k": 727043,
+   "register_k": 4052315,
+   "ratio": 5.6
+  },
+  {
+   "year": 2024,
+   "chapter": "IX",
+   "article": null,
+   "instrument": "Leningen",
+   "basis": "instrument",
+   "budget_k": 53861183,
+   "register_k": 13100000,
+   "ratio": 0.2
+  }
+ ],
+ "chapter_code_mismatch": {
+  "note": "The register uses J and K where the budget uses III and XVIII for some years. Aliased in this script and counted in the join; recorded here rather than silently repaired.",
+  "aliases": {
+   "j": "III",
+   "k": "XVIII"
+  }
+ },
+ "years": [
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ]
+}

@@ -427,13 +427,11 @@ def nl_fmt(k: float) -> str:
 
 
 for label, value, prose in [
-    ("gross chapter sum", nat["gross_chapter_sum_k"], "€493.337.650k"),
-    ("not-expenditure total", nat["not_expenditure_k"], "€157.137.150k"),
-    ("expenditure total", nat["expenditure_k"], "€336.200.500k"),
-    ("personnel total", nat["personnel_k"], "€17.511.565k"),
-    ("financial transactions", cls["financial_transaction"]["total_k"], "133.083.833"),
-    ("receipts", cls["receipts"]["total_k"], "13.486.496"),
-    ("inter-chapter transfers", cls["inter_chapter_transfer"]["total_k"], "10.566.821"),
+    ("expenditure axis", nat["expenditure_axis_k"], "€401.303.575k"),
+    ("programme spending", nat["expenditure_k"], "€331.469.674k"),
+    ("personnel total", nat["personnel_k"], "€17.503.748k"),
+    ("financial transactions", nat["financial_k"], "59.267.080"),
+    ("inter-chapter transfers", nat["inter_chapter_k"], "10.566.821"),
 ]:
     checked += 1
     ok = prose in f6 and nl_fmt(value) in prose.replace("€", "")
@@ -441,13 +439,24 @@ for label, value, prose in [
     if not ok:
         fails.append(f"FINDING-006 {label}: artifact {nl_fmt(value)} vs prose {prose}")
 
+# the vuo axis must not be silently re-mixed: the superseded figures must be gone from the prose
+checked += 1
+if "€493.337.650k" in f6 and "Correction, 2026-11-21" not in f6:
+    print("FAIL  FINDING-006 still presents the pre-vuo figures without a correction note")
+    fails.append("FINDING-006 shows the inflated total with no correction")
+elif "`O` = ontvangsten" in f6 and "`V` = verplichtingen" in f6:
+    print("PASS  FINDING-006 names the vuo axis and carries the correction up front")
+else:
+    print("FAIL  FINDING-006 does not document the vuo axis")
+    fails.append("FINDING-006 omits the vuo axis")
+
 # the two rows that make the argument: Financien and IenW
 fin = next(r for r in gv["per_chapter"] if r["chapter"] == "IX")
 ienw = next(r for r in gv["per_chapter"] if r["chapter"] == "XII")
 for label, got, want, prose in [
-    ("Financien expenditure", fin["expenditure_k"], 24549967, "24.549.967"),
-    ("Financien not-expenditure", fin["non_expenditure_k"], 128479974, "128.479.974"),
-    ("IenW expenditure", ienw["expenditure_k"], 3510689, "3.510.689"),
+    ("Financien expenditure", fin["expenditure_k"], 21725430, "21.725.430"),
+    ("Financien not-expenditure", fin["non_expenditure_k"], 54586916, "54.586.916"),
+    ("IenW expenditure", ienw["expenditure_k"], 3510189, "3.510.189"),
     ("IenW inter-chapter", ienw["non_expenditure_k"], 10408456, "10.408.456"),
 ]:
     checked += 1

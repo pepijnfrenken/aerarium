@@ -42,7 +42,12 @@ LATEST_FULL = 2024  # last year with both a draft and a realised account
 
 def main() -> int:
     con = duckdb.connect(str(DB), read_only=True)
-    D = "(select distinct * from budget_line)"
+    # `vuo` is a three-way axis that took me two rounds to notice: O = ontvangsten (receipts),
+    # U = uitgaven (expenditure), V = verplichtingen (commitments). Summing all three doubles the
+    # total and invents EUR 698bn of 2016 spending. Everything below is on the expenditure axis
+    # unless it says otherwise.
+    D = "(select distinct * from budget_line where vuo='U')"
+    DF = "(select distinct * from budget_line)"
 
     # --- column integrity, measured rather than assumed -------------------------
     blank_by_year = con.execute(
@@ -50,7 +55,7 @@ def main() -> int:
                    count(*) as rows,
                    sum(case when beleid_of_niet_beleid is null
                               or trim(beleid_of_niet_beleid) = '' then 1 else 0 end) as blank
-            from {D} group by 1 order by 1"""
+            from {DF} group by 1 order by 1"""
     ).fetchall()
 
     # --- chapter shape on the realised account ---------------------------------
@@ -147,6 +152,17 @@ def main() -> int:
 
     class_totals = {c: sum(v.values()) for c, v in classified.items()}
 
+    # receipts and commitments are NOT part of the expenditure axis. They are measured separately so
+    # the artifact shows all three and nobody reconstructs a total by adding them.
+    receipts_k = con.execute(
+        f"""select coalesce(sum(bedrag_k),0) from {DF}
+            where fase='JV' and jaar={LATEST_FULL} and vuo='O' and bedrag_k is not null"""
+    ).fetchone()[0]
+    commitments_k = con.execute(
+        f"""select coalesce(sum(bedrag_k),0) from {DF}
+            where fase='JV' and jaar={LATEST_FULL} and vuo='V' and bedrag_k is not null"""
+    ).fetchone()[0]
+
     # per chapter, expenditure only, so a ministry's size is its programme and people
     per_chapter_net: dict[str, float] = {}
     for ch, instr, k in con.execute(
@@ -201,21 +217,27 @@ def main() -> int:
         ],
         "year": LATEST_FULL,
         "national": {
-            "gross_chapter_sum_k": total_jv,
+            "expenditure_axis_k": total_jv,
+            "financial_k": round(class_totals.get("financial_transaction", 0)),
+            "inter_chapter_k": round(class_totals.get("inter_chapter_transfer", 0)),
             "expenditure_k": net_total,
-            "not_expenditure_k": total_jv - net_total,
-            "draft_ceiling_k": total_owb,
             "personnel_k": total_pers,
             "personnel_share_of_expenditure_pct": round(100 * total_pers / net_total, 1) if net_total else None,
             "chapters_with_no_personnel_instrument": zero_personnel,
-            "note": ("gross_chapter_sum_k is what adding the chapters gives, and it is NOT spending: it contains "
-                     "receipts, inter-chapter transfers and financial transactions. expenditure_k removes the "
-                     "three categories named in instrument_classes."),
+            "off_axis": {
+                "receipts_k": round(receipts_k),
+                "commitments_k": round(commitments_k),
+                "note": ("These sit on vuo='O' and vuo='V', not on the expenditure axis. They are reported "
+                         "so the three are visible and never added together."),
+            },
+            "note": ("expenditure_axis_k is the sum of vuo='U' chapter rows and is NOT programme spending: "
+                     "it contains loans and treasury movements (financial_k) and contributions to other "
+                     "budget chapters (inter_chapter_k). expenditure_k removes both."),
         },
         "instrument_classes": {
             cls: {
                 "total_k": round(k, 0),
-                "share_of_gross_pct": round(100 * k / total_jv, 1) if total_jv else None,
+                "share_of_axis_pct": round(100 * k / total_jv, 1) if total_jv else None,
                 "instruments": {i: v for i, v in sorted(vals.items(), key=lambda kv: -kv[1])},
             }
             for cls, (k, vals) in {
@@ -234,13 +256,14 @@ def main() -> int:
     print(f"wrote {OUT.relative_to(ROOT)}")
     print(f"  column integrity: beleid_of_niet_beleid {payload['column_integrity']['verdict']}")
     nat = payload["national"]
-    print(f"\n  gross chapter sum      EUR {nat['gross_chapter_sum_k']:,}k")
-    print(f"  of which not spending  EUR {nat['not_expenditure_k']:,}k")
-    for cls in ("receipts", "inter_chapter_transfer", "financial_transaction"):
-        c = payload["instrument_classes"][cls]
-        print(f"    {cls:<24}EUR {c['total_k']:>15,.0f}k  {c['share_of_gross_pct']:>5.1f}%")
-    print(f"  expenditure            EUR {nat['expenditure_k']:,}k")
-    print(f"  personnel              EUR {nat['personnel_k']:,}k = {nat['personnel_share_of_expenditure_pct']}% of expenditure")
+    print(f"\n  expenditure axis (vuo=U) EUR {nat['expenditure_axis_k']:,}k")
+    print(f"    less financial          EUR {nat['financial_k']:>15,}k")
+    print(f"    less inter-chapter      EUR {nat['inter_chapter_k']:>15,}k")
+    print(f"  programme spending       EUR {nat['expenditure_k']:,}k")
+    print(f"  personnel                EUR {nat['personnel_k']:,}k = "
+          f"{nat['personnel_share_of_expenditure_pct']}% of programme")
+    off = nat["off_axis"]
+    print(f"  off-axis: receipts {off['receipts_k']:,}k · commitments {off['commitments_k']:,}k (never added)")
     print(f"  no personnel row: {', '.join(nat['chapters_with_no_personnel_instrument']) or 'none'}")
     print(f"\n  {'ch':<4}{'ministry':<38}{'expenditure k':>15}{'non-exp k':>12}{'personnel':>12}{'%exp':>7}")
     for r in sorted(per_chapter, key=lambda x: -x["expenditure_k"]):

@@ -237,12 +237,12 @@
  ],
  "year": 2024,
  "national": {
-  "gross_chapter_sum_k": 493337650,
-  "expenditure_k": 336200500,
-  "not_expenditure_k": 157137150,
-  "draft_ceiling_k": 451532546,
-  "personnel_k": 17511565,
-  "personnel_share_of_expenditure_pct": 5.2,
+  "expenditure_axis_k": 401303575,
+  "financial_k": 59267080,
+  "inter_chapter_k": 10566821,
+  "expenditure_k": 331469674,
+  "personnel_k": 17503748,
+  "personnel_share_of_expenditure_pct": 5.3,
   "chapters_with_no_personnel_instrument": [
    "B",
    "V",
@@ -251,26 +251,30 @@
    "A",
    "H"
   ],
-  "note": "gross_chapter_sum_k is what adding the chapters gives, and it is NOT spending: it contains receipts, inter-chapter transfers and financial transactions. expenditure_k removes the three categories named in instrument_classes."
+  "off_axis": {
+   "receipts_k": 92034075,
+   "commitments_k": 0,
+   "note": "These sit on vuo='O' and vuo='V', not on the expenditure axis. They are reported so the three are visible and never added together."
+  },
+  "note": "expenditure_axis_k is the sum of vuo='U' chapter rows and is NOT programme spending: it contains loans and treasury movements (financial_k) and contributions to other budget chapters (inter_chapter_k). expenditure_k removes both."
  },
  "instrument_classes": {
   "expenditure": {
-   "total_k": 336200500,
-   "share_of_gross_pct": 68.1,
+   "total_k": 331469674,
+   "share_of_axis_pct": 82.6,
    "instruments": {
     "Inkomensoverdrachten": 111819558,
-    "Bijdrage aan medeoverheden": 65687764,
-    "Bekostiging": 47435332,
-    "Bijdrage aan ZBO's/RWT's": 19083226,
-    "Personele uitgaven": 17511565,
-    "Bijdrage aan (inter-)nationale organisaties": 13934492,
-    "Subsidies (regelingen)": 13814402,
-    "Rente": 11876795,
-    "Bijdrage aan agentschappen": 8677496,
-    "Opdrachten": 6848588,
+    "Bijdrage aan medeoverheden": 65681131,
+    "Bekostiging": 47165605,
+    "Bijdrage aan ZBO's/RWT's": 19062771,
+    "Personele uitgaven": 17503748,
+    "Bijdrage aan (inter-)nationale organisaties": 13911557,
+    "Subsidies (regelingen)": 13810656,
+    "Rente": 9774809,
+    "Bijdrage aan agentschappen": 8587528,
+    "Opdrachten": 6818390,
     "Geneeskundige geestelijke gezondheidszorg": 5562768,
-    "Materiële uitgaven": 2781324,
-    "Nog te verdelen": 1747813,
+    "Materiële uitgaven": 2776828,
     "(Schade)vergoeding": 1532068,
     "Beheer en onderhoud": 1450286,
     "Geriatrische revalidatiezorg en eerstelijnsverblijf": 1342331,
@@ -279,74 +283,54 @@
     "Grensoverschrijdende zorg": 827522,
     "Geheim": 506251,
     "Realisatie": 460860,
-    "Garanties": 345024,
-    "Boetes en schikkingen": 292846,
+    "Garanties": 212820,
     "Verkenningen en planuitwerking": 158071,
     "Overige netwerkgebonden kosten": 146142,
     "Vervanging": 96276,
-    "Overig": 21734,
+    "Overig": 21732,
     "Verkeersmanagement": 20621,
     "Bijdrage aan sociale fondsen": 10000,
     "Subsidies": 3912,
     "Verkenningen en planuitwerkingen": 3738,
-    "Nog onverdeeld": 0,
-    "Overige": 0,
     "Afroming Eigen Vermogen Rijkswaterstaat": 0,
+    "Overige": 0,
+    "Nog onverdeeld": 0,
     "Subsidies(regelingen)": 0,
-    "Nominaal en onverdeeld": 0
+    "Nominaal en onverdeeld": 0,
+    "Nog te verdelen": 0
    }
   },
   "receipts": {
-   "total_k": 13486496,
-   "share_of_gross_pct": 2.7,
-   "instruments": {
-    "Ontvangsten": 11252365,
-    "Diverse ontvangsten EU": 2234131
-   }
+   "total_k": 0,
+   "share_of_axis_pct": 0.0,
+   "instruments": {}
   },
   "inter_chapter_transfer": {
    "total_k": 10566821,
-   "share_of_gross_pct": 2.1,
+   "share_of_axis_pct": 2.6,
    "instruments": {
     "Bijdrage aan (andere) begrotingshoofdstukken": 10566821
    }
   },
   "financial_transaction": {
-   "total_k": 133083833,
-   "share_of_gross_pct": 27.0,
+   "total_k": 59267080,
+   "share_of_axis_pct": 14.8,
    "instruments": {
-    "Leningen": 105978326,
-    "Mutaties in rekening-courant en deposito's": 22314364,
-    "Vermogensverschaffing/-onttrekking": 3672958,
-    "Storting/onttrekking begrotingsreserve": 1118185
+    "Leningen": 57490007,
+    "Storting/onttrekking begrotingsreserve": 1090438,
+    "Vermogensverschaffing/-onttrekking": 686630,
+    "Mutaties in rekening-courant en deposito's": 5
    }
   }
  },
  "per_chapter": [
   {
-   "chapter": "IX",
-   "name": "Financiën en Nationale Schuld",
-   "realised_k": 153029941,
-   "draft_ceiling_k": 128553161,
-   "delta_k": 24476780,
-   "delta_pct": 19.0,
-   "personnel_k": 4521103,
-   "personnel_share_pct": 3.0,
-   "material_k": 630487,
-   "material_share_pct": 0.4,
-   "subsidies_k": 2000,
-   "opdrachten_k": 596259,
-   "uses_personnel_instrument": true,
-   "expenditure_k": 24549967,
-   "non_expenditure_k": 128479974
-  },
-  {
    "chapter": "XV",
    "name": "Sociale Zaken en Werkgelegenheid",
-   "realised_k": 113052114,
-   "draft_ceiling_k": 110355944,
-   "delta_k": 2696170,
-   "delta_pct": 2.4,
+   "realised_k": 110270517,
+   "draft_ceiling_k": 107799705,
+   "delta_k": 2470812,
+   "delta_pct": 2.3,
    "personnel_k": 511117,
    "personnel_share_pct": 0.5,
    "material_k": 105798,
@@ -355,15 +339,32 @@
    "opdrachten_k": 66231,
    "uses_personnel_instrument": true,
    "expenditure_k": 110211151,
-   "non_expenditure_k": 2840963
+   "non_expenditure_k": 59366
+  },
+  {
+   "chapter": "IX",
+   "name": "Financiën en Nationale Schuld",
+   "realised_k": 76312346,
+   "draft_ceiling_k": 57312594,
+   "delta_k": 18999752,
+   "delta_pct": 33.2,
+   "personnel_k": 4521103,
+   "personnel_share_pct": 5.9,
+   "material_k": 630487,
+   "material_share_pct": 0.8,
+   "subsidies_k": 2000,
+   "opdrachten_k": 594933,
+   "uses_personnel_instrument": true,
+   "expenditure_k": 21725430,
+   "non_expenditure_k": 54586916
   },
   {
    "chapter": "VIII",
    "name": "Onderwijs, Cultuur en Wetenschap",
-   "realised_k": 58213493,
-   "draft_ceiling_k": 57504700,
-   "delta_k": 708793,
-   "delta_pct": 1.2,
+   "realised_k": 56463783,
+   "draft_ceiling_k": 55466660,
+   "delta_k": 997123,
+   "delta_pct": 1.8,
    "personnel_k": 365321,
    "personnel_share_pct": 0.6,
    "material_k": 64832,
@@ -371,8 +372,8 @@
    "subsidies_k": 2008917,
    "opdrachten_k": 78972,
    "uses_personnel_instrument": true,
-   "expenditure_k": 55196631,
-   "non_expenditure_k": 3016862
+   "expenditure_k": 53448818,
+   "non_expenditure_k": 3014965
   },
   {
    "chapter": "B",
@@ -394,44 +395,27 @@
   {
    "chapter": "VI",
    "name": "Justitie en Veiligheid",
-   "realised_k": 26991883,
-   "draft_ceiling_k": 25599868,
-   "delta_k": 1392015,
-   "delta_pct": 5.4,
-   "personnel_k": 1454325,
-   "personnel_share_pct": 5.4,
-   "material_k": 440195,
-   "material_share_pct": 1.6,
-   "subsidies_k": 256016,
-   "opdrachten_k": 1127505,
+   "realised_k": 25483438,
+   "draft_ceiling_k": 24115725,
+   "delta_k": 1367713,
+   "delta_pct": 5.7,
+   "personnel_k": 1447008,
+   "personnel_share_pct": 5.7,
+   "material_k": 435699,
+   "material_share_pct": 1.7,
+   "subsidies_k": 252270,
+   "opdrachten_k": 1098633,
    "uses_personnel_instrument": true,
-   "expenditure_k": 25641414,
-   "non_expenditure_k": 1350469
-  },
-  {
-   "chapter": "XIII",
-   "name": "Economische Zaken",
-   "realised_k": 16776153,
-   "draft_ceiling_k": 17864366,
-   "delta_k": -1088213,
-   "delta_pct": -6.1,
-   "personnel_k": 551702,
-   "personnel_share_pct": 3.3,
-   "material_k": 162052,
-   "material_share_pct": 1.0,
-   "subsidies_k": 3304285,
-   "opdrachten_k": 958928,
-   "uses_personnel_instrument": true,
-   "expenditure_k": 8775808,
-   "non_expenditure_k": 8000345
+   "expenditure_k": 25483438,
+   "non_expenditure_k": 0
   },
   {
    "chapter": "XVI",
    "name": "Volksgezondheid, Welzijn en Sport",
-   "realised_k": 15795484,
-   "draft_ceiling_k": 17892860,
-   "delta_k": -2097376,
-   "delta_pct": -11.7,
+   "realised_k": 15750919,
+   "draft_ceiling_k": 17709738,
+   "delta_k": -1958819,
+   "delta_pct": -11.1,
    "personnel_k": 509869,
    "personnel_share_pct": 3.2,
    "material_k": 112564,
@@ -440,32 +424,32 @@
    "opdrachten_k": 200305,
    "uses_personnel_instrument": true,
    "expenditure_k": 15729481,
-   "non_expenditure_k": 66003
+   "non_expenditure_k": 21438
   },
   {
    "chapter": "XII",
    "name": "Infrastructuur en Waterstaat",
-   "realised_k": 13919145,
+   "realised_k": 13918645,
    "draft_ceiling_k": 2994600,
-   "delta_k": 10924545,
+   "delta_k": 10924045,
    "delta_pct": 364.8,
-   "personnel_k": 602853,
+   "personnel_k": 602353,
    "personnel_share_pct": 4.3,
    "material_k": 150212,
    "material_share_pct": 1.1,
    "subsidies_k": 707785,
    "opdrachten_k": 235610,
    "uses_personnel_instrument": true,
-   "expenditure_k": 3510689,
+   "expenditure_k": 3510189,
    "non_expenditure_k": 10408456
   },
   {
    "chapter": "X",
    "name": "Defensie",
    "realised_k": 12448211,
-   "draft_ceiling_k": 10156630,
-   "delta_k": 2291581,
-   "delta_pct": 22.6,
+   "draft_ceiling_k": 10068987,
+   "delta_k": 2379224,
+   "delta_pct": 23.6,
    "personnel_k": 8308166,
    "personnel_share_pct": 66.7,
    "material_k": 604594,
@@ -475,23 +459,6 @@
    "uses_personnel_instrument": true,
    "expenditure_k": 12358734,
    "non_expenditure_k": 89477
-  },
-  {
-   "chapter": "V",
-   "name": "Buitenlandse Zaken",
-   "realised_k": 12421510,
-   "draft_ceiling_k": 12900066,
-   "delta_k": -478556,
-   "delta_pct": -3.7,
-   "personnel_k": 0,
-   "personnel_share_pct": 0.0,
-   "material_k": 0,
-   "material_share_pct": 0.0,
-   "subsidies_k": 104023,
-   "opdrachten_k": 72940,
-   "uses_personnel_instrument": false,
-   "expenditure_k": 10187379,
-   "non_expenditure_k": 2234131
   },
   {
    "chapter": "VII",
@@ -511,21 +478,55 @@
    "non_expenditure_k": 162943
   },
   {
+   "chapter": "V",
+   "name": "Buitenlandse Zaken",
+   "realised_k": 10187379,
+   "draft_ceiling_k": 11654068,
+   "delta_k": -1466689,
+   "delta_pct": -12.6,
+   "personnel_k": 0,
+   "personnel_share_pct": 0.0,
+   "material_k": 0,
+   "material_share_pct": 0.0,
+   "subsidies_k": 104023,
+   "opdrachten_k": 72940,
+   "uses_personnel_instrument": false,
+   "expenditure_k": 10187379,
+   "non_expenditure_k": 0
+  },
+  {
+   "chapter": "XIII",
+   "name": "Economische Zaken",
+   "realised_k": 10009670,
+   "draft_ceiling_k": 12244601,
+   "delta_k": -2234931,
+   "delta_pct": -18.3,
+   "personnel_k": 551702,
+   "personnel_share_pct": 5.5,
+   "material_k": 162052,
+   "material_share_pct": 1.6,
+   "subsidies_k": 3304285,
+   "opdrachten_k": 958928,
+   "uses_personnel_instrument": true,
+   "expenditure_k": 8775808,
+   "non_expenditure_k": 1233862
+  },
+  {
    "chapter": "XIV",
    "name": "Landbouw, Natuur en Voedselkwaliteit",
-   "realised_k": 4275004,
-   "draft_ceiling_k": 2936216,
-   "delta_k": 1338788,
-   "delta_pct": 45.6,
+   "realised_k": 4043955,
+   "draft_ceiling_k": 2862703,
+   "delta_k": 1181252,
+   "delta_pct": 41.3,
    "personnel_k": 196179,
-   "personnel_share_pct": 4.6,
+   "personnel_share_pct": 4.9,
    "material_k": 60498,
-   "material_share_pct": 1.4,
+   "material_share_pct": 1.5,
    "subsidies_k": 1084421,
    "opdrachten_k": 76085,
    "uses_personnel_instrument": true,
    "expenditure_k": 3937436,
-   "non_expenditure_k": 337568
+   "non_expenditure_k": 106519
   },
   {
    "chapter": "XVII",
@@ -661,8 +662,8 @@
    "2021": 1067990,
    "2022": 1119515,
    "2023": 1254988,
-   "2024": 1454325,
-   "2025": 1444724
+   "2024": 1447008,
+   "2025": 1429538
   },
   "VII": {
    "2016": 164799,
@@ -706,8 +707,8 @@
    "2019": 236880,
    "2021": 272011,
    "2022": 144451,
-   "2024": 602853,
-   "2025": 617255
+   "2024": 602353,
+   "2025": 616755
   },
   "XIII": {
    "2017": 258940,
@@ -758,7 +759,7 @@
    "2025": 517382
   },
   "XX": {
-   "2025": 109901
+   "2025": 108343
   }
  },
  "instrument_use": {
@@ -883,15 +884,11 @@
   "IX": [
    {
     "instrument": "Leningen",
-    "amount_k": 102349502
-   },
-   {
-    "instrument": "Mutaties in rekening-courant en deposito's",
-    "amount_k": 22314364
+    "amount_k": 53861183
    },
    {
     "instrument": "Rente",
-    "amount_k": 11876795
+    "amount_k": 9774809
    },
    {
     "instrument": "Bijdrage aan medeoverheden",
@@ -902,16 +899,16 @@
     "amount_k": 4521103
    },
    {
-    "instrument": "Vermogensverschaffing/-onttrekking",
-    "amount_k": 3652439
-   },
-   {
     "instrument": "Bijdrage aan (inter-)nationale organisaties",
-    "amount_k": 723421
+    "amount_k": 700486
    },
    {
     "instrument": "(Schade)vergoeding",
     "amount_k": 668152
+   },
+   {
+    "instrument": "Vermogensverschaffing/-onttrekking",
+    "amount_k": 666111
    },
    {
     "instrument": "Materiële uitgaven",
@@ -919,43 +916,39 @@
    },
    {
     "instrument": "Opdrachten",
-    "amount_k": 596259
-   },
-   {
-    "instrument": "Boetes en schikkingen",
-    "amount_k": 292846
+    "amount_k": 594933
    },
    {
     "instrument": "Garanties",
-    "amount_k": 280281
-   },
-   {
-    "instrument": "Bekostiging",
-    "amount_k": 275823
+    "amount_k": 148077
    },
    {
     "instrument": "Storting/onttrekking begrotingsreserve",
-    "amount_k": 85467
-   },
-   {
-    "instrument": "Ontvangsten",
-    "amount_k": 78202
+    "amount_k": 59617
    },
    {
     "instrument": "Bijdrage aan ZBO's/RWT's",
-    "amount_k": 36823
+    "amount_k": 33312
    },
    {
     "instrument": "Overig",
-    "amount_k": 21734
+    "amount_k": 21732
    },
    {
     "instrument": "Bijdrage aan agentschappen",
     "amount_k": 21525
    },
    {
+    "instrument": "Bekostiging",
+    "amount_k": 6096
+   },
+   {
     "instrument": "Subsidies (regelingen)",
     "amount_k": 2000
+   },
+   {
+    "instrument": "Mutaties in rekening-courant en deposito's",
+    "amount_k": 5
    },
    {
     "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
@@ -970,10 +963,6 @@
    {
     "instrument": "Bijdrage aan (inter-)nationale organisaties",
     "amount_k": 9998694
-   },
-   {
-    "instrument": "Diverse ontvangsten EU",
-    "amount_k": 2234131
    },
    {
     "instrument": "Subsidies (regelingen)",
@@ -1007,35 +996,31 @@
   "VI": [
    {
     "instrument": "Bijdrage aan ZBO's/RWT's",
-    "amount_k": 13120991
+    "amount_k": 13104047
    },
    {
     "instrument": "Bijdrage aan medeoverheden",
-    "amount_k": 4664573
+    "amount_k": 4657940
    },
    {
     "instrument": "Bijdrage aan agentschappen",
-    "amount_k": 4571260
+    "amount_k": 4481292
    },
    {
     "instrument": "Personele uitgaven",
-    "amount_k": 1454325
-   },
-   {
-    "instrument": "Ontvangsten",
-    "amount_k": 1350469
+    "amount_k": 1447008
    },
    {
     "instrument": "Opdrachten",
-    "amount_k": 1127505
+    "amount_k": 1098633
    },
    {
     "instrument": "Materiële uitgaven",
-    "amount_k": 440195
+    "amount_k": 435699
    },
    {
     "instrument": "Subsidies (regelingen)",
-    "amount_k": 256016
+    "amount_k": 252270
    },
    {
     "instrument": "Geheim",
@@ -1108,11 +1093,11 @@
     "amount_k": 0
    },
    {
-    "instrument": "Garanties",
+    "instrument": "(Schade)vergoeding",
     "amount_k": 0
    },
    {
-    "instrument": "(Schade)vergoeding",
+    "instrument": "Garanties",
     "amount_k": 0
    }
   ],
@@ -1132,10 +1117,6 @@
    {
     "instrument": "Subsidies (regelingen)",
     "amount_k": 2005005
-   },
-   {
-    "instrument": "Nog te verdelen",
-    "amount_k": 1747813
    },
    {
     "instrument": "Bijdrage aan medeoverheden",
@@ -1171,11 +1152,15 @@
    },
    {
     "instrument": "Storting/onttrekking begrotingsreserve",
-    "amount_k": 3794
+    "amount_k": 1897
    },
    {
     "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
     "amount_k": 408
+   },
+   {
+    "instrument": "Nog te verdelen",
+    "amount_k": 0
    },
    {
     "instrument": "Garanties",
@@ -1239,7 +1224,7 @@
    },
    {
     "instrument": "Personele uitgaven",
-    "amount_k": 602853
+    "amount_k": 602353
    },
    {
     "instrument": "Bijdrage aan agentschappen",
@@ -1274,19 +1259,15 @@
     "amount_k": 398
    },
    {
-    "instrument": "Nog te verdelen",
+    "instrument": "Leningen",
     "amount_k": 0
    },
    {
-    "instrument": "Leningen",
+    "instrument": "Nog te verdelen",
     "amount_k": 0
    }
   ],
   "XIII": [
-   {
-    "instrument": "Ontvangsten",
-    "amount_k": 6766483
-   },
    {
     "instrument": "Subsidies (regelingen)",
     "amount_k": 3304285
@@ -1336,15 +1317,15 @@
     "amount_k": 28807
    },
    {
+    "instrument": "Nog onverdeeld",
+    "amount_k": 0
+   },
+   {
     "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
     "amount_k": 0
    },
    {
     "instrument": "Inkomensoverdrachten",
-    "amount_k": 0
-   },
-   {
-    "instrument": "Nog onverdeeld",
     "amount_k": 0
    }
   ],
@@ -1360,10 +1341,6 @@
    {
     "instrument": "Bijdrage aan agentschappen",
     "amount_k": 730543
-   },
-   {
-    "instrument": "Ontvangsten",
-    "amount_k": 231049
    },
    {
     "instrument": "Personele uitgaven",
@@ -1402,11 +1379,11 @@
     "amount_k": 210
    },
    {
-    "instrument": "Nog onverdeeld",
+    "instrument": "(Schade)vergoeding",
     "amount_k": 0
    },
    {
-    "instrument": "(Schade)vergoeding",
+    "instrument": "Nog onverdeeld",
     "amount_k": 0
    }
   ],
@@ -1418,10 +1395,6 @@
    {
     "instrument": "Bijdrage aan ZBO's/RWT's",
     "amount_k": 3365973
-   },
-   {
-    "instrument": "Ontvangsten",
-    "amount_k": 2781597
    },
    {
     "instrument": "Subsidies (regelingen)",
@@ -1526,10 +1499,6 @@
     "amount_k": 112564
    },
    {
-    "instrument": "Ontvangsten",
-    "amount_k": 44565
-   },
-   {
     "instrument": "Vermogensverschaffing/-onttrekking",
     "amount_k": 20519
    },
@@ -1550,19 +1519,19 @@
     "amount_k": 159
    },
    {
-    "instrument": "(Schade)vergoeding",
-    "amount_k": 0
-   },
-   {
     "instrument": "Nominaal en onverdeeld",
     "amount_k": 0
    },
    {
-    "instrument": "Overige",
+    "instrument": "Nog te verdelen",
     "amount_k": 0
    },
    {
-    "instrument": "Nog te verdelen",
+    "instrument": "(Schade)vergoeding",
+    "amount_k": 0
+   },
+   {
+    "instrument": "Overige",
     "amount_k": 0
    }
   ],
