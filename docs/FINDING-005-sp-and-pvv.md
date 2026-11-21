@@ -15,7 +15,9 @@ Against €2.098.889,33 in gifts for 2024, that is **95,3% from SP's own elected
 the party's rule that a representative surrenders the parliamentary allowance and takes back a fixed salary; the
 difference flows to the party and is filed as a contribution, because under the Wfpp that is what it is.
 
-- 270 distinct SP "donors" across the three years, median €20.579,22.
+- 270 distinct SP "donors" across the three years on the **raw published name string**, median €20.579,22. On
+  the page's lowercased-and-whitespace-normalised convention the same set is 269 keys and €20.634,90, because
+  one spelling pair differs only in case. Both are stated because the count depends on which rule you name.
 - Top 12 are all sitting representatives: S. Beckerman €155.887,70, M. van Nispen €147.665,33, P. Kwint
   €92.821,71, J. Dijk €89.222,37, M. Alkaya €87.754,32, and so on. Together they are 17,9% of the total.
 - Entity share of SP's money: **0,0%**. SP takes essentially nothing from companies or foundations.

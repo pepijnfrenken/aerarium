@@ -84,10 +84,16 @@ ProDemos's income statement (§ "10. Staat van Baten en Lasten over 2024") categ
 
 | Line (as the report labels it) | Realisatie 2024 (€) |
 |---|---|
-| Subsidie jaarplanactiviteiten (BZK + Tweede Kamer + baten op activiteiten) | 11.447.000 |
+| Subsidie jaarplanactiviteiten (BZK + Tweede Kamer) | 11.447.000 |
+| Baten op activiteiten | 455.793 |
 | Baten opdrachten en overige subsidies | 1.841.145 |
 | Overige baten | 2.744 |
 | **Totaal baten** | **13.746.682** |
+
+An earlier version of this table folded "baten op activiteiten" into the subsidy line and then omitted it,
+so the four components summed to €13.290.889 against a published total of €13.746.682. The €455.793 gap was
+the missing line. The annual accounts §10 list these as separate rows; §16.1 gives €11.902.793 as the combined
+subsidy-plus-activities figure, which is the two top rows added, not a fifth source of money.
 
 (Lasten 13.939.902; resultaat −162.654. Source: Jaarrekening 2024, section 10, PDF below.)
 

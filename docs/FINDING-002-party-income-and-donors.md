@@ -37,7 +37,11 @@ Published totals: subsidy 2022 €28.873.282, 2023 €31.477.637, 2024 €29.131
 
 ## Donors in more than one place
 
-Eleven donor-years give to more than one party in the same year, together €376.303,27. The four largest:
+**Eleven donor-years, counted under the historical filer definition** — GroenLinks and PvdA filed separately
+every year in this window — give to more than one party in the same year, together €376.303,27. Grouping them
+retrospectively as PRO removes two GL/PvdA-only cases (€3.991,56 and €3.776,75) and leaves **nine cases and
+€368.534,96**. The count is a function of the party definition, so it is named rather than presented as a fact.
+The four largest under the historical definition:
 
 | year | donor | total | split |
 |---|---|---|---|
