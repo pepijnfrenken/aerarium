@@ -392,6 +392,28 @@ else:
     print("FAIL  2025 donor column label not found")
     fails.append("2025 donor column label missing")
 
+# ---------------------------------------------------------------- artifact manifest
+# The skill's rule: every artifact names its generator, and hand-made inputs are labelled curated.
+man_path = REPO / "docs" / "MANIFEST.md"
+checked += 1
+if not man_path.exists():
+    print("FAIL  docs/MANIFEST.md missing")
+    fails.append("artifact manifest missing")
+else:
+    man = man_path.read_text(encoding="utf-8", errors="replace")
+    n_out = len([p for p in OUT.iterdir() if p.is_file()])
+    if "NO PRODUCER FOUND" in man:
+        print("FAIL  manifest lists an artifact with no producer")
+        fails.append("manifest contains an artifact with no producer")
+    elif f"{n_out} artifacts:" not in man:
+        print(f"FAIL  manifest does not cover all {n_out} artifacts in out/")
+        fails.append(f"manifest artifact count != {n_out}")
+    elif man.count("| CURATED |") < 1:
+        print("FAIL  manifest has no curated declarations")
+        fails.append("manifest carries no curated declarations")
+    else:
+        print(f"PASS  manifest covers all {n_out} artifacts, {man.count('| CURATED |')} declared curated")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
