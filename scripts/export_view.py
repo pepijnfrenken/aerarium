@@ -66,8 +66,23 @@ def load_subsidy() -> dict:
     import re
 
     url = "https://www.partijfinanciering.nl/dashboard/subsidies"
-    req = urllib.request.Request(url, headers={"User-Agent": "aerarium/0.1"})
-    page = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+    # Read a filed snapshot before touching the network. A build that fetches a live page is not reproducible:
+    # the numbers change under the artifact and an auditor cannot see what was read. The page is kept under
+    # data/raw/bzk/ with its retrieval date, which travels into the payload as `snapshot`. Only a build with no
+    # snapshot fetches, and it then files what it read so the next build reads the same bytes.
+    snap_dir = REPO / "data" / "raw" / "bzk"
+    snaps = sorted(snap_dir.glob("subsidies-*.html")) if snap_dir.exists() else []
+    if snaps:
+        snapshot = snaps[-1].name
+        page = snaps[-1].read_text(encoding="utf-8", errors="replace")
+    else:
+        req = urllib.request.Request(url, headers={"User-Agent": "aerarium/0.1"})
+        page = urllib.request.urlopen(req, timeout=60).read().decode("utf-8", "replace")
+        import datetime as _dt
+        snap_dir.mkdir(parents=True, exist_ok=True)
+        snapshot = f"subsidies-{_dt.date.today().isoformat()}.html"
+        (snap_dir / snapshot).write_text(page, encoding="utf-8")
+        print(f"  filed subsidy snapshot: data/raw/bzk/{snapshot}")
 
     def strip(s: str) -> str:
         return htmlmod.unescape(re.sub(r"<[^>]+>", " ", s)).replace("\xa0", " ").strip()
@@ -108,6 +123,7 @@ def load_subsidy() -> dict:
         "parties": parties,
         "url": url,
         "licence": LICENCE_BZK,
+        "snapshot": snapshot,
     }
 
 

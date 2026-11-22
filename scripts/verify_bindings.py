@@ -892,6 +892,49 @@ else:
     print("FAIL  FINDING-007 scheme-floor paragraph incomplete")
     fails.append("FINDING-007 scheme-floor paragraph incomplete")
 
+# ---------------------------------------------------------------- A1:16 / A1:20 / A1:24 / A1:50
+# The defect behind A1:16 was dividing a value already in EUR thousands by 1000, which rendered 10m as "10k".
+# The remaining 'k' suffixes are correct values; what must never come back is a second division.
+import re as _re16
+checked += 1
+if _re16.search(r"(realised_k|ceiling_k|named_k|anon_k)\s*/\s*1000", html):
+    print("FAIL  a value already in EUR thousands is being divided by 1000 again")
+    fails.append("budget axis double-divided")
+else:
+    print("PASS  no EUR-thousands field is divided by 1000 before display")
+
+gk2 = json.loads((OUT / "gifts-2025-election.json").read_text(encoding="utf-8"))
+checked += 1
+if "Candidates: EUR 767,12" in gk2["meta"]["threshold"] and "Parties: EUR 1.000" in gk2["meta"]["threshold"]:
+    print("PASS  the 2025 threshold note separates the candidate and party cutoffs")
+else:
+    print(f"FAIL  threshold note still conflates the two cutoffs: {gk2['meta']['threshold'][:80]}")
+    fails.append("2025 threshold note conflated")
+
+f5 = (REPO / "docs" / "FINDING-005-sp-and-pvv.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "Debts: nil" not in f5 and "open question, not a finding" in f5:
+    print("PASS  FINDING-005 refuses 'nil' debt and labels the PVV funding route an open question")
+else:
+    print("FAIL  FINDING-005 still states nil debt or asserts an unfounded route")
+    fails.append("FINDING-005 PVV claims unfixed")
+
+sub = json.loads((OUT / "view-data.json").read_text(encoding="utf-8"))["subsidy"]
+checked += 1
+if sub.get("snapshot"):
+    print(f"PASS  the subsidy table names the snapshot it was read from ({sub['snapshot']})")
+else:
+    print("FAIL  the subsidy table does not name its snapshot")
+    fails.append("subsidy snapshot not recorded")
+
+mani = (REPO / "docs" / "MANIFEST.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if mani.count("scripts/export_view.py") >= 2 and "FIRST pass" in mani:
+    print("PASS  the rebuild order runs export_view before and after the derived tables")
+else:
+    print("FAIL  the rebuild order still omits the first export pass")
+    fails.append("rebuild order impossible on a clean tree")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

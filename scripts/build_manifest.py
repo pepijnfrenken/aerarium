@@ -146,10 +146,11 @@ def main() -> int:
         "",
         "1. `scripts/fetch_*.sh` — refresh raw downloads into `data/raw/` (gitignored)",
         "2. `scripts/ingest_*.py` — load the store and emit the CSV/JSON extracts",
-        "3. `scripts/classify_donors.py`, `scripts/gift_timing.py`, `scripts/classify_creditors.py` — derived tables",
-        "4. `scripts/export_view.py` — assemble `out/view-data.json`",
-        "5. `scripts/reembed_view.py` — inject the payload into `out/index.html`",
-        "6. `scripts/verify_bindings.py` — bind prose to artifacts; must exit 0, then `--canary` must trip",
+        "3. `scripts/export_view.py` — assemble `out/view-data.json` (FIRST pass: classify_donors reads it)",
+        "4. `scripts/classify_donors.py`, `scripts/gift_timing.py`, `scripts/classify_creditors.py` — derived tables",
+        "5. `scripts/export_view.py` — assemble it again, now with the derived tables in place",
+        "6. `scripts/reembed_view.py` — inject the payload into `out/index.html`",
+        "7. `scripts/verify_bindings.py` — bind prose to artifacts; must exit 0, then `--canary` must trip",
         "",
     ]
     (ROOT / "docs" / "MANIFEST.md").write_text("\n".join(lines), encoding="utf-8")

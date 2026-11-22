@@ -55,14 +55,19 @@ is financed.
 - Gifts: €35.000 (2022), €15.000 (2023), €0 (2024), all to Stichting Vrienden van de PVV, which is its only
   neveninstelling. No scientific bureau, no youth wing, nothing else named.
 - 2025, to 8 October: **€1.000** from M. Vinogradovs to Stichting Vrienden van de PVV, flagged in the source as an
-  anonymous gift above €250. Nothing in the final three weeks. Debts: nil.
+  anonymous gift above €250. Nothing in the final three weeks. Debt: **not stated as nil here**, because the
+  two documents do not agree (see the contradiction above): the summary line calls the amount a debt while the
+  balance sheet presents the same magnitude as negative equity.
 - Seats: 17 (2021), 37 (2023), 26 (2025). Gifts per seat in 2025: **€38,46**.
 
 ## What this means for the chain
 
 The Wfpp chain ends at the party. For SP it ends inside the party's own payroll. For PVV it ends almost
-immediately, because there is nothing there to follow: a party with 37 seats reporting €150 of income means the
-political operation is financed somewhere else.
+immediately, because there is nothing there to follow: a party with 37 seats reporting €150 of income is not
+financed by what it reports. Where that money comes from is an **open question, not a finding**. Two readings are
+consistent with the documents and neither is established here: a reporting category this project does not cover,
+or funding outside the Wfpp categories. No document found in this project identifies the route, and inferring one
+from a low reported total would be exactly the kind of claim the registers do not support.
 
 That somewhere else is the parliamentary group, whose budget runs through the Tweede Kamer's own appropriation
 (chapter II), not chapter VII. Following it would widen the scope beyond the Rijk party line, so it is recorded

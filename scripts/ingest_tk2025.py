@@ -236,7 +236,8 @@ def main() -> int:
         "meta": {
             "source": "BZK overviews for the Tweede Kamer election of 29 October 2025",
             "period": "1 January 2024 to 8 October 2025; supplementary overview to 29 October published separately",
-            "threshold": "EUR 767,12 in an election year, against EUR 1.000 normally",
+            "threshold": ("Candidates: EUR 767,12 in the election year. Parties: EUR 1.000, also in the election year. "
+                          "The two thresholds belong to different workbooks and are not interchangeable."),
             "why_not_on_the_dashboard": ("Election-year disclosures are published as ODS on rijksoverheid.nl. The "
                                          "dashboard's year pages carry 2022-2024, and the 2025 annual reports are "
                                          "not due until 1 July 2026."),
