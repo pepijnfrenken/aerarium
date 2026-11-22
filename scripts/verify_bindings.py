@@ -962,12 +962,21 @@ for label, got, want in [
         fails.append(f"{label}: {got} != {want}")
 
 checked += 1
-if (counts["publications_classified"] == 1463 and counts["attached_by_title"] == 546
-        and counts["attached_by_title_and_a_finding"] == 262):
-    print("PASS  PROBE-009 publishes the crawl counts it actually reached (1.463 / 546 / 262)")
+if (counts["publications_classified"] == 2677 and counts["attached_by_title"] == 1003
+        and counts["attached_by_title_and_a_finding"] == 482):
+    print("PASS  PROBE-009 publishes the completed crawl counts (2.677 / 1.003 / 482)")
 else:
     print(f"FAIL  PROBE-009 counts moved: {counts}")
     fails.append("PROBE-009 counts disagree with the artifact")
+
+# coverage must never claim less than the corpus holds, nor more than the scope allows
+checked += 1
+_cov = rk.get("coverage", {})
+if _cov.get("harvest_complete") is True and counts["publications_classified"] >= _cov.get("pages_in_scope", 0):
+    print(f"PASS  coverage is derived and complete ({counts['publications_classified']} of {_cov['pages_in_scope']})")
+else:
+    print(f"FAIL  coverage claim disagrees with the corpus: {_cov}")
+    fails.append("coverage claim does not match the corpus")
 
 # the honest-word guard: body matches must be unmeasured, never zero
 checked += 1
@@ -996,7 +1005,7 @@ p9 = (REPO / "docs" / "PROBE-009-rekenkamer-crawl-and-what-titles-carry.md").rea
 # Prose wraps. A phrase check that fails on a newline is testing the line length, not the claim.
 p9n = " ".join(p9.lower().split())
 checked += 1
-for phrase in ("1.463", "262", "no pdf was downloaded", "rung 6 therefore stays open", "403"):
+for phrase in ("2.677", "482", "1.003", "no pdf has been downloaded", "rung 6 therefore stays open", "403"):
     if phrase not in p9n:
         print(f"FAIL  PROBE-009 is missing: {phrase}")
         fails.append(f"PROBE-009 missing {phrase}")

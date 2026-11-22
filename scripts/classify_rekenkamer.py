@@ -28,6 +28,8 @@ CORPUS = ROOT / "corpus" / "rekenkamer"
 TEXT = CORPUS / "text"
 PDF_INDEX = CORPUS / "pdfs.json"
 OUT = ROOT / "out" / "rekenkamer.json"
+# In-scope population: non-video /documenten pages from 2016, derived from the sitemap index (PROBE-009).
+PAGES_IN_SCOPE = 2677
 
 # Chapter -> the words a report would use for that ministry. Kept narrow on purpose: a broad term like
 # "zorg" appears in almost every report about anything, and a match on it says nothing.
@@ -186,10 +188,11 @@ def titles_only_mode() -> int:
         "mode": "titles-only",
         "coverage": {
             "pages_harvested": len(docs),
-            "pages_in_scope": 2677,
-            "harvest_complete": False,
-            "why_incomplete": ("the host answered HTTP 403 to every request after roughly 1.400 pages at four "
-                               "connections; the crawler stopped rather than retrying into the block"),
+            "pages_in_scope": PAGES_IN_SCOPE,
+            # Derived, never asserted: the flag follows the count instead of being typed in beside it. An earlier
+            # version hardcoded False and kept saying "incomplete" after the corpus had been finished, which is the
+            # same class of error as a figure corrected in one place and left standing in another.
+            "harvest_complete": len(docs) >= PAGES_IN_SCOPE,
             "pdfs_downloaded": 0,
         },
         "rule": ("A chapter is attached when the publication's OWN TITLE names that ministry. No attachment is made "
@@ -211,7 +214,9 @@ def titles_only_mode() -> int:
         "documents": docs,
     }
     OUT.write_text(json.dumps(payload, indent=1, ensure_ascii=False), encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)} (titles-only, coverage incomplete)")
+    _pct = 100 * len(docs) / PAGES_IN_SCOPE
+    _state = "complete" if len(docs) >= PAGES_IN_SCOPE else "INCOMPLETE"
+    print(f"wrote {OUT.relative_to(ROOT)} (titles-only, coverage {_state}: {len(docs)}/{PAGES_IN_SCOPE} = {_pct:.1f}%)")
     for k, v in payload["counts"].items():
         print(f"  {k:<34}{v:>5}")
     print("  by chapter:", payload["by_chapter"])
