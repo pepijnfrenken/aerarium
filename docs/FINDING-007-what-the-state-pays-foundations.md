@@ -62,6 +62,22 @@ Five entities, 152 rows in total. The work was not summing them, it was deciding
 - **Rathenau is matched by name only.** KvK 54667089 is KNAW's, and a KvK join on it sweeps in the Huygens
   Institute for €8,5m. One row, 2021, €224k, is what Rathenau shows.
 
+## Where the named total is not the scheme total
+
+ProDemos is the clean case. It is named in ten rows for **€26.040k**, but the scheme that carries its name also
+publishes rows **without a recipient**: **€8.979k in 2022**, €5.266k in 2019, €4.403k in 2018 and €4.312k in 2017.
+Clingendael has one such row, €812k in 2022.
+
+Those amounts are reported beside the named total and **never added to it**, because the register does not say that
+this money reached the entity. What they establish is narrower and still useful: on a scheme named for the
+institute, the state publishes a large sum with the recipient withheld. So the named figure is what can be
+**attributed**, not what the scheme spent, and the denominator a share would need is not in the register.
+
+The join here is bounded deliberately. Matching anonymised rows on a **shared** scheme name — `Subsidieregeling BZ
+2006`, which hundreds of recipients sit under — produced €1,203,081k for Clingendael in a single year. That is not a
+conservative estimate, it is a false positive, and it is why only schemes whose name contains the entity's own name
+are matched. The rule costs recall and buys the ability to state each figure without a caveat.
+
 ## What the register does not say
 
 No row carries a purpose. Nothing here shows that any payment was made for a political position, and this project

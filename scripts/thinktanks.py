@@ -177,6 +177,22 @@ def main() -> int:
             ledger.append({"entity": canon, "year": jaar, "name": ontv,
                            "amount_k": bedrag, "excluded_because": why})
 
+        # Money on a scheme that NAMES this entity but is published without a recipient. Only schemes whose
+        # own name contains the entity's name qualify: matching on a shared scheme like "Subsidieregeling BZ
+        # 2006" swept in every anonymised row under it and produced 1.2bn for Clingendael, which is the
+        # false-positive rate this join produces and the reason it is bounded this way.
+        anon_by_year: dict[str, float] = {}
+        token = canon.lower().replace("stichting ", "").strip()
+        own_schemes = [k for k in by_regeling if token and token in k.lower()]
+        for scheme in own_schemes:
+            for jaar, k in con.execute(
+                """select jaar, sum(bedrag_k) from (select distinct * from recipient_line)
+                   where anonymised = true and lower(trim(coalesce(regeling,''))) = lower(trim(?))
+                   group by 1""", [scheme],
+            ).fetchall():
+                if k:
+                    anon_by_year[str(jaar)] = anon_by_year.get(str(jaar), 0) + round(k)
+
         yrs = sorted(int(y) for y in by_year) or [0]
         result[canon] = {
             "class": spec["class"],
@@ -189,6 +205,10 @@ def main() -> int:
                               for k, v in sorted(by_instrument.items(), key=lambda x: -x[1]["k"])},
             "by_regeling": {k: {"rows": v["rows"], "k": round(v["k"])}
                             for k, v in sorted(by_regeling.items(), key=lambda x: -x[1]["k"])},
+            "anonymised_on_its_own_schemes_k": dict(sorted(anon_by_year.items())),
+            "anonymised_note": ("Published under a scheme this entity is paid through, with no recipient "
+                                "named. Not included in total_k: the register does not say this money reached "
+                                "the entity, so it is reported beside the named total and never added to it."),
             "published_names": sorted(names),
             "kvk": sorted(kvks),
             "instruments": sorted(by_instrument),

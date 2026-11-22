@@ -289,9 +289,16 @@ def main() -> int:
         },
         "question": "Do the donor entities push an agenda, and can a philosophy be sourced for them?",
         "headline": (
-            f"{sum(1 for d in out_entities if d['stated_position'])} of {len(out_entities)} entity donors publish a political or "
-            f"philosophical position. None does. The layer is therefore built from documented activity, "
-            f"not from stated intent."
+            f"For {len(out_entities)} selected donor entities, no published political or philosophical position "
+            f"was found in the material that was read. That is 0 of {len(out_entities)}, and it is a statement "
+            f"about these entities and this reading, not about donor entities in general: they were selected by "
+            f"size of giving rather than sampled, and a policy plan that was never retrieved can hold what was "
+            f"not found."
+        ),
+        "negative_scope": (
+            "This is not a population-level finding about donor entities. It covers the listed entities only, "
+            "and only what was retrieved and read for each. Silence in this file is not evidence of silence "
+            "by the entity."
         ),
         "rule": "A position is quoted from the entity's own publication, or it is null. Activity is from KvK/SBI or the entity's own site. No motive is inferred from a gift.",
         "classes": classes,

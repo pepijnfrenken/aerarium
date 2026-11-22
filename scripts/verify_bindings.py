@@ -851,6 +851,47 @@ else:
     print("FAIL  the spending CSV presents a derived value without naming the rule")
     fails.append("spending CSV value rule missing")
 
+# ---------------------------------------------------------------- A2:18 / A2:19
+pd = named.get("ProDemos", {}).get("anonymised_on_its_own_schemes_k", {})
+cl = named.get("Clingendael", {}).get("anonymised_on_its_own_schemes_k", {})
+checked += 1
+if pd == {"2017": 4312, "2018": 4403, "2019": 5266, "2022": 8979}:
+    print("PASS  ProDemos's anonymised own-scheme rows are published apart from its named total")
+else:
+    print(f"FAIL  ProDemos anonymised figures wrong: {pd}")
+    fails.append("ProDemos anonymised figure missing or wrong")
+
+checked += 1
+if cl == {"2022": 812}:
+    print("PASS  Clingendael's anonymised own-scheme row is bounded to the scheme that names it")
+else:
+    print(f"FAIL  Clingendael anonymised figure wrong: {cl} (a shared-scheme match would be a million-scale error)")
+    fails.append("Clingendael anonymised match not bounded")
+
+# the named totals must not absorb the anonymised rows
+checked += 1
+if named["ProDemos"]["total_k"] == 26040 and sum(pd.values()) == 22960:
+    print("PASS  the anonymous own-scheme money is reported beside the named total, not inside it")
+else:
+    print("FAIL  named total and anonymised rows disagree")
+    fails.append("named total contaminated by anonymised rows")
+
+dc = json.loads((OUT / "donor-claims.json").read_text(encoding="utf-8"))
+checked += 1
+if "not about donor entities in general" in dc.get("headline", "") and dc.get("negative_scope"):
+    print("PASS  donor-claims refuses to read 0 of 17 as a population finding")
+else:
+    print("FAIL  donor-claims still asserts a population-level negative")
+    fails.append("donor-claims asserts a population negative")
+
+f7b = (REPO / "docs" / "FINDING-007-what-the-state-pays-foundations.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "€8.979k in 2022" in f7b and "€1,203,081k" in f7b and "never added to it" in f7b:
+    print("PASS  FINDING-007 publishes the scheme-floor case with the false-positive rate that bounds it")
+else:
+    print("FAIL  FINDING-007 scheme-floor paragraph incomplete")
+    fails.append("FINDING-007 scheme-floor paragraph incomplete")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
