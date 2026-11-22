@@ -15,7 +15,7 @@ money arrived before an election. AERARIUM joins four published sources:
 |---|---|
 | Rijksfinancien open data (CC-0) | the party line in chapter VII, ceiling and realisation, per year |
 | Rijksfinancien register | named recipients, chapter V NFRP foundations with KvK |
-| Dashboard partijfinanciering (BZK) | subsidy paid per party; every contribution of €1.000+ with donor and date |
+| Dashboard partijfinanciering (BZK) | subsidy paid per party; every contribution of €1.000+ that a party disclosed, with the donor name — and a date only where the party gave one, which is €8,93m of the €25,04m in the register |
 | the parties' own Wfpp reports | the per-entity split, the neveninstellingen list, the spending |
 
 Every figure carries its source, its vintage and the document that holds it. Where a chain breaks, the break is
@@ -24,7 +24,8 @@ the finding.
 ## Headline results
 
 - **2024 is not where the data ends.** 2025 is published by a different route: BZK released ODS overviews for the
-  29 October 2025 election. **€10.169.959,32** in gifts reached parties in 2025 up to election day, against
+  29 October 2025 election. **€10.169.959,32** in gifts was recorded for parties in 2025 up to election day,
+  against
   €8.933.589,90 in all of 2024. Of that, **€1.021.300,86** arrived in the final three weeks.
 
 - **2.301 donors, €25.038.264,64** in contributions 2022-2024, every party-year reconciled to the euro before use.
@@ -43,8 +44,8 @@ the finding.
   remains an interpretation, not a finding.
 - **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed, €29.413k in no register row at
   all. Only 10 of 92 annual reports state the per-entity split.
-- **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then full itemisation for
-  2023-2024. 46 rows in 19 spellings collapse to 11 entities by KvK.
+- **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then named rows for
+  2023-2024 — named, not necessarily complete: 46 rows in 19 spellings collapse to 11 entities by KvK.
 - **Gifts to candidates are almost unstudied.** The 2025 workbook lists 1.166 distinct candidates. **Six rows
   carry an amount, representing four people across 2023-2025**, and the workbook's combined total is €11.499.
   Only **€6.499 of that falls in 2025**, to three candidates — Klein €3.500, Zwinkels €2.000, and one at €999,

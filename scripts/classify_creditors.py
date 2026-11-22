@@ -109,9 +109,12 @@ def main() -> int:
     payload = {
         "meta": {
             "what_this_is": "Debt outstanding to media and advertising suppliers of EUR 25.000 or more, per party.",
-            "what_this_is_not": ("Not media spend. A party that paid its media invoices on time shows zero here, "
-                                 "and a party that paid most of a large bill shows only the remainder. Treat every "
-                                 "figure as a floor."),
+            "what_this_is_not": ("Not media spend, and not a floor on media spend. It is the balance still owed "
+                                 "to a supplier on the date the party filed: a party that paid on time shows "
+                                 "zero, and a party that paid most of a large bill shows only the remainder. "
+                                 "A balance says what had not been settled, not what was bought or when. The "
+                                 "two periods are disjoint windows ending at different dates and their totals "
+                                 "are published separately, never added or subtracted."),
             "source": "BZK gift and debt overviews, Tweede Kamer election 2025 (two ODS files, disjoint periods)",
             "periods": ["2024-01-01..2025-10-08", "2025-10-09..2025-10-29"],
             "creditors_total": len(creditors),

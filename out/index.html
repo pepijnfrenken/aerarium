@@ -527,7 +527,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   (function(){
     var L = DATA.latest;
     if(!L) return;
-    var rows = L.parties.filter(function(p){ return (p.gifts_to_8oct||0) + (p.gifts_final_3_weeks||0) > 0; });
+    // Every party in the file is shown, including one that appears with no figures at all. A party that
+    // filed nil, or filed only the first workbook, is a disclosure fact; a party that appears in the source
+    // with nothing must not vanish from the table. Requiring a positive sum hid five of the twelve parties
+    // whose final-three-weeks figure is null.
+    var rows = L.parties.slice();
     var max = Math.max.apply(null, rows.map(function(p){ return (p.gifts_to_8oct||0)+(p.gifts_final_3_weeks||0); }));
     var body = rows.map(function(p){
       // b is null when the party filed nothing in the supplementary workbook. That is not zero:
@@ -540,7 +544,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       var w = max>0 ? (tot/max)*100 : 0;
       var wa = (tot>0 && a!=null) ? (a/tot)*100 : 0;
       var wb = tot>0 ? (bNum/tot)*100 : 0;
-      var tipText = [p.partij+' \u2014 2025',
+      var nothing = (a == null && b == null);
+      var tipText = [p.partij+' \u2014 2025' + (nothing ? ' (no filing in either workbook)' : ''),
         line('Gifts to 8 Oct', peur(a)),
         line('Final 3 weeks', peur(b)),
         line('2025 to the election', peur(tot)),
@@ -579,7 +584,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     if(md.length){
       var mt = L.media_totals || {};
       document.getElementById('media-table').innerHTML =
-        '<table><thead><tr><th>Party</th><th class="n">Owed to media<span class="unit">floor</span></th>'+
+        '<table><thead><tr><th>Party</th><th class="n">Owed to media at filing<span class="unit">balance, not spend</span></th>'+
         '<th class="n">Share of its debt</th><th class="n">Creditors</th><th>Largest single creditor</th></tr></thead><tbody>'+
         md.map(function(x){
           var top = x.creditors && x.creditors.length ? x.creditors[0] : null;
@@ -667,7 +672,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       p.name + ' — 2022–2024',
       line('State subsidy', peur(p.subSum)),
       line('Private gifts', peur(p.giftSum)),
-      line('Total income', peur(p.total)),
+      line('Two-source subtotal', peur(p.total)),
       line('Gift share', p.share == null ? 'n/a' : pnum(p.share,1)+' % (computed)')
     ].join('\n');
 
@@ -742,8 +747,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   var cross = DATA.gifts.cross_party.slice().sort(function(a,b){ return b.total - a.total; });
   var crossSum = cross.reduce(function(a,c){ return a + c.total; }, 0);
   document.getElementById('cross-lede').innerHTML =
-    '<b>'+cross.length+' donor-year cases</b> in which the same donor gave to more than one party in the same year; ' +
-    'together they account for <b>'+eur(crossSum)+'</b>. Each case appears once, with the amount per party.';
+    '<b>'+cross.length+' donor-year cases</b> in which the same donor gave to more than one <b>filing party</b> in the same year; ' +
+    'GroenLinks and PvdA filed separately throughout this period and are counted as two filers here, not as PRO. ' +
+    'Together these cases account for <b>'+eur(crossSum)+'</b>. Each case appears once, with the amount per party.';
 
   var crossRows = cross.map(function(c){
     var bp = Object.keys(c.by_party).map(function(k){ return [k, c.by_party[k]]; })

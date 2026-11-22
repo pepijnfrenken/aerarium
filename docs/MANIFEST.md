@@ -21,7 +21,7 @@ who cannot rebuild a file cannot check it.
 | `gifts_reconcile.csv` | scripts/extract_gifts.py | read by scripts/export_view.py |
 | `govrun.json` | scripts/govrun.py | read by scripts/verify_bindings.py |
 | `index.html` | CURATED | The reader-facing page shell: hand-written markup, CSS and browser code. Only the embedded JSON payload is generated (by export_view.py, then reembed_view.py). The shell has no generator, which is why the render-layer bugs the audits found live here and are guarded by string assertions in verify_bindings.py. |
-| `media-debt.json` | scripts/classify_creditors.py | read by scripts/export_view.py |
+| `media-debt.json` | scripts/classify_creditors.py | read by scripts/export_view.py, scripts/verify_bindings.py |
 | `neveninstellingen-functie.json` | CURATED | Hand-coded function, type and certainty for each ancillary entity, each with a source URL or an explicit 'from_name' basis. Registers publish names and amounts, never what an entity does. |
 | `neveninstellingen.csv` | scripts/extract_neveninstellingen.py |  |
 | `party-line-disclosure.csv` | src/aerarium/cli.py `aer grade` | produced in a step or via the CLI |

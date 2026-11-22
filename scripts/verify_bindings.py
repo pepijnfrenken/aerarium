@@ -305,6 +305,43 @@ else:
     print("FAIL  media panel wording not found")
     fails.append("media panel wording missing")
 
+# the JSON said "Treat every figure as a floor" while the page refused it. The gate only read the page,
+# which is how the contradiction survived a green run: check the artifact's own prose too.
+checked += 1
+mdj = json.loads((OUT / "media-debt.json").read_text(encoding="utf-8"))
+md_note = mdj["meta"]["what_this_is_not"].lower()
+if "floor" in md_note and "not a floor" not in md_note:
+    print("FAIL  media-debt.json still calls the balance a floor")
+    fails.append("media-debt.json claims a floor")
+elif "not a floor on media spend" in md_note and "never added or subtracted" in md_note:
+    print("PASS  media-debt.json refuses the floor reading and refuses to combine the periods")
+else:
+    print("FAIL  media-debt.json caveat wording not found")
+    fails.append("media-debt.json caveat missing")
+
+# ---------------------------------------------------------------- page labels (audit 3, A1:21/A1:23/A1:27)
+checked += 1
+if "Two-source subtotal" in html and "'Total income'" not in html:
+    print("PASS  the income label is a two-source subtotal, not total income")
+else:
+    print("FAIL  the page still labels a two-source subtotal as total income")
+    fails.append("page calls a partial sum total income")
+
+checked += 1
+if "Owed to media at filing" in html and ">floor<" not in html:
+    print("PASS  the media column is labelled a balance at filing")
+else:
+    print("FAIL  the media column still carries a floor label")
+    fails.append("media column labelled a floor")
+
+checked += 1
+lparts = json.loads((OUT / "view-data.json").read_text(encoding="utf-8"))["latest"]["parties"]
+if "L.parties.slice()" in html:
+    print(f"PASS  the 2025 table shows every one of its {len(lparts)} parties, including nil filings")
+else:
+    print("FAIL  the 2025 table filters parties out instead of showing nil filings")
+    fails.append("2025 table hides non-filing parties")
+
 checked += 1
 if "DATA.nfrp.length+' register rows'" in html:
     print("FAIL  NFRP badge still renders the aggregate count as register rows")

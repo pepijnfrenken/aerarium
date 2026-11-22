@@ -47,8 +47,9 @@ type, never the status.
 - **Gifts 2025 to 8 October: €9.148.658,46** across 27 parties.
 - Two-year column for parties without a seat in 2024: €9.258.031,72, which equals the sum of the donor rows to the
   cent. **0 of 27 parties fail to reconcile.**
-- 3.404 donor rows. GL €2.233.874,32 (670 donors), SP €1.536.307,35 (191), D66 €1.228.601,11 (136),
-  PvdA €996.163,09 (311), VVD €729.099,00 (132).
+- **3.404 donor detail rows, of which 2.042 carry a positive 2025 amount**; the remaining rows are printed by the
+  workbook with money dated 2023 or 2024 only. Counted in rows per filing party: GL €2.233.874,32 (670),
+  SP €1.536.307,35 (191), D66 €1.228.601,11 (136), PvdA €996.163,09 (311), VVD €729.099,00 (132).
 
 The party numbering does not agree between the summary block and the detail block (`06. BBB` versus `07. BBB`),
 and GL and PvdA share the number 02 because they ran on one list. Joining on the label therefore loses BBB
