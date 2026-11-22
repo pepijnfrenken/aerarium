@@ -61,9 +61,9 @@ class Row:
     realised_k: int | None
     jv_rows: int
     named_rows: int
-    named_k: int
+    named_k: int | None
     anon_rows: int
-    anon_k: int
+    anon_k: int | None
     unreconciled_k: int | None
     named_coverage: float | None
     disclosed_coverage: float | None
@@ -260,12 +260,22 @@ def series(conn: duckdb.DuckDBPyConnection) -> list[Row]:
 
             r6 = NOT_PROBED
 
+
+            # No register rows at all is not a disclosure of zero named money: it means the register publishes
+            # nothing on this line, so the named share cannot be computed. Emitting 0 there stated "0% of the
+            # money is named", which is a measurement the source does not support. Zeros survive only where
+            # the register does publish on the line, including the genuine case of rows that are all anonymised.
+            no_register_rows = named_rows == 0 and anon_rows == 0
+            if no_register_rows:
+                named_k = None
+                anon_k = None
+
             unreconciled = None
             if realised_k is not None and r4 not in (NOT_PUBLISHED, ABSENT):
                 unreconciled = int(realised_k) - named_k - anon_k
 
-            named_cov = named_k / realised_k if realised_k else None
-            disclosed_cov = (named_k + anon_k) / realised_k if realised_k else None
+            named_cov = (named_k / realised_k) if (realised_k and named_k is not None) else None
+            disclosed_cov = ((named_k + anon_k) / realised_k) if (realised_k and named_k is not None) else None
 
             rungs = [r1, r2, r3, r4, r5, r6]
             reach = sum(1 for s in rungs if s in REACHED)

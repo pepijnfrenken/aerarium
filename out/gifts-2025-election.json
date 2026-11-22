@@ -9,7 +9,8 @@
    "published_eind_2024_plus_2025": 9258031.72,
    "published_2025_only": 9148658.46,
    "detail_sum": 9258031.72,
-   "parties_not_reconciling": []
+   "parties_not_reconciling": [],
+   "written_with_an_accepted_mismatch": false
   }
  },
  "per_party": [

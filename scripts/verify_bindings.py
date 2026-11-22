@@ -719,6 +719,33 @@ else:
     print(f"FAIL  seats sum to {sum(r['seats'] for r in sv)}, not 150")
     fails.append("seats do not sum to 150")
 
+# ---------------------------------------------------------------- A1:22, fabricated component zeros
+import csv as _csv
+with (OUT / "party-line-disclosure.csv").open(encoding="utf-8", newline="") as fh:
+    pl = list(_csv.DictReader(fh))
+bad = []
+for r in pl:
+    if r["named_rows"] in ("0", "") and r["anon_rows"] in ("0", ""):
+        if r["named_k"] not in ("", None) or r["anon_k"] not in ("", None):
+            bad.append((r["jaar"], r["label"], r["named_k"], r["anon_k"]))
+        if r["named_coverage"] not in ("", None):
+            bad.append((r["jaar"], r["label"], "coverage", r["named_coverage"]))
+checked += 1
+if bad:
+    print(f"FAIL  {len(bad)} rows assert a zero on a line where the register publishes nothing: {bad[:3]}")
+    fails.append("fabricated component zeros survive")
+else:
+    print(f"PASS  no row claims a coverage figure where the register publishes no rows ({len(pl)} rows checked)")
+
+# ...and the genuine zero must survive: 2017 publishes one anonymised row, so 0 named is a real measurement.
+row2017 = next((r for r in pl if r["jaar"] == "2017" and r["family"] == "politieke-partijen"), None)
+checked += 1
+if row2017 and row2017["named_k"] == "0" and row2017["named_coverage"] not in ("", None):
+    print("PASS  the all-anonymised 2017 line keeps its genuine zero")
+else:
+    print(f"FAIL  the 2017 all-anonymised zero was nulled as well: {row2017 and (row2017['named_k'], row2017['named_coverage'])}")
+    fails.append("genuine zero lost to the null")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

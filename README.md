@@ -86,7 +86,7 @@ the finding.
     bash scripts/fetch_tk2025.sh
     .venv/bin/python scripts/ingest_tk2025.py
     .venv/bin/python scripts/ingest_tk2025_post.py
-    .venv/bin/python scripts/verify_findings.py     # 71 assertions on the prose
+    .venv/bin/python scripts/verify_bindings.py     # 98 bound values: prose parsed, numbers recomputed
 
 The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents). It is not mirrored here; see privacy.
 
@@ -102,7 +102,10 @@ paraphrased anywhere in this repository.
 - Absence is not zero. An empty page is `no-data-published`, never €0.
 - A series that renames a category without saying so is a lie told in a chart.
 - No motive is inferred. The registers record transactions; where a reason is documented, it is quoted and attributed.
-- Every number in a finding is asserted by `scripts/verify_findings.py`, which fails when prose and data drift apart.
+- Every figure a finding asserts is bound in `scripts/verify_bindings.py`: the number is parsed out of the prose,
+  recomputed from the artifact, and the run fails when they disagree. It also executes the published page under
+  node, because a correct payload is not a working page. It covers the claims listed in that file, not every
+  number in the tree, and `--canary` perturbs one value to prove the checker can fail.
 
 ## Privacy
 

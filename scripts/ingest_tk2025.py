@@ -199,6 +199,15 @@ def main() -> int:
         print(f"   {m['partij']:<26} published {m['published_eind']:>12,.2f}  detail {m['detail_sum']:>12,.2f}"
               f"  diff {m['diff']:>10,.2f}")
 
+    # A gate that only prints is not a gate: this used to report the mismatches and then write the files
+    # anyway, so a broken reconciliation could reach the artifacts with a green exit code. It now refuses to
+    # write unless the caller explicitly accepts the mismatch, which then travels with the output.
+    allow_mismatch = "--allow-mismatch" in sys.argv
+    if mismatches and not allow_mismatch:
+        print(f"\nREFUSING TO WRITE: {len(mismatches)} parties do not reconcile to the published totals.")
+        print("Nothing was written. Rerun with --allow-mismatch to publish with the mismatch recorded in the JSON.")
+        return 2
+
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     with OUT_CSV.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=FIELDS)
@@ -236,7 +245,8 @@ def main() -> int:
             "reconciliation": {"published_eind_2024_plus_2025": total_published,
                                "published_2025_only": total_2025_only,
                                "detail_sum": total_detail,
-                               "parties_not_reconciling": mismatches},
+                               "parties_not_reconciling": mismatches,
+                               "written_with_an_accepted_mismatch": bool(mismatches)},
         },
         "per_party": per_party,
         "totals": {"2025_to_8_oct": total_2025_only, "eind_2024_plus_2025": total_published},
