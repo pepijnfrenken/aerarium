@@ -903,6 +903,15 @@ if _re16.search(r"(realised_k|ceiling_k|named_k|anon_k)\s*/\s*1000", html):
 else:
     print("PASS  no EUR-thousands field is divided by 1000 before display")
 
+# The other half of A1:16: the panel stated the unit in its heading AND on every value. Each panel now states
+# its unit once, and no value carries a 'k' suffix of its own.
+checked += 1
+if html.count("+'k'") == 0 and "all amounts in € thousand" in html:
+    print("PASS  the unit is stated once per panel and no value repeats a 'k' suffix")
+else:
+    print(f"FAIL  {html.count(chr(43)+chr(39)+'k'+chr(39))} values still repeat the unit beside it")
+    fails.append("scale repeated on every value")
+
 gk2 = json.loads((OUT / "gifts-2025-election.json").read_text(encoding="utf-8"))
 checked += 1
 if "Candidates: EUR 767,12" in gk2["meta"]["threshold"] and "Parties: EUR 1.000" in gk2["meta"]["threshold"]:

@@ -934,7 +934,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   var anon = (DATA.nfrp_anon || []);
   if(anon.length){
     var anonTotal = anon.reduce(function(a,r){ return a + r.bedrag_k; }, 0);
-    var bits = anon.map(function(r){ return r.jaar+': '+pnum(r.bedrag_k)+'k'; });
+    var bits = anon.map(function(r){ return r.jaar+': '+pnum(r.bedrag_k); });
     document.getElementById('nfrp-anon').innerHTML =
       '<b>Part of this is anonymised and is not in the table below.</b> Anonymised NFRP rows total '+
       '<span class="nw">\u20ac\u00a0'+pnum(anonTotal,0)+'k</span> ('+esc(bits.join(', '))+'), so the named rows '+
@@ -1016,10 +1016,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     var mark = r.jaar === 2024 ? ' mark' : '';
     var tipText = [
       r.jaar + ' — all amounts in € thousand',
-      line('Ceiling', r.ceiling_k == null ? 'n/a' : pnum(r.ceiling_k)+'k'),
-      line('Realised', r.realised_k == null ? 'n/a' : pnum(r.realised_k)+'k'),
-      line('Named part', r.named_k == null ? 'n/a' : pnum(r.named_k)+'k'),
-      line('Anonymous part', r.anon_k == null ? 'n/a' : pnum(r.anon_k)+'k'),
+      line('Ceiling', r.ceiling_k == null ? 'n/a' : pnum(r.ceiling_k)),
+      line('Realised', r.realised_k == null ? 'n/a' : pnum(r.realised_k)),
+      line('Named part', r.named_k == null ? 'n/a' : pnum(r.named_k)),
+      line('Anonymous part', r.anon_k == null ? 'n/a' : pnum(r.anon_k)),
       line('Disclosure', r.r4)
     ].join('\n');
     return '<div class="bcol'+mark+'">' +
