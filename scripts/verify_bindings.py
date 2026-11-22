@@ -529,6 +529,28 @@ for label, got, want in [
     if not ok:
         fails.append(f"{label}: {got} != {want}")
 
+# ---------------------------------------------------------------- blockers 5 and 6
+gt = json.loads((OUT / "gift-timing.json").read_text(encoding="utf-8"))
+gt_party = {r["partij"]: r for r in gt["per_party_2023"]}
+checked += 1
+if gt_party["SP"]["dated_share_of_all_years"] == 69.9 and gt_party["CDA"]["dated_share_of_all_years"] == 13.9:
+    print("PASS  dated shares cover the same years on both sides (SP 69,9%, CDA 13,9%)")
+else:
+    print(f"FAIL  dated shares wrong: SP {gt_party['SP']['dated_share_of_all_years']}, "
+          f"CDA {gt_party['CDA']['dated_share_of_all_years']}")
+    fails.append("dated share numerator/denominator periods differ")
+
+gk = json.loads((OUT / "gifts-2025-election.json").read_text(encoding="utf-8"))
+gk_rows = gk.get("parties") or gk.get("per_party") or []
+fnp = next((r for r in gk_rows if r["partij"] == "FNP"), None)
+donor_sum = sum(r["donors"] for r in gk_rows)
+checked += 1
+if fnp and fnp["donors"] == 17 and donor_sum == 2042:
+    print(f"PASS  2025 donor rows count positive-2025 rows only (FNP 17, total {donor_sum})")
+else:
+    print(f"FAIL  2025 donor rows: FNP {fnp and fnp['donors']}, total {donor_sum} (expected 17 and 2042)")
+    fails.append("2025 donor rows include non-2025 money")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

@@ -216,7 +216,11 @@ def main() -> int:
           "totaal_2025": round((summary[p]["y2025"] if p in summary and summary[p].get("y2025") is not None
                                else detail.get(p, 0.0)), 2),
           "detail_sum": round(v, 2),
-          "donors": sum(1 for r in rows if party_key(r["partij"]) == p and r["eindtotaal"])}
+          # Count rows with a POSITIVE 2025 amount, not rows that merely carry some total. The old test
+          # was truthiness on `eindtotaal`, which counted rows whose money is in 2023 or 2024 and put
+          # them in a 2025 column: FNP read 58 against 17 actual positive-2025 rows.
+          "donors": sum(1 for r in rows if party_key(r["partij"]) == p
+                        and float(r["totaal_2025"] or 0) > 0)}
          for p, v in detail.items()), key=lambda x: -x["totaal_2025"])
 
     OUT_JSON.write_text(json.dumps({

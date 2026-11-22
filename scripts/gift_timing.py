@@ -107,9 +107,13 @@ def main() -> int:
         if v["year_2023"] <= 0:
             continue
         dated_2023 = v["year_2023"]
+        dated_all = v["year_2023"] + v["year_2022"] + v["year_2024"]
         all_years = totals_by_party.get(p, 0.0)
         only_2023 = totals_2023.get(p, 0.0)
-        v["coverage"] = round(100 * dated_2023 / all_years, 1) if all_years else None
+        # Both sides of a ratio must cover the same years. This was `dated_2023 / all_years`: a one-year
+        # numerator over a three-year denominator, which reported SP at 23,9% when its actual share of
+        # dated money across 2022-2024 is 69,9%, and CDA at 5,9% instead of 13,9%.
+        v["coverage"] = round(100 * dated_all / all_years, 1) if all_years else None
         v["coverage_2023"] = round(100 * dated_2023 / only_2023, 1) if only_2023 else None
         per_party.append({
             "partij": p,
