@@ -1004,6 +1004,68 @@ for phrase in ("1.463", "262", "no pdf was downloaded", "rung 6 therefore stays 
 else:
     print("PASS  PROBE-009 states its coverage, its block and that rung 6 stays open")
 
+# ---------------------------------------------------------------- PROBE-010, the join grain
+import duckdb as _dd
+con10 = _dd.connect(REPO / "data" / "aerarium.duckdb", read_only=True)
+try:
+    ra_n, m_an, m_on = con10.execute("""
+        with ra as (select distinct artikel from recipient_line where coalesce(artikel,'')<>''),
+             ban as (select distinct artikel_naam as x from budget_line where coalesce(artikel_naam,'')<>''),
+             bao as (select distinct artikelonderdeel_naam as x from budget_line where coalesce(artikelonderdeel_naam,'')<>'')
+        select (select count(*) from ra),
+               (select count(*) from ra join ban on ra.artikel=ban.x),
+               (select count(*) from ra join bao on ra.artikel=bao.x)""").fetchone()
+    j = con10.execute("""
+        with b as (select jaar, hoofdstuk_nummer as h, instrument_naam as i, sum(bedrag_k) as bud
+                   from budget_line where vuo='U' group by 1,2,3),
+             r as (select jaar, hoofdstuk as h, instrument as i, sum(bedrag_k) as rec
+                   from recipient_line group by 1,2,3)
+        select count(*), sum(case when r.rec > b.bud*1.02 then 1 else 0 end),
+                     sum(case when r.rec <= b.bud*1.02 then 1 else 0 end)
+        from b join r using (jaar,h,i)""").fetchone()
+    n_ri = con10.execute("select count(distinct instrument) from recipient_line").fetchone()[0]
+    blank_n, blank_m = con10.execute(
+        "select count(distinct ontvanger), round(sum(bedrag_k)) from recipient_line where instrument is null"
+    ).fetchone()
+    n_bi = con10.execute("select count(distinct instrument_naam) from budget_line where vuo='U'").fetchone()[0]
+finally:
+    con10.close()
+
+for label, got, want in [
+    ("PROBE-010 recipient artikel values", ra_n, 238),
+    ("PROBE-010 matching artikel_naam", m_an, 160),
+    ("PROBE-010 matching artikelonderdeel_naam", m_on, 70),
+    ("PROBE-010 named instrument types", n_ri, 10),
+    ("PROBE-010 blank-instrument recipients", blank_n, 974),
+    ("PROBE-010 budget instrument labels", n_bi, 286),
+    ("PROBE-010 joined groups", j[0], 575),
+    ("PROBE-010 overshoot groups", j[1], 42),
+    ("PROBE-010 within groups", j[2], 533),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if j[1] + j[2] == j[0]:
+    print("PASS  PROBE-010's joined groups partition into overshoot and within")
+else:
+    print("FAIL  PROBE-010 join groups do not partition")
+    fails.append("PROBE-010 join partition does not reconcile")
+
+p10 = (REPO / "docs" / "PROBE-010-where-the-two-registers-join.md").read_text(encoding="utf-8", errors="replace")
+p10n = " ".join(p10.lower().split())
+checked += 1
+for phrase in ("575", "42", "92,7%", "cannot be built as written", "no euro is graded"):
+    if phrase not in p10n:
+        print(f"FAIL  PROBE-010 is missing: {phrase}")
+        fails.append(f"PROBE-010 missing {phrase}")
+        break
+else:
+    print("PASS  PROBE-010 states the join grain, the overshoot count and that nothing is graded yet")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
