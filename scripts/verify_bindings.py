@@ -944,6 +944,66 @@ else:
     print("FAIL  the rebuild order still omits the first export pass")
     fails.append("rebuild order impossible on a clean tree")
 
+# ---------------------------------------------------------------- PROBE-009, rung 6 corpus
+RK_URLS = REPO / "corpus" / "rekenkamer" / "urls.json"
+rk_urls = json.loads(RK_URLS.read_text(encoding="utf-8")) if RK_URLS.exists() else []
+rk = json.loads((OUT / "rekenkamer.json").read_text(encoding="utf-8"))
+counts = rk["counts"]
+for label, got, want in [
+    ("PROBE-009 sitemap URLs", len(rk_urls), 5260),
+    # 3.942 counts every URL under /documenten INCLUDING the index page itself; the trailing-slash form
+    # would be 3.941 and the difference is a page listing, not a document.
+    ("PROBE-009 document URLs", sum(1 for u in rk_urls if u.startswith("https://www.rekenkamer.nl/documenten")), 3942),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if (counts["publications_classified"] == 1463 and counts["attached_by_title"] == 546
+        and counts["attached_by_title_and_a_finding"] == 262):
+    print("PASS  PROBE-009 publishes the crawl counts it actually reached (1.463 / 546 / 262)")
+else:
+    print(f"FAIL  PROBE-009 counts moved: {counts}")
+    fails.append("PROBE-009 counts disagree with the artifact")
+
+# the honest-word guard: body matches must be unmeasured, never zero
+checked += 1
+if all(d.get("chapters_in_body_only") is None for d in rk["documents"]):
+    print("PASS  body matches are recorded as unmeasured, not as zero")
+else:
+    print("FAIL  a document claims a body match although no PDF was read")
+    fails.append("body matches claimed without text")
+
+checked += 1
+if sum(rk["by_kind"].values()) == counts["publications_classified"]:
+    print(f"PASS  the document kinds partition the corpus ({len(rk['by_kind'])} kinds)")
+else:
+    print("FAIL  document kinds do not sum to the classified count")
+    fails.append("kind split does not reconcile")
+
+# findings are not reactions: the split must exist and be smaller than the attachment count
+checked += 1
+if counts["attached_by_title_and_a_finding"] < counts["attached_by_title"] and rk["by_kind"].get("reactie", 0) > 0:
+    print("PASS  the artifact separates Rekenkamer findings from ministries' reactions")
+else:
+    print("FAIL  reactions are not separated from findings")
+    fails.append("reactions counted as findings")
+
+p9 = (REPO / "docs" / "PROBE-009-rekenkamer-crawl-and-what-titles-carry.md").read_text(encoding="utf-8", errors="replace")
+# Prose wraps. A phrase check that fails on a newline is testing the line length, not the claim.
+p9n = " ".join(p9.lower().split())
+checked += 1
+for phrase in ("1.463", "262", "no pdf was downloaded", "rung 6 therefore stays open", "403"):
+    if phrase not in p9n:
+        print(f"FAIL  PROBE-009 is missing: {phrase}")
+        fails.append(f"PROBE-009 missing {phrase}")
+        break
+else:
+    print("PASS  PROBE-009 states its coverage, its block and that rung 6 stays open")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

@@ -44,6 +44,7 @@ CURATED: dict[str, str] = {
 # Artifacts produced indirectly: named inside another script or built by a two-step process.
 INDIRECT: dict[str, str] = {
     "view-data.json": "scripts/export_view.py",
+    "rekenkamer.json": "scripts/classify_rekenkamer.py --titles (or the full text pass, scripts/classify_rekenkamer.py)",
     "donor-typology.json": "scripts/classify_donors.py (then scripts/reembed_view.py)",
     "party-line-disclosure.csv": "src/aerarium/cli.py `aer grade`",
 }

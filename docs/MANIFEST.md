@@ -26,12 +26,13 @@ who cannot rebuild a file cannot check it.
 | `neveninstellingen.csv` | scripts/extract_neveninstellingen.py | read by scripts/verify_bindings.py |
 | `party-line-disclosure.csv` | src/aerarium/cli.py `aer grade` | produced in a step or via the CLI |
 | `party-lineage.json` | CURATED | Hand-entered party lineage: one dated event per name change, merger or split, each with a source URL. No public register states when a party stopped existing; the statute and the party's own announcements do. |
+| `rekenkamer.json` | scripts/classify_rekenkamer.py --titles (or the full text pass, scripts/classify_rekenkamer.py) | produced in a step or via the CLI |
 | `seats.json` | CURATED | Kiesraad seat allocation, transcribed per election. The seat builder serialises curated figures rather than parsing a machine-readable source, because the published result files are PDFs. |
 | `spending-campaign.csv` | scripts/extract_spending.py | read by scripts/export_view.py, scripts/verify_bindings.py |
 | `thinktanks.json` | scripts/thinktanks.py | read by scripts/verify_bindings.py |
 | `view-data.json` | scripts/export_view.py | produced in a step or via the CLI |
 
-23 artifacts: 4 curated, 19 generated.
+24 artifacts: 4 curated, 20 generated.
 
 ## Rebuild order
 
