@@ -56,9 +56,11 @@ entirely; the join is on the party **name**.
 
 ## Candidates
 
-1.168 candidate rows, of which **6 received a gift**, together **€11.499**: D66's P. Bamenga €5.000, CDA's
-J.M. Zwinkels €2.000, K.P. Klein €3.500, A.M. der der Spek €999 from Hilte Pass BV (below the election-year
-threshold and reported anyway).
+1.168 sheet rows covering **1.166 distinct candidates**. Six rows carry a gift; those rows belong to **four
+candidates**, and the four amounts total **€11.499** — €5.000 dated 2023 and €6.499 dated 2025: D66's
+P. Bamenga €5.000, CDA's J.M. Zwinkels €2.000, K.P. Klein €3.500, and A.M. der der Spek €999 from Hilte Pass BV.
+The €999 is **above** the candidate threshold of €767,12 that the candidate workbook prints, and below the
+€1.000 party threshold; it was published because the workbook reports it, not because it cleared the party bar.
 
 Candidate gifts are a smaller object than party gifts and almost unstudied. The file covers 2023, 2024 and 2025
 per candidate, so it also back-fills two years the dashboard never had.

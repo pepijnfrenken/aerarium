@@ -62,7 +62,8 @@ the finding.
     out/gift-timing.json         donations by date, against election days
     out/gifts-2025-election.json 2025 gifts to 8 Oct, per party, from the election-year ODS
     out/gifts-2025-post-election.csv  the final three weeks, 9-29 Oct 2025
-    out/candidate-gifts-2025.csv  1.168 candidates, 6 with a gift
+    out/candidate-gifts-2025.csv  1.168 sheet rows = 1.166 distinct candidates; 6 rows carry a gift
+                                   (4 candidates received any amount, 3 of them in 2025)
     out/debts-2025.json          debts, in two disjoint periods that are never subtracted
     docs/                        probes, findings, grading vocabulary
     scripts/                     one script per artifact, with the rules it enforces

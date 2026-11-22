@@ -551,6 +551,41 @@ else:
     print(f"FAIL  2025 donor rows: FNP {fnp and fnp['donors']}, total {donor_sum} (expected 17 and 2042)")
     fails.append("2025 donor rows include non-2025 money")
 
+# ---------------------------------------------------------------- amber list (audit 3)
+rd = (REPO / "README.md").read_text(encoding="utf-8", errors="replace")
+p5 = (REPO / "docs" / "PROBE-005-where-2025-lives.md").read_text(encoding="utf-8", errors="replace")
+f3c = (REPO / "docs" / "FINDING-003-who-donates.md").read_text(encoding="utf-8", errors="replace")
+
+checked += 1
+if "1.168 candidates, 6 with a gift" in rd:
+    print("FAIL  README still calls 1.168 rows 'candidates' and 6 rows 'with a gift'")
+    fails.append("README conflates candidate rows, people and gift rows")
+elif "1.166 distinct candidates" in rd:
+    print("PASS  README separates sheet rows from distinct candidates")
+else:
+    print("FAIL  README candidate counts not corrected")
+    fails.append("README candidate counts missing")
+
+checked += 1
+if "below the election-year threshold" in p5:
+    print("FAIL  PROBE-005 still describes EUR 999 as below the threshold")
+    fails.append("PROBE-005 puts EUR 999 under the threshold")
+elif "€767,12" in p5 and "above" in p5:
+    print("PASS  PROBE-005 places EUR 999 above the candidate threshold (EUR 767,12)")
+else:
+    print("FAIL  PROBE-005 threshold direction not fixed")
+    fails.append("PROBE-005 threshold direction missing")
+
+checked += 1
+if "Stichting VVD Ondersteuning Tweede Kamerverkiezing gave" in f3c:
+    print("FAIL  FINDING-003 still presents two spellings of SOV as separate foundations")
+    fails.append("FINDING-003 double counts SOV spellings")
+elif "€1.600.000" in f3c and "spelling" in f3c:
+    print("PASS  FINDING-003 treats SOV's spellings as one entity and names the variants")
+else:
+    print("FAIL  FINDING-003 VVD spelling treatment not fixed")
+    fails.append("FINDING-003 VVD spelling treatment missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

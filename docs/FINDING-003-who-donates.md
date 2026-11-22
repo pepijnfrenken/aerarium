@@ -73,12 +73,19 @@ three also paid €30.319,66 to the party itself that year (Van Sparrentak €15
 their total to the GroenLinks family in 2022 is €238.818,66. Two documents, no shared key, the same figure to
 the euro on the foundation.
 
-**Two: for VVD the largest "donor" is VVD.** Stichting VVD Ondersteuning Tweede Kamerverkiezing gave
-€1.300.000 in 2023; Stichting Het Thorbeckefonds €350.000; Stichting Ondersteuning VVD Tweede
-Kamerverkiezing €300.000 in 2022; Stichting Ivo Opstelten Foundation €160.000. All four are named as VVD's own
-neveninstellingen in the party's 2024 report. The money first entered those foundations (SOV alone received
-€1.244.932 in 2023 from third parties) and then moved into the party. Reading the party-level rows as outside
-money counts the same euros twice.
+**Two: for VVD the largest "donor" is VVD.** The register prints the party's campaign foundation in more than one
+spelling — `Stichting VVD Ondersteuning Tweede Kamerverkiezing,`, `Stichting Ondersteuning VVD Tweede
+Kamerverkiezing,` and `Stichting Ondersteuning VVD Tweede Kamer-verkiezing (SOV)` all appear, including as a
+third-party payee name on the same rows. Treating the variants as separate foundations and adding them counts one
+organisation twice. As **one** entity, SOV gave the party **€1.600.000** across the window (€1.300.000 in 2023,
+€300.000 in 2022). Beside it sit Stichting Het Thorbeckefonds (€350.000) and Stichting Ivo Opstelten Foundation
+(€160.000), which are different legal persons and are listed separately for that reason, with the spelling
+variants shown rather than merged.
+
+All of them are named as VVD's own neveninstellingen in the party's 2024 report. The money first entered those
+foundations (SOV alone received €1.244.932 in 2023 from third parties) and then moved into the party. Reading the
+party-level rows as outside money counts the same euros twice, and reading two spellings of one foundation as two
+donors does it a third time.
 
 So "gift share" is not a measure of outside influence. For SP and GL it mostly measures a party rule about
 salaries; for VVD mostly a party's own fundraising vehicle. The register cannot distinguish the three without
