@@ -11,7 +11,7 @@ who cannot rebuild a file cannot check it.
 | `debts-2025.json` | scripts/ingest_tk2025_post.py | read by scripts/classify_creditors.py, scripts/export_view.py |
 | `donor-claims.json` | scripts/donor_claims.py | read by scripts/verify_bindings.py |
 | `donor-typology.json` | scripts/classify_donors.py (then scripts/reembed_view.py) | produced in a step or via the CLI |
-| `flow.json` | scripts/flow.py |  |
+| `flow.json` | scripts/flow.py | read by scripts/verify_bindings.py |
 | `gift-timing.json` | scripts/gift_timing.py | read by scripts/verify_bindings.py |
 | `gifts-2025-election.csv` | scripts/ingest_tk2025.py |  |
 | `gifts-2025-election.json` | scripts/ingest_tk2025.py | read by scripts/export_view.py, scripts/verify_bindings.py |

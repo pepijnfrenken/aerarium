@@ -64,7 +64,13 @@ def main() -> int:
     years = [r[0] for r in con.execute(f"select distinct jaar from {B} order by 1").fetchall()]
 
     # ---------------------------------------------------------------- A. reachability
-    # Instrument types that ever carry a published recipient. Derived from the register itself.
+    # Two financing bases sit in the same series and must not be compared across the break:
+    # appropriation-financed expenditure, and expenditure financed by premiums
+    # (`Premiegefinancieerde zorgverzekeringswet`, `... Wet langdurige zorg`, and in 2016
+    # `Premiegefinancierde Inkomensoverdrachten`). Those labels appear from 2016 to 2019 and then stop,
+    # without the money disappearing: the Wlz and Zvw flows keep being paid, they stop being booked as
+    # chapter rows here. So publishing one line across 2016-2025 would show a coverage break as a rise
+    # in reachability. Both bases are reported, and no harmonised national total is claimed.
     reachable = {norm(r[0]) for r in con.execute(
         "select distinct instrument from recipient_line where instrument is not null"
     ).fetchall()}
@@ -74,16 +80,20 @@ def main() -> int:
         f"""select jaar, coalesce(instrument_naam,''), sum(bedrag_k) from {B}
             where fase='JV' and vuo='U' and bedrag_k is not null group by 1,2"""
     ).fetchall():
-        if instr.lower() in ("leningen", "mutaties in rekening-courant en deposito's",
-                             "vermogensverschaffing/-onttrekking",
-                             "storting/onttrekking begrotingsreserve"):
+        low = instr.lower()
+        e = exp_by_year.setdefault(jaar, {"reachable": 0.0, "unreachable": 0.0, "premium": 0.0})
+        if "premie" in low:
+            e["premium"] += k or 0
             continue
-        if "ontvangsten" in instr.lower():
+        if low in ("leningen", "mutaties in rekening-courant en deposito's",
+                   "vermogensverschaffing/-onttrekking",
+                   "storting/onttrekking begrotingsreserve"):
             continue
-        if "andere" in instr.lower() and "begroting" in instr.lower():
+        if "ontvangsten" in low:
+            continue
+        if "andere" in low and "begroting" in low:
             continue
         key = norm(instr)
-        e = exp_by_year.setdefault(jaar, {"reachable": 0.0, "unreachable": 0.0})
         e["reachable" if key in reachable else "unreachable"] += k or 0
 
     reach = []
@@ -92,10 +102,11 @@ def main() -> int:
         tot = e["reachable"] + e["unreachable"]
         reach.append({
             "year": jaar,
-            "expenditure_k": round(tot),
+            "appropriation_expenditure_k": round(tot),
             "reachable_k": round(e["reachable"]),
             "unreachable_k": round(e["unreachable"]),
             "reachable_pct": round(100 * e["reachable"] / tot, 1) if tot else None,
+            "premium_financed_k": round(e["premium"]),
         })
 
     # ---------------------------------------------------------------- B. disclosure grade
@@ -132,17 +143,22 @@ def main() -> int:
     bmap: dict[tuple, float] = {}
     for jaar, ch, art, instr, k in b_rows:
         ch = CHAPTER_ALIASES.get(ch.lower(), ch) if ch else ch
-        bmap[(jaar, ch, norm(art), norm(instr))] = k or 0
+        key = (jaar, ch, norm(art), norm(instr))
+        # Aggregate, never overwrite: two raw spellings that normalise to the same key are one line,
+        # and letting the last row win silently dropped the other's money and changed the buckets.
+        bmap[key] = bmap.get(key, 0.0) + (k or 0)
     rmap: dict[tuple, float] = {}
     for jaar, ch, art, instr, k in r_rows:
         ch = CHAPTER_ALIASES.get(ch.lower(), ch) if ch else ch
-        rmap[(jaar, ch, norm(art), norm(instr))] = k or 0
+        key = (jaar, ch, norm(art), norm(instr))
+        rmap[key] = rmap.get(key, 0.0) + (k or 0)
 
     common = set(bmap) & set(rmap)
-    close = mult_big = mult_small = 0
+    close = mult_big = mult_small = nonpositive = 0
     for key in common:
         b, r = bmap[key], rmap[key]
         if b <= 0 or r <= 0:
+            nonpositive += 1
             continue
         ratio = r / b
         if 0.98 <= ratio <= 1.02:
@@ -162,13 +178,16 @@ def main() -> int:
         "matched_agreeing_within_2pct": close,
         "matched_register_exceeds_budget": mult_big,
         "matched_budget_exceeds_register": mult_small,
+        "matched_with_a_nonpositive_side": nonpositive,
         "budget_only": total_b - len(common),
         "register_only": total_r - len(common),
         "note": ("A matched group is a claim that two registers describe the same instrument line. "
+                 "Rows are aggregated after normalisation, so two spellings of one line are one group. "
                  "Where the register exceeds the budget it is usually a scheme financed outside the "
-                 "appropriation (premium-funded care, fund flows); where the budget exceeds the "
-                 "register it is usually an instrument type for which no recipient is published. "
-                 "Neither is an error in the join, and neither is summed across."),
+                 "appropriation (premium-funded care, fund flows); where the budget exceeds the register "
+                 "it is usually an instrument type for which no recipient is published. Groups with a "
+                 "positive and a nonpositive side are counted separately and left unclassified, because "
+                 "a ratio against zero or a credit is not a comparison. Neither is summed across."),
     }
 
     # the three worked examples that carry the argument, compared at ARTICLE level because the two
@@ -201,13 +220,17 @@ def main() -> int:
         "generated_by": "scripts/flow.py",
         "question": "How far down the chain of custody does each euro survive?",
         "measures": {
-            "reachability": ("Budget side, in euros: realised expenditure sitting under an instrument type "
-                             "for which a recipient is ever published. A ceiling on traceability, not a "
-                             "claim that those euros were traced."),
+            "reachability": ("Budget side, in euros: appropriation-financed expenditure sitting under an "
+                             "instrument type for which a recipient is ever published. A ceiling on "
+                             "traceability, not a claim that those euros were traced."),
             "disclosure_grade": ("Register side, in euros: named versus anonymised among the money the "
                                  "register publishes. Valid within the register only."),
             "claim_join": ("Matching labels across the two registers. Counts, not sums: the two registers "
                            "measure different quantities on the same line."),
+            "financing_basis": ("Premium-financed expenditure is reported apart from appropriation-financed "
+                                "expenditure. The premium labels exist from 2016 to 2019 only, so the two "
+                                "bases cannot be compared across that break and no harmonised national "
+                                "total is claimed for the period."),
         },
         "reachability": reach,
         "disclosure_grade": grade,
@@ -224,9 +247,10 @@ def main() -> int:
     OUT.write_text(json.dumps(payload, indent=1, ensure_ascii=False), encoding="utf-8")
 
     print(f"wrote {OUT.relative_to(ROOT)}")
-    print("\nA. reachability of expenditure (in euros)")
+    print("\nA. reachability, appropriation-financed (premium-financed shown separately)")
     for r in reach:
-        print(f"   {r['year']}  expenditure {r['expenditure_k']:>14,}k  reachable {r['reachable_pct']:>5.1f}%")
+        print(f"   {r['year']}  approp {r['appropriation_expenditure_k']:>14,}k  reachable {r['reachable_pct']:>5.1f}%"
+              f"   premium {r['premium_financed_k']:>13,}k")
     print("\nB. disclosure grade within the register")
     for g in grade:
         print(f"   {g['year']}  named {g['named_k']:>14,}k  anon {g['anonymised_k']:>14,}k  named {g['named_pct']:>5.1f}%")

@@ -2,80 +2,91 @@
  "generated_by": "scripts/flow.py",
  "question": "How far down the chain of custody does each euro survive?",
  "measures": {
-  "reachability": "Budget side, in euros: realised expenditure sitting under an instrument type for which a recipient is ever published. A ceiling on traceability, not a claim that those euros were traced.",
+  "reachability": "Budget side, in euros: appropriation-financed expenditure sitting under an instrument type for which a recipient is ever published. A ceiling on traceability, not a claim that those euros were traced.",
   "disclosure_grade": "Register side, in euros: named versus anonymised among the money the register publishes. Valid within the register only.",
-  "claim_join": "Matching labels across the two registers. Counts, not sums: the two registers measure different quantities on the same line."
+  "claim_join": "Matching labels across the two registers. Counts, not sums: the two registers measure different quantities on the same line.",
+  "financing_basis": "Premium-financed expenditure is reported apart from appropriation-financed expenditure. The premium labels exist from 2016 to 2019 only, so the two bases cannot be compared across that break and no harmonised national total is claimed for the period."
  },
  "reachability": [
   {
    "year": 2016,
-   "expenditure_k": 277825081,
+   "appropriation_expenditure_k": 158923556,
    "reachable_k": 90942159,
-   "unreachable_k": 186882922,
-   "reachable_pct": 32.7
+   "unreachable_k": 67981397,
+   "reachable_pct": 57.2,
+   "premium_financed_k": 118901525
   },
   {
    "year": 2017,
-   "expenditure_k": 277049069,
+   "appropriation_expenditure_k": 199232742,
    "reachable_k": 89561335,
-   "unreachable_k": 187487734,
-   "reachable_pct": 32.3
+   "unreachable_k": 109671407,
+   "reachable_pct": 45.0,
+   "premium_financed_k": 77816327
   },
   {
    "year": 2018,
-   "expenditure_k": 287565564,
+   "appropriation_expenditure_k": 219478464,
    "reachable_k": 94423717,
-   "unreachable_k": 193141847,
-   "reachable_pct": 32.8
+   "unreachable_k": 125054747,
+   "reachable_pct": 43.0,
+   "premium_financed_k": 68087100
   },
   {
    "year": 2019,
-   "expenditure_k": 300135979,
+   "appropriation_expenditure_k": 227735979,
    "reachable_k": 98537191,
-   "unreachable_k": 201598788,
-   "reachable_pct": 32.8
+   "unreachable_k": 129198788,
+   "reachable_pct": 43.3,
+   "premium_financed_k": 72400000
   },
   {
    "year": 2020,
-   "expenditure_k": 260546984,
+   "appropriation_expenditure_k": 260546984,
    "reachable_k": 124206453,
    "unreachable_k": 136340531,
-   "reachable_pct": 47.7
+   "reachable_pct": 47.7,
+   "premium_financed_k": 0
   },
   {
    "year": 2021,
-   "expenditure_k": 275336824,
+   "appropriation_expenditure_k": 275336824,
    "reachable_k": 148872099,
    "unreachable_k": 126464725,
-   "reachable_pct": 54.1
+   "reachable_pct": 54.1,
+   "premium_financed_k": 0
   },
   {
    "year": 2022,
-   "expenditure_k": 306382523,
+   "appropriation_expenditure_k": 306382523,
    "reachable_k": 138106606,
    "unreachable_k": 168275917,
-   "reachable_pct": 45.1
+   "reachable_pct": 45.1,
+   "premium_financed_k": 0
   },
   {
    "year": 2023,
-   "expenditure_k": 309999824,
+   "appropriation_expenditure_k": 309999824,
    "reachable_k": 135930686,
    "unreachable_k": 174069138,
-   "reachable_pct": 43.8
+   "reachable_pct": 43.8,
+   "premium_financed_k": 0
   },
   {
    "year": 2024,
-   "expenditure_k": 331469674,
+   "appropriation_expenditure_k": 331469674,
    "reachable_k": 168442068,
    "unreachable_k": 163027606,
-   "reachable_pct": 50.8
+   "reachable_pct": 50.8,
+   "premium_financed_k": 0
   },
   {
    "year": 2025,
-   "expenditure_k": 339184268,
+   "appropriation_expenditure_k": 339184268,
    "reachable_k": 170084751,
    "unreachable_k": 169099517,
-   "reachable_pct": 50.1
+   "reachable_pct": 50.1,
+   "premium_financed_k": 0
   }
  ],
  "disclosure_grade": [
@@ -149,12 +160,13 @@
   "register_groups": 2539,
   "matched_groups": 1708,
   "match_rate_of_register_pct": 67.3,
-  "matched_agreeing_within_2pct": 1304,
+  "matched_agreeing_within_2pct": 1305,
   "matched_register_exceeds_budget": 148,
-  "matched_budget_exceeds_register": 224,
+  "matched_budget_exceeds_register": 223,
+  "matched_with_a_nonpositive_side": 32,
   "budget_only": 4136,
   "register_only": 831,
-  "note": "A matched group is a claim that two registers describe the same instrument line. Where the register exceeds the budget it is usually a scheme financed outside the appropriation (premium-funded care, fund flows); where the budget exceeds the register it is usually an instrument type for which no recipient is published. Neither is an error in the join, and neither is summed across."
+  "note": "A matched group is a claim that two registers describe the same instrument line. Rows are aggregated after normalisation, so two spellings of one line are one group. Where the register exceeds the budget it is usually a scheme financed outside the appropriation (premium-funded care, fund flows); where the budget exceeds the register it is usually an instrument type for which no recipient is published. Groups with a positive and a nonpositive side are counted separately and left unclassified, because a ratio against zero or a credit is not a comparison. Neither is summed across."
  },
  "examples": [
   {
@@ -163,8 +175,8 @@
    "article": "Langdurige zorg en ondersteuning",
    "instrument": "Bekostiging",
    "basis": "article",
-   "budget_k": 765793,
-   "register_k": 21519845,
+   "budget_k": 765793.0,
+   "register_k": 21519845.0,
    "ratio": 28.1
   },
   {
@@ -173,8 +185,8 @@
    "article": "Curatieve zorg",
    "instrument": "Bekostiging",
    "basis": "article",
-   "budget_k": 727043,
-   "register_k": 4052315,
+   "budget_k": 727043.0,
+   "register_k": 4052315.0,
    "ratio": 5.6
   },
   {
@@ -183,8 +195,8 @@
    "article": null,
    "instrument": "Leningen",
    "basis": "instrument",
-   "budget_k": 53861183,
-   "register_k": 13100000,
+   "budget_k": 53861183.0,
+   "register_k": 13100000.0,
    "ratio": 0.2
   }
  ],

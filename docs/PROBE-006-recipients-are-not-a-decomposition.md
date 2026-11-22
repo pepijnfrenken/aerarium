@@ -1,27 +1,30 @@
 # Probe 006 — the recipient register is not a decomposition of the chapter total
 
-**Result:** named recipients in the register sum to **€197.959.554k** against €493.337.650k of chapter totals for
-2024 — 40,1%. But two chapters come out **above 100%**, which is impossible if the register were a breakdown of
-the chapter's own money: **XVI VWS at 189,4%** and **XVII BHOS at 108,8%**.
+**Correction, 2026-11-21.** An audit found this probe quoting pre-`vuo` totals: it compared named recipients
+against chapter sums that mixed receipts and commitments. The figures below are on the expenditure axis
+(`vuo='U'`) and the conclusion is unchanged. The attribution of the XVII overrun to an ODA accounting treatment
+is **UNVERIFIED** without a scheme crosswalk and is now labelled as such here.
+
+**Result:** named recipients in the register sum to **€197.969.404k** against **€401.303.575k** on the
+expenditure axis for 2024 — 49,33%. That quotient is a diagnostic only, because two chapters come out **above
+100%**, which is impossible if the register were a breakdown of the chapter's own money: **XVI VWS at 189,98%**
+and **XVII BHOS at 108,82%**.
 
 A share above 100% is not a rounding problem. It means the two registers do not partition the same money, and
 any flow percentage computed by dividing one chapter total by the other is arithmetic dressed as disclosure.
 
 ## What the overrun is
 
-The four largest XVI rows are all `Zorginstituut Nederland` under `Bekostiging`:
-
-- `BEK Bijdr Wlz` €15.550.000k
-- `BEK Bijdrage Kosten Korting` €5.302.200k
-- `BEK Rijksbijdrage 18-` €3.303.300k
-
-That is **€24,4bn of `Bekostiging` against a chapter XVI expenditure total of €15,7bn**. The Wlz and the
-Zorgverzekeringsfonds flow through the Zorginstituut and are financed largely by premiums, not by the
+The three largest XVI recipient rows are all `Zorginstituut Nederland` under `Bekostiging`, and together they are
+**€24.155.500k**; the whole `Bekostiging` instrument for the chapter is **€24.419.057k** against a chapter XVI
+expenditure total of **€15.750.919k**. (The fourth largest row uses the ZBO/RWT instrument, not `Bekostiging`.) The
+Wlz and the Zorgverzekeringsfonds flow through the Zorginstituut and are financed largely by premiums, not by the
 appropriation on chapter XVI. The register publishes the **recipient of the flow**; the chapter publishes the
 **appropriation's share of it**. They are different quantities that share a budget structure.
 
-XVII behaves the same way for a different reason: its recipient rows include ODA contributions that the
-chapter total nets or books elsewhere, so the parts exceed the whole again.
+XVII exceeds its chapter total as well, but the cause is **not established here**: the plausible reading is that
+its recipient rows include ODA contributions the chapter nets or books elsewhere, and settling that needs a
+scheme-level crosswalk that this project does not have. It is recorded as an open question, not as an explanation.
 
 ## Why this decides the design
 

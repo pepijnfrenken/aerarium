@@ -487,6 +487,48 @@ else:
         print("   ", _l)
     fails.append("page script throws on execution")
 
+# ---------------------------------------------------------------- the flow measure
+fl = json.loads((OUT / "flow.json").read_text(encoding="utf-8"))
+reach = {r["year"]: r for r in fl["reachability"]}
+checked += 1
+if reach[2024]["appropriation_expenditure_k"] != 331469674:
+    print(f"FAIL  flow 2024 appropriation expenditure {reach[2024]['appropriation_expenditure_k']:,} != 331,469,674")
+    fails.append("flow 2024 appropriation expenditure wrong")
+else:
+    print("PASS  flow 2024 appropriation expenditure 331.469.674k, agreeing with govrun")
+
+# the premium-financed basis exists only 2016-2019. If it ever reappears later, the series break has
+# moved and every cross-year comparison in the findings is suspect.
+checked += 1
+prem = {y: v["premium_financed_k"] for y, v in reach.items()}
+expected = {2016: 118901525, 2017: 77816327, 2018: 68087100, 2019: 72400000}
+ok = all(prem.get(y) == v for y, v in expected.items()) and all(prem.get(y) == 0 for y in prem if y >= 2020)
+print(f"{'PASS' if ok else 'FAIL'}  premium-financed basis present 2016-2019 only, absent from 2020")
+if not ok:
+    fails.append("premium-financed coverage break moved")
+
+# no reachability trend may be claimed: 2016 is HIGHER than 2024
+checked += 1
+if reach[2016]["reachable_pct"] >= reach[2024]["reachable_pct"]:
+    print(f"PASS  reachability has no upward trend ({reach[2016]['reachable_pct']}% 2016 vs "
+          f"{reach[2024]['reachable_pct']}% 2024)")
+else:
+    print("FAIL  reachability rises from 2016 to 2024; check whether a coverage break was reintroduced")
+    fails.append("reachability trend appears where none should")
+
+cj = fl["claim_join"]
+for label, got, want in [
+    ("claim join buckets within 2pct", cj["matched_agreeing_within_2pct"], 1305),
+    ("claim join register above", cj["matched_register_exceeds_budget"], 148),
+    ("claim join budget above", cj["matched_budget_exceeds_register"], 223),
+    ("claim join nonpositive side", cj["matched_with_a_nonpositive_side"], 32),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
