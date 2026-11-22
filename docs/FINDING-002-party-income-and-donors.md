@@ -143,10 +143,12 @@ year mixes vintages; summing by scheme name is possible and not done here.
 - **PVV has no subsidy row** in 2022-2024, while appearing in the gift table with €35.000 (2022), €15.000
   (2023), €0 (2024), each time to `Vrienden van de PVV`. The published tables do not say why. Wfpp art. 8-9
   conditions were read and do not by themselves explain it, so this is recorded as absent, not as zero.
-- **The per-entity split of the subsidy** exists in the party PDFs, not in any structured source. Across all 92
-  documents, 10 state it under the wording `per entiteit`, and all 10 are 2023 or 2024: none in 2020-2022, so
-  the split is a recent practice rather than an old gap. 74 of 92 name their neveninstellingen somewhere
-  without stating what each received, so the lower count is about the split, not about naming.
+- **The per-entity split of the subsidy** exists in the party PDFs, not in any structured source. The phrase
+  `per entiteit` matched the extracted text of **10 of 92** reports, all of them 2023 or 2024 and none in
+  2020-2022, so the split is a recent practice rather than an old gap. That is a **text match, not a verified
+  reading of each report**: a split stated under other wording is missed, and a passing mention is counted. The
+  party-naming pattern matched 74 of 92 texts on the same basis, so the lower count is about the split, not
+  about naming.
 - **2020 and 2021 annual reports** are linked as `open.overheid.nl/details/ronl-…`, a JavaScript shell that
   returns 607 bytes of HTML to a plain fetch. The document itself is served by the site's attachment endpoint
   (`/overheid/openbaarmakingen/api/v0/attachment/ronl-…`), which needs no key, so all 92 are extractable after

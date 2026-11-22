@@ -746,6 +746,66 @@ else:
     print(f"FAIL  the 2017 all-anonymised zero was nulled as well: {row2017 and (row2017['named_k'], row2017['named_coverage'])}")
     fails.append("genuine zero lost to the null")
 
+# ---------------------------------------------------------------- A1:25 / A1:26 / A1:29
+import re as _re
+with (OUT / "neveninstellingen.csv").open(encoding="utf-8", newline="") as fh:
+    nev = list(_csv.DictReader(fh))
+names_raw = {r["entiteit"].strip().lower() for r in nev if r["entiteit"].strip()}
+names_norm = {_re.sub(r"\s+", " ", _re.sub(r"[^a-z0-9 ]", " ", r["entiteit"].strip().lower())) for r in nev
+              if r["entiteit"].strip()}
+with_amt = sum(1 for r in nev if (r["bedrag_eur"] or "").strip() not in ("", "0", "0.0"))
+pyears = len({(r["partij"], r["jaar"]) for r in nev})
+for label, got, want in [
+    ("PROBE-004 rows", len(nev), 242),
+    ("PROBE-004 distinct raw names", len(names_raw), 120),
+    ("PROBE-004 distinct normalised names", len(names_norm), 118),
+    ("PROBE-004 rows with an amount", with_amt, 127),
+    ("PROBE-004 party-years", pyears, 54),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+p4 = (REPO / "docs" / "PROBE-004-neveninstellingen-in-the-reports.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "must not be read as a subsidy series" in p4 and "120 distinct name strings" in p4:
+    print("PASS  PROBE-004 states its units and refuses the mixed amount column")
+else:
+    print("FAIL  PROBE-004 units or role caveat missing")
+    fails.append("PROBE-004 units/role caveat missing")
+
+f2b = (REPO / "docs" / "FINDING-002-party-income-and-donors.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "text match, not a verified\n  reading of each report" in f2b.replace("\r", ""):
+    print("PASS  FINDING-002 labels the per-entity count as a text match")
+else:
+    print("FAIL  FINDING-002 still presents phrase hits as report contents")
+    fails.append("FINDING-002 promotes phrase hits")
+
+gd = (REPO / "docs" / "GRADING.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "not resolved here" in gd and "identity is not asserted" in gd:
+    print("PASS  GRADING.md records the SP KvK collision without asserting identity")
+else:
+    print("FAIL  GRADING.md still asserts the SP identity reading")
+    fails.append("GRADING.md asserts an unresolved identity")
+
+checked += 1
+if "money the register does not publish at all is in neither column" in html:
+    print("PASS  the budget panel refuses to read named+anonymous as a partition of realised")
+else:
+    print("FAIL  the budget panel still implies named+anonymous is the whole realisation")
+    fails.append("budget panel implies a false partition")
+
+checked += 1
+if "adjudicated by hand" in html and "grouped by KvK" not in html:
+    print("PASS  the NFRP panel describes its name-map join accurately")
+else:
+    print("FAIL  the NFRP panel still claims KvK grouping")
+    fails.append("NFRP panel misdescribes its join")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

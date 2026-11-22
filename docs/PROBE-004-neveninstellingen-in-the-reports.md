@@ -1,7 +1,17 @@
 # PROBE 004 — the neveninstellingen each party names in its own report
 
 `scripts/extract_neveninstellingen.py` over `corpus/text/` (92 reports, 2020-2024). Output:
-`out/neveninstellingen.csv`, 242 rows, 120 distinct names, 127 rows carrying an amount. Retrieved 2026-11-20.
+`out/neveninstellingen.csv`, **242 rows** across **54 party-years**, **120 distinct name strings**, or **118** once
+punctuation is normalised, and **127 rows carrying an amount**. Retrieved 2026-11-20.
+
+Two units matter here and they are easy to confuse: a row is a mention of an entity in one party's report for one
+year, not an entity, and not a payment. The count of distinct strings is also a string count: the same body printed
+with different punctuation is two strings, which is why both numbers are given.
+
+The amount column is **mixed in role and must not be read as a subsidy series**. Some rows carry what the report
+says an entity received; others carry a `rekening courant` balance, which is a position at a date, not a payment
+(CDA 2020 is the clear case). The extraction records what the document states; it does not adjudicate the role, and
+a sum across this column would add balances to payments.
 
 This is the step the Rijksregister cannot do: the register stops at the party, and the party's own report is
 where the per-entity split lives. It is the only place in the chain where a party names what its scientific

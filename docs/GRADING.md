@@ -65,7 +65,10 @@ recent ones. Every merge that depends on a name is a decision and belongs in the
 the field matched and the evidence:
 
 - the payee is often not the party (`CDA` is paid as `Stichting Secretariaat CDA`, KvK 41152088);
-- one entity can carry two identifiers across years (`SP` KvK 40346246 in 2020-2021, 12042006 in 2022-2024);
+- one entity can carry two identifiers across years, and the register is not consistent about it: it prints KvK
+  40346246 for `SP` in 2020-2021 and 12042006 in 2022-2024. Whether those are the same legal person, and which of
+  them is the party rather than an associated body, is **not resolved here**. The observation is recorded; the
+  identity is not asserted. This is why a KvK match is evidence and not proof.
 - one name can be anonymised one year and named the next (ProDemos, the Thorbecke chair).
 
 ## What is never done
