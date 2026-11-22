@@ -62,9 +62,10 @@ other and the loss is invisible. 92 documents, 92 files.
 Verify a fetch by content type or PDF magic bytes, never by HTTP status alone: the details pages return 200
 with an HTML body.
 
-The extracted text of all 92 documents is committed under `corpus/text/` with the register index at
-`corpus/index.tsv`, so the findings do not depend on a refetch or on a temporary directory. Re-running the
-script regenerates it.
+The extracted text of all 92 documents is written to `corpus/text/` with the register index at
+`corpus/index.tsv`. It is **not committed**: some reports quote a donor's home address, so the corpus is
+gitignored and stripped from history, and `scripts/fetch_corpus.sh` regenerates it. An earlier version of this
+line said the corpus was committed, which was wrong on both counts.
 
 ## `classify_donors.py` — what kind of donor each one is
 

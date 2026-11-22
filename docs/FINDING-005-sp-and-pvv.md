@@ -18,8 +18,10 @@ difference flows to the party and is filed as a contribution, because under the 
 - 270 distinct SP "donors" across the three years on the **raw published name string**, median €20.579,22. On
   the page's lowercased-and-whitespace-normalised convention the same set is 269 keys and €20.634,90, because
   one spelling pair differs only in case. Both are stated because the count depends on which rule you name.
-- Top 12 are all sitting representatives: S. Beckerman €155.887,70, M. van Nispen €147.665,33, P. Kwint
-  €92.821,71, J. Dijk €89.222,37, M. Alkaya €87.754,32, and so on. Together they are 17,9% of the total.
+- Top 12 are all named representatives: S. Beckerman €155.887,70, M. van Nispen €147.665,33, P. Kwint
+  €92.821,71, J. Dijk €89.222,37, M. Alkaya €87.754,32, and so on. Together they are 17,9% of the total. The
+  register records no tenure, and these gifts span 2022-2024, so a 2024 seat cannot be asserted for a 2022 gift:
+  the entries identify the donors, they do not establish that each was sitting in the year the money moved.
 - Entity share of SP's money: **0,0%**. SP takes essentially nothing from companies or foundations.
 
 So a chart of "private gifts per party" puts SP second, and that reading is wrong. SP is the party that funds

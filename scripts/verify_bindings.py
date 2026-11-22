@@ -806,6 +806,51 @@ else:
     print("FAIL  the NFRP panel still claims KvK grouping")
     fails.append("NFRP panel misdescribes its join")
 
+# ---------------------------------------------------------------- A1:28 / A1:35
+import csv as _csv2
+with (OUT / "gifts_reconcile.csv").open(encoding="utf-8", newline="") as fh:
+    rec = list(_csv2.DictReader(fh))
+filer_tot = {}
+for r in rec:
+    try:
+        filer_tot[r["partij"]] = filer_tot.get(r["partij"], 0.0) + float(r["published"] or 0)
+    except ValueError:
+        pass
+n_filers = len(filer_tot)
+n_positive = sum(1 for v in filer_tot.values() if v > 0)
+checked += 1
+if n_filers == 21 and n_positive == 18:
+    print(f"PASS  {n_filers} parties filed, {n_positive} with a positive gift total")
+else:
+    print(f"FAIL  filer counts moved: {n_filers} filed, {n_positive} positive")
+    fails.append("filer counts moved")
+
+f3d = (REPO / "docs" / "FINDING-003-who-donates.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "**eighteen** filers" in f3d and "nineteen filers with a positive gift total" not in f3d:
+    print("PASS  FINDING-003 states eighteen filers, matching the register")
+else:
+    print("FAIL  FINDING-003 still over-counts the filers")
+    fails.append("FINDING-003 filer count wrong")
+
+wa = json.loads((OUT / "donor-typology.json").read_text(encoding="utf-8"))["by_party"]
+checked += 1
+if len(wa) == n_positive:
+    print(f"PASS  the typology covers exactly the {len(wa)} parties with positive gift money")
+else:
+    print(f"FAIL  typology covers {len(wa)} parties against {n_positive} positive filers")
+    fails.append("typology party count disagrees with the register")
+
+with (OUT / "spending-campaign.csv").open(encoding="utf-8", newline="") as fh:
+    sp = list(_csv2.DictReader(fh))
+checked += 1
+if sp and "value_rule" in sp[0] and any(r["value_rule"].startswith("none") for r in sp):
+    nnone = sum(1 for r in sp if r["value_rule"].startswith("none"))
+    print(f"PASS  the spending CSV names the rule behind each value ({nnone} rows carry none)")
+else:
+    print("FAIL  the spending CSV presents a derived value without naming the rule")
+    fails.append("spending CSV value rule missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

@@ -49,9 +49,14 @@ Per party, the split is not a gradient, it is two different systems:
 | PVV | 50.000 | 35.000 | 15.000 | 0 | 30,0% |
 | OPNL | 1.800 | 1.800 | 0 | 0 | 0,0% |
 
-The table covers all nineteen filers with a positive gift total, including CU and OPNL. An earlier version
+The table covers all **eighteen** filers with a positive gift total, including CU and OPNL; twenty-one parties
+filed in the register, and 50PLUS, BIJ1 and Goud filed with no positive gift money. An earlier version said
+nineteen, which was simply wrong, and an earlier version
 omitted both without saying why, which made the ranking beside it look better supported than it was. CU's
-entity money also includes €14.000 classified as a party vehicle, so its organisational share is 15,2% on the
+entity money is €81.440 and its €14.000 party vehicle is classified separately, so its organisational share is
+15,2% on the entity class alone — 17,8% (€95.440 of €536.654) if the vehicle is counted with it. An earlier
+version of this paragraph put the vehicle inside the entity figure, which it is not, and the difference matters:
+a vehicle is the party's own fundraising body, an entity is outside money. The
 entity column alone.
 
 GL, SP, PvdA, DENK and NSC take effectively no organisational money. VVD, BVNL, SGP, JA21, BBB, FvD and Volt
@@ -87,8 +92,10 @@ foundations (SOV alone received €1.244.932 in 2023 from third parties) and the
 party-level rows as outside money counts the same euros twice, and reading two spellings of one foundation as two
 donors does it a third time.
 
-So "gift share" is not a measure of outside influence. For SP and GL it mostly measures a party rule about
-salaries; for VVD mostly a party's own fundraising vehicle. The register cannot distinguish the three without
+So "gift share" is not a measure of outside influence. For SP and GL a large share of the money arrives from
+their own elected representatives under a salary-transfer arrangement, so the ratio measures an internal rule more
+than outside support; for VVD it measures the party's own fundraising vehicle. How much, exactly, is stated in the
+entity shares above rather than in this sentence. The register cannot distinguish the three without
 this outside reading, which is why the naive ranking is wrong in both directions.
 
 ## Bequests

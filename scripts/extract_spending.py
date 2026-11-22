@@ -32,7 +32,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 CORPUS = REPO / "corpus" / "text"
 OUT = REPO / "out" / "spending-campaign.csv"
-FIELDS = ["partij", "jaar", "bestand", "label", "amounts", "n_amounts", "quality", "value_eur", "raw_line"]
+FIELDS = ["partij", "jaar", "bestand", "label", "amounts", "n_amounts", "quality", "value_eur",
+          "value_rule", "raw_line"]
 
 # euro amounts as Dutch reports print them: 1.050.000 or 836.285 or 2.861.445,50
 AMOUNT = re.compile(r"\d{1,3}(?:\.\d{3})+(?:,\d{2})?")
@@ -82,6 +83,12 @@ def main() -> int:
                 "label": "verkiezingscampagne", "amounts": " | ".join(amounts), "n_amounts": n,
                 "quality": quality,
                 "value_eur": f"{value:.2f}" if value is not None else "",
+                # An audit caught this column being read as a reported figure. It is not: value_eur is
+                # produced by the layout rule below, so the rule travels in its own column and a reader
+                # can filter to the rows that carry no derived value at all.
+                "value_rule": ("none: three or more amounts, no value assigned" if value is None
+                               else "pair: last amount treated as realised" if n == 2
+                               else "single: not stated whether budget or actual"),
                 "raw_line": " ".join(line.split())[:220],
             })
 
