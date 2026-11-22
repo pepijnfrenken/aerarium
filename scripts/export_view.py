@@ -389,7 +389,12 @@ def load_latest(gifts_totals: dict) -> dict:
                                       "seats": seats_2025.get(SEAT_ALIAS.get(lst, lst), 0),
                                       "filers": []})
         slot["gifts"] += (r["gifts_to_8oct"] or 0.0) + (r["gifts_final_3_weeks"] or 0.0)
-        slot["filers"].append(r["partij"])
+        # Name the parties that actually FILED, not the merged label. After MERGE_2025 above, r["partij"] is
+        # already "PRO", which made the list read as though PRO had filed the 2025 figures. The components
+        # are still on the merged slot, so the entry says lijst PRO with filers GL and PvdA.
+        for filer in (r.get("filers") or [r["partij"]]):
+            if filer not in slot["filers"]:
+                slot["filers"].append(filer)
     seat_view = []
     for slot in lists.values():
         slot["gifts"] = round(slot["gifts"], 2)

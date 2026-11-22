@@ -35,6 +35,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -46,6 +48,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -57,6 +61,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -68,6 +74,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -79,6 +87,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -90,6 +100,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -101,6 +113,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -112,6 +126,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -123,6 +139,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -134,6 +152,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []
@@ -153,6 +173,46 @@
     "2022": 457,
     "2023": 508,
     "2024": 427
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 10,
+     "k": 2311
+    }
+   },
+   "by_regeling": {
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 474
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 445
+    },
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 427
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 355
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen Shiraka": {
+     "rows": 1,
+     "k": 345
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 130
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen MATRA": {
+     "rows": 1,
+     "k": 112
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 23
+    }
    },
    "published_names": [
     "Haya van Somerenstichting"
@@ -178,6 +238,46 @@
     "2021": 201,
     "2023": 208,
     "2024": 279
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 10,
+     "k": 900
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 276
+    },
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 206
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 201
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 145
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 53
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 10
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 6
+    },
+    "MATRA": {
+     "rows": 1,
+     "k": 3
+    }
    },
    "published_names": [
     "Foundation Max Van Der Stoel (FMS)",
@@ -213,6 +313,46 @@
     "2023": 268,
     "2024": 153
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 10,
+     "k": 1044
+    }
+   },
+   "by_regeling": {
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 315
+    },
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 303
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 187
+    },
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 151
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 68
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 13
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 5
+    },
+    "MATRA": {
+     "rows": 1,
+     "k": 2
+    }
+   },
    "published_names": [
     "EDUARDO FREI FOUNDATION",
     "Eduardo Frei Stichting, Stichting van het CDA voor internationale solidariteit"
@@ -245,6 +385,42 @@
     "2023": 388,
     "2024": 211
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 9,
+     "k": 1210
+    }
+   },
+   "by_regeling": {
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 305
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 301
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 271
+    },
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 211
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 99
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 18
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 5
+    }
+   },
    "published_names": [
     "STICHTING INT. DEMOCRATISCH INITIATIEF D66",
     "Stichting Internationaal Democratisch Initiatief D66"
@@ -274,6 +450,18 @@
    "by_year_k": {
     "2024": 258
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 2,
+     "k": 258
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 258
+    }
+   },
    "published_names": [
     "Stg International Foundation GroenLinks"
    ],
@@ -296,6 +484,46 @@
     "2021": 96,
     "2023": 137,
     "2024": 123
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 10,
+     "k": 472
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 121
+    },
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 115
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 96
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 94
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 36
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 7
+    },
+    "MATRA": {
+     "rows": 1,
+     "k": 2
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 1
+    }
    },
    "published_names": [
     "SGP-Internationaal",
@@ -326,6 +554,18 @@
    "by_year_k": {
     "2024": 77
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 1,
+     "k": 77
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 1,
+     "k": 77
+    }
+   },
    "published_names": [
     "Stichting Internationaal Secretariaat SP"
    ],
@@ -348,6 +588,18 @@
    "by_year_k": {
     "2024": 25
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 1,
+     "k": 25
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 1,
+     "k": 25
+    }
+   },
    "published_names": [
     "Stichting Forum for Democracy Internatio"
    ],
@@ -367,6 +619,18 @@
    ],
    "by_year_k": {
     "2024": 105
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 2,
+     "k": 105
+    }
+   },
+   "by_regeling": {
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 105
+    }
    },
    "published_names": [
     "Stichting Volt There"
@@ -394,6 +658,54 @@
     "2023": 165,
     "2024": 127
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 12,
+     "k": 755
+    }
+   },
+   "by_regeling": {
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 159
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 141
+    },
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 125
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen Shiraka": {
+     "rows": 1,
+     "k": 124
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 119
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 43
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen MATRA": {
+     "rows": 1,
+     "k": 37
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 2,
+     "k": 3
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 2
+    },
+    "MATRA": {
+     "rows": 1,
+     "k": 2
+    }
+   },
    "published_names": [
     "STICHTING ANIMAL POLITICS FOUNDATION",
     "Stichting Animal Politics Foundation"
@@ -419,6 +731,42 @@
     "2021": 149,
     "2023": 160,
     "2024": 129
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 8,
+     "k": 596
+    }
+   },
+   "by_regeling": {
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 155
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 149
+    },
+    "NFRP Politieke Partijen": {
+     "rows": 2,
+     "k": 129
+    },
+    "NFRP Politieke Partijen 2023": {
+     "rows": 1,
+     "k": 111
+    },
+    "Matra overheid tot overheid 2020-2024": {
+     "rows": 1,
+     "k": 43
+    },
+    "NFRP Politieke Partijen Programma 2022": {
+     "rows": 1,
+     "k": 6
+    },
+    "NFRP Politieke Partijen Programma 2018": {
+     "rows": 1,
+     "k": 3
+    }
    },
    "published_names": [
     "FICDD - Foundation for International Christian Democratic Development",
@@ -454,6 +802,110 @@
     "2023": 24757,
     "2024": 8462
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 38,
+     "k": 30249
+    },
+    "Bekostiging": {
+     "rows": 4,
+     "k": 14300
+    },
+    "Bijdrage aan (inter-)nationale organisaties": {
+     "rows": 5,
+     "k": 220
+    }
+   },
+   "by_regeling": {
+    "Subsidieregeling BZ 2006": {
+     "rows": 17,
+     "k": 16403
+    },
+    "Technologieontwikkeling": {
+     "rows": 1,
+     "k": 6355
+    },
+    "Kennisgebruik": {
+     "rows": 1,
+     "k": 5830
+    },
+    "BZ 2006": {
+     "rows": 6,
+     "k": 5215
+    },
+    "Training buitenlandse diplomaten": {
+     "rows": 2,
+     "k": 4054
+    },
+    "Kort Cyclische Innovatie": {
+     "rows": 1,
+     "k": 2010
+    },
+    "Inclusieve vredes- en politieke processen": {
+     "rows": 1,
+     "k": 1525
+    },
+    "Noodhulpprogramma's": {
+     "rows": 1,
+     "k": 1070
+    },
+    "Instituut Clingendael": {
+     "rows": 1,
+     "k": 917
+    },
+    "Contra-terrorisme": {
+     "rows": 1,
+     "k": 231
+    },
+    "Klimaat algemeen": {
+     "rows": 1,
+     "k": 225
+    },
+    "Overig": {
+     "rows": 1,
+     "k": 207
+    },
+    "Cyber security": {
+     "rows": 1,
+     "k": 175
+    },
+    "Bijdrage grote onderzoeksfaciliteiten": {
+     "rows": 1,
+     "k": 105
+    },
+    "Programma Ondersteuning Buitenlands Beleid": {
+     "rows": 3,
+     "k": 104
+    },
+    "Waterbeheer": {
+     "rows": 1,
+     "k": 86
+    },
+    "Human rights": {
+     "rows": 1,
+     "k": 75
+    },
+    "Stabiliteitsfonds": {
+     "rows": 1,
+     "k": 67
+    },
+    "Kleine activiteiten posten en cultuur en ontwikkeling": {
+     "rows": 2,
+     "k": 33
+    },
+    "Economische Veiligheid (TOP)": {
+     "rows": 1,
+     "k": 31
+    },
+    "Mondiale gezondheid en SRGR": {
+     "rows": 1,
+     "k": 30
+    },
+    "Nederlands Fonds voor Regionale Partnerschappen (NFRP); 'MATRA'": {
+     "rows": 1,
+     "k": 21
+    }
+   },
    "published_names": [
     "Clingendael, Stichting Nederlands Instituut voor Internationale Betrekkingen",
     "Stichting Nederlands Instituut voor Inter. Betrekkingen Clin",
@@ -488,6 +940,38 @@
     "2023": 112,
     "2024": 293
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 6,
+     "k": 405
+    }
+   },
+   "by_regeling": {
+    "BZ 2006": {
+     "rows": 1,
+     "k": 121
+    },
+    "Grondstoffen en circulair": {
+     "rows": 1,
+     "k": 120
+    },
+    "Subsidieregeling BZ 2006": {
+     "rows": 1,
+     "k": 80
+    },
+    "Programma Ondersteuning Buitenlands Beleid": {
+     "rows": 1,
+     "k": 50
+    },
+    "Bevorderen Ondernemerschap (directie TOP)": {
+     "rows": 1,
+     "k": 32
+    },
+    "DRC-projecten Klimaatfonds (DRC)": {
+     "rows": 1,
+     "k": 2
+    }
+   },
    "published_names": [
     "Den Haag Centrum voor Strategische Studi The Hague Centre For Strategic Studies",
     "Den Haag Centrum voor Strategische Studies (HCSS) B.V."
@@ -510,6 +994,18 @@
    ],
    "by_year_k": {
     "2021": 224
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 1,
+     "k": 224
+    }
+   },
+   "by_regeling": {
+    "Medische Ethiek": {
+     "rows": 1,
+     "k": 224
+    }
    },
    "published_names": [
     "Rathenau Instituut"
@@ -535,6 +1031,42 @@
     "2021": 8456,
     "2023": 8979,
     "2024": 216
+   },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 10,
+     "k": 26040
+    }
+   },
+   "by_regeling": {
+    "ProDemos": {
+     "rows": 4,
+     "k": 24624
+    },
+    "Toer. onderst. Pol A": {
+     "rows": 1,
+     "k": 602
+    },
+    "Toerusting en ondersteuning politieke ambtsdragers": {
+     "rows": 1,
+     "k": 331
+    },
+    "Verb. inw. en overh.": {
+     "rows": 1,
+     "k": 250
+    },
+    "Overige subsidies": {
+     "rows": 1,
+     "k": 195
+    },
+    "Weerbaar bestuur": {
+     "rows": 1,
+     "k": 27
+    },
+    "Verbinding inwoner en overheid": {
+     "rows": 1,
+     "k": 11
+    }
    },
    "published_names": [
     "Stichting ProDemos",
@@ -575,6 +1107,54 @@
     "2023": 561,
     "2024": 585
    },
+   "by_instrument": {
+    "Subsidies (regelingen)": {
+     "rows": 13,
+     "k": 6267
+    }
+   },
+   "by_regeling": {
+    "Kaderregeling subsidies OCW, SZW en VWS": {
+     "rows": 2,
+     "k": 1700
+    },
+    "Tegemoetkoming vaste lasten": {
+     "rows": 1,
+     "k": 1458
+    },
+    "Regeling subsidie financiering vaste lasten MKB COVID-19": {
+     "rows": 2,
+     "k": 842
+    },
+    "Collectieve Erkenning Indisch Nederland": {
+     "rows": 1,
+     "k": 810
+    },
+    "SUB Herinnering Indische en Moluks Nederland": {
+     "rows": 1,
+     "k": 585
+    },
+    "Herinnering": {
+     "rows": 1,
+     "k": 458
+    },
+    "Sportakkoord": {
+     "rows": 1,
+     "k": 193
+    },
+    "Subsidieregeling BZ 2006": {
+     "rows": 2,
+     "k": 101
+    },
+    "Positief sportklimaat": {
+     "rows": 1,
+     "k": 96
+    },
+    "Mensenrechtenfonds": {
+     "rows": 1,
+     "k": 24
+    }
+   },
    "published_names": [
     "ANNE FRANK STG",
     "Anne Frank Stichting"
@@ -593,6 +1173,8 @@
    "total_k": 0,
    "years": [],
    "by_year_k": {},
+   "by_instrument": {},
+   "by_regeling": {},
    "published_names": [],
    "kvk": [],
    "instruments": []

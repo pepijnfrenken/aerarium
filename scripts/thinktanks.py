@@ -129,14 +129,14 @@ def main() -> int:
             kvk_clause = " or kvk = ?"
             params.append(spec["kvk"])
         rows = con.execute(
-            f"""select jaar, ontvanger, artikel, instrument, bedrag_k, kvk
+            f"""select jaar, ontvanger, artikel, instrument, regeling, bedrag_k, kvk
                 from recipient_line
                 where anonymised = false and ({alias_clause}{kvk_clause})""",
             params,
         ).fetchall()
 
         keep, drop = [], []
-        for jaar, ontv, art, instr, bedrag, kvk in rows:
+        for jaar, ontv, art, instr, reg, bedrag, kvk in rows:
             low = (ontv or "").lower()
             if any(p in low for p in spec.get("name_exclude", [])):
                 drop.append((jaar, ontv, bedrag, "name on the entity's exclusion list"))
@@ -145,19 +145,33 @@ def main() -> int:
             elif any(p in low for p in spec.get("name_contradicts_kvk", [])):
                 drop.append((jaar, ontv, bedrag, "name contradicts the entity's KvK (register misfiling)"))
             else:
-                keep.append((jaar, ontv, art, instr, bedrag, kvk))
+                keep.append((jaar, ontv, art, instr, reg, bedrag, kvk))
 
         by_year: dict[str, float] = {}
         names: set[str] = set()
         kvks: set[str] = set()
-        instruments: set[str] = set()
-        for jaar, ontv, _a, instr, bedrag, kvk in keep:
+        # Per-instrument totals, not just the set of instrument names. An entity can be paid through two
+        # different instruments with different purposes, and reporting only the sum lets one stand for the
+        # other: FICDD's 8 rows are 5 from the NFRP partnership fund (249k) plus 3 from other schemes
+        # (347k). Lumping them makes a BZ fund look like a general subsidy line.
+        by_instrument: dict[str, dict[str, float]] = {}
+        by_regeling: dict[str, dict[str, float]] = {}
+        for jaar, ontv, _a, instr, reg, bedrag, kvk in keep:
             by_year[str(jaar)] = by_year.get(str(jaar), 0) + (bedrag or 0)
             names.add(ontv)
             if kvk:
                 kvks.add(str(kvk))
-            if instr:
-                instruments.add(instr)
+            key = (instr or "(no instrument printed)").strip()
+            b = by_instrument.setdefault(key, {"rows": 0, "k": 0})
+            b["rows"] += 1
+            b["k"] += bedrag or 0
+            # The scheme, as published. One entity can appear under several schemes whose purposes differ,
+            # and a single total lets one stand for the other: FICDD is 398k through the NFRP partnership
+            # family, 155k under the general BZ 2006 subsidy scheme, and 43k under Matra.
+            rkey = (reg or "(no scheme printed)").strip()
+            rb = by_regeling.setdefault(rkey, {"rows": 0, "k": 0})
+            rb["rows"] += 1
+            rb["k"] += bedrag or 0
 
         for jaar, ontv, bedrag, why in drop:
             ledger.append({"entity": canon, "year": jaar, "name": ontv,
@@ -171,9 +185,13 @@ def main() -> int:
             "total_k": sum(by_year.values()),
             "years": [yrs[0], yrs[-1]] if keep else [],
             "by_year_k": dict(sorted(by_year.items())),
+            "by_instrument": {k: {"rows": v["rows"], "k": round(v["k"])}
+                              for k, v in sorted(by_instrument.items(), key=lambda x: -x[1]["k"])},
+            "by_regeling": {k: {"rows": v["rows"], "k": round(v["k"])}
+                            for k, v in sorted(by_regeling.items(), key=lambda x: -x[1]["k"])},
             "published_names": sorted(names),
             "kvk": sorted(kvks),
-            "instruments": sorted(instruments),
+            "instruments": sorted(by_instrument),
         }
         if keep:
             flag = coverage_flag(by_year, yrs[0], yrs[-1])

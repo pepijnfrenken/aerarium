@@ -586,6 +586,102 @@ else:
     print("FAIL  FINDING-003 VVD spelling treatment not fixed")
     fails.append("FINDING-003 VVD spelling treatment missing")
 
+# ---------------------------------------------------------------- FINDING-007, scheme split
+tk = json.loads((OUT / "thinktanks.json").read_text(encoding="utf-8"))
+named = {k: v for k, v in tk["entities"].items() if v["status"] == "named"}
+cls_k = {}
+cls_rows = {}
+for e in named.values():
+    cls_k[e["class"]] = cls_k.get(e["class"], 0) + e["total_k"]
+    cls_rows[e["class"]] = cls_rows.get(e["class"], 0) + e["rows"]
+
+buckets = {"labelled": [0, 0], "spelled": [0, 0], "other": [0, 0]}
+for e in named.values():
+    if e["class"] != "party-international":
+        continue
+    for reg, v in e.get("by_regeling", {}).items():
+        low = reg.lower()
+        if low.startswith("nfrp politieke partijen"):
+            b = "labelled"
+        elif "regionale partnerschappen" in low:
+            b = "spelled"
+        else:
+            b = "other"
+        buckets[b][0] += v["rows"]
+        buckets[b][1] += v["k"]
+
+for label, got, want in [
+    ("FINDING-007 policy institutes", cls_k.get("policy-institute"), 77705),
+    ("FINDING-007 party-international", cls_k.get("party-international"), 7753),
+    ("FINDING-007 NFRP labelled rows", buckets["labelled"][0], 46),
+    ("FINDING-007 NFRP labelled EURk", buckets["labelled"][1], 3289),
+    ("FINDING-007 NFRP spelled rows", buckets["spelled"][0], 11),
+    ("FINDING-007 NFRP spelled EURk", buckets["spelled"][1], 2266),
+    ("FINDING-007 other scheme rows", buckets["other"][0], 18),
+    ("FINDING-007 other scheme EURk", buckets["other"][1], 2198),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'} {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+# the three scheme buckets must exhaust the party-international total, or a row has fallen between them
+checked += 1
+if sum(v[1] for v in buckets.values()) == cls_k.get("party-international"):
+    print("PASS  FINDING-007 scheme buckets exhaust the party-international total")
+else:
+    print("FAIL  scheme buckets do not sum to the class total")
+    fails.append("party-international scheme split does not reconcile")
+
+fic = named.get("FICDD", {})
+fic_split = fic.get("by_regeling", {})
+fic_nfrp = sum(v["k"] for k, v in fic_split.items()
+               if k.lower().startswith("nfrp politieke partijen") or "regionale partnerschappen" in k.lower())
+fic_other = sum(v["k"] for k, v in fic_split.items()
+                if not (k.lower().startswith("nfrp politieke partijen") or "regionale partnerschappen" in k.lower()))
+checked += 1
+if fic.get("total_k") == 596 and fic_nfrp == 398 and fic_other == 198:
+    print("PASS  FINDING-007 FICDD split: 596k = 398k NFRP family + 198k other schemes")
+else:
+    print(f"FAIL  FICDD split wrong: total {fic.get('total_k')}, NFRP {fic_nfrp}, other {fic_other}")
+    fails.append("FICDD scheme split wrong")
+
+cl_split = named.get("Clingendael", {}).get("by_regeling", {})
+cl_bz = sum(v["k"] for k, v in cl_split.items() if "bz 2006" in k.lower())
+checked += 1
+if cl_bz == 21618:
+    print("PASS  FINDING-007 Clingendael's two BZ 2006 spellings are reported apart (21.618k)")
+else:
+    print(f"FAIL  Clingendael BZ 2006 spellings total {cl_bz}, expected 21618")
+    fails.append("Clingendael scheme spelling total wrong")
+
+f7 = (REPO / "docs" / "FINDING-007-what-the-state-pays-foundations.md").read_text(encoding="utf-8", errors="replace")
+checked += 1
+if "€596k" in f7 and "A single figure of €596k would have read as one programme" in f7:
+    print("PASS  FINDING-007 refuses the single-figure reading of FICDD")
+else:
+    print("FAIL  FINDING-007 is missing the scheme-split caveat")
+    fails.append("FINDING-007 scheme split not stated")
+
+# ---------------------------------------------------------------- seats name the filers (audit 3, A2:12)
+vd = json.loads((OUT / "view-data.json").read_text(encoding="utf-8"))
+sv = vd["latest"]["seat_view"]
+pro = next((r for r in sv if r["lijst"] == "PRO"), None)
+checked += 1
+if pro and pro["filers"] == ["GL", "PvdA"] and pro["seats"] == 20:
+    print("PASS  the seats entry names both filers (GL, PvdA) for the PRO list")
+else:
+    print(f"FAIL  seats entry filers wrong: {pro and pro['filers']}")
+    fails.append("seats entry names the merged label as the filer")
+
+checked += 1
+if sum(r["seats"] for r in sv) == 150:
+    print("PASS  seats still sum to 150")
+else:
+    print(f"FAIL  seats sum to {sum(r['seats'] for r in sv)}, not 150")
+    fails.append("seats do not sum to 150")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
