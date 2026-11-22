@@ -534,6 +534,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       // rendering it as EUR 0 states that the party disclosed no gifts in those three weeks, which
       // the document does not say. null renders as a dash and the total is marked partial.
       var b = p.gifts_final_3_weeks;
+      var a = p.gifts_to_8oct;
       var bNum = (b == null) ? 0 : b;
       var tot = (a||0) + bNum;
       var w = max>0 ? (tot/max)*100 : 0;

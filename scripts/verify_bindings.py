@@ -472,6 +472,21 @@ else:
     print("FAIL  FINDING-006 apparatus-column claim does not match the measurement")
     fails.append("FINDING-006 beleid_of_niet_beleid claim unverified")
 
+# ---------------------------------------------------------------- the page executes
+# Every other check compares numbers in the payload. None of them ran the page, so a missing variable
+# declaration killed every panel while every gate stayed green. This runs the real script.
+import subprocess as _sp
+checked += 1
+_pr = _sp.run([sys.executable, str(REPO / "scripts" / "check_page_renders.py")],
+              capture_output=True, text=True)
+if _pr.returncode == 0:
+    print("PASS  the shipped page script executes end to end without throwing")
+else:
+    print("FAIL  the shipped page script throws; panels after the failure never render")
+    for _l in (_pr.stdout or "").strip().splitlines()[:6]:
+        print("   ", _l)
+    fails.append("page script throws on execution")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
