@@ -1066,6 +1066,79 @@ for phrase in ("575", "42", "92,7%", "cannot be built as written", "no euro is g
 else:
     print("PASS  PROBE-010 states the join grain, the overshoot count and that nothing is graded yet")
 
+# ---------------------------------------------------------------- FINDING-008, the overshoot split
+con8 = _dd.connect(REPO / "data" / "aerarium.duckdb", read_only=True)
+try:
+    _ov = """
+        with b as (select jaar, hoofdstuk_nummer as h, instrument_naam as i, sum(bedrag_k) as bud
+                   from budget_line where vuo='U' group by 1,2,3),
+             r as (select jaar, hoofdstuk as h, instrument as i, sum(bedrag_k) as rec
+                   from recipient_line group by 1,2,3)
+        select * from b join r using (jaar,h,i) where r.rec > b.bud*1.02"""
+    # Bekostiging and sociale fondsen carry flows financed outside the appropriation, so they are split out.
+    f8 = con8.execute(f"""
+        with o as ({_ov})
+        select count(*) filter (where i in ('Bekostiging','Bijdrage aan sociale fondsen')),
+               count(*) filter (where i not in ('Bekostiging','Bijdrage aan sociale fondsen')),
+               sum(rec-bud) filter (where i in ('Bekostiging','Bijdrage aan sociale fondsen')),
+               sum(rec-bud) filter (where i not in ('Bekostiging','Bijdrage aan sociale fondsen')),
+               count(*)
+        from o""").fetchone()
+    # round happens here rather than in SQL: `round()` is a scalar function and cannot take a FILTER clause
+    f8 = (f8[0], f8[1], round(f8[2] / 1000), round(f8[3] / 1000), f8[4])
+    bek = con8.execute(f"""with o as ({_ov}) select count(*), round(sum(rec-bud)/1000)
+                           from o where i='Bekostiging'""").fetchone()
+    soc = con8.execute(f"""with o as ({_ov}) select count(*), round(sum(rec-bud)/1000)
+                           from o where i='Bijdrage aan sociale fondsen'""").fetchone()
+    xvi_bud, xvi_rec = con8.execute("""
+        select (select round(sum(bedrag_k)) from budget_line
+                 where vuo='U' and jaar=2024 and hoofdstuk_nummer='XVI' and instrument_naam='Bekostiging'),
+               (select round(sum(bedrag_k)) from recipient_line
+                 where jaar=2024 and hoofdstuk='XVI' and instrument='Bekostiging')""").fetchone()
+    xv_bud = con8.execute("""
+        select round(sum(bedrag_k)) from budget_line where vuo='U' and jaar=2024
+          and hoofdstuk_nummer='XV' and instrument_naam='Bijdrage aan sociale fondsen'""").fetchone()[0]
+finally:
+    con8.close()
+
+for label, got, want in [
+    ("FINDING-008 structural groups (Bekostiging + sociale fondsen)", f8[0], 13),
+    ("FINDING-008 residual groups", f8[1], 29),
+    ("FINDING-008 structural overshoot EURm", f8[2], 177168),
+    ("FINDING-008 residual overshoot EURm", f8[3], 9053),
+    ("FINDING-008 total overshoot groups", f8[4], 42),
+    ("FINDING-008 Bekostiging groups", bek[0], 9),
+    ("FINDING-008 Bekostiging overshoot EURm", bek[1], 102592),
+    ("FINDING-008 sociale fondsen groups", soc[0], 4),
+    ("FINDING-008 sociale fondsen overshoot EURm", soc[1], 74576),
+    ("FINDING-008 XVI 2024 appropriation EURk", xvi_bud, 435738),
+    ("FINDING-008 XVI 2024 register EURk", xvi_rec, 24419057),
+    ("FINDING-008 XV 2024 sociale fondsen appropriation EURk", xv_bud, 20000),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if f8[0] + f8[1] == f8[4]:
+    print("PASS  FINDING-008's structural and residual groups partition the 42 overshoots")
+else:
+    print("FAIL  FINDING-008 overshoot split does not reconcile")
+    fails.append("FINDING-008 split does not reconcile")
+
+p8 = (REPO / "docs" / "FINDING-008-the-appropriation-never-carried.md").read_text(encoding="utf-8", errors="replace")
+p8n = " ".join(p8.lower().split())
+checked += 1
+for phrase in ("177.167,9", "9.053,0", "435.738", "24.419.057", "financed outside the appropriation"):
+    if phrase not in p8n:
+        print(f"FAIL  FINDING-008 is missing: {phrase}")
+        fails.append(f"FINDING-008 missing {phrase}")
+        break
+else:
+    print("PASS  FINDING-008 states the split, both chapter cases, and the grade it forces")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
