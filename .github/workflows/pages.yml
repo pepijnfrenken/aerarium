@@ -1,6 +1,7 @@
 name: Deploy ledger page
 
-# out/index.html is self-contained: no build, no dependencies, no network calls. This just publishes it.
+# The published root is out/: index.html plus its two local assets (assets/app.js, assets/styles.css).
+# No build step and no network calls at runtime; relative paths resolve under the pages base path.
 
 on:
   push:

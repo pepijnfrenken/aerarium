@@ -34,6 +34,14 @@ CURATED: dict[str, str] = {
         "Kiesraad seat allocation, transcribed per election. The seat builder serialises curated figures rather "
         "than parsing a machine-readable source, because the published result files are PDFs."
     ),
+    "assets/styles.css": (
+        "The page's stylesheet, extracted from the inline <style> block so the page's markup, styling and "
+        "logic are separately readable. Editable source, not generated: changing it changes the site."
+    ),
+    "assets/app.js": (
+        "The page's application script, extracted from the inline <script>. Editable source, not generated; "
+        "scripts/check_page_renders.py resolves and executes this file against the embedded payload."
+    ),
     "index.html": (
         "The reader-facing page shell: hand-written markup, CSS and browser code. Only the embedded JSON payload "
         "is generated (by export_view.py, then reembed_view.py). The shell has no generator, which is why the "
@@ -104,7 +112,9 @@ def main() -> int:
     if not OUT.exists():
         print("out/ does not exist", file=sys.stderr)
         return 1
-    artifacts = sorted(p.name for p in OUT.iterdir() if p.is_file())
+    # Recurse: the page's CSS and app script live in out/assets/, and a manifest that only lists the
+    # top level silently omits published files, which is the same defect as an artifact with no producer.
+    artifacts = sorted(str(f.relative_to(OUT)) for f in OUT.rglob("*") if f.is_file())
     rows: list[tuple[str, str, str]] = []
     orphans: list[str] = []
 

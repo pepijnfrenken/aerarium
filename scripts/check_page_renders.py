@@ -70,16 +70,33 @@ globalThis.navigator = { userAgent: 'node' };
 """
 
 
-def extract(html: str) -> tuple[str, str]:
-    """Return (payload_json, app_script). The payload is the application/json block; the app script is
-    the last <script> without a type attribute or a src."""
+def extract(html: str, page: pathlib.Path | None = None) -> tuple[str, str]:
+    """Return (payload_json, app_script).
+
+    The payload is the application/json block. The app script used to be inline; it now lives in
+    `assets/app.js` and is referenced by `<script src=...>`, so a gate that only reads inline blocks would
+    find no script at all and pass on nothing. Every non-JSON script counts, inline or linked, concatenated
+    in document order: a second file added later is then included here instead of being silently skipped.
+    """
     payload = ""
     m = re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', html, re.S)
     if m:
         payload = m.group(1)
-    scripts = re.findall(r"<script(?![^>]*\bsrc=)(?![^>]*application/json)[^>]*>(.*?)</script>", html, re.S)
-    app = max(scripts, key=len) if scripts else ""
-    return payload, app
+
+    parts: list[str] = []
+    base = (page.parent if page else PAGE.parent)
+    for tag, body in re.findall(r"<script([^>]*)>(.*?)</script>", html, re.S):
+        if "application/json" in tag or 'id="data"' in tag:
+            continue
+        src = re.search(r'src="([^"]+)"', tag)
+        if src:
+            path = (base / src.group(1)).resolve()
+            if not path.exists():
+                raise FileNotFoundError(f"page references a missing script: {path}")
+            parts.append(path.read_text(encoding="utf-8", errors="replace"))
+        elif body.strip():
+            parts.append(body)
+    return payload, "\n".join(parts)
 
 
 def main() -> int:
@@ -91,7 +108,7 @@ def main() -> int:
         print("out/index.html missing", file=sys.stderr)
         return 2
     page = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else PAGE
-    payload, app = extract(page.read_text(encoding="utf-8", errors="replace"))
+    payload, app = extract(page.read_text(encoding="utf-8", errors="replace"), page)
     if not payload or not app:
         print("could not extract payload or app script", file=sys.stderr)
         return 2

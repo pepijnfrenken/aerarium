@@ -9,7 +9,7 @@ every euro by how far along the chain it can still be followed.
 ## What it does
 
 The register tells you a party got money. It does not tell you who gave it, what an entity is for, or whether the
-money arrived before an election. AERARIUM joins four published sources:
+money arrived before an election. AERARIUM joins five published sources:
 
 | source | what it gives |
 |---|---|
@@ -17,6 +17,7 @@ money arrived before an election. AERARIUM joins four published sources:
 | Rijksfinancien register | named recipients, chapter V NFRP foundations with KvK |
 | Dashboard partijfinanciering (BZK) | subsidy paid per party; every contribution of €1.000+ that a party disclosed, with the donor name — and a date only where the party gave one, which is €8,93m of the €25,04m in the register |
 | the parties' own Wfpp reports | the per-entity split, the neveninstellingen list, the spending |
+| Algemene Rekenkamer publications | audit findings, attached by document classification because no key exists |
 
 Every figure carries its source, its vintage and the document that holds it. Where a chain breaks, the break is
 the finding.
@@ -25,8 +26,7 @@ the finding.
 
 - **2024 is not where the data ends.** 2025 is published by a different route: BZK released ODS overviews for the
   29 October 2025 election. **€10.169.959,32** in gifts was recorded for parties in 2025 up to election day,
-  against
-  €8.933.589,90 in all of 2024. Of that, **€1.021.300,86** arrived in the final three weeks.
+  against €8.933.589,90 in all of 2024. Of that, **€1.021.300,86** arrived in the final three weeks.
 
 - **2.301 donors, €25.038.264,64** in contributions 2022-2024, every party-year reconciled to the euro before use.
 - **Gift money is 75% individuals, 19% entities, 3% bequests, 3% party vehicles.** Entity share ranges from 0,0%
@@ -51,24 +51,42 @@ the finding.
   Only **€6.499 of that falls in 2025**, to three candidates — Klein €3.500, Zwinkels €2.000, and one at €999,
   above the €767,12 candidate threshold. The largest single amount is €5.000 to D66's P. Bamenga, dated
   21 October 2023, not 2025.
+- **€177.167,9m of recipient money has no appropriation line behind it.** Two instrument types carry it:
+  `Bekostiging` (chapter XVI appropriates €435.738k in 2024 while the register records €24.419.057k across 30
+  recipients) and `Bijdrage aan sociale fondsen` (a €20.000k line against €13,9–23,2bn a year in 2018–2021).
+  These are premium- and fund-financed flows, not appropriated money, and they carry their own grade:
+  *recorded at the recipient, financed outside the appropriation*.
+- **Rung 6 has a corpus, not a claim.** The Rekenkamer publishes no data feed, so the register was enumerated from
+  its own sitemap and harvested whole: **2.677 of 2.677 publications** (2016–2026). **1.003** name a ministry in
+  their own title, **482** of those are audit findings. No PDF text has been read, so no euro is graded at rung 6.
 
 ## Layout
 
-    out/index.html               the ledger page: self-contained, no network, renders from file://
+    out/index.html               the ledger page: markup + embedded payload, no network, renders from file://
+    out/assets/app.js            the page's application script (editable source)
+    out/assets/styles.css        the page's stylesheet (editable source)
     out/view-data.json           everything the page draws, with source ids
     out/gifts_donors_public.csv  donor rows, no addresses
     out/neveninstellingen.csv    242 rows: entities named by each party in its own report
     out/donor-typology.json      2.301 donors in four classes
     out/party-lineage.json       when a name stopped meaning the same party
     out/gift-timing.json         donations by date, against election days
+    out/flow.json                reachability and the claim join, split by financing basis
+    out/govrun.json              expenditure by chapter, the `vuo` axis, instrument classes
+    out/thinktanks.json          what the state pays policy institutes and party foundations
+    out/media-debt.json          balances owed to media at filing (a balance, never spend)
+    out/donor-claims.json        the scoped negative: no position found in the material read
+    out/rekenkamer.json          the publication register, classified by title and document kind
     out/gifts-2025-election.json 2025 gifts to 8 Oct, per party, from the election-year ODS
     out/gifts-2025-post-election.csv  the final three weeks, 9-29 Oct 2025
     out/candidate-gifts-2025.csv  1.168 sheet rows = 1.166 distinct candidates; 6 rows carry a gift
-                                   (4 candidates received any amount, 3 of them in 2025)
     out/debts-2025.json          debts, in two disjoint periods that are never subtracted
-    docs/                        probes, findings, grading vocabulary
+    docs/INDEX.md                what each document is, and which are load-bearing
+    docs/                        contracts, findings, probes, audits
+    docs/lanes/                  evidence dossiers written by delegated lanes
     scripts/                     one script per artifact, with the rules it enforces
     src/aerarium/                the ingestion and grading package
+    corpus/                      fetched source documents (gitignored, regenerable)
 
 ## Run it
 
@@ -77,18 +95,31 @@ the finding.
     .venv/bin/aer ingest-partijfinanciering --giften-years 2019-2025
     .venv/bin/aer grade && .venv/bin/aer validate-party
 
-    .venv/bin/python scripts/extract_gifts.py
-    .venv/bin/python scripts/redact_outputs.py
-    .venv/bin/python scripts/export_view.py
-    .venv/bin/python scripts/reembed_view.py
-    .venv/bin/python scripts/classify_donors.py
-    .venv/bin/python scripts/gift_timing.py
     bash scripts/fetch_tk2025.sh
     .venv/bin/python scripts/ingest_tk2025.py
     .venv/bin/python scripts/ingest_tk2025_post.py
-    .venv/bin/python scripts/verify_bindings.py     # 98 bound values: prose parsed, numbers recomputed
+    .venv/bin/python scripts/extract_gifts.py
+    .venv/bin/python scripts/redact_outputs.py
+    .venv/bin/python scripts/export_view.py          # 1. payload from the store
+    .venv/bin/python scripts/classify_donors.py      # 2. derives from view-data.json
+    .venv/bin/python scripts/export_view.py          # 3. re-export so the derivation lands
+    .venv/bin/python scripts/reembed_view.py         # 4. inject the payload into the page
+    .venv/bin/python scripts/gift_timing.py
+    .venv/bin/python scripts/flow.py
+    .venv/bin/python scripts/thinktanks.py
+    .venv/bin/python scripts/classify_creditors.py
+    .venv/bin/python scripts/donor_claims.py
+    .venv/bin/python scripts/classify_rekenkamer.py --titles
+    .venv/bin/python scripts/build_manifest.py
+    .venv/bin/python scripts/verify_bindings.py      # 156 bound values: prose parsed, numbers recomputed,
+                                                     # the page executed under node, canary trips on demand
 
-The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents). It is not mirrored here; see privacy.
+Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that
+skips the second pass only ever worked because a stale file was on disk.
+
+The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents) and the Rekenkamer corpus with
+`scripts/fetch_rekenkamer.py` (2.677 pages, one request per second; `--firecrawl-pages` when the host blocks the
+direct path). Neither is mirrored here; see privacy.
 
 ## How the grading works
 
@@ -96,16 +127,22 @@ Six rungs, from appropriation to audit finding, in `docs/GRADING.md`. A euro's g
 `documented`, `named`, `partial`, `aggregate-only`, `absent`, `not-published`. The vocabulary is closed and is not
 paraphrased anywhere in this repository.
 
+The chain joins at **chapter × instrument type**, not at article: the two registers use the same words for
+different grains, and `recipient_line.artikel` mixes article and article-onderdeel names (`PROBE-010`). Anything
+graded from an article-level join would be a number about nothing.
+
 ## Rules this repository holds itself to
 
 - A ceiling is not a payment, and an aggregate is not a flow.
 - Absence is not zero. An empty page is `no-data-published`, never €0.
 - A series that renames a category without saying so is a lie told in a chart.
+- A balance is not a floor, and a percentage whose numerator and denominator cover different periods is not a share.
 - No motive is inferred. The registers record transactions; where a reason is documented, it is quoted and attributed.
 - Every figure a finding asserts is bound in `scripts/verify_bindings.py`: the number is parsed out of the prose,
   recomputed from the artifact, and the run fails when they disagree. It also executes the published page under
   node, because a correct payload is not a working page. It covers the claims listed in that file, not every
   number in the tree, and `--canary` perturbs one value to prove the checker can fail.
+- Every artifact names its producer, or is declared `CURATED` with a reason, in `docs/MANIFEST.md`.
 
 ## Privacy
 
@@ -120,9 +157,9 @@ it, and indexing 92 of them together is a different act from the state publishin
 ## Data
 
 Rijksfinancien open data is CC-0. `partijfinanciering.nl` prints no licence statement; publication of that data is
-required by statute, not licensed as open data, and it is not described as CC-0 here.
+required by statute, not licensed as open data, and it is not described as CC-0 here. Rekenkamer publication pages
+state no licence either; the corpus is used for classification and is not republished.
 
-## Built on the AIWG scaffold
+## Why this repository exists
 
-`.aiwg/`, `AIWG.md` and `CLAUDE.md` are the framework's, not the project's. See `NAME-AND-PERSONA.md` for why this
-repository exists and `docs/` for what it found.
+See `NAME-AND-PERSONA.md`. For what each document is, start at `docs/INDEX.md`.

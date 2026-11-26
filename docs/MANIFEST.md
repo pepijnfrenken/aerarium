@@ -7,6 +7,8 @@ who cannot rebuild a file cannot check it.
 
 | artifact | built by | note |
 |---|---|---|
+| `assets/app.js` | CURATED | The page's application script, extracted from the inline <script>. Editable source, not generated; scripts/check_page_renders.py resolves and executes this file against the embedded payload. |
+| `assets/styles.css` | CURATED | The page's stylesheet, extracted from the inline <style> block so the page's markup, styling and logic are separately readable. Editable source, not generated: changing it changes the site. |
 | `candidate-gifts-2025.csv` | scripts/ingest_tk2025.py |  |
 | `debts-2025.json` | scripts/ingest_tk2025_post.py | read by scripts/classify_creditors.py, scripts/export_view.py |
 | `donor-claims.json` | scripts/donor_claims.py | read by scripts/verify_bindings.py |
@@ -32,7 +34,7 @@ who cannot rebuild a file cannot check it.
 | `thinktanks.json` | scripts/thinktanks.py | read by scripts/verify_bindings.py |
 | `view-data.json` | scripts/export_view.py | produced in a step or via the CLI |
 
-24 artifacts: 4 curated, 20 generated.
+26 artifacts: 6 curated, 20 generated.
 
 ## Rebuild order
 

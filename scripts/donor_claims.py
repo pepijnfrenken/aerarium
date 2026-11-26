@@ -30,7 +30,7 @@ SRC = ROOT / "out" / "gifts_donors_public.csv"
 OUT = ROOT / "out" / "donor-claims.json"
 
 # Entity -> claim record. `match` is the substring used against the register's donor strings.
-# Activity, SBI and leadership all come from docs/LANE-ENTITY-DOSSIERS.md, which cites a URL per fact.
+# Activity, SBI and leadership all come from docs/lanes/LANE-ENTITY-DOSSIERS.md, which cites a URL per fact.
 ENTITIES = [
     {
         "name": "Stichting Ondersteuning VVD Tweede Kamerverkiezing",
@@ -284,7 +284,7 @@ def main() -> int:
         "generated_by": "scripts/donor_claims.py",
         "source": {
             "money": "out/gifts_donors_public.csv (dashboard donor totals, 2022-2024)",
-            "entity_facts": "docs/LANE-ENTITY-DOSSIERS.md (a URL per fact)",
+            "entity_facts": "docs/lanes/LANE-ENTITY-DOSSIERS.md (a URL per fact)",
             "unit": "EUR to the cent",
         },
         "question": "Do the donor entities push an agenda, and can a philosophy be sourced for them?",

@@ -49,7 +49,7 @@ partijen, binding since 1 April 2025 and applicable from the 2024 reporting year
 **not fixed**. The printed skeleton reads *Bestuurskosten / Bureaukosten / Verkiezingskosten / Etc.*, and the
 binding part is the arithmetic: columns for the year and its comparator, a total of subsidiary spend, the granted
 subsidy, and the difference. The row set is left to the party. Six parties sampled, six taxonomies. See
-`docs/LANE-SUBSIDIEVERANTWOORDING.md` for the primary text and the page references.
+`docs/lanes/LANE-SUBSIDIEVERANTWOORDING.md` for the primary text and the page references.
 
 So the routes are:
 

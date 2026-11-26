@@ -252,7 +252,14 @@ else:
 
 # Audit-2: the budget axis divided a EUR-thousand value by 1000 and then labelled it 'k', so a
 # gridline at 10.000k rendered as '10k' - a factor-of-a-thousand error on the live page.
+# The page is served as markup + out/assets/app.js + out/assets/styles.css. A prose guard that reads
+# only index.html now finds nothing and fails on a working site, which is why this concatenates what the
+# browser actually receives.
 html = (OUT / "index.html").read_text(encoding="utf-8")
+for _asset in ("assets/app.js", "assets/styles.css"):
+    _p = OUT / _asset
+    if _p.exists():
+        html += "\n" + _p.read_text(encoding="utf-8")
 checked += 1
 if "NF.format(v/1000)+'k'" in html:
     print("FAIL  budget axis still divides a thousands value by 1000 and labels it k")
@@ -401,7 +408,7 @@ else:
     print("FAIL  FINDING-004 still omits NSC 2024 or SGP 2024")
     fails.append("FINDING-004 conflict list incomplete")
 
-cbstxt = (REPO / "docs" / "LANE-CBS-STATISTICS.md").read_text(encoding="utf-8", errors="replace")
+cbstxt = (REPO / "docs" / "lanes" / "LANE-CBS-STATISTICS.md").read_text(encoding="utf-8", errors="replace")
 checked += 1
 if "€1,000" in cbstxt and "2023 vintage" in cbstxt:
     print("PASS  CBS lane states the gift threshold per vintage, not as one series-wide cutoff")
@@ -438,7 +445,8 @@ if not man_path.exists():
     fails.append("artifact manifest missing")
 else:
     man = man_path.read_text(encoding="utf-8", errors="replace")
-    n_out = len([p for p in OUT.iterdir() if p.is_file()])
+    # recursive, matching build_manifest.py, so out/assets/* is not silently outside the count
+    n_out = len([p for p in OUT.rglob("*") if p.is_file()])
     if "NO PRODUCER FOUND" in man:
         print("FAIL  manifest lists an artifact with no producer")
         fails.append("manifest contains an artifact with no producer")
