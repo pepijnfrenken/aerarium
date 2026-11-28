@@ -82,8 +82,14 @@ which can be named:
 - **A, 2018, `Bijdrage aan agentschappen`** — € 1.625,9 m over.
 - **XII, 2019 and 2020, `Bijdrage aan medeoverheden`** — € 926,5 m and € 922,5 m.
 
-€9 bn across 29 groups is tractable, and it is the next piece of work. Until each is either explained by a
-documented booking rule or shown to be a collision, no euro is graded.
+€9 bn across 29 groups is tractable, and it is the next piece of work.
+
+**Correction, 2026-11-26.** "Tractable" was too optimistic, and `FINDING-009` is the document that corrected it. Of
+the 29, **sixteen** sit in chapters that route money through another chapter — a transfer line carries the
+appropriation and no recipient row while the payment lands on the receiving instrument — and **thirteen** remain
+genuinely unexplained at € 4.744,9 m. More important, the residual does not close because of something upstream of
+it: only **45,7%** of expenditure carries an instrument label the recipient register also uses, so the comparison is
+bounded before any single group is examined.
 
 ## What is not claimed here
 

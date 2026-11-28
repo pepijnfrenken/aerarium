@@ -1156,6 +1156,68 @@ for phrase in ("177.167,9", "9.053,0", "435.738", "24.419.057", "financed outsid
 else:
     print("PASS  FINDING-008 states the split, both chapter cases, and the grade it forces")
 
+# ---------------------------------------------------------------- FINDING-009, the overshoot classes
+ov = json.loads((OUT / "overshoots.json").read_text(encoding="utf-8"))
+cls = ov["by_class"]
+cov9 = ov["coverage"]
+for label, got, want in [
+    ("FINDING-009 overshoot groups", len(ov["groups"]), 42),
+    ("FINDING-009 outside-appropriation groups", cls["outside-appropriation"]["groups"], 13),
+    ("FINDING-009 outside-appropriation EURm", round(cls["outside-appropriation"]["overshoot_k"] / 1000), 177168),
+    ("FINDING-009 transfer-structure groups", cls["transfer-structure"]["groups"], 16),
+    ("FINDING-009 transfer-structure EURm", round(cls["transfer-structure"]["overshoot_k"] / 1000), 4308),
+    ("FINDING-009 unexplained groups", cls["unexplained"]["groups"], 13),
+    ("FINDING-009 unexplained EURm", round(cls["unexplained"]["overshoot_k"] / 1000), 4745),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if sum(c["groups"] for c in cls.values()) == len(ov["groups"]) == 42:
+    print("PASS  the overshoot classes partition all 42 groups")
+else:
+    print("FAIL  overshoot classes do not partition the groups")
+    fails.append("overshoot classes do not partition")
+
+checked += 1
+if cov9["joinable_share"] == 0.4567 or round(cov9["joinable_share"], 3) == 0.457:
+    print(f"PASS  the joinable share of expenditure is {cov9['joinable_share']:.1%}")
+else:
+    print(f"FAIL  joinable share moved: {cov9['joinable_share']}")
+    fails.append("joinable share moved")
+
+checked += 1
+rbv9 = ov["rbv_model"]
+if rbv9["blank_rows"] == rbv9["expenditure_rows"]:
+    print(f"PASS  rbv_model is recorded as blank on all {rbv9['expenditure_rows']:,} expenditure rows")
+else:
+    print(f"FAIL  rbv_model carries values now: {rbv9['blank_rows']} blank of {rbv9['expenditure_rows']}")
+    fails.append("rbv_model is no longer blank; the bridge may exist")
+
+p9 = (REPO / "docs" / "FINDING-009-the-join-covers-46-percent.md").read_text(encoding="utf-8", errors="replace")
+p9n = " ".join(p9.lower().split())
+checked += 1
+for phrase in ("177.167,9", "4.307,8", "4.744,9", "45,7%", "sixteen of the twenty-nine", "blank in all 44.352"):
+    if phrase not in p9n:
+        print(f"FAIL  FINDING-009 is missing: {phrase}")
+        fails.append(f"FINDING-009 missing {phrase}")
+        break
+else:
+    print("PASS  FINDING-009 states the class split, the coverage share and the empty column")
+
+# FINDING-008's optimism must carry its correction, not its original claim alone
+p8c = (REPO / "docs" / "FINDING-008-the-appropriation-never-carried.md").read_text(encoding="utf-8", errors="replace")
+p8n = " ".join(p8c.lower().split())
+checked += 1
+if "correction, 2026-11-26" in p8n and "too optimistic" in p8n and "thirteen" in p8n:
+    print("PASS  FINDING-008 carries the dated correction that narrows its 'tractable' claim")
+else:
+    print("FAIL  FINDING-008 still asserts the 29 are tractable without the correction")
+    fails.append("FINDING-008 correction missing")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

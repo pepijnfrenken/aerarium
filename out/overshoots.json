@@ -1,0 +1,497 @@
+{
+ "generated_by": "scripts/overshoots.py",
+ "definition": "A group is one (year, chapter, instrument type) where the recipient register records more money than the appropriation carries, by more than 2%.",
+ "why_2_percent": "Rounding and re-publication move a line by small amounts; 2% is the tolerance used throughout the flow measure, so a group here is outside it rather than near it.",
+ "coverage": {
+  "expenditure_total_k": 7392472315,
+  "joinable_k": 3380950646,
+  "joinable_share": 0.4574,
+  "blank_or_zero_label_k": 114325667,
+  "other_policy_label_k": 3897196002,
+  "other_policy_share": 0.5272,
+  "note": "Only the joinable share can be compared across the two registers. The rest is labelled with policy instrument names the register never prints, so no recipient row can sit under it; that is a naming difference, not a failure to disclose."
+ },
+ "rbv_model": {
+  "expenditure_rows": 44352,
+  "blank_rows": 44352,
+  "note": "rbv_model reads like the instrument classification that would bridge the two vocabularies and is blank in every row, so the bridge must come from outside this store."
+ },
+ "by_class": {
+  "outside-appropriation": {
+   "groups": 13,
+   "overshoot_k": 177167931
+  },
+  "unexplained": {
+   "groups": 13,
+   "overshoot_k": 4744945
+  },
+  "transfer-structure": {
+   "groups": 16,
+   "overshoot_k": 4307770
+  }
+ },
+ "groups": [
+  {
+   "jaar": 2023,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 297919,
+   "register_k": 32246736,
+   "overshoot_k": 31948817,
+   "transfer_budget_k": 86305,
+   "transfer_register_k": 9,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2024,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 435738,
+   "register_k": 24419057,
+   "overshoot_k": 23983319,
+   "transfer_budget_k": 2984,
+   "transfer_register_k": 159,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "XV",
+   "instrument": "Bijdrage aan sociale fondsen",
+   "budget_k": 20000,
+   "register_k": 23183151,
+   "overshoot_k": 23163151,
+   "transfer_budget_k": 3278,
+   "transfer_register_k": 786,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XV",
+   "instrument": "Bijdrage aan sociale fondsen",
+   "budget_k": 20000,
+   "register_k": 20172859,
+   "overshoot_k": 20152859,
+   "transfer_budget_k": 3481,
+   "transfer_register_k": 490,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2019,
+   "chapter": "XV",
+   "instrument": "Bijdrage aan sociale fondsen",
+   "budget_k": 20000,
+   "register_k": 17436873,
+   "overshoot_k": 17416873,
+   "transfer_budget_k": 8067,
+   "transfer_register_k": 1075,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 494873,
+   "register_k": 14753941,
+   "overshoot_k": 14259068,
+   "transfer_budget_k": 64,
+   "transfer_register_k": 62,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "XV",
+   "instrument": "Bijdrage aan sociale fondsen",
+   "budget_k": 20000,
+   "register_k": 13862630,
+   "overshoot_k": 13842630,
+   "transfer_budget_k": 4394,
+   "transfer_register_k": 1102,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 424506,
+   "register_k": 12541132,
+   "overshoot_k": 12116626,
+   "transfer_budget_k": 75791,
+   "transfer_register_k": 14360,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2019,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 331518,
+   "register_k": 8577527,
+   "overshoot_k": 8246009,
+   "transfer_budget_k": 68151,
+   "transfer_register_k": 228458,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 781757,
+   "register_k": 6920237,
+   "overshoot_k": 6138480,
+   "transfer_budget_k": 4272,
+   "transfer_register_k": 55,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2017,
+   "chapter": "XVI",
+   "instrument": "Bekostiging",
+   "budget_k": 1238790,
+   "register_k": 7078205,
+   "overshoot_k": 5839415,
+   "transfer_budget_k": 10716,
+   "transfer_register_k": 0,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2022,
+   "chapter": "VI",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 953838,
+   "register_k": 2587959,
+   "overshoot_k": 1634121,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "A",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 285741,
+   "register_k": 1911613,
+   "overshoot_k": 1625872,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2019,
+   "chapter": "XII",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 120470,
+   "register_k": 1046951,
+   "overshoot_k": 926481,
+   "transfer_budget_k": 14697584,
+   "transfer_register_k": 6010410,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XII",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 230942,
+   "register_k": 1153454,
+   "overshoot_k": 922512,
+   "transfer_budget_k": 7899748,
+   "transfer_register_k": 6343743,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "XII",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 100819,
+   "register_k": 960833,
+   "overshoot_k": 860014,
+   "transfer_budget_k": 12930367,
+   "transfer_register_k": 6335031,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "XII",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 365311,
+   "register_k": 1200327,
+   "overshoot_k": 835016,
+   "transfer_budget_k": 14366592,
+   "transfer_register_k": 0,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "X",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 270355,
+   "register_k": 924925,
+   "overshoot_k": 654570,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "VII",
+   "instrument": "Subsidies (regelingen)",
+   "budget_k": 266458,
+   "register_k": 703786,
+   "overshoot_k": 437328,
+   "transfer_budget_k": 264720,
+   "transfer_register_k": 6612,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2023,
+   "chapter": "IX",
+   "instrument": "Bijdrage aan (inter-)nationale organisaties",
+   "budget_k": 602,
+   "register_k": 323221,
+   "overshoot_k": 322619,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2017,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": -272332,
+   "register_k": 10329,
+   "overshoot_k": 282661,
+   "transfer_budget_k": -272332,
+   "transfer_register_k": 10329,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2019,
+   "chapter": "XVI",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 68151,
+   "register_k": 228458,
+   "overshoot_k": 160307,
+   "transfer_budget_k": 68151,
+   "transfer_register_k": 228458,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XIV",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 92945,
+   "register_k": 224585,
+   "overshoot_k": 131640,
+   "transfer_budget_k": 92945,
+   "transfer_register_k": 224585,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "IX",
+   "instrument": "Bijdrage aan (inter-)nationale organisaties",
+   "budget_k": 77933,
+   "register_k": 190003,
+   "overshoot_k": 112070,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "IX",
+   "instrument": "Bekostiging",
+   "budget_k": 17712,
+   "register_k": 78335,
+   "overshoot_k": 60623,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "IX",
+   "instrument": "Garanties",
+   "budget_k": 70671,
+   "register_k": 122134,
+   "overshoot_k": 51463,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2018,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": -35922,
+   "register_k": 5652,
+   "overshoot_k": 41574,
+   "transfer_budget_k": -35922,
+   "transfer_register_k": 5652,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2023,
+   "chapter": "IX",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 10208,
+   "register_k": 25796,
+   "overshoot_k": 15588,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 174849,
+   "register_k": 184194,
+   "overshoot_k": 9345,
+   "transfer_budget_k": 7409,
+   "transfer_register_k": 6057,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2022,
+   "chapter": "VIII",
+   "instrument": "Bijdrage aan (inter-)nationale organisaties",
+   "budget_k": 116745,
+   "register_k": 124226,
+   "overshoot_k": 7481,
+   "transfer_budget_k": 1113,
+   "transfer_register_k": 480,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "IV",
+   "instrument": "Bijdrage aan medeoverheden",
+   "budget_k": 31244,
+   "register_k": 35704,
+   "overshoot_k": 4460,
+   "transfer_budget_k": 26107,
+   "transfer_register_k": 0,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "XII",
+   "instrument": "Leningen",
+   "budget_k": 0,
+   "register_k": 3774,
+   "overshoot_k": 3774,
+   "transfer_budget_k": 14366592,
+   "transfer_register_k": 0,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 621,
+   "register_k": 4018,
+   "overshoot_k": 3397,
+   "transfer_budget_k": 621,
+   "transfer_register_k": 4018,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2017,
+   "chapter": "III",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 22586,
+   "register_k": 25322,
+   "overshoot_k": 2736,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 0,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XII",
+   "instrument": "Bijdrage aan (inter-)nationale organisaties",
+   "budget_k": 9474,
+   "register_k": 11926,
+   "overshoot_k": 2452,
+   "transfer_budget_k": 7899748,
+   "transfer_register_k": 6343743,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2017,
+   "chapter": "V",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 0,
+   "register_k": 2131,
+   "overshoot_k": 2131,
+   "transfer_budget_k": 970,
+   "transfer_register_k": 2041,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2017,
+   "chapter": "V",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 970,
+   "register_k": 2041,
+   "overshoot_k": 1071,
+   "transfer_budget_k": 970,
+   "transfer_register_k": 2041,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2022,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 0,
+   "register_k": 1046,
+   "overshoot_k": 1046,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 1046,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2023,
+   "chapter": "XVII",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 0,
+   "register_k": 578,
+   "overshoot_k": 578,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 578,
+   "class": "unexplained"
+  },
+  {
+   "jaar": 2019,
+   "chapter": "V",
+   "instrument": "Bijdrage aan agentschappen",
+   "budget_k": 5666,
+   "register_k": 6027,
+   "overshoot_k": 361,
+   "transfer_budget_k": 1612,
+   "transfer_register_k": 458,
+   "class": "transfer-structure"
+  },
+  {
+   "jaar": 2020,
+   "chapter": "XII",
+   "instrument": "Bekostiging",
+   "budget_k": 291,
+   "register_k": 352,
+   "overshoot_k": 61,
+   "transfer_budget_k": 7899748,
+   "transfer_register_k": 6343743,
+   "class": "outside-appropriation"
+  },
+  {
+   "jaar": 2021,
+   "chapter": "V",
+   "instrument": "Bijdrage aan (andere) begrotingshoofdstukken",
+   "budget_k": 0,
+   "register_k": 47,
+   "overshoot_k": 47,
+   "transfer_budget_k": 0,
+   "transfer_register_k": 47,
+   "class": "unexplained"
+  }
+ ]
+}

@@ -26,6 +26,7 @@ who cannot rebuild a file cannot check it.
 | `media-debt.json` | scripts/classify_creditors.py | read by scripts/export_view.py, scripts/verify_bindings.py |
 | `neveninstellingen-functie.json` | CURATED | Hand-coded function, type and certainty for each ancillary entity, each with a source URL or an explicit 'from_name' basis. Registers publish names and amounts, never what an entity does. |
 | `neveninstellingen.csv` | scripts/extract_neveninstellingen.py | read by scripts/verify_bindings.py |
+| `overshoots.json` | scripts/overshoots.py | read by scripts/verify_bindings.py |
 | `party-line-disclosure.csv` | src/aerarium/cli.py `aer grade` | produced in a step or via the CLI |
 | `party-lineage.json` | CURATED | Hand-entered party lineage: one dated event per name change, merger or split, each with a source URL. No public register states when a party stopped existing; the statute and the party's own announcements do. |
 | `rekenkamer.json` | scripts/classify_rekenkamer.py --titles (or the full text pass, scripts/classify_rekenkamer.py) | produced in a step or via the CLI |
@@ -34,7 +35,7 @@ who cannot rebuild a file cannot check it.
 | `thinktanks.json` | scripts/thinktanks.py | read by scripts/verify_bindings.py |
 | `view-data.json` | scripts/export_view.py | produced in a step or via the CLI |
 
-26 artifacts: 6 curated, 20 generated.
+27 artifacts: 6 curated, 21 generated.
 
 ## Rebuild order
 

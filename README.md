@@ -56,6 +56,12 @@ the finding.
   recipients) and `Bijdrage aan sociale fondsen` (a €20.000k line against €13,9–23,2bn a year in 2018–2021).
   These are premium- and fund-financed flows, not appropriated money, and they carry their own grade:
   *recorded at the recipient, financed outside the appropriation*.
+- **The join covers 46% of expenditure, and that is the honest ceiling.** Only **€3.381,0bn of €7.392,5bn** of
+  expenditure carries an instrument label the recipient register also uses; **€4.000,6bn (54,1%)** is labelled with
+  policy instrument names the register never prints, so no recipient row can sit under it — a naming difference, not
+  a failure to disclose. The `rbv_model` column, which looks like the bridge between the two vocabularies, is blank
+  in all 44.352 expenditure rows. Of the 42 overshoot groups, 13 are financed outside the appropriation, 16 sit in
+  chapters that route money through another chapter, and **13 (€4.744,9m) remain genuinely unexplained**.
 - **Rung 6 has a corpus, not a claim.** The Rekenkamer publishes no data feed, so the register was enumerated from
   its own sitemap and harvested whole: **2.677 of 2.677 publications** (2016–2026). **1.003** name a ministry in
   their own title, **482** of those are audit findings. No PDF text has been read, so no euro is graded at rung 6.
@@ -77,6 +83,7 @@ the finding.
     out/media-debt.json          balances owed to media at filing (a balance, never spend)
     out/donor-claims.json        the scoped negative: no position found in the material read
     out/rekenkamer.json          the publication register, classified by title and document kind
+    out/overshoots.json          every chapter x instrument overshoot, with its class and the numbers behind it
     out/gifts-2025-election.json 2025 gifts to 8 Oct, per party, from the election-year ODS
     out/gifts-2025-post-election.csv  the final three weeks, 9-29 Oct 2025
     out/candidate-gifts-2025.csv  1.168 sheet rows = 1.166 distinct candidates; 6 rows carry a gift
@@ -109,9 +116,10 @@ the finding.
     .venv/bin/python scripts/thinktanks.py
     .venv/bin/python scripts/classify_creditors.py
     .venv/bin/python scripts/donor_claims.py
+    .venv/bin/python scripts/overshoots.py
     .venv/bin/python scripts/classify_rekenkamer.py --titles
     .venv/bin/python scripts/build_manifest.py
-    .venv/bin/python scripts/verify_bindings.py      # 156 bound values: prose parsed, numbers recomputed,
+    .venv/bin/python scripts/verify_bindings.py      # 168 bound values: prose parsed, numbers recomputed,
                                                      # the page executed under node, canary trips on demand
 
 Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that
