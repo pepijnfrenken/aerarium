@@ -1,7 +1,7 @@
 {
  "meta": {
   "what_this_is": "Debt outstanding to media and advertising suppliers of EUR 25.000 or more, per party.",
-  "what_this_is_not": "Not media spend, and not a floor on media spend. It is the balance still owed to a supplier on the date the party filed: a party that paid on time shows zero, and a party that paid most of a large bill shows only the remainder. A balance says what had not been settled, not what was bought or when. The two periods are disjoint windows ending at different dates and their totals are published separately, never added or subtracted.",
+  "what_this_is_not": "Not media spend, and not a floor on media spend. It is the balance reported as outstanding to a supplier in that period's overview: a party that owed nothing at that date shows zero, and a party that had paid most of a large bill shows only the remainder. A balance says what was still owed when the overview was drawn up, not what was bought, and not when it was settled - the documents do not record a settlement date. The two periods are disjoint windows ending at different dates; each is published with its own total, and `sum_of_two_windows` is given for orientation only and is not a figure either document states.",
   "source": "BZK gift and debt overviews, Tweede Kamer election 2025 (two ODS files, disjoint periods)",
   "periods": [
    "2024-01-01..2025-10-08",
@@ -11,7 +11,24 @@
   "creditors_classified": 89,
   "method": "keyword rules, first match wins; unmatched creditors are listed, never reassigned"
  },
- "totals": {
+ "period_totals": [
+  {
+   "period": "2024-01-01..2025-10-08",
+   "media_eur": 4610504.81,
+   "all_debt_eur": 20111175.77,
+   "creditor_rows": 101,
+   "media_creditor_rows": 18
+  },
+  {
+   "period": "2025-10-09..2025-10-29",
+   "media_eur": 2992961.35,
+   "all_debt_eur": 4357920.63,
+   "creditor_rows": 38,
+   "media_creditor_rows": 15
+  }
+ ],
+ "sum_of_two_windows": {
+  "warning": "Both windows added. Orientation only: the periods are disjoint and end on different dates, and no document states this figure as a party's media debt.",
   "media_eur": 7603466.16,
   "all_debt_eur": 24469096.4,
   "media_share_of_debt": 31.1

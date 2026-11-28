@@ -109,19 +109,35 @@ def main() -> int:
     payload = {
         "meta": {
             "what_this_is": "Debt outstanding to media and advertising suppliers of EUR 25.000 or more, per party.",
-            "what_this_is_not": ("Not media spend, and not a floor on media spend. It is the balance still owed "
-                                 "to a supplier on the date the party filed: a party that paid on time shows "
-                                 "zero, and a party that paid most of a large bill shows only the remainder. "
-                                 "A balance says what had not been settled, not what was bought or when. The "
-                                 "two periods are disjoint windows ending at different dates and their totals "
-                                 "are published separately, never added or subtracted."),
+            "what_this_is_not": ("Not media spend, and not a floor on media spend. It is the balance reported as "
+                                 "outstanding to a supplier in that period's overview: a party that owed nothing "
+                                 "at that date shows zero, and a party that had paid most of a large bill shows "
+                                 "only the remainder. A balance says what was still owed when the overview was "
+                                 "drawn up, not what was bought, and not when it was settled - the documents do "
+                                 "not record a settlement date. The two periods are disjoint windows ending at "
+                                 "different dates; each is published with its own total, and `sum_of_two_windows` "
+                                 "is given for orientation only and is not a figure either document states."),
             "source": "BZK gift and debt overviews, Tweede Kamer election 2025 (two ODS files, disjoint periods)",
             "periods": ["2024-01-01..2025-10-08", "2025-10-09..2025-10-29"],
             "creditors_total": len(creditors),
             "creditors_classified": len(creditors) - sum(1 for c in creditors if classify(c["crediteur"]) == "unclassified"),
             "method": "keyword rules, first match wins; unmatched creditors are listed, never reassigned",
         },
-        "totals": {
+        "period_totals": [
+            {
+                "period": per,
+                "media_eur": round(sum(c["bedrag"] for c in creditors
+                                       if c["period"] == per and classify(c["crediteur"]) == "media"), 2),
+                "all_debt_eur": round(sum(c["bedrag"] for c in creditors if c["period"] == per), 2),
+                "creditor_rows": sum(1 for c in creditors if c["period"] == per),
+                "media_creditor_rows": sum(1 for c in creditors
+                                           if c["period"] == per and classify(c["crediteur"]) == "media"),
+            }
+            for per in sorted({c["period"] for c in creditors})
+        ],
+        "sum_of_two_windows": {
+            "warning": ("Both windows added. Orientation only: the periods are disjoint and end on different "
+                        "dates, and no document states this figure as a party's media debt."),
             "media_eur": total_media,
             "all_debt_eur": total_debt,
             "media_share_of_debt": round(100 * total_media / total_debt, 1) if total_debt else None,
@@ -134,7 +150,7 @@ def main() -> int:
 
     print(f"creditors: {len(creditors)}, classified: {payload['meta']['creditors_classified']}")
     print(f"debt to media suppliers: EUR {total_media:,.2f} of EUR {total_debt:,.2f} "
-          f"({payload['totals']['media_share_of_debt']}% of disclosed debt)")
+          f"({payload['sum_of_two_windows']['media_share_of_debt']}% of disclosed debt, both windows added)")
     print("\nby category:")
     for k, v in payload["by_category"].items():
         print(f"  {k:<24}{v:>14,.2f}")

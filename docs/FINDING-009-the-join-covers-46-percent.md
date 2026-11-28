@@ -56,6 +56,24 @@ for it, while the chapter's payments to medeoverheden exceed their own line by �
 a reconciliation, and four of the 35 are overshoots *on the transfer instrument itself*, which a transfer cannot
 explain. All 35 are therefore left unexplained in financing terms.
 
+## Three screens, three answers, and only one of them is a join
+
+The 48,6% below is the **vocabulary** screen: it asks only whether an instrument string appears somewhere on both
+sides, in any year and any chapter. It is a ceiling on comparability, not a join. Two stricter questions, on the same
+realised universe (`out/overshoots.json`, `screens`):
+
+| screen | expenditure comparable | share |
+|---|---:|---:|
+| vocabulary — the label appears on both sides | € 1.691,7bn | 48,6% |
+| same key — year, chapter and type coincide | € 1.162,4bn | 33,4% |
+| same key, excluding the two outside-appropriation types | € 843,0bn | 24,2% |
+
+The gap between the first and second rows is 15,2 percentage points of expenditure that shares a *word* with the
+register but not a *line*: same-type payments exist somewhere, in another year or another chapter. The third row
+removes the premium- and fund-financed types, because a matched key there does not describe a matched flow. Any
+claim about how much of expenditure can be followed must name which of these three it means; none of them is a euro
+traced from an appropriation to a recipient.
+
 ## Class 2 — the register's vocabulary covers 48,6% of expenditure
 
 On the realised account, expenditure of **€ 3.480,9bn** splits:

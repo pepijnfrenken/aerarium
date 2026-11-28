@@ -119,11 +119,13 @@
       var b = p.gifts_final_3_weeks;
       var a = p.gifts_to_8oct;
       var bNum = (b == null) ? 0 : b;
-      var tot = (a||0) + bNum;
-      var w = max>0 ? (tot/max)*100 : 0;
-      var wa = (tot>0 && a!=null) ? (a/tot)*100 : 0;
-      var wb = tot>0 ? (bNum/tot)*100 : 0;
       var nothing = (a == null && b == null);
+      // Neither amount published is not a total of zero. It used to render EUR 0, which states that the filer
+      // disclosed nothing - a claim the workbook does not make.
+      var tot = nothing ? null : (a||0) + bNum;
+      var w = (tot && max>0) ? (tot/max)*100 : 0;
+      var wa = (tot>0 && a!=null) ? (a/tot)*100 : 0;
+      var wb = (tot>0 && bNum) ? (bNum/tot)*100 : 0;
       var tipText = [p.partij+' \u2014 2025' + (nothing ? ' (no filing in either workbook)' : ''),
         line('Gifts to 8 Oct', peur(a)),
         line('Final 3 weeks', peur(b)),
@@ -137,7 +139,8 @@
         '<td class="n">'+eur(a)+'</td>'+
         '<td class="n">'+eur(b)+'</td>'+
         '<td class="n total">'+eur(tot)+
-          (b == null ? ' <span class="muted" title="The party filed nothing in the supplementary workbook, so this covers 1 January to 8 October only">partial</span>' : '')+'</td>'+
+          (nothing ? ' <span class="muted" title="Present in the overview, but neither workbook publishes an amount for it">no filing</span>'
+                   : (b == null ? ' <span class="muted" title="The party filed nothing in the supplementary workbook, so this covers 1 January to 8 October only">partial</span>' : ''))+'</td>'+
         '<td class="barcell"><div class="bigbar" tabindex="0" data-tip="'+esc(tipText)+'">'+
           '<span class="bfill" style="width:'+w.toFixed(2)+'%">'+
             (a ? '<i class="g" style="width:'+wa.toFixed(1)+'%"></i>' : '')+
@@ -175,8 +178,14 @@
             '<td class="n">'+n(x.creditors ? x.creditors.length : null)+'</td>'+
             '<td class="muted">'+(top ? esc(top.crediteur)+' · '+peur(top.bedrag) : '')+'</td></tr>';
         }).join('')+'</tbody>'+
-        '<tfoot><tr><td><b>Total</b></td><td class="n"><b>'+eur(mt.media_eur)+'</b></td>'+
-        '<td colspan="3" class="muted">'+pnum(mt.media_share_of_debt,1)+'% of all disclosed party debt ('+peur(mt.all_debt_eur)+')</td></tr></tfoot></table>';
+        // Two disjoint windows, two totals. Adding them would state a figure neither overview publishes, and
+        // the artifact says exactly that; the old footer printed the sum under the word "Total".
+        '<tfoot>'+ (mt||[]).map(function(w){
+          var share = (w.all_debt_eur ? (100*w.media_eur/w.all_debt_eur) : null);
+          return '<tr><td class="muted">'+esc(w.period)+'</td><td class="n"><b>'+eur(w.media_eur)+'</b></td>'+
+            '<td colspan="3" class="muted">'+pnum(share,1)+'% of that window\'s disclosed debt ('+
+            peur(w.all_debt_eur)+') \u00b7 '+n(w.media_creditor_rows)+' of '+n(w.creditor_rows)+' creditor rows</td></tr>';
+        }).join('')+'</tfoot></table>';
       document.getElementById('media-count').textContent = md.length+' parties with media debt';
       var un = L.media_unclassified || {};
       var unNames = Object.keys(un);
@@ -214,12 +223,17 @@
     document.getElementById('seat-count').textContent =
       sv.filter(function(x){ return x.seats>0; }).length+' lists with seats';
 
-    document.getElementById('latest-count').textContent = rows.length+' parties with 2025 gifts';
+    var _pos = rows.filter(function(p){
+      var t = (p.gifts_to_8oct == null && p.gifts_final_3_weeks == null) ? null
+            : (p.gifts_to_8oct||0) + (p.gifts_final_3_weeks||0);
+      return t != null && t > 0;
+    }).length;
+    document.getElementById('latest-count').textContent =
+      rows.length+' filing rows \u00b7 '+_pos+' with a positive 2025 amount';
     document.getElementById('latest-lede').innerHTML =
       'The dashboard stops at 2024. <b>2025 is published somewhere else:</b> BZK released ODS overviews for the '+
       'Tweede Kamer election of 29 October 2025, covering gifts from 1 January 2024 to 8 October 2025, plus a '+
-      'supplementary set for the final three weeks. <b>\u20ac\u00a0'+pnum(L.total_to_election,2)+'</b> in gifts '+
-      'reached parties in 2025 up to election day, against \u20ac\u00a0'+pnum(L.total_2024_full_year,2)+' in all of 2024.';
+      'supplementary set for the final three weeks. <b>\u20ac\u00a0'+pnum(L.total_to_election,2)+'</b> in qualifying gift records was disclosed for 2025 up to election day, against \u20ac\u00a0'+pnum(L.total_2024_full_year,2)+' in all of 2024. The register covers parties <i>and</i> the entities filed beside them, and it includes items flagged for return, so this is what was disclosed, not what any party kept.';
     document.getElementById('latest-note').textContent = L.note;
     document.getElementById('latest-src').innerHTML = srcTag(['tk2025','tk2025post']);
   })();
@@ -747,6 +761,11 @@
     ['carries a type the recipient register also prints', k(j.joinable_k), share(j.joinable_share)],
     ['policy instrument name the register never prints', k(j.other_policy_k), share(j.other_policy_share)],
     ['<b>total expenditure</b>', '<b>'+k(j.total_k)+'</b>', '']
+  ]) + table(['How much of expenditure can be compared', 'Expenditure, € thousand', 'Share'], [
+    // Three different questions. The widest is a vocabulary test and belongs in a table, not in a headline.
+    ['a label appears on both sides, any year, any chapter', k((j.screens||{}).vocabulary_k), share((j.screens||{}).vocabulary_share)],
+    ['the year, chapter and instrument type coincide', k((j.screens||{}).same_key_k), share((j.screens||{}).same_key_share)],
+    ['the same, without the two outside-appropriation types', k((j.screens||{}).same_key_excluding_outside_k), share((j.screens||{}).same_key_excluding_outside_share)]
   ]) + table(['Overshoot class', 'Groups', 'Over, € million'], [
     ['financed outside the appropriation', String((j.classes||{})['outside-appropriation'] ? j.classes['outside-appropriation'].groups : ''), mln(((j.classes||{})['outside-appropriation']||{}).overshoot_k)],
     ['chapter-transfer structure', String((j.classes||{})['transfer-structure'] ? j.classes['transfer-structure'].groups : ''), mln(((j.classes||{})['transfer-structure']||{}).overshoot_k)],

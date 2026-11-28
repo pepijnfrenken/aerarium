@@ -44,8 +44,9 @@ the finding.
   remains an interpretation, not a finding.
 - **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed, €29.413k in no register row at
   all. Only 10 of 92 annual reports state the per-entity split.
-- **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then named rows for
-  2023-2024 — named, not necessarily complete: 46 rows in 19 spellings collapse to 11 entities by KvK.
+- **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then named rows for 2020 and
+  2023-2024 — named, not necessarily complete: 46 rows in 19 spellings across those years collapse to 11 grouping
+  keys, nine of them a published KvK and two a name fallback where the KvK is null.
 - **Gifts to candidates are almost unstudied.** The 2025 workbook lists 1.166 distinct candidates. **Six rows
   carry an amount, representing four people across 2023-2025**, and the workbook's combined total is €11.499.
   Only **€6.499 of that falls in 2025**, to three candidates — Klein €3.500, Zwinkels €2.000, and one at €999,
@@ -82,7 +83,7 @@ the finding.
     out/flow.json                reachability and the claim join, split by financing basis
     out/govrun.json              expenditure by chapter, the `vuo` axis, instrument classes
     out/thinktanks.json          what the state pays policy institutes and party foundations
-    out/media-debt.json          balances owed to media at filing (a balance, never spend)
+    out/media-debt.json          media balances outstanding per window (a balance, never spend)
     out/donor-claims.json        the scoped negative: no position found in the material read
     out/rekenkamer.json          the publication register, classified by title and document kind
     out/overshoots.json          every chapter x instrument overshoot, with its class and the numbers behind it
@@ -122,7 +123,7 @@ the finding.
     .venv/bin/python scripts/classify_rekenkamer.py --titles
     .venv/bin/python scripts/build_state_payload.py   # the page's state-side payload
     .venv/bin/python scripts/build_manifest.py
-    .venv/bin/python scripts/verify_bindings.py      # 179 bound values: prose parsed, numbers recomputed,
+    .venv/bin/python scripts/verify_bindings.py      # 192 bound values: prose parsed, numbers recomputed,
                                                      # the page executed under node, canary trips on demand
 
 Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that

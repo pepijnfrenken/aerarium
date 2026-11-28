@@ -117,7 +117,10 @@ Heesfonds` (€20.000, one contribution). A lowercased-equality rule counts two 
 For NFRP recipients there is a real key and it was being ignored. Grouping on the name splits one entity into
 three (`Stichting Foundation Max van der Stoel For Democracy…`, `STICHTING FOUNDATION MAX VAN DER STOEL
 (FMS)`, `Foundation Max Van Der Stoel (FMS)`), as it does for D66's institute, FICDD, SGP and Animal Politics.
-Grouping on the KvK published on the same row collapses 46 register rows and 19 spellings to **11 entities**.
+Grouping on the KvK published on the same row collapses 46 register rows and 19 spellings to **11 grouping keys** —
+nine published KvKs plus two name fallbacks where the KvK is null, so "11 entities" is only as strong as those nine.
+No hand adjudication is claimed: the store's `adjudication` table is empty and the grouping is a rule, not a reading
+of the filings.
 The grand total is unchanged at €3.289k, which is the check that the merge moved labels and not money. Where a
 KvK is null (GroenLinks International, Forum for Democracy International) no merge is attempted.
 
@@ -133,7 +136,9 @@ Rows naming a recipient, by year, €k:
 | — | — | 22 | — | — | 1.362 | 1.905 |
 
 Not a gap in the pipeline: the register carries a single **anonymised** row for 2018 (462) and 2019 (540),
-six named rows for 2020, **no rows at all for 2021 and 2022**, and then full itemisation for 2023-2024. The
+six named rows for 2020, **no rows at all for 2021 and 2022**, and then itemisation for 2023-2024 — partial, not
+full: 24 entity-years carrying 46 register rows, of which two entities publish no KvK at all (GroenLinks
+International, Forum for Democracy International) and stay grouped by name. The
 programme names its vintage inside the scheme (`NFRP Politieke Partijen Programma 2022`,
 `NFRP Politieke Partijen 2023`), so a row paid in 2023 can belong to the 2022 programme. Summing by payment
 year mixes vintages; summing by scheme name is possible and not done here.

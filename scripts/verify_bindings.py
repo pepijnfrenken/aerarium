@@ -320,11 +320,21 @@ md_note = mdj["meta"]["what_this_is_not"].lower()
 if "floor" in md_note and "not a floor" not in md_note:
     print("FAIL  media-debt.json still calls the balance a floor")
     fails.append("media-debt.json claims a floor")
-elif "not a floor on media spend" in md_note and "never added or subtracted" in md_note:
-    print("PASS  media-debt.json refuses the floor reading and refuses to combine the periods")
+elif ("not a floor on media spend" in md_note and "orientation only" in md_note
+      and "record a settlement date" in md_note):
+    print("PASS  media-debt.json refuses the floor reading, states the periods apart and claims no settlement date")
 else:
     print("FAIL  media-debt.json caveat wording not found")
     fails.append("media-debt.json caveat missing")
+
+# The old wording said the two periods' totals were "never added" while the artifact published their sum as the
+# total - a contradiction inside one file. Both halves are now checked, not just the sentence.
+checked += 1
+if "never added or subtracted" not in md_note and mdj["sum_of_two_windows"]["media_eur"] > 0:
+    print("PASS  media-debt.json no longer claims it never adds the periods, and labels the sum it does publish")
+else:
+    print("FAIL  media-debt.json still both denies and publishes a combined total")
+    fails.append("media-debt.json self-contradiction")
 
 # ---------------------------------------------------------------- page labels (audit 3, A1:21/A1:23/A1:27)
 checked += 1
@@ -1223,6 +1233,59 @@ for phrase in ("48,6%", "50,4%", "1.691,7bn", "1.755,4bn", "567", "328", "143", 
         break
 else:
     print("PASS  FINDING-009 states the realised buckets, the class split and the correction")
+
+# ---------------------------------------------------------------- audit 4, the items closed after it
+scr = ov8["screens"]
+for label, got, want in [
+    ("screen vocabulary EURk", scr["vocabulary_k"], 1691673375),
+    ("screen same-key EURk", scr["same_key_k"], 1162366191),
+    ("screen same-key share", scr["same_key_share"], 0.3339),
+    ("screen same-key minus outside types EURk", scr["same_key_excluding_outside_k"], 842959185),
+    ("screen same-key minus outside share", scr["same_key_excluding_outside_share"], 0.2422),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+# The wider the screen, the larger the share. A set of screens that does not order this way is measuring something
+# other than coverage.
+checked += 1
+if scr["same_key_share"] < scr["vocabulary_share"] and scr["same_key_excluding_outside_share"] < scr["same_key_share"]:
+    print("PASS  the screens are ordered vocabulary >= same-key >= same-key-without-outside-types")
+else:
+    print("FAIL  the screens are not ordered as coverage screens must be")
+    fails.append("screens not ordered")
+
+fl = json.loads((OUT / "flow.json").read_text(encoding="utf-8"))
+checked += 1
+if fl["chapter_code_mismatch"]["aliases"] == {} and "EUR thousand" in fl["measures"]["reachability"]:
+    print("PASS  flow.json aliases withdrawn and its units stated in EUR thousand")
+else:
+    print("FAIL  flow.json still aliases chapters or still claims euros")
+    fails.append("flow.json units or aliases")
+
+md = json.loads((OUT / "media-debt.json").read_text(encoding="utf-8"))
+per = {w["period"]: w for w in md["period_totals"]}
+for label, got, want in [
+    ("media debt window 1 EUR", per["2024-01-01..2025-10-08"]["media_eur"], 4610504.81),
+    ("media debt window 1 creditor rows", per["2024-01-01..2025-10-08"]["creditor_rows"], 101),
+    ("media debt window 2 EUR", per["2025-10-09..2025-10-29"]["media_eur"], 2992961.35),
+    ("media debt window 2 creditor rows", per["2025-10-09..2025-10-29"]["creditor_rows"], 38),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if "sum_of_two_windows" in md and "warning" in md["sum_of_two_windows"] and "totals" not in md:
+    print("PASS  media debt publishes each window and demotes the sum to a labelled orientation figure")
+else:
+    print("FAIL  media debt still publishes a combined figure as the total")
+    fails.append("media debt combined total still primary")
 
 # ---------------------------------------------------------------- page section 08/09 (state side)
 st = json.loads((OUT / "state-data.json").read_text(encoding="utf-8"))

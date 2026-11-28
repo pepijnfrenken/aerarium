@@ -10,11 +10,11 @@ that is neither a disclosure grade nor a flow.
 
 So the flow is measured in three separate ways, and never collapsed into one:
 
-  A. REACHABILITY (budget side, in euros). Of realised expenditure, how much sits under an instrument
+  A. REACHABILITY (budget side, in EUR thousand). Of realised expenditure, how much sits under an instrument
      type for which the recipient register ever publishes a named recipient? That is the ceiling on
      what could ever be traced. Everything else stops at r3 by design, and saying so is the finding.
 
-  B. DISCLOSURE GRADE (register side, in euros). Of the money the register publishes, how much is
+  B. DISCLOSURE GRADE (register side, in EUR thousand). Of the money the register publishes, how much is
      named and how much is anonymised, per year. Valid within the register, and it shows three
      regimes rather than a trend.
 
@@ -42,11 +42,19 @@ INSTRUMENT_ALIASES = {
     "bijdrage aan zbos en rwts": "bijdrage aan zbo's/rwt's",
 }
 
-# Chapter codes that exist on one side only. Recorded, not silently dropped.
-CHAPTER_ALIASES = {
-    "j": "III",   # Algemene Zaken appears as J in the register in some years
-    "k": "XVIII", # Wonen en Rijksdienst
-}
+# Chapter codes that exist on one side only. Recorded, not silently dropped, and NOT guessed at.
+#
+# This dict used to map the register's J to budget chapter III ("Algemene Zaken") and its K to XVIII ("Wonen en
+# Rijksdienst"). That was wrong, and the store says so: the register's own `hoofdstuk_naam` gives J as Deltafonds
+# and K as Defensiematerieelbegrotingsfonds, while the budget's III is Algemene Zaken and XVIII is Wonen en
+# Rijksdienst. Aliasing joined a fund's payments to an unrelated ministry's appropriation and counted the result as
+# a matched group. The budget side of this store carries no J or K chapter at all, so the honest state is
+# register-only, and the two funds are a gap in our ingest rather than an alias to invent.
+CHAPTER_ALIASES: dict[str, str] = {}
+
+# Chapter presence on each side, for the record.
+REGISTER_ONLY_CHAPTERS = {"J": "Deltafonds", "K": "Defensiematerieelbegrotingsfonds"}
+BUDGET_ONLY_CHAPTERS = ["I", "XIX", "XX"]
 
 
 def norm(s: str | None) -> str:
@@ -220,10 +228,10 @@ def main() -> int:
         "generated_by": "scripts/flow.py",
         "question": "How far down the chain of custody does each euro survive?",
         "measures": {
-            "reachability": ("Budget side, in euros: appropriation-financed expenditure sitting under an "
+            "reachability": ("Budget side, in EUR thousand: appropriation-financed expenditure sitting under an "
                              "instrument type for which a recipient is ever published. A ceiling on "
                              "traceability, not a claim that those euros were traced."),
-            "disclosure_grade": ("Register side, in euros: named versus anonymised among the money the "
+            "disclosure_grade": ("Register side, in EUR thousand: named versus anonymised among the money the "
                                  "register publishes. Valid within the register only."),
             "claim_join": ("Matching labels across the two registers. Counts, not sums: the two registers "
                            "measure different quantities on the same line."),
@@ -237,10 +245,16 @@ def main() -> int:
         "claim_join": join_stats,
         "examples": examples,
         "chapter_code_mismatch": {
-            "note": ("The register uses J and K where the budget uses III and XVIII for some years. "
-                     "Aliased in this script and counted in the join; recorded here rather than "
-                     "silently repaired."),
+            "note": ("The register files chapter J (Deltafonds) and chapter K "
+                     "(Defensiematerieelbegrotingsfonds); the budget side of this store carries neither, and does "
+                     "carry I, XIX and XX, which the register does not. Nothing is aliased: a mapping from J to III "
+                     "was tried, joined Deltafonds payments to Algemene Zaken appropriations, and is withdrawn. The "
+                     "two funds are a gap in our budget ingest, and their register rows count as register-only."),
             "aliases": CHAPTER_ALIASES,
+            "register_only_chapters": REGISTER_ONLY_CHAPTERS,
+            "budget_only_chapters": BUDGET_ONLY_CHAPTERS,
+            "unit_note": ("All amounts in this artifact are EUR thousand, from `bedrag_k`. The metric descriptions "
+                          "said euros until 2026-11-28."),
         },
         "years": years,
     }

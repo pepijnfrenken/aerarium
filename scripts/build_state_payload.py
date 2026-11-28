@@ -68,6 +68,7 @@ def main() -> int:
             "other_policy_k": cov["other_policy_label_k"],
             "other_policy_share": cov["other_policy_share"],
             "total_k": cov["expenditure_total_k"],
+            "screens": ovr.get("screens"),
             "rbv_blank_rows": ovr["rbv_model"]["blank_rows"],
             "rbv_rows": ovr["rbv_model"]["expenditure_rows"],
             "classes": {k: {"groups": v["groups"], "overshoot_k": v["overshoot_k"]} for k, v in cls.items()},

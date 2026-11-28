@@ -19,6 +19,16 @@
   "other_policy_label_k": 1755353650,
   "other_policy_share": 0.5043
  },
+ "screens": {
+  "vocabulary_k": 1691673375,
+  "vocabulary_share": 0.486,
+  "same_key_k": 1162366191,
+  "same_key_share": 0.3339,
+  "same_key_excluding_outside_k": 842959185,
+  "same_key_excluding_outside_share": 0.2422,
+  "total_k": 3480871547,
+  "note": "The vocabulary screen is the widest and the weakest: it asks only whether a string appears on both sides. The same-key screen asks whether the year, the chapter and the type coincide. Neither is a traced euro; both bound how much of expenditure can be compared at all."
+ },
  "diagnostic_all_phases": {
   "warning": "Draft and realised summed together. This is not an appropriation and must not be used as a comparator; it is kept only so the superseded figures stay traceable.",
   "overshoot_groups": 42,

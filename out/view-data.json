@@ -37520,7 +37520,24 @@
     "media_share_of_debt": 3.6
    }
   ],
-  "media_totals": {
+  "media_totals": [
+   {
+    "period": "2024-01-01..2025-10-08",
+    "media_eur": 4610504.81,
+    "all_debt_eur": 20111175.77,
+    "creditor_rows": 101,
+    "media_creditor_rows": 18
+   },
+   {
+    "period": "2025-10-09..2025-10-29",
+    "media_eur": 2992961.35,
+    "all_debt_eur": 4357920.63,
+    "creditor_rows": 38,
+    "media_creditor_rows": 15
+   }
+  ],
+  "media_windows_summed": {
+   "warning": "Both windows added. Orientation only: the periods are disjoint and end on different dates, and no document states this figure as a party's media debt.",
    "media_eur": 7603466.16,
    "all_debt_eur": 24469096.4,
    "media_share_of_debt": 31.1

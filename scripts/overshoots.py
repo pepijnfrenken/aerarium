@@ -91,6 +91,40 @@ def coverage(con, phase: str | None) -> dict:
     }
 
 
+def screens(con) -> dict:
+    """Three different questions, three different answers, never one figure standing for another.
+
+    vocabulary   the instrument label is one the register also prints somewhere, in any year and any chapter.
+                 A ceiling on comparability, not a join: the same word in a different year is not a matched key.
+    same_key     the (year, chapter, instrument type) key exists in the register. This is the actual claim edge.
+    same_key_excluding_outside
+                 the same-key screen with the two premium- and fund-financed types removed, because those flows
+                 reach a recipient without having been appropriated, so a matched key there is not a matched flow.
+    """
+    vocab, same, same_ex, total = con.execute("""
+        with ty as (select distinct instrument from recipient_line where instrument is not null),
+             b as (select jaar, hoofdstuk_nummer as h, instrument_naam as i, sum(bedrag_k) as s
+                   from budget_line where vuo='U' and fase=? group by 1,2,3),
+             k as (select distinct jaar, hoofdstuk as h, instrument as i from recipient_line)
+        select
+          coalesce(sum(case when b.i in (select instrument from ty) then b.s end),0),
+          coalesce(sum(case when exists (select 1 from k where k.jaar=b.jaar and k.h=b.h and k.i=b.i) then b.s end),0),
+          coalesce(sum(case when exists (select 1 from k where k.jaar=b.jaar and k.h=b.h and k.i=b.i)
+                             and b.i not in (?,?) then b.s end),0),
+          sum(b.s)
+        from b
+    """, [BASIS, *OUTSIDE]).fetchone()
+    return {
+        "vocabulary_k": round(vocab), "vocabulary_share": round(vocab / total, 4),
+        "same_key_k": round(same), "same_key_share": round(same / total, 4),
+        "same_key_excluding_outside_k": round(same_ex), "same_key_excluding_outside_share": round(same_ex / total, 4),
+        "total_k": round(total),
+        "note": ("The vocabulary screen is the widest and the weakest: it asks only whether a string appears on both "
+                 "sides. The same-key screen asks whether the year, the chapter and the type coincide. Neither is a "
+                 "traced euro; both bound how much of expenditure can be compared at all."),
+    }
+
+
 def main() -> int:
     con = duckdb.connect(DB, read_only=True)
     try:
@@ -126,6 +160,7 @@ def main() -> int:
             })
 
         cov = coverage(con, BASIS)
+        scr = screens(con)
         split = bucket_split(con, BASIS)
         cov_all = coverage(con, None)
         all_rows = groups(con, None)
@@ -158,6 +193,7 @@ def main() -> int:
             "above": split[3],
         },
         "coverage": cov,
+        "screens": scr,
         "diagnostic_all_phases": {
             "warning": ("Draft and realised summed together. This is not an appropriation and must not be used as a "
                         "comparator; it is kept only so the superseded figures stay traceable."),
@@ -182,6 +218,8 @@ def main() -> int:
         print(f"  {k:<22}{v['groups']:>3} groups  {v['overshoot_k']/1000:>9,.1f} M")
     print(f"  coverage: joinable {cov['joinable_share']:.1%}, policy {cov['other_policy_share']:.1%}, "
           f"blank/0 {cov['blank_or_zero_share']:.2%}")
+    print(f"  screens: vocabulary {scr['vocabulary_share']:.1%}, same-key {scr['same_key_share']:.1%}, "
+          f"same-key minus outside types {scr['same_key_excluding_outside_share']:.1%}")
     print(f"  all-phase diagnostic: {len(all_rows)} groups, "
           f"{payload['diagnostic_all_phases']['overshoot_k']/1000:,.1f} M (not a comparator)")
     print(f"  rbv_model blank: {rbv[1]} of {rbv[0]}")

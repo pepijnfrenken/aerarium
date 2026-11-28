@@ -2,8 +2,8 @@
  "generated_by": "scripts/flow.py",
  "question": "How far down the chain of custody does each euro survive?",
  "measures": {
-  "reachability": "Budget side, in euros: appropriation-financed expenditure sitting under an instrument type for which a recipient is ever published. A ceiling on traceability, not a claim that those euros were traced.",
-  "disclosure_grade": "Register side, in euros: named versus anonymised among the money the register publishes. Valid within the register only.",
+  "reachability": "Budget side, in EUR thousand: appropriation-financed expenditure sitting under an instrument type for which a recipient is ever published. A ceiling on traceability, not a claim that those euros were traced.",
+  "disclosure_grade": "Register side, in EUR thousand: named versus anonymised among the money the register publishes. Valid within the register only.",
   "claim_join": "Matching labels across the two registers. Counts, not sums: the two registers measure different quantities on the same line.",
   "financing_basis": "Premium-financed expenditure is reported apart from appropriation-financed expenditure. The premium labels exist from 2016 to 2019 only, so the two bases cannot be compared across that break and no harmonised national total is claimed for the period."
  },
@@ -201,11 +201,18 @@
   }
  ],
  "chapter_code_mismatch": {
-  "note": "The register uses J and K where the budget uses III and XVIII for some years. Aliased in this script and counted in the join; recorded here rather than silently repaired.",
-  "aliases": {
-   "j": "III",
-   "k": "XVIII"
-  }
+  "note": "The register files chapter J (Deltafonds) and chapter K (Defensiematerieelbegrotingsfonds); the budget side of this store carries neither, and does carry I, XIX and XX, which the register does not. Nothing is aliased: a mapping from J to III was tried, joined Deltafonds payments to Algemene Zaken appropriations, and is withdrawn. The two funds are a gap in our budget ingest, and their register rows count as register-only.",
+  "aliases": {},
+  "register_only_chapters": {
+   "J": "Deltafonds",
+   "K": "Defensiematerieelbegrotingsfonds"
+  },
+  "budget_only_chapters": [
+   "I",
+   "XIX",
+   "XX"
+  ],
+  "unit_note": "All amounts in this artifact are EUR thousand, from `bedrag_k`. The metric descriptions said euros until 2026-11-28."
  },
  "years": [
   2016,
