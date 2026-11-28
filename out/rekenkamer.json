@@ -8,6 +8,8 @@
   "pages_harvested": 2677,
   "pages_in_scope": 2677,
   "harvest_complete": true,
+  "scope_mismatch": false,
+  "documents_held": 2677,
   "pdfs_downloaded": 0
  },
  "rule": "A chapter is attached when the publication's OWN TITLE names that ministry. No attachment is made to a beleidsartikel: a report naming a ministry does not name article 3 of it.",

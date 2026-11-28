@@ -1075,7 +1075,7 @@ else:
 p10 = (REPO / "docs" / "PROBE-010-where-the-two-registers-join.md").read_text(encoding="utf-8", errors="replace")
 p10n = " ".join(p10.lower().split())
 checked += 1
-for phrase in ("575", "42", "92,7%", "cannot be built as written", "no euro is graded"):
+for phrase in ("567", "328", "143", "96", "48,6%", "cannot be built as written", "no euro is graded"):
     if phrase not in p10n:
         print(f"FAIL  PROBE-010 is missing: {phrase}")
         fails.append(f"PROBE-010 missing {phrase}")
@@ -1083,54 +1083,20 @@ for phrase in ("575", "42", "92,7%", "cannot be built as written", "no euro is g
 else:
     print("PASS  PROBE-010 states the join grain, the overshoot count and that nothing is graded yet")
 
-# ---------------------------------------------------------------- FINDING-008, the overshoot split
-con8 = _dd.connect(REPO / "data" / "aerarium.duckdb", read_only=True)
-try:
-    _ov = """
-        with b as (select jaar, hoofdstuk_nummer as h, instrument_naam as i, sum(bedrag_k) as bud
-                   from budget_line where vuo='U' group by 1,2,3),
-             r as (select jaar, hoofdstuk as h, instrument as i, sum(bedrag_k) as rec
-                   from recipient_line group by 1,2,3)
-        select * from b join r using (jaar,h,i) where r.rec > b.bud*1.02"""
-    # Bekostiging and sociale fondsen carry flows financed outside the appropriation, so they are split out.
-    f8 = con8.execute(f"""
-        with o as ({_ov})
-        select count(*) filter (where i in ('Bekostiging','Bijdrage aan sociale fondsen')),
-               count(*) filter (where i not in ('Bekostiging','Bijdrage aan sociale fondsen')),
-               sum(rec-bud) filter (where i in ('Bekostiging','Bijdrage aan sociale fondsen')),
-               sum(rec-bud) filter (where i not in ('Bekostiging','Bijdrage aan sociale fondsen')),
-               count(*)
-        from o""").fetchone()
-    # round happens here rather than in SQL: `round()` is a scalar function and cannot take a FILTER clause
-    f8 = (f8[0], f8[1], round(f8[2] / 1000), round(f8[3] / 1000), f8[4])
-    bek = con8.execute(f"""with o as ({_ov}) select count(*), round(sum(rec-bud)/1000)
-                           from o where i='Bekostiging'""").fetchone()
-    soc = con8.execute(f"""with o as ({_ov}) select count(*), round(sum(rec-bud)/1000)
-                           from o where i='Bijdrage aan sociale fondsen'""").fetchone()
-    xvi_bud, xvi_rec = con8.execute("""
-        select (select round(sum(bedrag_k)) from budget_line
-                 where vuo='U' and jaar=2024 and hoofdstuk_nummer='XVI' and instrument_naam='Bekostiging'),
-               (select round(sum(bedrag_k)) from recipient_line
-                 where jaar=2024 and hoofdstuk='XVI' and instrument='Bekostiging')""").fetchone()
-    xv_bud = con8.execute("""
-        select round(sum(bedrag_k)) from budget_line where vuo='U' and jaar=2024
-          and hoofdstuk_nummer='XV' and instrument_naam='Bijdrage aan sociale fondsen'""").fetchone()[0]
-finally:
-    con8.close()
+# ---------------------------------------------------------------- FINDING-008, on the realised basis
+# The comparator is the realised account. An earlier version summed the draft (OWB) and the realised (JV) phases and
+# published the sum as an appropriation; these bindings pin the basis so that cannot recur silently.
+ov8 = json.loads((OUT / "overshoots.json").read_text(encoding="utf-8"))
+assert ov8["basis"] == "JV", "overshoots.json is not on the realised basis"
+checked += 1
+print(f"PASS  the overshoot artifact states its basis: {ov8['basis']}")
 
+j8 = ov8["join"]
 for label, got, want in [
-    ("FINDING-008 structural groups (Bekostiging + sociale fondsen)", f8[0], 13),
-    ("FINDING-008 residual groups", f8[1], 29),
-    ("FINDING-008 structural overshoot EURm", f8[2], 177168),
-    ("FINDING-008 residual overshoot EURm", f8[3], 9053),
-    ("FINDING-008 total overshoot groups", f8[4], 42),
-    ("FINDING-008 Bekostiging groups", bek[0], 9),
-    ("FINDING-008 Bekostiging overshoot EURm", bek[1], 102592),
-    ("FINDING-008 sociale fondsen groups", soc[0], 4),
-    ("FINDING-008 sociale fondsen overshoot EURm", soc[1], 74576),
-    ("FINDING-008 XVI 2024 appropriation EURk", xvi_bud, 435738),
-    ("FINDING-008 XVI 2024 register EURk", xvi_rec, 24419057),
-    ("FINDING-008 XV 2024 sociale fondsen appropriation EURk", xv_bud, 20000),
+    ("FINDING-008 joined groups", j8["groups"], 567),
+    ("FINDING-008 groups at or below the line", j8["at_or_below"], 328),
+    ("FINDING-008 groups above but within 2%", j8["above_within_tolerance"], 143),
+    ("FINDING-008 groups above 2%", j8["above"], 96),
 ]:
     checked += 1
     ok = got == want
@@ -1139,35 +1105,81 @@ for label, got, want in [
         fails.append(f"{label}: {got} != {want}")
 
 checked += 1
-if f8[0] + f8[1] == f8[4]:
-    print("PASS  FINDING-008's structural and residual groups partition the 42 overshoots")
+if j8["at_or_below"] + j8["above_within_tolerance"] + j8["above"] == j8["groups"]:
+    print("PASS  the three join buckets partition the groups")
 else:
-    print("FAIL  FINDING-008 overshoot split does not reconcile")
-    fails.append("FINDING-008 split does not reconcile")
+    print("FAIL  join buckets do not partition")
+    fails.append("join buckets do not partition")
+
+cls8 = ov8["by_class"]
+for label, got, want in [
+    ("FINDING-008 outside-appropriation groups", cls8["outside-appropriation"]["groups"], 18),
+    ("FINDING-008 outside-appropriation EURm", round(cls8["outside-appropriation"]["overshoot_k"] / 1000, 1), 178462.2),
+    ("FINDING-008 transfer-structure groups", cls8["transfer-structure"]["groups"], 35),
+    ("FINDING-008 unexplained groups", cls8["unexplained"]["groups"], 43),
+    ("FINDING-008 unexplained EURm", round(cls8["unexplained"]["overshoot_k"] / 1000, 1), 8352.2),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+checked += 1
+if sum(c["groups"] for c in cls8.values()) == 96:
+    print("PASS  the classes partition all 96 groups")
+else:
+    print("FAIL  classes do not partition")
+    fails.append("classes do not partition")
+
+# The phase trap in one query: the realised line must not equal draft + realised.
+con8 = _dd.connect(REPO / "data" / "aerarium.duckdb", read_only=True)
+try:
+    xvi_jv, xvi_owb, xvi_reg, xvi_names = con8.execute("""
+        select (select round(sum(bedrag_k)) from budget_line where vuo='U' and fase='JV' and jaar=2024
+                  and hoofdstuk_nummer='XVI' and instrument_naam='Bekostiging'),
+               (select round(sum(bedrag_k)) from budget_line where vuo='U' and fase='OWB' and jaar=2024
+                  and hoofdstuk_nummer='XVI' and instrument_naam='Bekostiging'),
+               (select round(sum(bedrag_k)) from recipient_line where jaar=2024 and hoofdstuk='XVI'
+                  and instrument='Bekostiging'),
+               (select count(distinct ontvanger) from recipient_line where jaar=2024 and hoofdstuk='XVI'
+                  and instrument='Bekostiging')""").fetchone()
+finally:
+    con8.close()
+for label, got, want in [
+    ("FINDING-008 XVI 2024 Bekostiging realised EURk", xvi_jv, 199853),
+    ("FINDING-008 XVI 2024 Bekostiging draft EURk", xvi_owb, 235885),
+    ("FINDING-008 XVI 2024 register EURk", xvi_reg, 24419057),
+    ("FINDING-008 XVI 2024 distinct recipient spellings", xvi_names, 30),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
 
 p8 = (REPO / "docs" / "FINDING-008-the-appropriation-never-carried.md").read_text(encoding="utf-8", errors="replace")
 p8n = " ".join(p8.lower().split())
 checked += 1
-for phrase in ("177.167,9", "9.053,0", "435.738", "24.419.057", "financed outside the appropriation"):
+for phrase in ("178.462,2", "199.853", "235.885", "567", "328", "143", "96", "correction, 2026-11-28",
+               "35", "43", "13.645,3"):
     if phrase not in p8n:
         print(f"FAIL  FINDING-008 is missing: {phrase}")
         fails.append(f"FINDING-008 missing {phrase}")
         break
 else:
-    print("PASS  FINDING-008 states the split, both chapter cases, and the grade it forces")
+    print("PASS  FINDING-008 states the realised basis, the buckets and the class split")
 
-# ---------------------------------------------------------------- FINDING-009, the overshoot classes
-ov = json.loads((OUT / "overshoots.json").read_text(encoding="utf-8"))
-cls = ov["by_class"]
-cov9 = ov["coverage"]
+# ---------------------------------------------------------------- FINDING-009, coverage and classes
+cov9 = ov8["coverage"]
 for label, got, want in [
-    ("FINDING-009 overshoot groups", len(ov["groups"]), 42),
-    ("FINDING-009 outside-appropriation groups", cls["outside-appropriation"]["groups"], 13),
-    ("FINDING-009 outside-appropriation EURm", round(cls["outside-appropriation"]["overshoot_k"] / 1000), 177168),
-    ("FINDING-009 transfer-structure groups", cls["transfer-structure"]["groups"], 16),
-    ("FINDING-009 transfer-structure EURm", round(cls["transfer-structure"]["overshoot_k"] / 1000), 4308),
-    ("FINDING-009 unexplained groups", cls["unexplained"]["groups"], 13),
-    ("FINDING-009 unexplained EURm", round(cls["unexplained"]["overshoot_k"] / 1000), 4745),
+    ("FINDING-009 realised expenditure EURk", cov9["expenditure_total_k"], 3480871547),
+    ("FINDING-009 joinable EURk", cov9["joinable_k"], 1691673375),
+    ("FINDING-009 joinable share", cov9["joinable_share"], 0.486),
+    ("FINDING-009 policy-label EURk", cov9["other_policy_label_k"], 1755353650),
+    ("FINDING-009 policy-label share", cov9["other_policy_share"], 0.5043),
+    ("FINDING-009 blank-or-zero EURk", cov9["blank_or_zero_label_k"], 33844522),
+    ("FINDING-009 blank-or-zero share", cov9["blank_or_zero_share"], 0.0097),
 ]:
     checked += 1
     ok = got == want
@@ -1175,48 +1187,42 @@ for label, got, want in [
     if not ok:
         fails.append(f"{label}: {got} != {want}")
 
+# Exact equality, not "rounds to": the previous guard accepted any value that rounded to 0.457, which let a
+# substantially wrong bucket claim through beside a green run.
 checked += 1
-if sum(c["groups"] for c in cls.values()) == len(ov["groups"]) == 42:
-    print("PASS  the overshoot classes partition all 42 groups")
+if cov9["joinable_k"] + cov9["other_policy_label_k"] + cov9["blank_or_zero_label_k"] == cov9["expenditure_total_k"]:
+    print("PASS  the three coverage buckets sum to realised expenditure exactly")
 else:
-    print("FAIL  overshoot classes do not partition the groups")
-    fails.append("overshoot classes do not partition")
+    print("FAIL  coverage buckets do not sum to the total")
+    fails.append("coverage buckets do not partition expenditure")
 
 checked += 1
-if cov9["joinable_share"] == 0.4567 or round(cov9["joinable_share"], 3) == 0.457:
-    print(f"PASS  the joinable share of expenditure is {cov9['joinable_share']:.1%}")
+diag = ov8["diagnostic_all_phases"]
+if diag["overshoot_groups"] == 42 and diag["overshoot_k"] == 186220646 and "not" in diag["warning"].lower():
+    print("PASS  the superseded all-phase figures survive only as a labelled diagnostic")
 else:
-    print(f"FAIL  joinable share moved: {cov9['joinable_share']}")
-    fails.append("joinable share moved")
+    print(f"FAIL  the diagnostic block is missing or unlabelled: {diag.get('overshoot_groups')}")
+    fails.append("all-phase diagnostic missing or unlabelled")
 
+rbv9 = ov8["rbv_model"]
 checked += 1
-rbv9 = ov["rbv_model"]
-if rbv9["blank_rows"] == rbv9["expenditure_rows"]:
-    print(f"PASS  rbv_model is recorded as blank on all {rbv9['expenditure_rows']:,} expenditure rows")
+if rbv9["blank_rows"] == rbv9["expenditure_rows"] == 44352:
+    print("PASS  rbv_model is blank on all 44.352 whole-row-distinct expenditure rows")
 else:
-    print(f"FAIL  rbv_model carries values now: {rbv9['blank_rows']} blank of {rbv9['expenditure_rows']}")
-    fails.append("rbv_model is no longer blank; the bridge may exist")
+    print(f"FAIL  rbv_model coverage moved: {rbv9}")
+    fails.append("rbv_model no longer blank on every row")
 
 p9 = (REPO / "docs" / "FINDING-009-the-join-covers-46-percent.md").read_text(encoding="utf-8", errors="replace")
 p9n = " ".join(p9.lower().split())
 checked += 1
-for phrase in ("177.167,9", "4.307,8", "4.744,9", "45,7%", "sixteen of the twenty-nine", "blank in all 44.352"):
+for phrase in ("48,6%", "50,4%", "1.691,7bn", "1.755,4bn", "567", "328", "143", "96", "178.462,2",
+               "correction, 2026-11-28", "44.352"):
     if phrase not in p9n:
         print(f"FAIL  FINDING-009 is missing: {phrase}")
         fails.append(f"FINDING-009 missing {phrase}")
         break
 else:
-    print("PASS  FINDING-009 states the class split, the coverage share and the empty column")
-
-# FINDING-008's optimism must carry its correction, not its original claim alone
-p8c = (REPO / "docs" / "FINDING-008-the-appropriation-never-carried.md").read_text(encoding="utf-8", errors="replace")
-p8n = " ".join(p8c.lower().split())
-checked += 1
-if "correction, 2026-11-26" in p8n and "too optimistic" in p8n and "thirteen" in p8n:
-    print("PASS  FINDING-008 carries the dated correction that narrows its 'tractable' claim")
-else:
-    print("FAIL  FINDING-008 still asserts the 29 are tractable without the correction")
-    fails.append("FINDING-008 correction missing")
+    print("PASS  FINDING-009 states the realised buckets, the class split and the correction")
 
 # ---------------------------------------------------------------- page section 08/09 (state side)
 st = json.loads((OUT / "state-data.json").read_text(encoding="utf-8"))
@@ -1236,8 +1242,8 @@ for label, got, want in [
 
 # the state payload must agree with the artifacts it was built from, not merely be self-consistent
 checked += 1
-if (abs(st["join"]["joinable_share"] - ov["coverage"]["joinable_share"]) < 1e-9
-        and st["outside"]["overshoot_k"] == cls["outside-appropriation"]["overshoot_k"]
+if (abs(st["join"]["joinable_share"] - ov8["coverage"]["joinable_share"]) < 1e-9
+        and st["outside"]["overshoot_k"] == cls8["outside-appropriation"]["overshoot_k"]
         and st["rekenkamer"]["attached_by_title"] == rk["counts"]["attached_by_title"]):
     print("PASS  the page's state payload matches the artifacts it was built from")
 else:
@@ -1264,12 +1270,22 @@ else:
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")
+    # Failures that already existed before the perturbation are not the canary's to excuse. An earlier version
+    # exited 0 here regardless, so a run with a real failing check still reported success whenever --canary was
+    # passed: the self-test was masking the thing it was supposed to accompany.
+    pre_existing = list(fails)
     before = len(fails)
     bind("CANARY (must fail)", readme, r"€([\d.]+) arrived in the", win_total + 1000, tol=1)
-    if len(fails) == before:
+    tripped = len(fails) > before
+    if pre_existing:
+        print(f"FAIL  canary passed beside {len(pre_existing)} pre-existing failure(s); the real run is not clean")
+        for f in pre_existing:
+            print("   -", f)
+        sys.exit(1)
+    if not tripped:
         print("FAIL  canary did not trip: this checker cannot detect a wrong number")
         sys.exit(2)
-    print(f"PASS  canary tripped the checker as it should")
+    print("PASS  canary tripped the checker as it should")
     sys.exit(0)
 
 print()

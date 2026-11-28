@@ -53,98 +53,116 @@
   ]
  },
  "join": {
-  "joinable_k": 3380950646,
-  "joinable_share": 0.4574,
-  "other_policy_k": 3897196002,
-  "other_policy_share": 0.5272,
-  "total_k": 7392472315,
+  "joinable_k": 1691673375,
+  "joinable_share": 0.486,
+  "other_policy_k": 1755353650,
+  "other_policy_share": 0.5043,
+  "total_k": 3480871547,
   "rbv_blank_rows": 44352,
   "rbv_rows": 44352,
   "classes": {
    "outside-appropriation": {
-    "groups": 13,
-    "overshoot_k": 177167931
+    "groups": 18,
+    "overshoot_k": 178462238
    },
    "unexplained": {
-    "groups": 13,
-    "overshoot_k": 4744945
+    "groups": 43,
+    "overshoot_k": 8352153
    },
    "transfer-structure": {
-    "groups": 16,
-    "overshoot_k": 4307770
+    "groups": 35,
+    "overshoot_k": 5293119
    }
   },
-  "groups_total": 42,
+  "groups_total": 96,
   "note": "Only the joinable share can be compared across the two registers. The rest is labelled with policy instrument names the recipient register never prints, so no recipient row can sit under it: a naming difference, not a failure to disclose."
  },
  "outside": {
-  "groups": 13,
-  "overshoot_k": 177167931,
+  "groups": 18,
+  "overshoot_k": 178462238,
   "rows": [
    {
     "jaar": 2023,
     "chapter": "XVI",
     "instrument": "Bekostiging",
-    "budget_k": 297919,
+    "budget_k": 245411,
     "register_k": 32246736,
-    "overshoot_k": 31948817,
-    "transfer_budget_k": 86305,
+    "overshoot_k": 32001325,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 9,
     "transfer_register_k": 9,
+    "transfer_budget_rows": 5,
+    "transfer_register_rows": 1,
     "class": "outside-appropriation"
    },
    {
     "jaar": 2024,
     "chapter": "XVI",
     "instrument": "Bekostiging",
-    "budget_k": 435738,
+    "budget_k": 199853,
     "register_k": 24419057,
-    "overshoot_k": 23983319,
-    "transfer_budget_k": 2984,
+    "overshoot_k": 24219204,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 159,
     "transfer_register_k": 159,
+    "transfer_budget_rows": 5,
+    "transfer_register_rows": 3,
     "class": "outside-appropriation"
    },
    {
     "jaar": 2021,
     "chapter": "XV",
     "instrument": "Bijdrage aan sociale fondsen",
-    "budget_k": 20000,
+    "budget_k": 10000,
     "register_k": 23183151,
-    "overshoot_k": 23163151,
-    "transfer_budget_k": 3278,
+    "overshoot_k": 23173151,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 786,
     "transfer_register_k": 786,
+    "transfer_budget_rows": 3,
+    "transfer_register_rows": 2,
     "class": "outside-appropriation"
    },
    {
     "jaar": 2020,
     "chapter": "XV",
     "instrument": "Bijdrage aan sociale fondsen",
-    "budget_k": 20000,
+    "budget_k": 10000,
     "register_k": 20172859,
-    "overshoot_k": 20152859,
-    "transfer_budget_k": 3481,
+    "overshoot_k": 20162859,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 489,
     "transfer_register_k": 490,
+    "transfer_budget_rows": 3,
+    "transfer_register_rows": 2,
     "class": "outside-appropriation"
    },
    {
     "jaar": 2019,
     "chapter": "XV",
     "instrument": "Bijdrage aan sociale fondsen",
-    "budget_k": 20000,
+    "budget_k": 10000,
     "register_k": 17436873,
-    "overshoot_k": 17416873,
-    "transfer_budget_k": 8067,
+    "overshoot_k": 17426873,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 1075,
     "transfer_register_k": 1075,
+    "transfer_budget_rows": 3,
+    "transfer_register_rows": 1,
     "class": "outside-appropriation"
    },
    {
     "jaar": 2021,
     "chapter": "XVI",
     "instrument": "Bekostiging",
-    "budget_k": 494873,
+    "budget_k": 305685,
     "register_k": 14753941,
-    "overshoot_k": 14259068,
-    "transfer_budget_k": 64,
+    "overshoot_k": 14448256,
+    "budget_nonpositive": false,
+    "transfer_budget_k": 62,
     "transfer_register_k": 62,
+    "transfer_budget_rows": 8,
+    "transfer_register_rows": 1,
     "class": "outside-appropriation"
    }
   ],

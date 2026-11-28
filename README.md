@@ -51,17 +51,18 @@ the finding.
   Only **€6.499 of that falls in 2025**, to three candidates — Klein €3.500, Zwinkels €2.000, and one at €999,
   above the €767,12 candidate threshold. The largest single amount is €5.000 to D66's P. Bamenga, dated
   21 October 2023, not 2025.
-- **€177.167,9m of recipient money has no appropriation line behind it.** Two instrument types carry it:
-  `Bekostiging` (chapter XVI appropriates €435.738k in 2024 while the register records €24.419.057k across 30
-  recipients) and `Bijdrage aan sociale fondsen` (a €20.000k line against €13,9–23,2bn a year in 2018–2021).
-  These are premium- and fund-financed flows, not appropriated money, and they carry their own grade:
-  *recorded at the recipient, financed outside the appropriation*.
-- **The join covers 46% of expenditure, and that is the honest ceiling.** Only **€3.381,0bn of €7.392,5bn** of
-  expenditure carries an instrument label the recipient register also uses; **€4.000,6bn (54,1%)** is labelled with
-  policy instrument names the register never prints, so no recipient row can sit under it — a naming difference, not
-  a failure to disclose. The `rbv_model` column, which looks like the bridge between the two vocabularies, is blank
-  in all 44.352 expenditure rows. Of the 42 overshoot groups, 13 are financed outside the appropriation, 16 sit in
-  chapters that route money through another chapter, and **13 (€4.744,9m) remain genuinely unexplained**.
+- **€178.462,2m of recipient money has no realised appropriation line behind it.** Two instrument types carry it:
+  `Bekostiging` (chapter XVI's realised line is €199.853k in 2024 while the register records €24.419.057k across 30
+  distinct recipient spellings) and `Bijdrage aan sociale fondsen` (a €10.000k line per phase against €13,9–23,2bn a
+  year in 2018–2021). These are premium- and fund-financed flows, not appropriated money, and they carry their own
+  grade: *recorded at the recipient, financed outside the appropriation*.
+- **The join covers 48,6% of expenditure, and that is the honest ceiling.** Of **€3.480,9bn** of realised
+  expenditure, **€1.691,7bn (48,6%)** carries an instrument label the recipient register also uses and **€1.755,4bn
+  (50,4%)** carries policy instrument names the register never prints, so no recipient row can sit under it — a
+  naming difference, not a failure to disclose; 1,0% is blank or a literal `0`. The `rbv_model` column, which looks
+  like the bridge between the two vocabularies, is blank in all 44.352 expenditure rows. Of the 96 overshoot groups,
+  **18 (€178.462,2m)** are financed outside the appropriation, 35 share a chapter-year with a transfer line, and
+  **43 (€8.352,2m) remain genuinely unexplained**.
 - **Rung 6 has a corpus, not a claim.** The Rekenkamer publishes no data feed, so the register was enumerated from
   its own sitemap and harvested whole: **2.677 of 2.677 publications** (2016–2026). **1.003** name a ministry in
   their own title, **482** of those are audit findings. No PDF text has been read, so no euro is graded at rung 6.
@@ -121,7 +122,7 @@ the finding.
     .venv/bin/python scripts/classify_rekenkamer.py --titles
     .venv/bin/python scripts/build_state_payload.py   # the page's state-side payload
     .venv/bin/python scripts/build_manifest.py
-    .venv/bin/python scripts/verify_bindings.py      # 177 bound values: prose parsed, numbers recomputed,
+    .venv/bin/python scripts/verify_bindings.py      # 179 bound values: prose parsed, numbers recomputed,
                                                      # the page executed under node, canary trips on demand
 
 Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that

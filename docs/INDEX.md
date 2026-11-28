@@ -23,8 +23,8 @@ reader found. Later corrections live in the documents they correct, not in a cha
 | 005 | `FINDING-005-sp-and-pvv.md` | SP's money is largely its own MPs' contributions; PVV's disclosures are near-empty and its debt line contradicts itself. |
 | 006 | `FINDING-006-what-a-ministry-spends.md` | How big a ministry is: the `vuo` axis, programme spending, and why the personnel instrument is not the wage bill. |
 | 007 | `FINDING-007-what-the-state-pays-foundations.md` | What the state pays policy institutes and party-international foundations, split by scheme, with the anonymised rows reported beside. |
-| 008 | `FINDING-008-the-appropriation-never-carried.md` | €177bn of recipient money has no appropriation line behind it: premium- and fund-financed flows, graded as financed outside the appropriation. |
-| 009 | `FINDING-009-the-join-covers-46-percent.md` | The join covers 45,7% of expenditure; the remaining 54,1% is a vocabulary gap, not a disclosure failure. Corrects 008's claim that the 29 residual groups were tractable. |
+| 008 | `FINDING-008-the-appropriation-never-carried.md` | €178,5bn of recipient money has no **realised** appropriation line behind it: premium- and fund-financed flows, graded as financed outside the appropriation. |
+| 009 | `FINDING-009-the-join-covers-46-percent.md` | The join covers 48,6% of realised expenditure; the other 50,4% is a vocabulary gap, not a disclosure failure. Also the correction that removed the draft phase from every appropriation in 008. |
 
 ## Probes — what a source returns
 

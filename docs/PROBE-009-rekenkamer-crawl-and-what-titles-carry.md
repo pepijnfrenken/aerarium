@@ -10,7 +10,7 @@ corpus that classification needs and reports what titles alone can carry.
 ## The register enumerates completely
 
 `robots.txt` carries no `Disallow` and points at `sitemap.xml`, which is an index of **55 sub-sitemaps** listing
-**5.260 distinct URLs**, **3.942** of them under `/documenten`. Filtering to non-video document pages from 2016
+**5.260 distinct URLs**, **3.942** of them under `/documenten` (3.941 after excluding the index page itself). Filtering to non-video document pages from 2016
 gives **2.677 pages** in scope.
 
 Enumerating from the publisher's own index matters beyond convenience: coverage is what the publisher declares,
@@ -65,6 +65,9 @@ finding inverts the chain: the finding is the Rekenkamer's, the response is the 
 `overzicht fouten en onzekerheden`, **465** `reactie`, **242** `verantwoordingsonderzoek`, **156**
 `beantwoording`, **146** `aandachtspunten`, **30** `brief`, **992** `overig`.
 
+A publication can attach to more than one chapter, so the **1.003** pages carry **1.202** chapter attachments: the
+page count and the attachment count are different quantities and are named apart.
+
 By chapter on title alone, the largest groups are **IX Financiën 149**, **VII Binnenlandse Zaken 129**, **IV
 Koninkrijksrelaties 109**, **X Defensie 107**, **VI Justitie en Veiligheid 66**.
 
@@ -80,8 +83,10 @@ mentioning the King) and `os` for BHOS. I sampled the attachments that look most
   budget, titled `Resultaten verantwoordingsonderzoek 2024 De Koning`.
 - **Chapter H (BES-fonds), 35 matches, correct** — `Koninkrijksrelaties en BES-fonds` titles, which legitimately
   attach to both IV and H.
-- **Chapter XVII, 45 matches, correct** — they name `Buitenlandse Handel en Ontwikkelingssamenwerking` in full.
-- **1 attachment of 677 rests solely on a term of four characters or fewer**, and it is `acm` — the consumer
+- **Chapter XVII, 45 matches**, of which **35** contain the full phrase `Buitenlandse Handel en
+  Ontwikkelingssamenwerking` and the rest are supplied by shorter terms, including one on cuts to
+  `ontwikkelingssamenwerking`. Correct as chapter attachments; the 10 short-term ones are the weak end.
+- **1 attachment of 1.202 rests solely on a term of four characters or fewer**, and it is `acm` — the consumer
   authority's reaction to a report about heat networks, which is a real chapter XIII actor.
 
 That is a sample, not a precision estimate. It says the obvious false positives are not there; it does not say

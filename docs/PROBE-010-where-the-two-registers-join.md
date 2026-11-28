@@ -17,8 +17,12 @@ written, because the two tables use the same words for different grains.
 | instrument | `instrument_naam`, **286 distinct values** | `instrument`, **11 distinct values** |
 | scheme | `regeling_naam` | `regeling` |
 
-Distinct keys at the full four-field grain: **28.391** on the budget side against **8.795** in the recipient
-register. A join across them is not a join; it is a filter that keeps whatever happens to collide.
+Distinct keys at the full four-field grain, **with the year in every tuple and expenditure only** (`vuo='U'`, and
+`artikel_nummer` on the budget side): **28.391** on the budget side against **8.795** in the recipient
+register. A join across them is not a join; it is a filter that keeps whatever happens to collide. The year and the
+axis are part of the definition, not decoration: dropping the year and using `artikel_naam` instead of
+`artikel_nummer` gives 28.365, and the recipient counts are of distinct printed `ontvanger` strings, anonymised
+labels included.
 
 ## What "instrument" means on each side
 
@@ -42,7 +46,10 @@ The recipient register's `instrument` is an **instrument type**: **ten named typ
 | *(blank)* | 974 | 224 |
 
 Nine of those eleven strings also appear as `instrument_naam` in the budget, on **24.391 rows carrying
-€3.380.951 m of the €7.392.472 m** of expenditure in the store (45,7%). The other 55,3% of budget lines are
+€3.380.951 m of the €7.392.472 m** of expenditure in the store when both phases are summed. On the realised account
+alone (`fase='JV'`) the joinable share is **48,6%** of **€3.480,9bn**, with 50,4% on policy labels and 1,0% blank or
+a literal `0`; `FINDING-009` carries those buckets. What follows in this probe uses the two-phase sum and is a
+labelling measurement, not a comparator. The rest of the budget lines are
 labelled with policy instruments that the recipient register never uses, so **no recipient row can be expected
 to sit under them** — and their absence from the register is not a disclosure failure, it is a naming difference.
 
@@ -62,11 +69,16 @@ This is why the join is built one level up.
 
 Chapter × instrument type, over budget (all expenditure) and recipient money:
 
-- **575** chapter-instrument-type-year groups join;
-- **533** (92,7%) have recipient money at or below the budget figure;
-- **42** exceed it by more than 2%.
+- **42** year-groups exceed the two-phase sum by more than 2%;
+- on the **realised** account, 567 groups join and split **328** at or below the line, **143** above it but inside
+  the 2% tolerance, and **96** above it.
 
-42 overshoots at this grain is a tractable number: each one is either a real booking difference (money recorded
+The first count is a diagnostic; the second is the comparator, because the recipient register records payments
+actually made. The middle bucket is not "within budget" and is not counted as a match.
+
+The 96 groups at this grain are not each a puzzle of their own: 18 are financed outside the appropriation and 35
+share a chapter-year with a positive transfer line (`FINDING-008`, `FINDING-009`). Each remaining group is either a
+booking difference (money recorded
 under a neighbour chapter, a shared instrument) or a key collision, and each can be named. That work is next, and
 until it is done no euro is graded.
 

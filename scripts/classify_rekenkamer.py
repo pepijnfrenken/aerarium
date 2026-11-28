@@ -192,7 +192,12 @@ def titles_only_mode() -> int:
             # Derived, never asserted: the flag follows the count instead of being typed in beside it. An earlier
             # version hardcoded False and kept saying "incomplete" after the corpus had been finished, which is the
             # same class of error as a figure corrected in one place and left standing in another.
-            "harvest_complete": len(docs) >= PAGES_IN_SCOPE,
+            #
+            # Exact equality, not `>=`: an earlier form used `>=` and would have called the corpus complete while
+            # the scope held unrelated extras and was missing documents, which is the failure the count is for.
+            "harvest_complete": len(docs) == PAGES_IN_SCOPE,
+            "scope_mismatch": len(docs) != PAGES_IN_SCOPE,
+            "documents_held": len(docs),
             "pdfs_downloaded": 0,
         },
         "rule": ("A chapter is attached when the publication's OWN TITLE names that ministry. No attachment is made "
