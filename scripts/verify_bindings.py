@@ -1435,6 +1435,28 @@ else:
     print("FAIL  corpus handoff or manifest producer map is still implicit")
     fails.append("corpus handoff or manifest producer map")
 
+# ---------------------------------------------------------------- audit 4, the last minors
+with (OUT / "neveninstellingen.csv").open(encoding="utf-8", newline="") as fh:
+    nv = list(csv.DictReader(fh))
+checked += 1
+if nv and all((r.get("bedrag_is") or "").strip() for r in nv):
+    print(f"PASS  every ancillary row declares what its amount is: {len(nv)} rows")
+else:
+    print("FAIL  an ancillary amount has no declared role")
+    fails.append("ancillary amount role undeclared")
+
+rd2 = " ".join(rd.split())
+for phrase, label in [
+    ("a floor on how often it is stated", "README scopes the per-entity count as a floor, not a census"),
+    ("209 of the project's figures are bound", "README bounds the verifier's own claim"),
+]:
+    checked += 1
+    if phrase in rd2:
+        print(f"PASS  {label}")
+    else:
+        print(f"FAIL  {label}: missing '{phrase}'")
+        fails.append(f"README missing {phrase}")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

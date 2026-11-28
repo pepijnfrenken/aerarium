@@ -85,7 +85,9 @@ are matched. The rule costs recall and buys the ability to state each figure wit
 ## What the register does not say
 
 No row carries a purpose. Nothing here shows that any payment was made for a political position, and this project
-does not infer one. A 2026 lane read the published material of 17 donor entities and found **none** publishing an
+does not infer one. The lane that read donor material read published documents only: where it found no statement of
+purpose, that is a finding about what was read, not a claim that no such statement exists. It did not read every
+entity's policy plan, and the negative is scoped to the documents actually opened. A 2026 lane read the published material of 17 donor entities and found **none** publishing an
 advocacy position, so the same rule applies on this side: money recorded, purpose not stated.
 
 Where a scheme name contains a political term — `NFRP Politieke Partijen` — that is the scheme's own name. It is a

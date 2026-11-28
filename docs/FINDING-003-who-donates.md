@@ -158,8 +158,9 @@ donating to a party that opposes a property tax is a hypothesis the documents do
   because the register does not tag it. Flagged and counted separately from the confirmed foundation donors.
   The euros are not shown to have been traced through both legs.
 - **2025 is not unpublished, it is published elsewhere.** The dashboard's year page for 2025 renders empty, but
-  BZK published a separate overview of gifts around the 2025 Tweede Kamer election (reported by Donorscope,
-  citing BZK, for Volt/PvdA/GL in October 2025). Not ingested here, and no longer described as "not published".
+  BZK published a separate overview of gifts around the 2025 Tweede Kamer election, in two disjoint windows
+  (`out/gifts-2025-election.json`, `out/gifts-2025-post-election.json`). Both are ingested and the page draws them;
+  this note said "not ingested here" after that had stopped being true, which is the correction.
 - **One VVD donation of €1.300.000 comes from a name that is a word-order permutation of a VVD neveninstelling
   named in the party's own report.** It is classified `entity`, not `party_vehicle`, because the register does
   not tag it and the identity is an inference. Flagged, not merged.

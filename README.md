@@ -50,7 +50,9 @@ the finding.
 - **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed. Realised subsidy for those
   parties is €33.923k, so €29.413k of it is not attributed to a named recipient in the register — a difference
   between two published figures, not a count of money the parties failed to report, and no row states it as
-  unreported. Only 10 of 92 annual reports state the per-entity split.
+  unreported. The per-entity split appears in 10 of the 92 annual report texts, counted as the phrase
+  `per entiteit` rather than as verified tables: a report that states the split in another wording is not
+  counted here, so this is a floor on how often it is stated, not a count of the reports that contain it.
 - **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then named rows for 2020 and
   2023-2024 — named, not necessarily complete: 46 rows in 19 spellings across those years collapse to 11 grouping
   keys, nine of them a published KvK and two a name fallback where the KvK is null.
@@ -126,7 +128,7 @@ the finding.
 
     .venv/bin/python scripts/build_manifest.py      # writes docs/MANIFEST.md, incl. the rebuild order
     .venv/bin/python scripts/check_page_renders.py  # executes the page's script under node
-    .venv/bin/python scripts/verify_bindings.py     # 206 bound values: prose parsed, numbers recomputed
+    .venv/bin/python scripts/verify_bindings.py     # 209 bound values: prose parsed, numbers recomputed
                                                      # --canary proves the checker can fail
 
 The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents) and the Rekenkamer corpus with
@@ -150,7 +152,7 @@ graded from an article-level join would be a number about nothing.
 - A series that renames a category without saying so is a lie told in a chart.
 - A balance is not a floor, and a percentage whose numerator and denominator cover different periods is not a share.
 - No motive is inferred. The registers record transactions; where a reason is documented, it is quoted and attributed.
-- Every figure a finding asserts is bound in `scripts/verify_bindings.py`: the number is parsed out of the prose,
+- **209 of the project's figures are bound** in `scripts/verify_bindings.py`: each is parsed out of the prose,
   recomputed from the artifact, and the run fails when they disagree. It also executes the published page under
   node, because a correct payload is not a working page. It covers the claims listed in that file, not every
   number in the tree, and `--canary` perturbs one value to prove the checker can fail.

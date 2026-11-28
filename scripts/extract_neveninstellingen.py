@@ -28,7 +28,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 TEXT = REPO / "corpus" / "text"
 OUT = REPO / "out" / "neveninstellingen.csv"
-FIELDS = ["partij", "jaar", "entiteit", "soort", "bedrag_eur", "evidence_quote", "bron_bestand"]
+EMPTY_MARKER = "no amount published"
+
+FIELDS = ["partij", "jaar", "entiteit", "soort", "bedrag_eur", "bedrag_is", "evidence_quote", "bron_bestand"]
 
 ENTITY_HINT = re.compile(
     r"(stichting|vereniging|fonds|foundation|instituut|institute|bureau|jovd|jonge |cdja|perspectief|"
@@ -152,6 +154,10 @@ def parse(path: Path) -> list[dict]:
             rows[key] = {
                 "partij": partij, "jaar": year, "entiteit": name,
                 "soort": soort(name, ctx), "bedrag_eur": amount,
+                # The report prints one figure next to an entity and does not say whether it is a subsidy received, a
+                # grant paid out, a contribution or a balance. This column says so at row level, so a reader does not
+                # read seven different financial roles as one measured quantity.
+                "bedrag_is": EMPTY_MARKER if amount is None else "as printed in the report; role not distinguished",
                 "evidence_quote": quote[:200], "bron_bestand": path.name,
             }
         elif not prev["bedrag_eur"] and amount:
