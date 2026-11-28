@@ -21,21 +21,22 @@ who cannot rebuild a file cannot check it.
 | `gifts_donors.csv` | scripts/extract_gifts.py | read by scripts/export_view.py, scripts/gift_timing.py, scripts/redact_outputs.py, scripts/verify_findings.py |
 | `gifts_donors_public.csv` | scripts/redact_outputs.py | read by scripts/donor_claims.py |
 | `gifts_reconcile.csv` | scripts/extract_gifts.py | read by scripts/export_view.py, scripts/verify_bindings.py |
-| `govrun.json` | scripts/govrun.py | read by scripts/verify_bindings.py |
+| `govrun.json` | scripts/govrun.py | read by scripts/build_state_payload.py, scripts/verify_bindings.py |
 | `index.html` | CURATED | The reader-facing page shell: hand-written markup, CSS and browser code. Only the embedded JSON payload is generated (by export_view.py, then reembed_view.py). The shell has no generator, which is why the render-layer bugs the audits found live here and are guarded by string assertions in verify_bindings.py. |
 | `media-debt.json` | scripts/classify_creditors.py | read by scripts/export_view.py, scripts/verify_bindings.py |
 | `neveninstellingen-functie.json` | CURATED | Hand-coded function, type and certainty for each ancillary entity, each with a source URL or an explicit 'from_name' basis. Registers publish names and amounts, never what an entity does. |
 | `neveninstellingen.csv` | scripts/extract_neveninstellingen.py | read by scripts/verify_bindings.py |
-| `overshoots.json` | scripts/overshoots.py | read by scripts/verify_bindings.py |
+| `overshoots.json` | scripts/overshoots.py | read by scripts/build_state_payload.py, scripts/verify_bindings.py |
 | `party-line-disclosure.csv` | src/aerarium/cli.py `aer grade` | produced in a step or via the CLI |
 | `party-lineage.json` | CURATED | Hand-entered party lineage: one dated event per name change, merger or split, each with a source URL. No public register states when a party stopped existing; the statute and the party's own announcements do. |
 | `rekenkamer.json` | scripts/classify_rekenkamer.py --titles (or the full text pass, scripts/classify_rekenkamer.py) | produced in a step or via the CLI |
 | `seats.json` | CURATED | Kiesraad seat allocation, transcribed per election. The seat builder serialises curated figures rather than parsing a machine-readable source, because the published result files are PDFs. |
 | `spending-campaign.csv` | scripts/extract_spending.py | read by scripts/export_view.py, scripts/verify_bindings.py |
+| `state-data.json` | scripts/build_state_payload.py | read by scripts/reembed_view.py, scripts/verify_bindings.py |
 | `thinktanks.json` | scripts/thinktanks.py | read by scripts/verify_bindings.py |
 | `view-data.json` | scripts/export_view.py | produced in a step or via the CLI |
 
-27 artifacts: 6 curated, 21 generated.
+28 artifacts: 6 curated, 22 generated.
 
 ## Rebuild order
 

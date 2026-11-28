@@ -271,3 +271,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   body{background:#fff}
   section{break-inside:avoid}
 }
+
+/* The mobile rule below forces a 820px floor on data tables so they scroll instead of crushing. A two-column
+   summary table has nothing to scroll to, so it keeps the natural width. ID selectors win over the element rule
+   inside the media query whatever the order. */
+#st-spend-table table,
+#rk-kinds-table table{min-width:0}

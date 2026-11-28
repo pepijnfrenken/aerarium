@@ -68,10 +68,11 @@ the finding.
 
 ## Layout
 
-    out/index.html               the ledger page: markup + embedded payload, no network, renders from file://
+    out/index.html               the ledger page: markup + two embedded payloads, no network, renders from file://
     out/assets/app.js            the page's application script (editable source)
     out/assets/styles.css        the page's stylesheet (editable source)
-    out/view-data.json           everything the page draws, with source ids
+    out/view-data.json           the party side, as the page draws it, with source ids
+    out/state-data.json          the state side, as the page draws it (spending, join coverage, rung 6)
     out/gifts_donors_public.csv  donor rows, no addresses
     out/neveninstellingen.csv    242 rows: entities named by each party in its own report
     out/donor-typology.json      2.301 donors in four classes
@@ -118,8 +119,9 @@ the finding.
     .venv/bin/python scripts/donor_claims.py
     .venv/bin/python scripts/overshoots.py
     .venv/bin/python scripts/classify_rekenkamer.py --titles
+    .venv/bin/python scripts/build_state_payload.py   # the page's state-side payload
     .venv/bin/python scripts/build_manifest.py
-    .venv/bin/python scripts/verify_bindings.py      # 168 bound values: prose parsed, numbers recomputed,
+    .venv/bin/python scripts/verify_bindings.py      # 177 bound values: prose parsed, numbers recomputed,
                                                      # the page executed under node, canary trips on demand
 
 Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that

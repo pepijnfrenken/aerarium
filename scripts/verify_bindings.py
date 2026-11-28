@@ -1218,6 +1218,49 @@ else:
     print("FAIL  FINDING-008 still asserts the 29 are tractable without the correction")
     fails.append("FINDING-008 correction missing")
 
+# ---------------------------------------------------------------- page section 08/09 (state side)
+st = json.loads((OUT / "state-data.json").read_text(encoding="utf-8"))
+for label, got, want in [
+    ("page state payload: expenditure axis EURk", st["spend"]["expenditure_axis_k"], 401303575),
+    ("page state payload: programme spending EURk", st["spend"]["programme_k"], 331469674),
+    ("page state payload: personnel EURk", st["spend"]["personnel_k"], 17503748),
+    ("page state payload: rekenkamer pages", st["rekenkamer"]["pages"], 2677),
+    ("page state payload: rekenkamer findings", st["rekenkamer"]["findings"], 482),
+    ("page state payload: rbv blank rows", st["join"]["rbv_blank_rows"], 44352),
+]:
+    checked += 1
+    ok = got == want
+    print(f"{'PASS' if ok else 'FAIL'}  {label}: {got}")
+    if not ok:
+        fails.append(f"{label}: {got} != {want}")
+
+# the state payload must agree with the artifacts it was built from, not merely be self-consistent
+checked += 1
+if (abs(st["join"]["joinable_share"] - ov["coverage"]["joinable_share"]) < 1e-9
+        and st["outside"]["overshoot_k"] == cls["outside-appropriation"]["overshoot_k"]
+        and st["rekenkamer"]["attached_by_title"] == rk["counts"]["attached_by_title"]):
+    print("PASS  the page's state payload matches the artifacts it was built from")
+else:
+    print("FAIL  the page's state payload disagrees with the artifacts")
+    fails.append("state payload disagrees with artifacts")
+
+# an unmeasured body-match count must reach the page as unmeasured, never as zero
+checked += 1
+if st["rekenkamer"]["body_matches"] is None:
+    print("PASS  the page carries the body-match count as unmeasured, not zero")
+else:
+    print("FAIL  the page states a body-match count although no PDF was read")
+    fails.append("page claims a body-match count")
+
+# the sections must actually exist in the markup, and the payload must ride inside the page
+checked += 1
+if ('<section id="state"' in html and '<section id="rung6"' in html
+        and 'id="state"' in html and len(st["join"]) > 0):
+    print("PASS  sections 08 and 09 exist and their payload is embedded in the served page")
+else:
+    print("FAIL  the state sections or their embedded payload are missing from the page")
+    fails.append("state sections missing from the page")
+
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:
     print("\n-- canary: perturbing one bound value to prove this checker can fail --")

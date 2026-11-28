@@ -1,0 +1,183 @@
+{
+ "generated_by": "scripts/build_state_payload.py",
+ "year": 2024,
+ "unit": "EUR thousand",
+ "spend": {
+  "expenditure_axis_k": 401303575,
+  "programme_k": 331469674,
+  "financial_k": 59267080,
+  "interchapter_k": 10566821,
+  "personnel_k": 17503748,
+  "note": "Expenditure axis only (vuo='U'), less financial transactions and inter-chapter transfers. A chapter total is not spending: it also carries receipts and loans.",
+  "ranked_chapters": [
+   {
+    "chapter": "XV",
+    "name": "Sociale Zaken en Werkgelegenheid",
+    "spending_k": 110211151
+   },
+   {
+    "chapter": "VIII",
+    "name": "Onderwijs, Cultuur en Wetenschap",
+    "spending_k": 53448818
+   },
+   {
+    "chapter": "B",
+    "name": "Gemeentefonds",
+    "spending_k": 43835927
+   },
+   {
+    "chapter": "VI",
+    "name": "Justitie en Veiligheid",
+    "spending_k": 25483438
+   },
+   {
+    "chapter": "IX",
+    "name": "Financiën en Nationale Schuld",
+    "spending_k": 21725430
+   },
+   {
+    "chapter": "XVI",
+    "name": "Volksgezondheid, Welzijn en Sport",
+    "spending_k": 15729481
+   },
+   {
+    "chapter": "X",
+    "name": "Defensie",
+    "spending_k": 12358734
+   },
+   {
+    "chapter": "VII",
+    "name": "Binnenlandse Zaken en Koninkrijksrelaties",
+    "spending_k": 10762328
+   }
+  ]
+ },
+ "join": {
+  "joinable_k": 3380950646,
+  "joinable_share": 0.4574,
+  "other_policy_k": 3897196002,
+  "other_policy_share": 0.5272,
+  "total_k": 7392472315,
+  "rbv_blank_rows": 44352,
+  "rbv_rows": 44352,
+  "classes": {
+   "outside-appropriation": {
+    "groups": 13,
+    "overshoot_k": 177167931
+   },
+   "unexplained": {
+    "groups": 13,
+    "overshoot_k": 4744945
+   },
+   "transfer-structure": {
+    "groups": 16,
+    "overshoot_k": 4307770
+   }
+  },
+  "groups_total": 42,
+  "note": "Only the joinable share can be compared across the two registers. The rest is labelled with policy instrument names the recipient register never prints, so no recipient row can sit under it: a naming difference, not a failure to disclose."
+ },
+ "outside": {
+  "groups": 13,
+  "overshoot_k": 177167931,
+  "rows": [
+   {
+    "jaar": 2023,
+    "chapter": "XVI",
+    "instrument": "Bekostiging",
+    "budget_k": 297919,
+    "register_k": 32246736,
+    "overshoot_k": 31948817,
+    "transfer_budget_k": 86305,
+    "transfer_register_k": 9,
+    "class": "outside-appropriation"
+   },
+   {
+    "jaar": 2024,
+    "chapter": "XVI",
+    "instrument": "Bekostiging",
+    "budget_k": 435738,
+    "register_k": 24419057,
+    "overshoot_k": 23983319,
+    "transfer_budget_k": 2984,
+    "transfer_register_k": 159,
+    "class": "outside-appropriation"
+   },
+   {
+    "jaar": 2021,
+    "chapter": "XV",
+    "instrument": "Bijdrage aan sociale fondsen",
+    "budget_k": 20000,
+    "register_k": 23183151,
+    "overshoot_k": 23163151,
+    "transfer_budget_k": 3278,
+    "transfer_register_k": 786,
+    "class": "outside-appropriation"
+   },
+   {
+    "jaar": 2020,
+    "chapter": "XV",
+    "instrument": "Bijdrage aan sociale fondsen",
+    "budget_k": 20000,
+    "register_k": 20172859,
+    "overshoot_k": 20152859,
+    "transfer_budget_k": 3481,
+    "transfer_register_k": 490,
+    "class": "outside-appropriation"
+   },
+   {
+    "jaar": 2019,
+    "chapter": "XV",
+    "instrument": "Bijdrage aan sociale fondsen",
+    "budget_k": 20000,
+    "register_k": 17436873,
+    "overshoot_k": 17416873,
+    "transfer_budget_k": 8067,
+    "transfer_register_k": 1075,
+    "class": "outside-appropriation"
+   },
+   {
+    "jaar": 2021,
+    "chapter": "XVI",
+    "instrument": "Bekostiging",
+    "budget_k": 494873,
+    "register_k": 14753941,
+    "overshoot_k": 14259068,
+    "transfer_budget_k": 64,
+    "transfer_register_k": 62,
+    "class": "outside-appropriation"
+   }
+  ],
+  "note": "Premium- and fund-financed flows. They reach a named recipient but were never appropriated, so they do not satisfy the chain from rung 1. The mechanism for the social funds is inferred from the mismatch and the statutory financing; the arithmetic is measured."
+ },
+ "rekenkamer": {
+  "pages": 2677,
+  "pages_in_scope": 2677,
+  "harvest_complete": true,
+  "attached_by_title": 1003,
+  "findings": 482,
+  "by_kind": {
+   "aandachtspunten": 146,
+   "beantwoording": 156,
+   "bijlage": 646,
+   "brief": 30,
+   "overig": 992,
+   "reactie": 465,
+   "verantwoordingsonderzoek": 242
+  },
+  "by_chapter": {
+   "IX": 149,
+   "VII": 129,
+   "IV": 109,
+   "X": 107,
+   "VI": 66,
+   "VIII": 61,
+   "XIII": 59,
+   "A": 55,
+   "XV": 49,
+   "XVII": 45
+  },
+  "body_matches": null,
+  "note": "A publication is attached to a chapter only when its own title names that ministry. The register also carries ministries' reactions, answers and covering briefs, which are counted but not treated as findings. No PDF has been read, so the body-match count is unmeasured."
+ }
+}

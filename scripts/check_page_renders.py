@@ -43,7 +43,11 @@ function __el(id) {
   return o;
 }
 const __payload = globalThis.__PAYLOAD__ || '';
-const __byId = { data: Object.assign(__el('data'), { textContent: __payload }) };
+const __state = globalThis.__STATE__ || '';
+const __byId = {
+  data: Object.assign(__el('data'), { textContent: __payload }),
+  'state-data': Object.assign(__el('state-data'), { textContent: __state }),
+};
 globalThis.document = {
   getElementById: (id) => (__byId[id] || (__byId[id] = __el(id))),
   querySelector: () => __el('q'), querySelectorAll: () => [],
@@ -70,7 +74,7 @@ globalThis.navigator = { userAgent: 'node' };
 """
 
 
-def extract(html: str, page: pathlib.Path | None = None) -> tuple[str, str]:
+def extract(html: str, page: pathlib.Path | None = None) -> tuple[str, str, str]:
     """Return (payload_json, app_script).
 
     The payload is the application/json block. The app script used to be inline; it now lives in
@@ -82,6 +86,10 @@ def extract(html: str, page: pathlib.Path | None = None) -> tuple[str, str]:
     m = re.search(r'<script[^>]*id="data"[^>]*>(.*?)</script>', html, re.S)
     if m:
         payload = m.group(1)
+    state = ""
+    ms = re.search(r'<script[^>]*id="state-data"[^>]*>(.*?)</script>', html, re.S)
+    if ms:
+        state = ms.group(1)
 
     parts: list[str] = []
     base = (page.parent if page else PAGE.parent)
@@ -96,7 +104,7 @@ def extract(html: str, page: pathlib.Path | None = None) -> tuple[str, str]:
             parts.append(path.read_text(encoding="utf-8", errors="replace"))
         elif body.strip():
             parts.append(body)
-    return payload, "\n".join(parts)
+    return payload, "\n".join(parts), state
 
 
 def main() -> int:
@@ -108,7 +116,7 @@ def main() -> int:
         print("out/index.html missing", file=sys.stderr)
         return 2
     page = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else PAGE
-    payload, app = extract(page.read_text(encoding="utf-8", errors="replace"), page)
+    payload, app, state = extract(page.read_text(encoding="utf-8", errors="replace"), page)
     if not payload or not app:
         print("could not extract payload or app script", file=sys.stderr)
         return 2
@@ -117,11 +125,38 @@ def main() -> int:
     except json.JSONDecodeError as e:
         print(f"FAIL  embedded payload is not valid JSON: {e}")
         return 1
+    # A page that draws a state section but carries no state payload renders an empty panel and looks merely thin.
+    # If the markup exists, the data must exist.
+    page_text = page.read_text(encoding="utf-8", errors="replace")
+    ids = re.findall(r'\sid="([^"]+)"', page_text)
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    if dupes:
+        print(f"FAIL  duplicate element ids in the page: {', '.join(dupes)}")
+        print("       getElementById returns the first match, so the second element silently never renders")
+        return 1
+
+    if '<section id="state"' in page_text and not state:
+        print("FAIL  the page has a state section but no embedded state payload")
+        return 1
+    if state:
+        try:
+            json.loads(state)
+        except json.JSONDecodeError as e:
+            print(f"FAIL  embedded state payload is not valid JSON: {e}")
+            return 1
 
     harness = (
         "globalThis.__PAYLOAD__ = " + json.dumps(payload) + ";\n"
+        + "globalThis.__STATE__ = " + json.dumps(state) + ";\n"
         + PRELUDE
-        + "\ntry {\n" + app + "\nconsole.log('EXECUTED_CLEAN');\n}"
+        + "\ntry {\n" + app
+        # A section that silently renders nothing is the failure this gate exists for, so the state sections are
+        # required to carry content once the payload is present.
+        + ("\nvar __st = __byId['st-spend-table'], __rk = __byId['rk-kinds-table'];\n"
+           "if (!__st || !__st.innerHTML || __st.innerHTML.length < 40) { throw new Error('state section 08 rendered nothing'); }\n"
+           "if (!__rk || !__rk.innerHTML || __rk.innerHTML.length < 40) { throw new Error('rung-6 section 09 rendered nothing'); }\n"
+           if state else "")
+        + "console.log('EXECUTED_CLEAN');\n}"
         + " catch (e) { console.error('THREW: ' + (e && e.stack ? e.stack.split('\\n').slice(0,4).join('\\n') : e)); "
         + "process.exitCode = 1; }\n"
     )

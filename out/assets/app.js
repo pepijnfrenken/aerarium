@@ -668,3 +668,122 @@
   document.getElementById('foot-meta').textContent =
     'dataset generated '+DATA.meta.generated_at+' · '+DATA.meta.sources.length+' sources · '+DATA.gifts.donors.length+' donors · no network requests';
 })();
+
+/* ------------------------------------------------------------------------------------------
+   The state side and rung 6.
+
+   A second payload (#state-data, built by scripts/build_state_payload.py) because its lifecycle differs from the
+   party side: separate builders, separate rebuilds. Every figure here is rendered from that payload, so no
+   number is typed into the page and a correction upstream moves the page with it.
+
+   Nothing in this block may throw on missing data: a section that cannot render is left empty and says so,
+   because the failure that shipped once before was a page that died on its first row.
+   ------------------------------------------------------------------------------------------ */
+(function(){
+  'use strict';
+
+  var el = document.getElementById('state-data');
+  if (!el) return;
+
+  var S;
+  try { S = JSON.parse(el.textContent); } catch (e) { return; }
+
+  var NF = new Intl.NumberFormat('en-GB');
+
+  function esc(x){
+    return String(x == null ? '' : x).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function k(v){                       /* € thousand, as the store holds it */
+    if (v == null) return '<span class="na">not published</span>';
+    return '<span class="nw">' + NF.format(v) + '</span>';
+  }
+  function mln(v){                     /* € thousand rendered as € million */
+    if (v == null) return '<span class="na">not published</span>';
+    return '<span class="nw">' + new Intl.NumberFormat('en-GB',{maximumFractionDigits:1}).format(v/1000) + '</span>';
+  }
+  function share(v){
+    if (v == null) return '<span class="na">not measured</span>';
+    return new Intl.NumberFormat('en-GB',{style:'percent',maximumFractionDigits:1}).format(v);
+  }
+  function table(head, rows){
+    var h = '<table><thead><tr>' + head.map(function(c){ return '<th>'+c+'</th>'; }).join('') + '</tr></thead><tbody>';
+    h += rows.map(function(r){
+      return '<tr>' + r.map(function(c,i){ return '<t'+(i===0?'h':'d')+'>'+c+'</t'+(i===0?'h':'d')+'>'; }).join('') + '</tr>';
+    }).join('');
+    return h + '</tbody></table>';
+  }
+  function put(id, html){
+    var node = document.getElementById(id);
+    if (node) node.innerHTML = html;
+  }
+
+  /* ---- a: spending, not the chapter total ---- */
+  var sp = S.spend || {};
+  var yEl = document.getElementById('st-year');
+  if (yEl) yEl.textContent = S.year ? String(S.year) : '';
+  put('st-spend-table', table(['Line', '€ thousand'], [
+    ['Expenditure axis (vuo = U)', k(sp.expenditure_axis_k)],
+    ['less financial transactions', k(sp.financial_k)],
+    ['less inter-chapter transfers', k(sp.interchapter_k)],
+    ['<b>programme spending</b>', '<b>'+k(sp.programme_k)+'</b>'],
+    ['of which personnel instrument', k(sp.personnel_k)]
+  ]));
+  put('st-spend-src', 'Rijksfinancien open data (CC-0) · jaarverslag ' + (S.year || '') +
+      ' · the personnel instrument measures which ministries use the label, not the state wage bill.');
+
+  /* ---- b: largest chapters on programme spending ---- */
+  var ranked = (sp.ranked_chapters || []);
+  put('st-chapter-table', ranked.length ? table(['Chapter', 'Programme spending, € thousand'],
+    ranked.map(function(c){ return [esc(c.chapter)+' · '+esc(c.name), k(c.spending_k)]; }))
+    : '<p class="panelnote">No chapter rows available.</p>');
+
+  /* ---- c: where the registers join ---- */
+  var j = S.join || {};
+  var jEl = document.getElementById('st-joinable');
+  if (jEl) jEl.textContent = j.joinable_share == null ? '' : share(j.joinable_share) + ' of expenditure';
+  put('st-join-table', table(['Instrument label', 'Expenditure, € thousand', 'Share'], [
+    ['carries a type the recipient register also prints', k(j.joinable_k), share(j.joinable_share)],
+    ['policy instrument name the register never prints', k(j.other_policy_k), share(j.other_policy_share)],
+    ['<b>total expenditure</b>', '<b>'+k(j.total_k)+'</b>', '']
+  ]) + table(['Overshoot class', 'Groups', 'Over, € million'], [
+    ['financed outside the appropriation', String((j.classes||{})['outside-appropriation'] ? j.classes['outside-appropriation'].groups : ''), mln(((j.classes||{})['outside-appropriation']||{}).overshoot_k)],
+    ['chapter-transfer structure', String((j.classes||{})['transfer-structure'] ? j.classes['transfer-structure'].groups : ''), mln(((j.classes||{})['transfer-structure']||{}).overshoot_k)],
+    ['unexplained', String((j.classes||{}).unexplained ? j.classes.unexplained.groups : ''), mln(((j.classes||{}).unexplained||{}).overshoot_k)]
+  ]));
+  put('st-join-src', 'Join at chapter × instrument type. ' +
+      (j.rbv_blank_rows != null ? NF.format(j.rbv_blank_rows) + ' of ' + NF.format(j.rbv_rows) +
+       ' expenditure rows carry an empty rbv_model, so no field in either register bridges the two vocabularies.' : ''));
+
+  /* ---- d: the money the appropriation never carried ---- */
+  var o = S.outside || {};
+  var oEl = document.getElementById('st-outside');
+  if (oEl) oEl.textContent = o.overshoot_k == null ? '' : '€ ' +
+    new Intl.NumberFormat('en-GB',{maximumFractionDigits:1}).format(o.overshoot_k/1000) + ' m over';
+  var rows = (o.rows || []).map(function(r){
+    var factor = (r.budget_k && r.budget_k > 0) ? '×' + new Intl.NumberFormat('en-GB',{maximumFractionDigits:0}).format(r.register_k/r.budget_k) : 'n/a';
+    return [String(r.jaar), 'ch '+esc(r.chapter)+' · '+esc(r.instrument), k(r.budget_k), k(r.register_k), factor];
+  });
+  put('st-outside-table', rows.length ? table(['Year', 'Chapter and instrument', 'Appropriation', 'In the register', 'Factor'], rows)
+    : '<p class="panelnote">No rows available.</p>');
+  put('st-outside-src', o.note || '');
+
+  /* ---- rung 6 ---- */
+  var rk = S.rekenkamer || {};
+  var kinds = rk.by_kind || {};
+  var kindRows = Object.keys(kinds).sort(function(a,b){ return kinds[b]-kinds[a]; })
+    .map(function(x){ return [esc(x), NF.format(kinds[x])]; });
+  put('rk-kinds-table', table(['Publication form', 'Publications'], kindRows.concat([
+    ['<b>attached to a chapter by title</b>', '<b>'+(rk.attached_by_title == null ? '' : NF.format(rk.attached_by_title))+'</b>'],
+    ['of those, a Rekenkamer finding', rk.findings == null ? '' : NF.format(rk.findings)],
+    ['body text read', '<span class="na">not measured</span>']
+  ])));
+  put('rk-src', (rk.pages != null ? NF.format(rk.pages) + ' of ' + NF.format(rk.pages_in_scope) + ' in-scope publications' : '') +
+      ' enumerated from the Rekenkamer sitemap index · no PDF read, so the body-match count is unmeasured, not zero.');
+
+  var byCh = rk.by_chapter || {};
+  var chKeys = Object.keys(byCh).slice(0, 10);
+  put('rk-chapter-table', chKeys.length ? table(['Chapter', 'Findings attached by title'],
+    chKeys.map(function(c){ return ['ch '+esc(c), NF.format(byCh[c])]; })) : '');
+})();
