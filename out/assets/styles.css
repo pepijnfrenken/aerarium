@@ -277,3 +277,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
    inside the media query whatever the order. */
 #st-spend-table table,
 #rk-kinds-table table{min-width:0}
+
+/* The first column of the rung-6 table carries row labels, not column headings. It was built with <th> cells and
+   inherited the measurement-header styling - uppercase, letter-spaced, muted - which made every row look like a
+   header and the summary rows look like new tables starting. */
+#rk-kinds-table tbody th{
+  text-transform:none;letter-spacing:0;font-size:12px;color:var(--ink);font-weight:500;background:none;
+  border-bottom:1px solid var(--rule2);vertical-align:middle;white-space:normal
+}
+#rk-kinds-table tbody tr:last-child th{font-weight:500}

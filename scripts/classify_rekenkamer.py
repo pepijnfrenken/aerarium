@@ -97,10 +97,13 @@ def classify(title: str, text: str) -> list[dict]:
         hits.append({
             "chapter": chapter,
             "in_title": n_title,
-            "in_body": n_text,
+            # In titles-only mode no body text is passed in, so the counter was 0 on every hit: a zero that means
+            # "not looked at" rendered beside a real count, which is the failure this project keeps finding. It is
+            # null when there is no text, and only a number when text was actually searched.
+            "in_body": n_text if low_text.strip() else None,
             "strength": "title" if n_title else "body",
         })
-    hits.sort(key=lambda h: (h["in_title"], h["in_body"]), reverse=True)
+    hits.sort(key=lambda h: (h["in_title"], h["in_body"] or 0), reverse=True)
     return hits
 
 
@@ -205,10 +208,21 @@ def titles_only_mode() -> int:
         "counts": {
             "publications_classified": len(docs),
             "attached_by_title": len(titled),
-            "attached_by_title_and_a_finding": len([d for d in titled if is_finding(d["kind"])]),
+            # Attachments, not publications: a publication naming two ministries contributes two. The singular
+            # "findings" count this replaced was a publication count on a finding-kind filter, and the two numbers
+            # were being compared as though they measured the same thing.
+            "attached_by_title": sum(len(d["chapters_in_title"]) for d in titled),
+            "attached_pages": len(titled),
+            "attached_by_title_and_a_finding": sum(len(d["chapters_in_title"]) for d in titled
+                                                   if is_finding(d["kind"])),
             "body_matches_not_attempted": len(docs),
             "no_chapter_in_title": len(docs) - len(titled),
         },
+        # The composition of the attachments, so a reader can see what the 1.202 are made of rather than trusting a
+        # single "findings" total that no reader can reproduce.
+        "attachments_by_kind": {k: sum(len(d["chapters_in_title"]) for d in docs
+                                       if d["kind"] == k and d.get("chapters_in_title"))
+                                for k in sorted({d["kind"] for d in docs})},
         "by_kind": {k: sum(1 for d in docs if d["kind"] == k)
                     for k in sorted({d["kind"] for d in docs})},
         "by_chapter": dict(sorted(by_chapter.items(), key=lambda x: -x[1])),

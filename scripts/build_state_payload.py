@@ -91,15 +91,17 @@ def main() -> int:
             "pages": rk_cov.get("pages_harvested"),
             "pages_in_scope": rk_cov.get("pages_in_scope"),
             "harvest_complete": rk_cov.get("harvest_complete"),
-            "attached_by_title": rk_counts.get("attached_by_title"),
-            "findings": rk_counts.get("attached_by_title_and_a_finding"),
+            "attached_attachments": rk_counts.get("attached_by_title"),
+            "attached_pages": rk_counts.get("attached_pages"),
+            "attachments_by_kind": rk.get("attachments_by_kind"),
             "by_kind": rk.get("by_kind"),
             "by_chapter": dict(list(rk.get("by_chapter", {}).items())[:10]),
             # null, never 0: no PDF was downloaded, so no body text was read.
             "body_matches": None,
             "note": ("A publication is attached to a chapter only when its own title names that ministry. The "
-                     "register also carries ministries' reactions, answers and covering briefs, which are counted "
-                     "but not treated as findings. No PDF has been read, so the body-match count is unmeasured."),
+                     "counts are of attachments, not publications, and they are split by the form the publisher "
+                     "gives the document, because a title rule cannot tell a finding from the ministry's reply to "
+                     "one. No PDF has been read, so the body-match count is unmeasured."),
         },
     }
     (OUT / "state-data.json").write_text(json.dumps(payload, indent=1, ensure_ascii=False), encoding="utf-8")
@@ -112,7 +114,8 @@ def main() -> int:
     print(f"  outside the appropriation: {payload['outside']['groups']} groups, "
           f"{payload['outside']['overshoot_k']/1000:,.1f} M")
     print(f"  rekenkamer: {payload['rekenkamer']['pages']:,} pages, "
-          f"{payload['rekenkamer']['attached_by_title']:,} attached, {payload['rekenkamer']['findings']:,} findings")
+          f"{payload['rekenkamer']['attached_pages']:,} carrying an attachment, "
+          f"{payload['rekenkamer']['attached_attachments']:,} attachments")
     return 0
 
 

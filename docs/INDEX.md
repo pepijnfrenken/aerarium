@@ -36,7 +36,7 @@ reader found. Later corrections live in the documents they correct, not in a cha
 | 006 | `PROBE-006-recipients-are-not-a-decomposition.md` | The recipient register is not a decomposition of a chapter total; the r3→r4 edge is instrument-level. |
 | 007 | `PROBE-007-supplementary-budgets-not-served.md` | `phase=O1`/`O2` return the union of draft and annual account, with a success status: the supplementary budgets are advertised and not served. |
 | 008 | `PROBE-008-rekenkamer-is-documents-not-data.md` | The Rekenkamer publishes findings as PDFs, not data; rung 6 is classification, not a key join. |
-| 009 | `PROBE-009-rekenkamer-crawl-and-what-titles-carry.md` | The publication register enumerated from its own sitemap, harvested whole (2.677 of 2.677), and what titles alone can carry: 1.003 attachments, 482 findings, body text unread. |
+| 009 | `PROBE-009-rekenkamer-crawl-and-what-titles-carry.md` | The publication register enumerated from its own sitemap, harvested whole (2.677 of 2.677), and what titles alone can carry: 1.003 publications with 1.202 chapter attachments, body text unread. |
 | 010 | `PROBE-010-where-the-two-registers-join.md` | Where the two registers actually join: chapter × instrument type, not article, because the same word names a policy instrument on one side and a category on the other. |
 
 **Numbering gaps are real, not typos.** `PROBE-002` and `PROBE-003` do not exist — they were never written, and

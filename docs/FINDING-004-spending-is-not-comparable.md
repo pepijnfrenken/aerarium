@@ -47,15 +47,16 @@ these reports is asking for the categories to be explained.
 justification with fixed categories". The model exists — bijlage 2 of the Regeling financiering politieke
 partijen, binding since 1 April 2025 and applicable from the 2024 reporting year — but its cost categories are
 **not fixed**. The printed skeleton reads *Bestuurskosten / Bureaukosten / Verkiezingskosten / Etc.*, and the
-binding part is the arithmetic: columns for the year and its comparator, a total of subsidiary spend, the granted
-subsidy, and the difference. The row set is left to the party. Six parties sampled, six taxonomies. See
+binding part is the arithmetic: columns for the year and its comparator, a total of **eligible expenditure**
+(`subsidiabele uitgaven` — the Dutch means *eligible*, not *subsidiary*; the earlier translation was wrong and this
+is the correction), the granted subsidy, and the difference. The row set is left to the party. Six parties sampled, six taxonomies. See
 `docs/lanes/LANE-SUBSIDIEVERANTWOORDING.md` for the primary text and the page references.
 
 So the routes are:
 
 1. **A party-level series of three totals, not a category series.** Every sampled party prints a total of
-   subsidiary spend and some subsidy figure, under four different labels. `party × year × {total subsidiable
-   spend, subsidy, difference}` is defensible if each party's label-to-concept mapping and entity scope are
+   eligible expenditure and some subsidy figure, under four different labels. `party × year × {total eligible
+   expenditure, subsidy, difference}` is defensible if each party's label-to-concept mapping and entity scope are
    recorded once. That is 19-20 PDFs a year, some 250 pages, and it yields totals only.
 2. **A closed category list, if BZK adopts it.** The Ctfpp has asked for exactly that: "een geactualiseerde uitleg
    over subsidiabele en niet-subsidiabele uitgaven per categorie". Until it happens, the least-bad target is the

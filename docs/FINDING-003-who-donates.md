@@ -87,10 +87,13 @@ organisation twice. As **one** entity, SOV gave the party **€1.600.000** acros
 (€160.000), which are different legal persons and are listed separately for that reason, with the spelling
 variants shown rather than merged.
 
-All of them are named as VVD's own neveninstellingen in the party's 2024 report. The money first entered those
-foundations (SOV alone received €1.244.932 in 2023 from third parties) and then moved into the party. Reading the
-party-level rows as outside money counts the same euros twice, and reading two spellings of one foundation as two
-donors does it a third time.
+All of them are named as VVD's own neveninstellingen in the party's 2024 report. SOV alone reports receiving
+€1.244.932 in 2023 from third parties, and the party reports gifts from SOV. Those are two disclosures in two
+documents; nothing in either register links a particular euro of the first to a particular euro of the second, so
+the trail is *asserted by the filings and not traced*, and the €1.300.000 attributed to SOV in 2023 rests on merging
+word-order variants of one name. The merge is a labelled claim with its basis stated, not an adjudication of
+identity. Reading the party-level rows as outside money counts the same euros twice, and reading two spellings of
+one foundation as two donors does it a third time.
 
 So "gift share" is not a measure of outside influence. For SP and GL a large share of the money arrives from
 their own elected representatives under a salary-transfer arrangement, so the ratio measures an internal rule more

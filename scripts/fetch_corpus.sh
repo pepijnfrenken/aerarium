@@ -3,14 +3,26 @@
 # Text is small and is what we keep; the PDFs are re-fetchable from open.overheid.nl.
 set -uo pipefail
 
-CORPUS=/tmp/aerarium-corpus
+# Paths live under the repo, not /tmp. The old version staged the corpus in /tmp and read its index from
+# /tmp/jaarverslagen.json, so the step that produced the index and the step that consumed it had no declared handoff:
+# on a clean machine the fetch read a file nothing had written, and on this one it worked only because a stale file
+# was still there. Both are overridable, and a missing index is an error rather than an empty fetch.
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CORPUS="${AERARIUM_CORPUS:-$ROOT/corpus/jaarverslagen}"
+INDEX_SRC="${AERARIUM_JAARVERSLAGEN:-$CORPUS/index-source.json}"
 TEXT="$CORPUS/text"
 PDF="$CORPUS/pdf"
 mkdir -p "$TEXT" "$PDF"
 
-python3 - <<'PY' > "$CORPUS/index.tsv"
-import json
-rows = json.load(open('/tmp/jaarverslagen.json'))
+if [ ! -f "$INDEX_SRC" ]; then
+  echo "missing index: $INDEX_SRC" >&2
+  echo "set AERARIUM_JAARVERSLAGEN to the JSON list of annual reports, or place it at that path" >&2
+  exit 1
+fi
+
+python3 - "$INDEX_SRC" > "$CORPUS/index.tsv" <<'PY'
+import json, sys
+rows = json.load(open(sys.argv[1]))
 for r in rows:
     print(f"{r['jaar']}\t{r['partij']}\t{r['deel']}\t{r['pages']}\t{r['link']}")
 PY

@@ -269,6 +269,13 @@ def series(conn: duckdb.DuckDBPyConnection) -> list[Row]:
             if no_register_rows:
                 named_k = None
                 anon_k = None
+            elif named_rows == 0 or anon_rows == 0:
+                # The register does publish on this line, so 0 is a real figure for the component that has no
+                # rows - but a reader cannot tell a measured zero from an absent component by the number alone.
+                # The note carries which side is empty, so the CSV never looks like it measured what it lacks.
+                empty = "named" if named_rows == 0 else "anonymised"
+                notes.append(f"no {empty} recipient rows published in this year; that component is 0 by absence, "
+                             f"not by measurement")
 
             unreconciled = None
             if realised_k is not None and r4 not in (NOT_PUBLISHED, ABSENT):

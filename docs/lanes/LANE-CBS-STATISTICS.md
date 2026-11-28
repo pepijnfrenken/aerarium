@@ -1,5 +1,15 @@
 # LANE-CBS-STATISTICS — Do official Dutch statistics measure party/campaign spending?
 
+> **Verification status.** This is a research note, not an artifact. Its counts are what the lane observed while
+> enumerating: 38 Kiesraad datasets by paging the organisation view on `data.overheid.nl`, and catalogue hits from
+> the CBS and data.overheid.nl searches recorded in the table below. The enumeration was **not re-run for this build
+> and the live archives were not re-checked**, so treat every URL and dataset count here as *observed once*, not as
+> a current state. Two specific limits: `data.kiesraad.nl` did not resolve, so the Kiesraad figures rest on
+> `data.overheid.nl`; and the "rapid reporting" characterisation depends on an operative amendment that this lane did
+> not locate in primary text. Nothing in this note is bound by `verify_bindings.py`, unlike the artifacts, and no
+> number here should be quoted without opening the source again.
+
+
 Research date: 2026-11-20. Method: direct API/page checks (curl + web search/fetch). Read-only; nothing in the repo modified except this file. Nothing is quoted below that was not observed, except where explicitly marked.
 
 ## Summary verdict

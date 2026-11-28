@@ -15,8 +15,12 @@ other.
 | policy institutes | 5 | 77 | 77.705 |
 | party-international foundations | 11 | 75 | 7.753 |
 
-Five policy institutes carry €77.705k: Clingendael, ProDemos, the Anne Frank Stichting, HCSS and Rathenau.
-Eleven party-international foundations carry €7.753k. These are **payments recorded in the recipient register**,
+Five policy institutes carry €77.705k across 77 rows: Clingendael, ProDemos, the Anne Frank Stichting, HCSS and
+Rathenau. Eleven party-international foundations carry €7.753k across 75 rows. The two cohorts are counted
+separately and their rows are never added into one figure: 16 entities and 152 rows describe the whole sample, not
+either class, and a sentence that put "five entities" beside a 152-row total would be joining two different
+populations. Six policy institutes were searched and five matched; the search set is named in
+`out/thinktanks.json`, which also publishes the exclusion ledger. These are **payments recorded in the recipient register**,
 which is a register of what the budget says was paid and to whom. It is not a statement of what those bodies do
 with the money, and this project publishes no purpose for any of them.
 

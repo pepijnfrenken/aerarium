@@ -96,10 +96,10 @@ win_total = sum(r.get("in_window", 0) for r in timing.get("per_party_2023", []))
 readme = REPO / "README.md"
 
 bind("README total gift money", readme,
-     r"\*\*2\.?\d* donors, €([\d.,]+)\*\*", gift_total)
+     r"\*\*2\.?\d* donor name labels, €([\d.,]+)\*\*", gift_total)
 
 bind("README donor count", readme,
-     r"\*\*([\d.]+) donors, €[\d.,]+\*\*", donor_count)
+     r"\*\*([\d.]+) donor name labels, €[\d.,]+\*\*", donor_count)
 
 bind("README entity share", readme,
      r"(\d+)% entities", typ["by_party"]["__national__"]["entity_share"]
@@ -956,7 +956,7 @@ else:
 
 mani = (REPO / "docs" / "MANIFEST.md").read_text(encoding="utf-8", errors="replace")
 checked += 1
-if mani.count("scripts/export_view.py") >= 2 and "FIRST pass" in mani:
+if mani.lower().count("scripts/export_view.py") >= 2 and "first pass" in mani.lower():
     print("PASS  the rebuild order runs export_view before and after the derived tables")
 else:
     print("FAIL  the rebuild order still omits the first export pass")
@@ -980,9 +980,9 @@ for label, got, want in [
         fails.append(f"{label}: {got} != {want}")
 
 checked += 1
-if (counts["publications_classified"] == 2677 and counts["attached_by_title"] == 1003
-        and counts["attached_by_title_and_a_finding"] == 482):
-    print("PASS  PROBE-009 publishes the completed crawl counts (2.677 / 1.003 / 482)")
+if (counts["publications_classified"] == 2677 and counts["attached_pages"] == 1003
+        and counts["attached_by_title"] == 1202):
+    print("PASS  the crawl counts are 2.677 publications / 1.003 attached / 1.202 attachments")
 else:
     print(f"FAIL  PROBE-009 counts moved: {counts}")
     fails.append("PROBE-009 counts disagree with the artifact")
@@ -1023,7 +1023,7 @@ p9 = (REPO / "docs" / "PROBE-009-rekenkamer-crawl-and-what-titles-carry.md").rea
 # Prose wraps. A phrase check that fails on a newline is testing the line length, not the claim.
 p9n = " ".join(p9.lower().split())
 checked += 1
-for phrase in ("2.677", "482", "1.003", "no pdf has been downloaded", "rung 6 therefore stays open", "403"):
+for phrase in ("2.677", "1.202", "1.003", "574", "no pdf has been downloaded", "rung 6 therefore stays open", "403"):
     if phrase not in p9n:
         print(f"FAIL  PROBE-009 is missing: {phrase}")
         fails.append(f"PROBE-009 missing {phrase}")
@@ -1287,6 +1287,32 @@ else:
     print("FAIL  media debt still publishes a combined figure as the total")
     fails.append("media debt combined total still primary")
 
+# ---------------------------------------------------------------- rung 6 counts (audit 4)
+rkp = json.loads((OUT / "rekenkamer.json").read_text(encoding="utf-8"))
+att = rkp["attachments_by_kind"]
+checked += 1
+if sum(att.values()) == rkp["counts"]["attached_by_title"] == 1202:
+    print("PASS  the attachment composition sums to the attachment total, 1.202")
+else:
+    print(f"FAIL  attachment composition {sum(att.values())} != total {rkp['counts']['attached_by_title']}")
+    fails.append("rekenkamer attachment composition does not sum")
+
+checked += 1
+if rkp["counts"]["attached_pages"] == 1003:
+    print("PASS  publications carrying an attachment are counted separately from attachments: 1.003")
+else:
+    print(f"FAIL  attached page count is {rkp['counts']['attached_pages']}")
+    fails.append("rekenkamer attached page count")
+
+# The page must not describe the attachment count as a count of findings.
+checked += 1
+served = html + (OUT / "assets" / "app.js").read_text(encoding="utf-8", errors="replace")
+if "Chapter attachments" in served and "of those, a Rekenkamer finding" not in served:
+    print("PASS  the page presents the rung-6 counts as attachments, not as findings")
+else:
+    print("FAIL  the page still labels attachment counts as findings")
+    fails.append("page calls attachments findings")
+
 # ---------------------------------------------------------------- page section 08/09 (state side)
 st = json.loads((OUT / "state-data.json").read_text(encoding="utf-8"))
 for label, got, want in [
@@ -1294,7 +1320,8 @@ for label, got, want in [
     ("page state payload: programme spending EURk", st["spend"]["programme_k"], 331469674),
     ("page state payload: personnel EURk", st["spend"]["personnel_k"], 17503748),
     ("page state payload: rekenkamer pages", st["rekenkamer"]["pages"], 2677),
-    ("page state payload: rekenkamer findings", st["rekenkamer"]["findings"], 482),
+    ("page state payload: rekenkamer attachments", st["rekenkamer"]["attached_attachments"], 1202),
+    ("page state payload: rekenkamer attached pages", st["rekenkamer"]["attached_pages"], 1003),
     ("page state payload: rbv blank rows", st["join"]["rbv_blank_rows"], 44352),
 ]:
     checked += 1
@@ -1307,7 +1334,7 @@ for label, got, want in [
 checked += 1
 if (abs(st["join"]["joinable_share"] - ov8["coverage"]["joinable_share"]) < 1e-9
         and st["outside"]["overshoot_k"] == cls8["outside-appropriation"]["overshoot_k"]
-        and st["rekenkamer"]["attached_by_title"] == rk["counts"]["attached_by_title"]):
+        and st["rekenkamer"]["attached_attachments"] == rkp["counts"]["attached_by_title"]):
     print("PASS  the page's state payload matches the artifacts it was built from")
 else:
     print("FAIL  the page's state payload disagrees with the artifacts")
@@ -1329,6 +1356,84 @@ if ('<section id="state"' in html and '<section id="rung6"' in html
 else:
     print("FAIL  the state sections or their embedded payload are missing from the page")
     fails.append("state sections missing from the page")
+
+# ---------------------------------------------------------------- audit 4, the second sweep
+gt = json.loads((OUT / "gift-timing.json").read_text(encoding="utf-8"))
+wins = {w["election"]: w for w in gt["windows"]}
+checked += 1
+uncovered = []
+for el in ("2021-03-17", "2025-10-29"):
+    d30 = wins[el]["by_days"]["30"]
+    if d30.get("inside_eur") is None and d30.get("inside_measured") is False:
+        uncovered.append(el)
+if len(uncovered) == 2:
+    print("PASS  windows the dated register does not cover carry null, not zero")
+else:
+    print(f"FAIL  an uncovered timing window still publishes a number: {uncovered}")
+    fails.append("timing window zero outside coverage")
+
+plc = list(csv.DictReader((OUT / "party-line-disclosure.csv").open(encoding="utf-8", newline="")))
+checked += 1
+noted = [r for r in plc if "not by measurement" in (r.get("notes") or "")]
+if noted:
+    print(f"PASS  {len(noted)} disclosure rows label an empty component as absent rather than measured")
+else:
+    print("FAIL  the disclosure CSV still presents an absent component as a measured zero")
+    fails.append("disclosure CSV unlabelled zero component")
+
+rk_in_body = [h for d in rk["documents"] for h in (d.get("hits") or [])]
+checked += 1
+if rk_in_body and all(h.get("in_body") is None for h in rk_in_body):
+    print(f"PASS  all {len(rk_in_body)} title hits carry in_body null, because no text was searched")
+else:
+    print("FAIL  a titles-only hit claims a body count")
+    fails.append("title hit claims a body match")
+
+assets = (OUT / "assets" / "app.js").read_text(encoding="utf-8")
+checked += 1
+if "Math.min(100" not in assets:
+    print("PASS  the disclosure chart no longer caps an overshoot at 100%")
+else:
+    print("FAIL  the chart still clips the named share at 100%")
+    fails.append("chart caps at 100%")
+
+rd = (REPO / "README.md").read_text(encoding="utf-8")
+for phrase, label in [
+    ("24 August – 22 November 2023", "README dates the window inclusively"),
+    ("donor name labels", "README calls donors labels, not identities"),
+    ("docs/MANIFEST.md", "README points at the generated rebuild order"),
+]:
+    checked += 1
+    if phrase in rd:
+        print(f"PASS  {label}")
+    else:
+        print(f"FAIL  {label}: missing '{phrase}'")
+        fails.append(f"README missing {phrase}")
+
+f4 = (REPO / "docs" / "FINDING-004-spending-is-not-comparable.md").read_text(encoding="utf-8").lower()
+checked += 1
+if "eligible expenditure" in f4 and "subsidiary spend" not in f4:
+    print("PASS  FINDING-004 translates subsidiabele uitgaven as eligible, not subsidiary")
+else:
+    print("FAIL  FINDING-004 still calls eligible spend subsidiary")
+    fails.append("FINDING-004 mistranslation")
+
+f3 = " ".join((REPO / "docs" / "FINDING-003-who-donates.md").read_text(encoding="utf-8").lower().split())
+checked += 1
+if "not traced" in f3 and "adjudication of identity" in f3:
+    print("PASS  FINDING-003 says the foundation leg is asserted by the filings, not traced")
+else:
+    print("FAIL  FINDING-003 still asserts the money path as traced")
+    fails.append("FINDING-003 asserts an untraced path")
+
+fc = (REPO / "scripts" / "fetch_corpus.sh").read_text(encoding="utf-8")
+mf = (REPO / "docs" / "MANIFEST.md").read_text(encoding="utf-8")
+checked += 1
+if "/tmp/aerarium-corpus" not in fc and "declared inputs" in mf and "NO PRODUCER DECLARED" not in mf:
+    print("PASS  the corpus handoff lives under the repo and the manifest order is declared, not inferred")
+else:
+    print("FAIL  corpus handoff or manifest producer map is still implicit")
+    fails.append("corpus handoff or manifest producer map")
 
 # ---------------------------------------------------------------- canary
 if "--canary" in sys.argv:

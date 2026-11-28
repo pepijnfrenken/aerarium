@@ -28,7 +28,11 @@ the finding.
   29 October 2025 election. **€10.169.959,32** in gifts was recorded for parties in 2025 up to election day,
   against €8.933.589,90 in all of 2024. Of that, **€1.021.300,86** arrived in the final three weeks.
 
-- **2.301 donors, €25.038.264,64** in contributions 2022-2024, every party-year reconciled to the euro before use.
+- **2.301 donor name labels, €25.038.264,64** in contributions 2022-2024, every party-year reconciled to the
+  euro before use. Labels, not established legal identities: the register prints a name per row and the same
+  organisation appears in several spellings, so the count is of printed labels. The reporting threshold that
+  survived a donation also changed inside the window (€4.500 in 2022-2023, €1.000 in 2024), so a count across
+  the three years is a count of disclosures under three vintages, not one.
 - **Gift money is 75% individuals, 19% entities, 3% bequests, 3% party vehicles.** Entity share ranges from 0,0%
   (SP) and 0,3% (GL) to 79,9% (BVNL) and 72,2% (SGP): two different systems, not a gradient.
 - **The largest "donors" are the parties.** VVD's biggest is VVD: €1.810.000 of its €3.592.775 in 2023 came from its
@@ -36,14 +40,17 @@ the finding.
 - **GroenLinks and PvdA are one party now (PRO).** Read together they are the largest organisation in the window:
   €20.529.188 against VVD's €19.554.840.
 - **Donations cluster in campaign windows — among donors whose gifts carry a date.** €1.135.143 arrived in the
-  90 days before the 22 November 2023 election: 36,5% of all dated 2023 contributions, 1,75× the same calendar
-  window a year earlier. The concentration is uneven and it moves with how much of a party's money is dated at
+  90 days up to and including election day (24 August – 22 November 2023, 91 dates): 36,5% of all dated 2023
+  contributions, 1,75× the same calendar window a year earlier. Election day itself is inside the window, which is
+  why the dates are given rather than the phrase "before the election". The concentration is uneven and it moves with how much of a party's money is dated at
   all. CDA: 95,4% of its *dated* 2023 gifts, but those dated gifts are only 27,5% of its 2023 total, so 26,3% of
   everything it received. SP: 28,3% of its dated gifts (71,5% dated), 20,2% of everything. SP's pattern is
   consistent with salary transfers rather than campaigns; the register records no purpose field, so that
   remains an interpretation, not a finding.
-- **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed, €29.413k in no register row at
-  all. Only 10 of 92 annual reports state the per-entity split.
+- **The state side stops at the party.** 2024: 20 parties named, €4.510k attributed. Realised subsidy for those
+  parties is €33.923k, so €29.413k of it is not attributed to a named recipient in the register — a difference
+  between two published figures, not a count of money the parties failed to report, and no row states it as
+  unreported. Only 10 of 92 annual reports state the per-entity split.
 - **NFRP**: a single anonymised row for 2018 and 2019, nothing at all for 2021-2022, then named rows for 2020 and
   2023-2024 — named, not necessarily complete: 46 rows in 19 spellings across those years collapse to 11 grouping
   keys, nine of them a published KvK and two a name fallback where the KvK is null.
@@ -66,7 +73,9 @@ the finding.
   **43 (€8.352,2m) remain genuinely unexplained**.
 - **Rung 6 has a corpus, not a claim.** The Rekenkamer publishes no data feed, so the register was enumerated from
   its own sitemap and harvested whole: **2.677 of 2.677 publications** (2016–2026). **1.003** name a ministry in
-  their own title, **482** of those are audit findings. No PDF text has been read, so no euro is graded at rung 6.
+  their own title, forming **1.202** chapter attachments, of which 574 sit on a publication the publisher files
+  as a study, an attention note or an appendix. No PDF text has been read, so no euro is graded at rung 6 and no
+  count of findings is published.
 
 ## Layout
 
@@ -108,26 +117,17 @@ the finding.
     bash scripts/fetch_tk2025.sh
     .venv/bin/python scripts/ingest_tk2025.py
     .venv/bin/python scripts/ingest_tk2025_post.py
-    .venv/bin/python scripts/extract_gifts.py
-    .venv/bin/python scripts/redact_outputs.py
-    .venv/bin/python scripts/export_view.py          # 1. payload from the store
-    .venv/bin/python scripts/classify_donors.py      # 2. derives from view-data.json
-    .venv/bin/python scripts/export_view.py          # 3. re-export so the derivation lands
-    .venv/bin/python scripts/reembed_view.py         # 4. inject the payload into the page
-    .venv/bin/python scripts/gift_timing.py
-    .venv/bin/python scripts/flow.py
-    .venv/bin/python scripts/thinktanks.py
-    .venv/bin/python scripts/classify_creditors.py
-    .venv/bin/python scripts/donor_claims.py
-    .venv/bin/python scripts/overshoots.py
-    .venv/bin/python scripts/classify_rekenkamer.py --titles
-    .venv/bin/python scripts/build_state_payload.py   # the page's state-side payload
-    .venv/bin/python scripts/build_manifest.py
-    .venv/bin/python scripts/verify_bindings.py      # 192 bound values: prose parsed, numbers recomputed,
-                                                     # the page executed under node, canary trips on demand
 
-Order matters in one place: `classify_donors.py` reads `view-data.json`, so the export runs twice. A pipeline that
-skips the second pass only ever worked because a stale file was on disk.
+    # Everything after the ingest is ordered by dependency, and that order is computed rather than remembered:
+    # docs/MANIFEST.md carries the sequence build_manifest.py derived from each step's declared inputs, and the
+    # build fails if a step reads a file nothing earlier produces. Follow it literally; do not reorder by hand.
+    # The one genuinely surprising dependency is that `export_view.py` runs twice, because `classify_donors.py`
+    # reads its output and the derivation has to land back in the payload.
+
+    .venv/bin/python scripts/build_manifest.py      # writes docs/MANIFEST.md, incl. the rebuild order
+    .venv/bin/python scripts/check_page_renders.py  # executes the page's script under node
+    .venv/bin/python scripts/verify_bindings.py     # 206 bound values: prose parsed, numbers recomputed
+                                                     # --canary proves the checker can fail
 
 The report corpus is fetched with `scripts/fetch_corpus.sh` (92 documents) and the Rekenkamer corpus with
 `scripts/fetch_rekenkamer.py` (2.677 pages, one request per second; `--firecrawl-pages` when the host blocks the

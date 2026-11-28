@@ -59,28 +59,52 @@
     "30": {
      "from": "2021-02-15",
      "to": "2021-03-17",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": null,
      "same_window_year_after": 255067.36
     },
     "60": {
      "from": "2021-01-16",
      "to": "2021-03-17",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": null,
      "same_window_year_after": 386247.99
     },
     "90": {
      "from": "2020-12-17",
      "to": "2021-03-17",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": null,
      "same_window_year_after": 392373.37
     },
     "120": {
      "from": "2020-11-17",
      "to": "2021-03-17",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": null,
      "same_window_year_after": 392373.37
     }
@@ -93,6 +117,12 @@
      "from": "2023-10-23",
      "to": "2023-11-22",
      "inside_eur": 461110.83,
+     "inside_measured": true,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 223030.08,
      "same_window_year_after": 313291.41
     },
@@ -100,6 +130,12 @@
      "from": "2023-09-23",
      "to": "2023-11-22",
      "inside_eur": 830781.28,
+     "inside_measured": true,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 455892.15,
      "same_window_year_after": 641970.82
     },
@@ -107,6 +143,12 @@
      "from": "2023-08-24",
      "to": "2023-11-22",
      "inside_eur": 1135143.01,
+     "inside_measured": true,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 650082.44,
      "same_window_year_after": 850710.64
     },
@@ -114,6 +156,12 @@
      "from": "2023-07-25",
      "to": "2023-11-22",
      "inside_eur": 1379913.22,
+     "inside_measured": true,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 751416.76,
      "same_window_year_after": 1105011.94
     }
@@ -125,28 +173,52 @@
     "30": {
      "from": "2025-09-29",
      "to": "2025-10-29",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 316080.18,
      "same_window_year_after": null
     },
     "60": {
      "from": "2025-08-30",
      "to": "2025-10-29",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 568698.55,
      "same_window_year_after": null
     },
     "90": {
      "from": "2025-07-31",
      "to": "2025-10-29",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 801055.32,
      "same_window_year_after": null
     },
     "120": {
      "from": "2025-07-01",
      "to": "2025-10-29",
-     "inside_eur": 0,
+     "inside_eur": null,
+     "inside_measured": false,
+     "dated_years": [
+      2022,
+      2023,
+      2024
+     ],
      "same_window_year_before": 1071502.16,
      "same_window_year_after": null
     }

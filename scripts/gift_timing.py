@@ -57,11 +57,16 @@ def main() -> int:
         per_year[d.year] += amt
 
     # --- window analysis per election, per window length -------------------------
+    # A zero inside a window the dated register does not cover is not a measurement: it says the register holds no
+    # gifts there, when the register holds no rows there at all. The dated rows span a limited set of years, so a
+    # window entirely outside them is `null` with the reason attached.
+    dated_years = sorted({d.year for d, _, _, _ in dated})
     windows = []
     for election in ELECTIONS:
         entry = {"election": election.isoformat(), "by_days": {}}
         for days in WINDOWS:
             start = election - timedelta(days=days)
+            covered = bool(dated_years) and not (election.year < dated_years[0] or start.year > dated_years[-1])
             inside = sum(a for d, _, a, _ in dated if start <= d <= election)
             # same calendar window one year earlier and one year later, where data exists
             prev = sum(a for d, _, a, _ in dated
@@ -70,7 +75,9 @@ def main() -> int:
                       if start.replace(year=start.year + 1) <= d <= election.replace(year=election.year + 1))
             entry["by_days"][days] = {
                 "from": start.isoformat(), "to": election.isoformat(),
-                "inside_eur": round(inside, 2),
+                "inside_eur": round(inside, 2) if covered else None,
+                "inside_measured": covered,
+                "dated_years": dated_years,
                 "same_window_year_before": round(prev, 2) or None,
                 "same_window_year_after": round(nxt, 2) or None,
             }

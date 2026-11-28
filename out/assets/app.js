@@ -603,8 +603,10 @@
   var cols = bud.map(function(r){
     var plotH = 190;
     var realH = r.realised_k == null ? 0 : (r.realised_k / maxB) * 100;
-    var namedH = (r.realised_k && r.named_k != null)
-      ? Math.min(100, (r.named_k / r.realised_k) * 100) : 0;
+    // No cap. 2020's named figure (23.777k) is slightly larger than its realised one (23.770k), and clipping the
+    // bar at 100% hid that; a chart that silently truncates its own observation is the defect, not the overshoot.
+    var namedH = (r.realised_k && r.named_k != null) ? (r.named_k / r.realised_k) * 100 : 0;
+    var over = (r.realised_k && r.named_k != null && r.named_k > r.realised_k);
     var ceilB = (r.ceiling_k / maxB) * 100;
     var mark = r.jaar === 2024 ? ' mark' : '';
     var tipText = [
@@ -614,7 +616,8 @@
       line('Named part', r.named_k == null ? 'n/a' : pnum(r.named_k)),
       line('Anonymous part', r.anon_k == null ? 'n/a' : pnum(r.anon_k)),
       line('Disclosure', r.r4)
-    ].join('\n');
+    ].concat(over ? ['Named exceeds realised by ' + pnum(r.named_k - r.realised_k) +
+                     ' - shown, not capped; the difference is consistent with rounding between two publications'] : []).join('\n');
     return '<div class="bcol'+mark+'">' +
       '<div class="ceil" style="bottom:'+ceilB.toFixed(2)+'%"></div>' +
       (r.realised_k == null
@@ -791,12 +794,18 @@
   /* ---- rung 6 ---- */
   var rk = S.rekenkamer || {};
   var kinds = rk.by_kind || {};
+  var attk = rk.attachments_by_kind || {};
   var kindRows = Object.keys(kinds).sort(function(a,b){ return kinds[b]-kinds[a]; })
-    .map(function(x){ return [esc(x), NF.format(kinds[x])]; });
-  put('rk-kinds-table', table(['Publication form', 'Publications'], kindRows.concat([
-    ['<b>attached to a chapter by title</b>', '<b>'+(rk.attached_by_title == null ? '' : NF.format(rk.attached_by_title))+'</b>'],
-    ['of those, a Rekenkamer finding', rk.findings == null ? '' : NF.format(rk.findings)],
-    ['body text read', '<span class="na">not measured</span>']
+    .map(function(x){ return [esc(x), NF.format(kinds[x]),
+                              attk[x] == null ? '' : NF.format(attk[x])]; });
+  // Attachments, not publications: one publication naming two ministries is two attachments. No column says
+  // "findings", because the form the publisher gives a document cannot establish that it finds anything.
+  put('rk-kinds-table', table(['Publication form', 'Publications', 'Chapter attachments'], kindRows.concat([
+    ['<b>total</b>', '<b>'+NF.format(rk.pages)+'</b>',
+     '<b>'+(rk.attached_attachments == null ? '' : NF.format(rk.attached_attachments))+'</b>'],
+    ['publications carrying at least one attachment',
+     rk.attached_pages == null ? '' : NF.format(rk.attached_pages), ''],
+    ['body text read', '<span class="na">not measured</span>', '<span class="na">not measured</span>']
   ])));
   put('rk-src', (rk.pages != null ? NF.format(rk.pages) + ' of ' + NF.format(rk.pages_in_scope) + ' in-scope publications' : '') +
       ' enumerated from the Rekenkamer sitemap index · no PDF read, so the body-match count is unmeasured, not zero.');

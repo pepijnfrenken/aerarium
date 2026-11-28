@@ -182,8 +182,17 @@
   "pages": 2677,
   "pages_in_scope": 2677,
   "harvest_complete": true,
-  "attached_by_title": 1003,
-  "findings": 482,
+  "attached_attachments": 1202,
+  "attached_pages": 1003,
+  "attachments_by_kind": {
+   "aandachtspunten": 137,
+   "beantwoording": 106,
+   "bijlage": 184,
+   "brief": 28,
+   "overig": 105,
+   "reactie": 389,
+   "verantwoordingsonderzoek": 253
+  },
   "by_kind": {
    "aandachtspunten": 146,
    "beantwoording": 156,
@@ -206,6 +215,6 @@
    "XVII": 45
   },
   "body_matches": null,
-  "note": "A publication is attached to a chapter only when its own title names that ministry. The register also carries ministries' reactions, answers and covering briefs, which are counted but not treated as findings. No PDF has been read, so the body-match count is unmeasured."
+  "note": "A publication is attached to a chapter only when its own title names that ministry. The counts are of attachments, not publications, and they are split by the form the publisher gives the document, because a title rule cannot tell a finding from the ministry's reply to one. No PDF has been read, so the body-match count is unmeasured."
  }
 }

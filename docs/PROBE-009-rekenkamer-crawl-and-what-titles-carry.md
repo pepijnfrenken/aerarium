@@ -53,8 +53,8 @@ title** names that ministry. Over the **2.677** publications:
 
 | attachment | publications |
 |---|---:|
-| title names a chapter | **1.003** |
-| of those, a Rekenkamer finding | **482** |
+| title names a chapter | **1.003** publications, **1.202** chapter attachments |
+| of those, a publication of a finding form | **574** attachments |
 | no chapter named in the title | 1.674 |
 | body text read | **0** |
 
@@ -66,7 +66,10 @@ finding inverts the chain: the finding is the Rekenkamer's, the response is the 
 `beantwoording`, **146** `aandachtspunten`, **30** `brief`, **992** `overig`.
 
 A publication can attach to more than one chapter, so the **1.003** pages carry **1.202** chapter attachments: the
-page count and the attachment count are different quantities and are named apart.
+page count and the attachment count are different quantities and are named apart. The attachments by the form the
+publisher gives them: 389 `reactie`, 253 `verantwoordingsonderzoek`, 184 `bijlage`, 137 `aandachtspunten`, 106
+`beantwoording`, 105 `overig`, 28 `brief`. No count of "findings" is published, because the form of a document does
+not establish that it contains one.
 
 By chapter on title alone, the largest groups are **IX Financiën 149**, **VII Binnenlandse Zaken 129**, **IV
 Koninkrijksrelaties 109**, **X Defensie 107**, **VI Justitie en Veiligheid 66**.
@@ -95,7 +98,7 @@ claims can be weighed separately.
 
 ## What rung 6 can and cannot claim today
 
-Coverage is complete and **482 findings** attach to a chapter by title. That is **not** a finding on a budget
+Coverage is complete and **1.202 chapter attachments** rest on a title rule. That is **not** a finding on a budget
 line: a report naming a ministry does not name article 3 of that ministry's chapter, and this project does not
 attach to an article it cannot identify. **Rung 6 therefore stays open, and every euro still stops at rung 5.**
 
