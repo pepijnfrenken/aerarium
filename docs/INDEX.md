@@ -50,6 +50,7 @@ here.
 | 1 | `AUDIT-1-gpt62sol.md` | First independent provenance audit. |
 | 2 | `AUDIT-2-gpt62sol.md` | Not sound; findings carried into the next round. |
 | 3 | `AUDIT-3-gpt62sol.md` | Not sound, six blockers; all dispositioned subsequently. |
+| 4 | `AUDIT-4-gpt62sol.md` | Not sound, five blockers — all five confirmed on recomputation. The worst: draft and realised budget phases were being summed as an "appropriation". |
 
 Audit reports are frozen. They cite the paths that existed when they were written, which is why they still say
 `docs/LANE-*` after the 2026-11-22 move to `docs/lanes/`. Corrections are not written back into an audit; they are
